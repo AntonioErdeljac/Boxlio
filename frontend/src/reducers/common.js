@@ -5,8 +5,20 @@ export default (state={isLoading: true, joinedSelfGroup: false, positionSet: fal
         case 'CHANGE_AVAILABLE':
             return {
                 ...state,
-                currentUser: action.payload ? action.payload.user : state.currentUser
+                currentUser: action.payload ? action.payload.user : state.currentUser,
+                inProgress: false
+            };
+        case 'ASYNC_START':
+        if(action.subtype === 'CHANGE_AVAILABLE'){
+            return {
+                ...state,
+                inProgress: true
             }
+        } else {
+            return {
+                ...state
+            }
+        }
         case APP_LOADED:
             return {
                 ...state,
