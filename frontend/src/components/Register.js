@@ -62,6 +62,7 @@ class Register extends React.Component{
                     <div className="row my-3">
                         <h4><i className="fa fa-circle-o mx-3" />Earn money delivering</h4>                    
                     </div>
+                    <p style={{position: 'absolute', bottom:'0px'}}>Photo by Morgan McDonald on Unsplash</p>
                     </div>
                     <div className="col-4 card" style={{color: 'rgba(0,0,0,.7)', borderRadius: '10px'}}>
                         <div className="card-body">
