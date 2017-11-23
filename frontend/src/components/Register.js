@@ -56,44 +56,43 @@ class Register extends React.Component{
                     <div className="row">
                         <h1>Join <b>Boxlio</b> today.</h1>
                     </div>
-                    <div className="row">
-                        <h4>Create an account either to get <span style={{borderStyle: 'hidden', borderColor: 'rgba(255,255,255,.6)', borderBottomStyle: 'solid'}}>cheap</span> deliveries,</h4>
+                    <div className="row" style={{marginTop: '50px'}}>
+                        <h4><i className="fa fa-circle-o mx-3" />Get cheap deliveries</h4>
                     </div>
-                    <div className="row">
-                        <h4>or <span style={{borderStyle: 'hidden', borderColor: '#fff', borderBottomStyle: 'solid', borderColor: 'rgba(255,255,255,.6)'}}>earn money</span> delivering to people near you.</h4>
+                    <div className="row my-3">
+                        <h4><i className="fa fa-circle-o mx-3" />Earn money delivering</h4>                    
                     </div>
                     </div>
                     <div className="col-4 card" style={{color: 'rgba(0,0,0,.7)', borderRadius: '10px'}}>
                         <div className="card-body">
-                        <h3 className="card-title">Create an account.</h3>
-                        <hr/>
+                        <h3 className="card-title text-center" style={{color: 'rgba(0,0,0,.7)'}}>Sign Up.</h3>
                         <Errors errors={this.props.errors}/>
                         <form onSubmit={this.submitForm(firstName, lastName, username, email, password, location, type)}>
                             <fieldset>
-                                <fieldset className="form-group">
-                                    <input type="text" placeholder="First Name (e.g. John)" value={firstName} onChange={this.changeFirstName} className="form-control"/>
+                                <fieldset className="form-group my-3">
+                                    <input type="text" style={{borderStyle: 'none', borderBottomStyle: 'solid', borderRadius: '0px'}} placeholder="First Name (e.g. John)" value={firstName} onChange={this.changeFirstName} className="form-control"/>
                                 </fieldset>
-                                <fieldset className="form-group">
-                                    <input type="text" placeholder="Last Name (e.g. Doe)" value={lastName} onChange={this.changeLastName} className="form-control"/>
+                                <fieldset className="form-group my-3">
+                                    <input type="text" style={{borderStyle: 'none', borderBottomStyle: 'solid', borderRadius: '0px'}}  placeholder="Last Name (e.g. Doe)" value={lastName} onChange={this.changeLastName} className="form-control"/>
                                 </fieldset>
-                                <fieldset className="form-group">
-                                    <input type="text" placeholder="Username (e.g. Doe123)" value={username} onChange={this.changeUsername} className="form-control"/>
+                                <fieldset className="form-group my-3">
+                                    <input type="text" style={{borderStyle: 'none', borderBottomStyle: 'solid', borderRadius: '0px'}}  placeholder="Username (e.g. Doe123)" value={username} onChange={this.changeUsername} className="form-control"/>
                                 </fieldset>
-                                <fieldset className="form-group">
-                                    <input type="text" placeholder="Email (e.g. john@doe.com)" value={email} onChange={this.changeEmail} className="form-control"/>
+                                <fieldset className="form-group my-3">
+                                    <input type="text" style={{borderStyle: 'none', borderBottomStyle: 'solid', borderRadius: '0px'}}  placeholder="Email (e.g. john@doe.com)" value={email} onChange={this.changeEmail} className="form-control"/>
                                 </fieldset>
-                                <fieldset className="form-group">
-                                    <select className="form-control" onChange={this.changeType} placeholder="I want to...">
+                                <fieldset className="form-group my-3">
+                                    <select className="form-control" style={{borderStyle: 'none', borderBottomStyle: 'solid', bordeRadius: '0px'}}  onChange={this.changeType} placeholder="I want to...">
                                         <option disabled selected>I want to...</option>
-                                        <option value="deliver">Deliver</option>
                                         <option value="order">Order</option>
+                                        <option value="deliver">Deliver</option>
                                     </select>
                                 </fieldset>
-                                <fieldset className="form-group">
-                                    <input type="password" placeholder="Password" value={password} onChange={this.changePassword} className="form-control"/>
+                                <fieldset className="form-group my-3">
+                                    <input type="password" style={{borderStyle: 'none', borderBottomStyle: 'solid', borderRadius: '0px'}}  placeholder="Password" value={password} onChange={this.changePassword} className="form-control"/>
                                 </fieldset>
-                                <fieldset className="form-group">
-                                    <button type="submit" className="login-button float-right"><i className="fa fa-user-plus"></i>&nbsp;Register</button>
+                                <fieldset className="form-group my-3">
+                                    <button type="submit" className="login-button form-control"><i className="fa fa-user-plus"></i>&nbsp;Register</button>
                                 </fieldset>
                             </fieldset>
                         </form>

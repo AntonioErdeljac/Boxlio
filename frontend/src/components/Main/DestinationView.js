@@ -185,7 +185,7 @@ class DestinationView extends React.Component{
                                     </div>
                                     <div className="col-10">
                                         <div className="input-group">
-                                            <input disabled={this.props.requestSent} type="text"
+                                            <input disabled={this.props.requestSent} type="number"
                                                    className="form-control form-control-lg destinationInput"
                                                    style={{fontSize: '30px'}} value={this.state.price}
                                                    onChange={setPrice} name="price" placeholder="Delivery guy's profit"/>

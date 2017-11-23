@@ -110,12 +110,12 @@ body, html {
 }
 
 .login-button{
-    background-color: #1fcf7c;
-    border-radius:10px;
-    padding: 10px;
-    border-style: none;
+    background-color: #1fcf7c !important;
+    border-radius:10px !important;
+    padding: 10px !important;
+    border-style: none !important;
     color: #fff !important;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,.2);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.2) !important;
     text-decoration: none !important;
     outline: none !important;
     cursor: pointer;

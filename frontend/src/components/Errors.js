@@ -9,7 +9,7 @@ const Errors = props => {
                 {
                     Object.keys(errors).map(key => {
                         return (
-                            <li className="list-group-item list-group-item-danger">{key} {errors[key]}</li>
+                            <li className="list-group-item list-group-item-danger">{key[0].toUpperCase()}{key.slice(1)} {errors[key]}</li>
                         )
                     })
                 }
