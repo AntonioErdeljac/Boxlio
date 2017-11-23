@@ -161,10 +161,12 @@ exports = module.exports = function(io){
         User.findOne({username: data.user.username}).then(function(client){
             User.geoNear(
                 {type: 'Point', coordinates: [client.geometry.coordinates[0], client.geometry.coordinates[1]]},
-                {maxDistance: 100000, spherical: true}
+                {maxDistance: 10000, spherical: true}
             ).then(function(users){
-                let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode && user.obj.available);
+                let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode === true && user.obj.available === true );
                 let user = filteredUsers[Math.floor(Math.random()*filteredUsers.length)];
+                console.log(user, 'IZABRANI KORISNIK'),
+                console.log(filteredUsers, 'izabrani useri')
                 if(user){
                     if(user.obj.deliveryMode) {
                         if(data.transportation !== ''){
