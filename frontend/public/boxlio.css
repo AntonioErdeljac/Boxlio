@@ -18,6 +18,11 @@ body, html {
     transition: .2s;
 }
 
+.dropdown-item{
+    transition: .2s !important;
+}
+
+
 .bg-register{
     background: url(images/bg.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
