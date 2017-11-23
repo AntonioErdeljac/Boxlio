@@ -32,7 +32,7 @@ if (!isProduction) {
 if(isProduction){
   mongoose.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.connect('mongodb://localhost/boxlioapp2');
+  mongoose.connect('mongodb://localhost/boxlioapp3');
   mongoose.set('debug', true);
 }
 

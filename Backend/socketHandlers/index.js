@@ -163,11 +163,9 @@ exports = module.exports = function(io){
                 {type: 'Point', coordinates: [client.geometry.coordinates[0], client.geometry.coordinates[1]]},
                 {maxDistance: 100000, spherical: true}
             ).then(function(users){
-                let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode && user.obj.available);
+                let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode);
                 let user = filteredUsers[Math.floor(Math.random()*filteredUsers.length)];
                 if(user){
-
-                console.log(user, 'NOVIII KORISNIKKKKK')
                     if(user.obj.deliveryMode) {
                         if(data.transportation !== ''){
                             if(user.obj.transportation === data.transportation && user.obj.isDelivering === false && user.obj.isOrdering === false){
@@ -270,6 +268,10 @@ exports = module.exports = function(io){
                         console.log(err);
                     }
                 });
+                deliveryGuy.addClient(client._id);
+                deliveryGuy.save();
+                client.addClient(deliveryGuy._id);
+                client.save();
                 let name = deliveryGuy.username+'_and_'+client.username;
                 Chat.findOne({users: {$all: [deliveryGuy, client]}})
                 .populate('messages')
@@ -305,8 +307,6 @@ exports = module.exports = function(io){
                         })
                     }
                     else if(!chat){
-                      deliveryGuy.addClient(client);
-                      client.addClient(deliveryGuy);
                       const nChat = new Chat();
                       nChat.users.push(deliveryGuy, client);
                       nChat.save(function(err){

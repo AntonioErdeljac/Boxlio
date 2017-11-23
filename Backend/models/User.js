@@ -27,14 +27,14 @@ var UserSchema = new mongoose.Schema({
     image: String,
     salt: String,
     hash: String,
+    deliveryMode: {type: Boolean},
     activeDeliveryJob: [{type: mongoose.Schema.Types.ObjectId, ref: 'DeliveryJob'}],
     isDelivering: {type: Boolean, default: false},
     isOrdering: {type: Boolean, default: false},
     earnedMoney: {type: Number, default: 0},
     deliveredItems: {type: Number, default: 0},
     transportation: {type: String, default: 'walking'},
-    geometry: GeoSchema,
-    deliveryMode: Boolean,
+    geometry: GeoSchema
 });
 
 UserSchema.plugin(uniqueValidator, {message: "is already taken."});
@@ -78,8 +78,7 @@ UserSchema.methods.toAuthJSON = function(){
         isDelivering: this.isDelivering,
         isOrdering: this.isOrdering,
         activeDeliveryJob: this.activeDeliveryJob,
-        transportation: this.transportation,
-        available: this.available
+        transportation: this.transportation
     };
 };
 
@@ -99,18 +98,15 @@ UserSchema.methods.toProfileJSONFor = function(user){
         isDelivering: this.isDelivering,
         isOrdering: this.isOrdering,
         areClients: user ? user.isClient(this._id) : false,
-        transportation: this.transportation,
-        available: this.available
+        transportation: this.transportation
     };
 };
 
 UserSchema.methods.addClient = function(id){
     if(this.clients.indexOf(id) === -1){
-
-        console.log('Im adding a friend.');
+        console.log(id, 'OKEJ SA SE DESAVA');
         this.clients.push(id);
     }
-    return this.save();
 };
 
 UserSchema.methods.removeClient = function(id){
@@ -123,6 +119,7 @@ UserSchema.methods.isClient = function(id){
         return id.toString() === clientId.toString();
     })
 };
+
 
 
 mongoose.model('User', UserSchema);

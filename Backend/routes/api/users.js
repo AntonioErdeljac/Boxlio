@@ -145,15 +145,18 @@ router.put('/user', auth.required, function(req,res,next){
         if(typeof req.body.user.email !== 'undefined'){
             user.email = req.body.user.email;
         }
+
         if(typeof req.body.user.about !== 'undefined'){
             user.about = req.body.user.about;
         }
+
         if(typeof req.body.user.image !== 'undefined'){
             user.image = req.body.user.image;
         }
         if(typeof req.body.user.password !== 'undefined'){
             user.setPassword(req.body.user.password);
         }
+
         if(typeof req.body.user.deliveryMode !== 'undefined'){
             user.deliveryMode = req.body.user.deliveryMode
         }
@@ -176,10 +179,6 @@ router.put('/user', auth.required, function(req,res,next){
 
         if(typeof req.body.user.geometry !== 'undefined'){
             user.geometry = {coordinates: [req.body.user.geometry[0], req.body.user.geometry[1]], type: 'point'}
-        }
-
-        if(typeof req.body.user.available !== 'undefined'){
-            user.available = req.body.user.available;
         }
 
         return user.save().then(function(){
