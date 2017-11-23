@@ -78,6 +78,16 @@ class DestinationView extends React.Component{
             });
 
             this.props.confirmCompletedDelivery()
+        };
+
+        this.handleDeclineDelivered = ev => {
+            ev.preventDefault();
+            this.socket.emit('DECLINE_COMPLETED_DELIVERY', {
+                deliveryGuy: this.props.deliveryGuy,
+                client: this.props.currentUser
+            })
+
+            this.props.confirmCompletedDelivery(); //možemo isto koristiti jer iste props postavlja
         }
     }
 
@@ -270,7 +280,7 @@ class DestinationView extends React.Component{
                                     <i className="fa fa-check"></i> Delivered
                                 </button>
                                     <button className="orderbtn btn btn-primary btn-sm form-control my-3"
-                                            onClick={this.handleCancelRequest}
+                                            onClick={this.handleDeclineDelivered}
                                             style={{backgroundColor: '#E7475E', borderStyle: 'none'}}>
                                         <i className="fa fa-close"></i> Not Delivered
                                     </button>

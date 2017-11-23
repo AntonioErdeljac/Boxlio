@@ -89,6 +89,44 @@ exports = module.exports = function(io){
                 })
             })
         })
+    });
+
+    socket.on('DECLINE_COMPLETED_DELIVERY', data => {
+        User.findOne({username: data.deliveryGuy.username})
+        .populate('activeDeliveryJob')    
+        .then(function(deliveryGuy){
+        User.findOne({username: data.client.username}).then(function(client){
+            deliveryGuy.isDelivering = false;
+            deliveryGuy.isOrdering = false;
+            deliveryGuy.save(err => console.log(err)).then(function(){
+                deliveryGuy.activeDeliveryJob = null;
+                deliveryGuy.save();
+            });
+
+
+            client.activeDeliveryJob = null;
+            client.isDelivering = false;
+            client.isOrdering = false;
+            client.save();
+
+            Chat.findOne({users: {$all: [client, deliveryGuy]}}).then(function(chat){
+                let message = new Message();
+                message.author = client;
+                message.receiver = deliveryGuy;
+                message.body = 'You have not delivered what I wanted.'
+                message.save();
+
+                chat.messages.push(message);
+                chat.save();
+
+                //opet success zato jer ne radi ništa posebno šta bi failure
+                io.in(deliveryGuy.username).emit('SUCCESS_COMPLETE_DELIVERY', {
+                    client: client,
+                    currentUser: deliveryGuy
+                })
+            })
+        })
+    })
     })
 
     socket.on('CANCEL_DELIVERY_JOB_DELIVERY_GUY', function(data){

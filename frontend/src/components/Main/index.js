@@ -95,6 +95,7 @@ class Main extends React.Component{
 
             const acceptedRequest = this.props.acceptedRequest;
                 socket.on('REQUEST_DRIVER_CLIENT',  (data) => {
+                        console.log('be my driver');
                         setRequest(data);
                     
                 });
