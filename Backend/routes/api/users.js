@@ -181,6 +181,10 @@ router.put('/user', auth.required, function(req,res,next){
             user.geometry = {coordinates: [req.body.user.geometry[0], req.body.user.geometry[1]], type: 'point'}
         }
 
+        if(typeof req.body.user.available !== 'undefined'){
+            user.available = req.body.user.available
+        }
+
         return user.save().then(function(){
             return res.json({
                 user: user.toAuthJSON()

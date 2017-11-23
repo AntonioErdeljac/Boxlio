@@ -34,7 +34,8 @@ var UserSchema = new mongoose.Schema({
     earnedMoney: {type: Number, default: 0},
     deliveredItems: {type: Number, default: 0},
     transportation: {type: String, default: 'walking'},
-    geometry: GeoSchema
+    geometry: GeoSchema,
+    available: {type: Boolean, default: true}
 });
 
 UserSchema.plugin(uniqueValidator, {message: "is already taken."});
@@ -78,7 +79,8 @@ UserSchema.methods.toAuthJSON = function(){
         isDelivering: this.isDelivering,
         isOrdering: this.isOrdering,
         activeDeliveryJob: this.activeDeliveryJob,
-        transportation: this.transportation
+        transportation: this.transportation,
+        available: this.available
     };
 };
 
@@ -98,7 +100,8 @@ UserSchema.methods.toProfileJSONFor = function(user){
         isDelivering: this.isDelivering,
         isOrdering: this.isOrdering,
         areClients: user ? user.isClient(this._id) : false,
-        transportation: this.transportation
+        transportation: this.transportation,
+        available: this.available
     };
 };
 
