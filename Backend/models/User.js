@@ -22,7 +22,6 @@ var UserSchema = new mongoose.Schema({
     username: {type: String, required: [true, "is required"], index: true, unique: true, lowercase: true},
     email: {type: String, required: [true, "is required"], index: true, unique: true, lowercase: true},
     clients: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
-    available: Boolean,
     about: String,
     image: String,
     salt: String,
