@@ -4,6 +4,13 @@ import {connect} from "react-redux";
 import {Link, withRouter} from "react-router-dom"
 
 class ClientList extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.state = {
+            search: ''
+        };
+    }
     componentWillMount(){
         this.props.onLoad(agent.Clients.all())
     }
@@ -25,9 +32,17 @@ class ClientList extends React.Component{
         }
         if(this.props.clients && this.props.clients.length > 0){
             const currentClient = this.props.match.params.username;
+            let filteredClients = this.props.clients.filter(client => client.firstName.toLowerCase().indexOf(this.state.search) !== -1 || client.lastName.toLowerCase().indexOf(this.state.search) !== -1)
             return (
                 <div>
-                    {this.props.clients.map(function(client){
+                     <div>
+                        <div className="right-inner-addon">
+                            <i className="fa fa-search" style={{color: 'rgba(0,0,0,.3)'}}></i>
+                            <input onChange={ev => this.setState({search: ev.target.value})} value={this.state.search} type="text" placeholder="Search users" style={{outline: 'none', marginLeft: '15px'}} className="my-1 pl-3  search-users"/>
+                        </div>
+                    </div>
+                    <hr/>
+                    {filteredClients.map(function(client){
                         return (
                             <Link to={`/messages/${client.username}`} className={currentClient === client.username ? "card chat-user-active" : "card chat-user"} style={{borderStyle: 'none', textDecoration: 'none'}}>
                                 <div className="card-body">

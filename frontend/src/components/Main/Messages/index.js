@@ -54,13 +54,6 @@ class Messages  extends React.Component{
                     <div className="container-fluid">
                         <div className="row" >
                             <div style={{height: '100vh', paddingTop: '80px', overflow: 'auto'}}  className="col-3 users-list">
-                                <div>
-                                <div className="right-inner-addon">
-                                    <i className="fa fa-search" style={{color: 'rgba(0,0,0,.3)'}}></i>
-                                    <input type="text" placeholder="Search users" style={{outline: 'none', marginLeft: '15px'}} className="my-1 pl-3  search-users"/>
-                                </div>
-                                </div>
-                                <hr/>
                                 <ClientList />
                             </div>
                             <Chat socket={this.socket} messages={this.props.messages} receiver={this.props.match.params.username} name={name} currentUser={this.props.currentUser}/>
