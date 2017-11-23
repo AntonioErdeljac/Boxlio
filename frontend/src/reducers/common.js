@@ -2,6 +2,11 @@ import {CANCEL_REQUEST, SUCCESS_REQUEST_ACCEPTED, REDIRECT, APP_LOADED, ACCEPT_R
 
 export default (state={isLoading: true, joinedSelfGroup: false, positionSet: false}, action) => {
     switch(action.type){
+        case 'CHANGE_AVAILABLE':
+            return {
+                ...state,
+                currentUser: action.payload ? action.payload.user : state.currentUser
+            }
         case APP_LOADED:
             return {
                 ...state,

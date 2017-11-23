@@ -163,7 +163,7 @@ exports = module.exports = function(io){
                 {type: 'Point', coordinates: [client.geometry.coordinates[0], client.geometry.coordinates[1]]},
                 {maxDistance: 100000, spherical: true}
             ).then(function(users){
-                let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode);
+                let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode && user.obj.available);
                 let user = filteredUsers[Math.floor(Math.random()*filteredUsers.length)];
                 if(user){
 

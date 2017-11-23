@@ -46,6 +46,10 @@ class DeliveryUserInterface extends React.Component{
             setClientCount(data);
         });
 
+        this.handleChangeAvailable = () => {
+            this.props.onChangeAvailable(agent.Auth.update({available: !this.props.currentUser.available}))
+        }
+
 
     }
 
@@ -95,7 +99,7 @@ class DeliveryUserInterface extends React.Component{
                             <div style={{color: 'rgba(0,0,0,.6)'}} className="text-center">
                                 <img src={this.props.currentUser.image} className="my-2" height="50px" style={{borderRadius: '50%', boxShadow: '0 0 10px 0 rgba(0,0,0,.2)'}} alt=""/>
                                 <h4 className="text-muted"><span style={{textTransform: 'capitalize'}}>{this.props.currentUser.firstName}</span> <span style={{textTransform: 'capitalize'}}>{this.props.currentUser.lastName}</span></h4>
-                                <button className="btn btn-primary" style={this.props.currentUser.available ? {backgroundColor: '#1fcf7c', borderStyle: 'none'} : {backgroundColor: '#E7475E', borderStyle: 'none'}}>{this.props.currentUser.available ? "Go Offline" : "Go Online" }</button>
+                                <button onClick={this.handleChangeAvailable} className="btn btn-primary" style={this.props.currentUser.available ? {backgroundColor: '#1fcf7c', borderStyle: 'none'} : {backgroundColor: '#E7475E', borderStyle: 'none'}}>{this.props.currentUser.available ? "Go Offline" : "Go Online" }</button>
                             </div>
                             <div className="row my-3">
                                 <div className="col-2 mt-2" style={{marginTop: '70px'}}>
@@ -177,7 +181,9 @@ const mapDispatchToProps = dispatch => ({
     onSetClientCount: data =>
         dispatch({type: 'SET_CLIENT_COUNT', data}),
     onChangeTransportation: field => 
-        dispatch({type: 'CHANGE_TRANSPORTATION', field})
+        dispatch({type: 'CHANGE_TRANSPORTATION', field}),
+    onChangeAvailable: (payload) =>
+        dispatch({type: 'CHANGE_AVAILABLE', payload})
 });
 
 
