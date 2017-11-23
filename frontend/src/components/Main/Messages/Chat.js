@@ -22,7 +22,7 @@ class Chat extends React.Component{
             <div className="header-messenger">
                {this.props.profile ? 
                <div>
-                 <p><img src={this.props.profile.image} height="40" style={{borderRadius: '50%', boxShadow: '0 0 20px rgba(0,0,0,.1)'}} className="mx-3" />{this.props.profile.firstName} {this.props.profile.lastName}</p>
+                 <p><img src={this.props.profile.image} height="40" style={{borderRadius: '50%', boxShadow: '0 0 20px rgba(0,0,0,.1)'}} className="mx-3" />{this.props.profile.firstName} {this.props.profile.lastName} <i className="mx-3 fa fa-circle" style={this.props.profile.available ? {color: '#1fcf7c'} : {color: '#E7475E'}} /></p>
                  </div> : null}
             </div>
             <MessageList socket={this.props.socket} messages={this.props.messages} currentUser={this.props.currentUser}/>
