@@ -36,6 +36,7 @@ router.post('/users', function(req,res,next){
     user.firstName = req.body.user.firstName;
     user.lastName = req.body.user.lastName;
     user.email = req.body.user.email;
+    user.available = true;
     user.geometry = {coordinates: [req.body.user.location.lat, req.body.user.location.lng], type: 'point'};
     if(req.body.user.type === 'deliver'){
         user.deliveryMode = true;
