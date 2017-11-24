@@ -184,6 +184,10 @@ router.put('/user', auth.required, function(req,res,next){
         if(typeof req.body.user.available !== 'undefined'){
             user.available = req.body.user.available
         }
+        
+        if(typeof req.body.user.isRequesting !== 'undefined'){
+            user.isRequesting = req.body.user.isRequesting
+        }
 
         return user.save().then(function(){
             return res.json({

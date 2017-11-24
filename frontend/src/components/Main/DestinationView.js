@@ -45,7 +45,7 @@ class DestinationView extends React.Component{
                 deliveryGuy: this.props.deliveryGuy,
                 client: this.props.currentUser
             })
-            this.props.onCancelRequest(agent.Auth.update({isOrdering: false, isDelivering: false, activeDeliveryJob: null}));
+            this.props.onCancelRequest(agent.Auth.update({isRequesting: false, isOrdering: false, isDelivering: false, activeDeliveryJob: null}));
             
         };
 
