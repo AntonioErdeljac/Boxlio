@@ -80,13 +80,13 @@ body, html {
     height: 50px;
     border-radius:50% !important;
     padding:0px;
-    box-shadow: 0 0 10px 1px rgba(0,0,0,.1);
+    box-shadow: 0 0 20px 0 rgba(0,0,0,.05);
     cursor: pointer;
     transition: .2s;
 }
 
 #userimg:hover{
-    box-shadow: 0 0 20px 1px rgba(0,0,0,.1);
+    box-shadow: 0 0 6px 0 rgba(0,0,0,.2);
 }
 
 .chat-user{
