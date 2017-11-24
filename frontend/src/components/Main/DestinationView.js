@@ -217,7 +217,7 @@ class DestinationView extends React.Component{
                                 <p className="text-muted">Waiting for a delivery person to accept.</p>
                                 <button className="orderbtn btn btn-primary form-control" onClick={this.handleCancelRequest} style={{backgroundColor: '#E7475E', borderStyle: 'none'}}><i className="fa fa-close"></i> Cancel</button>
                             </div> : !this.props.requestAccepted ?
-                        <button className="orderbtn btn btn-primary form-control" disabled={!this.state.price || !this.props.to || !this.props.from || !this.state.item ? true : false} onClick={this.handleSendRequest} style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}><i className="fa fa-truck"></i> Find a delivery person</button>
+                        <button className="orderbtn btn btn-primary form-control" disabled={!this.state.price || !this.props.to || !this.props.from || !this.state.item ? true : false} onClick={this.handleSendRequest} style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}><i className="fa fa-search"></i> Find a delivery person</button>
                                 :
                                 !this.props.completeChoice ? 
                                 <div>
