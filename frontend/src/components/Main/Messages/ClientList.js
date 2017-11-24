@@ -41,7 +41,8 @@ class ClientList extends React.Component{
                             <input onChange={ev => this.setState({search: ev.target.value})} value={this.state.search} type="text" placeholder="Search users" style={{outline: 'none', marginLeft: '15px'}} className="my-1 pl-3  search-users"/>
                         </div>
                     </div>
-                    <hr/>
+                    <hr />
+                    <div >
                     {filteredClients.map(function(client){
                         return (
                             <Link to={`/messages/${client.username}`} className={currentClient === client.username ? "card chat-user-active" : "card chat-user"} style={{borderStyle: 'none', textDecoration: 'none'}}>
@@ -51,6 +52,7 @@ class ClientList extends React.Component{
                             </Link>
                         )
                     })}
+                    </div>
                 </div>
             );
         }
