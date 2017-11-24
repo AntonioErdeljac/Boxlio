@@ -34,7 +34,8 @@ var UserSchema = new mongoose.Schema({
     deliveredItems: {type: Number, default: 0},
     transportation: {type: String, default: 'walking'},
     geometry: GeoSchema,
-    available: {type: Boolean, default: true}
+    available: {type: Boolean, default: true},
+    isRequesting: {type: Booelan, default: false}
 });
 
 UserSchema.plugin(uniqueValidator, {message: "is already taken."});
@@ -79,7 +80,8 @@ UserSchema.methods.toAuthJSON = function(){
         isOrdering: this.isOrdering,
         activeDeliveryJob: this.activeDeliveryJob,
         transportation: this.transportation,
-        available: this.available
+        available: this.available,
+        isRequesting: this.isRequesting
     };
 };
 
@@ -100,7 +102,8 @@ UserSchema.methods.toProfileJSONFor = function(user){
         isOrdering: this.isOrdering,
         areClients: user ? user.isClient(this._id) : false,
         transportation: this.transportation,
-        available: this.available
+        available: this.available,
+        isRequesting: this.isRequesting
     };
 };
 
