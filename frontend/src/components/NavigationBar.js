@@ -50,7 +50,7 @@ const LoggedIn = props => {
                     <span style={{textTransform: 'capitalize'}}>{props.currentUser.firstName}</span> <i className="fa fa-caret-down"></i>
                 </li>
                 <li className="nav-item dropdown ml-3" id="userimg">
-                    <img src={props.currentUser.image}  alt="" height="50" width="50" style={{borderRadius: '50%'}}  className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
+                    <img src={props.currentUser.image}  alt="" height="50" width="50" style={{borderRadius: '50%', boxShadow: '0 0 1px rgba(0,0,0,.1)'}}  className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
                     <CurrentUserDropdown currentUser={props.currentUser}/>
                 </li>
             </ul>

@@ -80,7 +80,8 @@ UserSchema.methods.toAuthJSON = function(){
         isOrdering: this.isOrdering,
         activeDeliveryJob: this.activeDeliveryJob,
         transportation: this.transportation,
-        available: this.available
+        available: this.available,
+        isRequesting: this.isRequesting
     };
 };
 
@@ -101,7 +102,8 @@ UserSchema.methods.toProfileJSONFor = function(user){
         isOrdering: this.isOrdering,
         areClients: user ? user.isClient(this._id) : false,
         transportation: this.transportation,
-        available: this.available
+        available: this.available,
+        isRequesting: this.isRequesting
     };
 };
 

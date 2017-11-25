@@ -10,6 +10,10 @@ exports = module.exports = function(io){
     socket.removeAllListeners()
   
     socket.on('JOIN_SELF_GROUP', function(data){
+        User.findOne({username: data.user.username}).then(function(user){
+            user.isRequesting = false;
+            user.save();
+        })
         console.log('JOINAM', data.user.username);
         socket.join(data.user.username);
         io.in('driver').emit('TEST');
@@ -197,6 +201,8 @@ exports = module.exports = function(io){
   
     socket.on('REQUEST_DRIVER', function(data){
         User.findOne({username: data.user.username}).then(function(client){
+            client.isRequesting = true;
+            client.save(err => console.log(err));
             User.geoNear(
                 {type: 'Point', coordinates: [client.geometry.coordinates[0], client.geometry.coordinates[1]]},
                 {maxDistance: 10000, spherical: true}
@@ -277,7 +283,7 @@ exports = module.exports = function(io){
     socket.on('ACCEPT_REQUEST', function(data){
         User.findOne({username: data.deliveryGuy.username}).then(function(deliveryGuy){
             User.findOne({username: data.client.username}).then(function(client){
-                if(!client.isOrdering){
+                if(!client.isOrdering && client.isRequesting){
                     let newDeliveryJob = new DeliveryJob();
                 newDeliveryJob.client = client;
                 newDeliveryJob.deliveryGuy = deliveryGuy;
@@ -295,6 +301,7 @@ exports = module.exports = function(io){
                     }
                 });
                 client.isOrdering = true;
+                client.isRequesting = false;
                 client.activeDeliveryJob = newDeliveryJob;
                 client.save(err => {
                     if(err){

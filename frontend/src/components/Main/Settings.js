@@ -142,7 +142,7 @@ class Form extends React.Component{
                     </div>
                     }
                     <fieldset className="form-group col-12">
-                        <button type="submit" disabled={this.props.gotRequest || this.props.requestSent} className="btn btn-lg login-button">Save</button>
+                        <button type="submit" disabled={this.props.gotRequest || this.props.requestSent} className="btn btn-lg login-button form-control">Save</button>
                     </fieldset>
                 </div>
                 </fieldset>
