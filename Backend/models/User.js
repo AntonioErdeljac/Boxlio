@@ -34,7 +34,8 @@ var UserSchema = new mongoose.Schema({
     deliveredItems: {type: Number, default: 0},
     transportation: {type: String, default: 'walking'},
     geometry: GeoSchema,
-    available: {type: Boolean, default: true}
+    available: {type: Boolean, default: true},
+    ratings: [{type: Number}]
 });
 
 UserSchema.plugin(uniqueValidator, {message: "is already taken."});
