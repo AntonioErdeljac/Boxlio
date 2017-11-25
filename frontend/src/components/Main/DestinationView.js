@@ -26,7 +26,8 @@ class DestinationView extends React.Component{
             to: '',
             price: '',
             item: '',
-            transportation: ''
+            transportation: '',
+            rating: 0
         };
 
         this.handleChangeTravelMode = field => ev => {
@@ -74,7 +75,8 @@ class DestinationView extends React.Component{
 
             this.socket.emit('CONFIRM_COMPLETED_DELIVERY', {
                 deliveryGuy: this.props.deliveryGuy,
-                client: this.props.currentUser
+                client: this.props.currentUser,
+                rating: this.state.rating
             });
 
             this.props.confirmCompletedDelivery()
@@ -271,19 +273,42 @@ class DestinationView extends React.Component{
                                         </div>
                                     </div>
                                 <hr/>
-                                <p className="text-muted text-center">Marked delivery as completed</p>
-                                <i className="fa fa-truck my-3 " style={{fontSize: '30px', color: '#1fcf7c'}} />
+                                <p className="text-muted text-center">Marked delivery as completed,<br /> please leave a rating.</p>
                                 <div>
+                                    <div className="container">
+                                        <div className="row">
+                                        <div className="col-10 offset-1">
+                                        <div className="row my-3">
+                                            <div className="col">
+                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '25px'}} onClick={() => this.setState({rating: 1})} className={this.state.rating >= 1 ? "fa fa-star" : "fa fa-star-o"}></i>
+                                            </div>
+                                            <div className="col">
+                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '25px'}} onClick={() => this.setState({rating: 2})} className={this.state.rating >= 2 ? "fa fa-star" : "fa fa-star-o"}></i>
+                                            </div>
+                                            <div className="col">
+                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '25px'}} onClick={() => this.setState({rating: 3})} className={this.state.rating >= 3 ? "fa fa-star" : "fa fa-star-o"}></i>
+                                            </div>
+                                            <div className="col">
+                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '25px'}} onClick={() => this.setState({rating: 4})} className={this.state.rating >= 4 ? "fa fa-star" : "fa fa-star-o"}></i>
+                                            </div>
+                                            <div className="col">
+                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '25px'}} onClick={() => this.setState({rating: 5})} className={this.state.rating == 5 ? "fa fa-star" : "fa fa-star-o"}></i>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>
                                 <button className="orderbtn btn btn-primary form-control"
                                         onClick={this.handleConfirmDelivered}
+                                        disabled={this.state.rating < 1}
                                         style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
                                     <i className="fa fa-check"></i> Delivered
                                 </button>
-                                    <button className="orderbtn btn btn-primary btn-sm form-control my-3"
-                                            onClick={this.handleDeclineDelivered}
-                                            style={{backgroundColor: '#E7475E', borderStyle: 'none'}}>
-                                        <i className="fa fa-close"></i> Not Delivered
-                                    </button>
+                                    <p className="text-muted my-3"
+                                        style={{color: '#2d89e5', cursor: 'pointer'}}
+                                            onClick={this.handleDeclineDelivered}>
+                                        Not delivered?
+                                    </p>
                                 </div>
                             </div>
 
