@@ -223,7 +223,7 @@ class DestinationView extends React.Component{
                                 :
                                 !this.props.completeChoice ? 
                                 <div>
-                                    <div style={{color: 'rgba(0,0,0,.6)'}}><h6>Request accepted by <b><span style={{textTransform: 'capitalize'}}>{this.props.deliveryGuy.firstName}</span> <span style={{textTransform: 'capitalize'}}>{this.props.deliveryGuy.lastName}</span></b><img src={this.props.deliveryGuy.image} className="ml-3 mr-2"  height="40" style={{borderRadius: '50%', boxShadow: '0 0 10px 0 rgba(0,0,0,.3)'}} alt=""/></h6>
+                                    <div style={{color: 'rgba(0,0,0,.6)'}}><h6>Accepted by <b><span style={{textTransform: 'capitalize'}}>{this.props.deliveryGuy.firstName}</span> <span style={{textTransform: 'capitalize'}}>{this.props.deliveryGuy.lastName}</span></b><img src={this.props.deliveryGuy.image} className="ml-3 mr-2"  height="40" style={{borderRadius: '50%', boxShadow: '0 0 10px 0 rgba(0,0,0,.3)'}} alt=""/></h6>
                                     </div>
                                     <hr/>
                                     <p className="text-muted">Live Location</p>
@@ -237,6 +237,22 @@ class DestinationView extends React.Component{
                                                 type="text"
                                                 placeholder="Deliver from where?"
                                                 value={this.props.locationName}
+                                                className="form-control form-control-lg destinationInput"
+                                            />
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <p className="text-muted">Rating</p>
+                                    <div className="row my-3">
+                                        <div className="col-2 mt-2" style={{marginTop: '70px'}}>
+                                            <i className="fa fa-star " style={{color: '#1fcf7c'}}></i>
+                                            <br/>
+                                        </div>
+                                        <div className="col-8">
+                                            <input
+                                                type="text"
+                                                placeholder="Deliver from where?"
+                                                value={this.props.deliveryGuy.ratings}
                                                 className="form-control form-control-lg destinationInput"
                                             />
                                         </div>
