@@ -74,13 +74,15 @@ export default (state={isLoading: true, joinedSelfGroup: false, positionSet: fal
                 redirectTo: `/messages/${action.data.client.username}`
             };
         case 'SUCCESS_COMPLETE_DELIVERY':
+        console.log(action.data.currentUser, 'EVO RATINWS');
             return {
                 ...state,
                 redirectTo: `/messages/${action.data.client.username}`,
                 currentUser: Object.assign(state.currentUser, state.currentUser, {
                     ...state.currentUser,
                     earnedMoney: action.data.currentUser.earnedMoney,
-                    deliveredItems: action.data.currentUser.deliveredItems
+                    deliveredItems: action.data.currentUser.deliveredItems,
+                    ratings: action.data.currentUser.ratings
                 })
             }
         case REGISTER:

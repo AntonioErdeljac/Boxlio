@@ -82,7 +82,8 @@ UserSchema.methods.toAuthJSON = function(){
         activeDeliveryJob: this.activeDeliveryJob,
         transportation: this.transportation,
         available: this.available,
-        isRequesting: this.isRequesting
+        isRequesting: this.isRequesting,
+        ratings: this.ratings.length > 0 ? ((this.ratings.reduce((a,b) => a+b))/this.ratings.length).toFixed(2) : 0
     };
 };
 
@@ -104,7 +105,8 @@ UserSchema.methods.toProfileJSONFor = function(user){
         areClients: user ? user.isClient(this._id) : false,
         transportation: this.transportation,
         available: this.available,
-        isRequesting: this.isRequesting
+        isRequesting: this.isRequesting,
+        ratings: this.ratings.length > 0 ? ((this.ratings.reduce((a,b) => a+b))/this.ratings.length).toFixed(2) : 0
     };
 };
 

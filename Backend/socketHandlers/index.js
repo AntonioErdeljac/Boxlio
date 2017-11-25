@@ -65,6 +65,7 @@ exports = module.exports = function(io){
                 deliveryGuy.isOrdering = false;
                 deliveryGuy.earnedMoney += deliveryGuy.activeDeliveryJob[0].price;
                 deliveryGuy.deliveredItems += deliveryGuy.activeDeliveryJob[0].item;
+                deliveryGuy.ratings.push(data.rating);
                 deliveryGuy.save(err => console.log(err)).then(function(){
                     deliveryGuy.activeDeliveryJob = null;
                     deliveryGuy.save();
@@ -88,7 +89,7 @@ exports = module.exports = function(io){
 
                     io.in(deliveryGuy.username).emit('SUCCESS_COMPLETE_DELIVERY', {
                         client: client,
-                        currentUser: deliveryGuy
+                        currentUser: deliveryGuy.toProfileJSONFor()
                     })
                 })
             })
