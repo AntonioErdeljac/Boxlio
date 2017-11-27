@@ -281,7 +281,7 @@ body, html {
     border-radius:5px;
     min-width: 23%;
     min-height: 20%;
-    max-height: calc(100vh - 150px);
+    max-height: calc(100vh - 100px);
     box-sizing: border-box;
     overflow: auto;
     padding-left: 10px;

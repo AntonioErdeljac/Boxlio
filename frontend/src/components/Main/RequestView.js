@@ -248,7 +248,6 @@ class RequestView extends React.Component{
                             <div className="mt-3 text-center" style={{marginTop: '100px'}}>
                             <i className="fa fa-circle-o-notch fa-spin fa-3x my-2" style={{color: '#1fcf7c'}}></i>
                             <p className="text-muted">Waiting for the client to confirm.</p>
-                            <button className="orderbtn btn btn-primary form-control" onClick={this.handleCancelRequest} style={{backgroundColor: '#E7475E', borderStyle: 'none'}}><i className="fa fa-close"></i> Cancel</button>
                         </div> : null
                              }
 

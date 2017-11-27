@@ -2,7 +2,6 @@ import React from "react";
 import MapView from "./Map/index";
 import DestinationView from "./DestinationView";
 import {Link, Switch, Route, withRouter} from "react-router-dom";
-import PointsOfInterest from "./PointsOfInterest";
 import io from "socket.io-client";
 import store from "../../store";
 import {connect} from "react-redux";

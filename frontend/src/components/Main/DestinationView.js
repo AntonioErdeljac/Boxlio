@@ -296,19 +296,19 @@ class DestinationView extends React.Component{
                                         <div className="col-10 offset-1">
                                         <div className="row my-3">
                                             <div className="col">
-                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '25px'}} onClick={() => this.setState({rating: 1})} className={this.state.rating >= 1 ? "fa fa-star" : "fa fa-star-o"}></i>
+                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '20px'}} onClick={() => this.setState({rating: 1})} className={this.state.rating >= 1 ? "fa fa-star" : "fa fa-star-o"}></i>
                                             </div>
                                             <div className="col">
-                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '25px'}} onClick={() => this.setState({rating: 2})} className={this.state.rating >= 2 ? "fa fa-star" : "fa fa-star-o"}></i>
+                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '20px'}} onClick={() => this.setState({rating: 2})} className={this.state.rating >= 2 ? "fa fa-star" : "fa fa-star-o"}></i>
                                             </div>
                                             <div className="col">
-                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '25px'}} onClick={() => this.setState({rating: 3})} className={this.state.rating >= 3 ? "fa fa-star" : "fa fa-star-o"}></i>
+                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '20px'}} onClick={() => this.setState({rating: 3})} className={this.state.rating >= 3 ? "fa fa-star" : "fa fa-star-o"}></i>
                                             </div>
                                             <div className="col">
-                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '25px'}} onClick={() => this.setState({rating: 4})} className={this.state.rating >= 4 ? "fa fa-star" : "fa fa-star-o"}></i>
+                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '20px'}} onClick={() => this.setState({rating: 4})} className={this.state.rating >= 4 ? "fa fa-star" : "fa fa-star-o"}></i>
                                             </div>
                                             <div className="col">
-                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '25px'}} onClick={() => this.setState({rating: 5})} className={this.state.rating == 5 ? "fa fa-star" : "fa fa-star-o"}></i>
+                                                <i style={{color: '#1fcf7c', cursor: 'pointer', fontSize: '20px'}} onClick={() => this.setState({rating: 5})} className={this.state.rating == 5 ? "fa fa-star" : "fa fa-star-o"}></i>
                                             </div>
                                         </div>
                                         </div>
