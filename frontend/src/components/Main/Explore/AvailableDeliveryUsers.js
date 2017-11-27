@@ -1,20 +1,38 @@
 import React from "react";
 import UserCard from "./UserCard";
 
-class AvailableDeliveryUsers extends React.Component{
-	render(){
-		if(this.props.nearDeliveryUsers){
-			return (
-				<div className="row">
-					{this.props.nearDeliveryUsers.map(user => {
-						return <UserCard user={user} currentUser={this.props.currentUser} />
-						})
-					}
+const AvailableDeliveryUsers = (props) => {
+		if(!props.nearDeliveryUsers){
+			return( 
+				<div className="col-6 offset-5">
+					<div className="actionLoad"></div>
 				</div>
 			)
 		}
-		return null;
-	};
+		if(props.nearDeliveryUsers.length === 0){
+			return(
+				<div>
+			<h2>Explore Users</h2>
+			<h6 className="text-muted">Find <span style={{color: '#1fcf7c'}}>new</span> clients.</h6>
+			<hr />
+			<h5 className="text-muted my-3">There are no <span style={{color: '#1fcf7c'}}>new</span> clients available <span style={{color: '#1fcf7c'}}>near you</span>, <br/> come back later to add new clients!</h5>
+				</div>
+		)
+		}
+
+		return (
+			<div>
+			<h2>Explore Users</h2>
+			<h6 className="text-muted">Find <span style={{color: '#1fcf7c'}}>new</span> clients.</h6>
+				<hr />
+				<div className="row">
+					{props.nearDeliveryUsers.map(user => {
+						return <UserCard addClient={props.addClient} user={user} currentUser={props.currentUser} />
+						})
+					}
+				</div>
+			</div>
+		)
 }
 
 export default AvailableDeliveryUsers;

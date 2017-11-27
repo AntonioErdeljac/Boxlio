@@ -14,8 +14,7 @@ router.get('/', auth.required, function(req,res,next){
 	        {type: 'Point', coordinates: [currentUser.geometry.coordinates[0], currentUser.geometry.coordinates[1]]},
 	        {maxDistance: 10000, spherical: true}
 		).then(function(users){
-            let filteredUsers = users.filter(user => user.obj.username !== currentUser.username && user.obj.deliveryMode === true && user.obj.available === true );
-            console.log(filteredUsers, 'USERS');
+            let filteredUsers = users.filter(user => user.obj.username !== currentUser.username && !user.obj.isClient(currentUser._id));
             return res.json({
             	nearDeliveryUsers: filteredUsers
             })

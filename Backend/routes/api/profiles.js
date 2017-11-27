@@ -1,7 +1,9 @@
-var auth = require('../auth');
-var router = require('express').Router();
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
+let auth = require('../auth');
+let router = require('express').Router();
+let mongoose = require('mongoose');
+let User = mongoose.model('User');
+let Chat = mongoose.model('Chat');
+let Message = mongoose.model('Message');
 
 router.param('username', function(req,res,next, username){
     User.findOne({username: username}).then(function(user){
@@ -26,19 +28,39 @@ router.get('/:username', auth.optional, function(req,res,next){
     }
 });
 
-router.post('/:username/friend', auth.required, function(req,res,next){
+router.post('/:username/client', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
         if(!user){return res.sendStatus(401);}
 
-        return user.addFriend(req.profile._id).then(function(){
-            return res.json({
-                profile: req.profile.toProfileJSONFor(user)
+        user.addClient(req.profile._id)
+        req.profile.addClient(user._id);
+        req.profile.save();
+        user.save().then(function(){
+            Chat.findOne({users: {$all: [user, req.profile]}}).then(function(chat){
+                if(!chat){
+                    let newChat = new Chat();
+                    newChat.users.push(user, req.profile);
+                    newChat.save();
+                    let message = new Message();
+                    message.author = user;
+                    message.receiver = req.profile;
+                    message.body = `Hi ${req.profile.firstName}! I found you on explore feed as a nearby client, I hope we can make contact.`
+                    message.save();
+                    newChat.messages.push(message);
+                    newChat.save().then(function(){
+                        return res.json({
+                            profile: req.profile.toProfileJSONFor(user)
+                        })
+                    })
+                } else {
+                    return res.sendStatus(409);
+                }
             })
         })
     }).catch(next);
 });
 
-router.delete('/:username/friend', auth.required, function(req,res,next){
+router.delete('/:username/client', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
         if(!user){return res.sendStatus(401);}
 

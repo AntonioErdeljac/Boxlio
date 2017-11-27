@@ -56,6 +56,11 @@ export default (state={isLoading: true, joinedSelfGroup: false, positionSet: fal
                 currentUser: action.error ? state.currentUser : action.payload.user,
                 redirectTo: action.error ? null : '/'
             };
+        case 'ADD_CLIENT':
+            return {
+                ...state,
+                redirectTo: action.error ? `/messages` : `/messages/${action.payload.profile.username}`
+            };
         case LOGIN:
             return {
                 ...state,

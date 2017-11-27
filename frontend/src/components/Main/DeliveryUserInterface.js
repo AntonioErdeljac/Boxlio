@@ -12,10 +12,6 @@ class DeliveryUserInterface extends React.Component{
 
     constructor(props){
         super(props);
-    
-        this.setTo = (to) => {
-            this.setState({to: to});
-        }
 
         this.state = {
             transportation: this.props.currentUser.transportation
