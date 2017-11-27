@@ -16,6 +16,7 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
                 requestReceived: true,
                 initialSet: true,
                 placeChoosen: true,
+                placeChoosenFrom: true,
                 checkSet: true,
                 to: action.job[0].toName
             }
@@ -26,7 +27,8 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
             return {
                 ...state,
                 to: action.data.results[0]["formatted_address"],
-                initialSet: true
+                initialSet: true,
+                placeChoosen: true
             };
         case SET_TO_SPECIAL:
             return {
@@ -35,18 +37,21 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
                 placeChoosen: true
             };
         case SET_FROM:
+            console.log('place from choosen.')
             return {
                 ...state,
                 from: action.places[0].formatted_address,
                 lat: action.places[0].geometry.location.lat(),
-                lng: action.places[0].geometry.location.lng()
+                lng: action.places[0].geometry.location.lng(),
+                placeChoosenFrom: true
             };
         case UPDATE_FROM:
             return {
                 ...state,
                 from: action.from,
                 lat: action.lat,
-                lng: action.lng
+                lng: action.lng,
+                placeChoosenFrom: true
             };
         case UPDATE_TO:
             return {
@@ -63,7 +68,8 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
         case UPDATE_FROM_NAME:
             return {
                 ...state,
-                from: action.name
+                from: action.name,
+                placeChoosenFrom: false
             };
         case UPDATE_TO_NAME:
             return {
