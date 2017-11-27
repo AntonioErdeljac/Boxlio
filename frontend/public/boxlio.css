@@ -660,7 +660,7 @@ input:checked + .slider:before {
     background-color: #fff;
     color: rgba(0,0,0,.7);
     position: absolute;
-    top: 70px;
+    top: 65px;
     padding-top: 10px;
     width: 95%;
     text-align: center;

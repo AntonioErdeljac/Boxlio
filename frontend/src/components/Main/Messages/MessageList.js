@@ -111,7 +111,7 @@ class MessageList extends React.Component{
     }, 200)
     }
         return (
-            <div id="messagescroll" style={this.props.messages ? {position: 'absolute', top: '10%', width:'95%', paddingTop: '10%', height:'80%', overflow: 'auto'} : {position: 'absolute', top: '40%', width:'95%'}}>
+            <div id="messagescroll" style={this.props.messages ? {position: 'absolute', top: '10%', width:'95%', paddingTop: '15%', height:'80%', overflow: 'auto'} : {position: 'absolute', top: '40%', width:'95%'}}>
             { !this.props.messages ? <div className="text-center">
                 <i className="fa fa-envelope-o text-muted" style={{fontSize: '100px'}}></i>
                 <h4 className="text-muted">Your messages will appear here</h4> 
