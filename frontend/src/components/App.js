@@ -6,12 +6,13 @@ import {connect} from "react-redux";
 import Login from "./Login";
 import Settings from "./Main/Settings";
 import Messages from "./Main/Messages";
+import Explore from "./Main/Explore";
 import agent from "../agent";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import io from "socket.io-client";
 import Register from "./Register";
 import {REDIRECT, APP_LOADED} from "../constants/actions";
-import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 
 class App extends React.Component{
@@ -32,15 +33,16 @@ class App extends React.Component{
         if(this.props.currentUser){
             return (
             <div>
-                <NavigationBar currentUser={this.props.currentUser}/>
+                <NavigationBar currentUser={this.props.currentUser} />
 
                     <div>
                     <Switch>
-                        <Route path="/login" component={Login}/>
-                        <Route path="/register"  exact component={Register}/>
+                        <Route path="/login" component={Login} />
+                        <Route path="/register"  exact component={Register} />
                         <Route path="/messages" exact component={Messages} />
                         <Route path="/messages/:username" exact component={Messages} />
                         <Route path="/settings" exact  component={Settings} />
+                        <Route path="/explore" exact component={Explore} />
                         <Route path="/" exact component={Main} />
                     </Switch>
                     </div>
