@@ -48,6 +48,11 @@ const Clients = {
         requests.get(`/clients`)
 }
 
+const Explore = {
+    nearDeliveryUsers: () =>
+        requests.get(`/explore`)
+}
+
 let token = null;
 let tokenPlugin = req => {
     if(token){
@@ -59,5 +64,6 @@ export default {
     Profiles,
     Chat,
     Clients,
+    Explore,
     setToken: _token => {token = _token}
 };

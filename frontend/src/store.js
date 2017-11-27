@@ -11,6 +11,7 @@ import pointsOfInterest from "./reducers/pointsOfInterest";
 import requests from "./reducers/requests";
 import messenger from "./reducers/messenger";
 import deliveryUserInterface from "./reducers/deliveryUserInterface";
+import explore from "./reducers/explore";
 import clientList from "./reducers/clientList";
 
 const reducer = combineReducers({
@@ -24,7 +25,8 @@ const reducer = combineReducers({
     requests,
     deliveryUserInterface,
     messenger,
-    clientList
+    clientList,
+    explore
 });
 
 const store = createStore(reducer, applyMiddleware(promiseMiddleware, localStorageMiddleware));

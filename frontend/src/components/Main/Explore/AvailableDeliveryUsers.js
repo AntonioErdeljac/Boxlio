@@ -3,11 +3,17 @@ import UserCard from "./UserCard";
 
 class AvailableDeliveryUsers extends React.Component{
 	render(){
-		return (
-			<div className="row">
-				<UserCard currentUser={this.props.currentUser} />
-			</div>
-		)
+		if(this.props.nearDeliveryUsers){
+			return (
+				<div className="row">
+					{this.props.nearDeliveryUsers.map(user => {
+						return <UserCard user={user} currentUser={this.props.currentUser} />
+						})
+					}
+				</div>
+			)
+		}
+		return null;
 	};
 }
 
