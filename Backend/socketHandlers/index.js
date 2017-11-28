@@ -436,5 +436,25 @@ exports = module.exports = function(io){
           })
         })
     })
+
+    socket.on('REQUEST_PRIVATE_DRIVER', function(data){
+        console.log(data.deliveryGuy, 'PRIVATE DELIVERy GUY');
+        User.findOne({username: data.user.username}).then(function(user){
+            user.isRequesting = true;
+            user.save(err => console.log(err)).then(function(){
+                io.in(data.deliveryGuy.username).emit('REQUEST_DRIVER_CLIENT', {
+                    client: user.toProfileJSONFor(),
+                    from: data.from,
+                    to: data.to,
+                    price: data.price,
+                    item: data.item,
+                    lat: data.lat,
+                    lng: data.lng,
+                    clientLat: data.clientLat,
+                    clientLng: data.clientLng
+                });
+            })
+        })
+    })
   });
 }

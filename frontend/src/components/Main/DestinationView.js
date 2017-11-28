@@ -70,6 +70,24 @@ class DestinationView extends React.Component{
             this.props.onSendRequest();
         }
 
+        this.handleSendPrivateRequest = ev => {
+            this.socket.emit('REQUEST_PRIVATE_DRIVER', {
+                user: this.props.currentUser,
+                from: this.props.from,
+                to: this.props.to,
+                lat: this.props.lat,
+                lng: this.props.lng,
+                clientLat: this.props.currentUser.geometry[0],
+                clientLng: this.props.currentUser.geometry[1],
+                price: this.state.price,
+                item: this.state.item,
+                transportation: this.state.transportation,
+                deliveryGuy: this.props.toPrivateDeliveryGuy
+            });
+
+            this.props.onSendRequest();
+        }
+
         this.handleConfirmDelivered = ev => {
             ev.preventDefault();
 
@@ -213,13 +231,21 @@ class DestinationView extends React.Component{
                                 </div>
                             </div>
                         }
-                        { this.props.requestSent && !this.props.requestAccepted ?
+                        { this.props.requestSent && !this.props.requestAccepted ? 
                             <div className="mt-3 text-center" style={{marginTop: '100px'}}>
                                 <i className="fa fa-circle-o-notch fa-spin fa-3x my-2" style={{color: '#1fcf7c'}}></i>
                                 <p className="text-muted">Waiting for a delivery person to accept.</p>
                                 <button className="orderbtn btn btn-primary form-control" onClick={this.handleCancelRequest} style={{backgroundColor: '#E7475E', borderStyle: 'none'}}><i className="fa fa-close"></i> Cancel</button>
-                            </div> : !this.props.requestAccepted ?
-                        <button className="orderbtn btn btn-primary form-control" disabled={!this.state.price || !this.props.to || !this.props.from || !this.state.item ? true : false || !this.props.placeChoosen || !this.props.placeChoosenFrom} onClick={this.handleSendRequest} style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}><i className="fa fa-search"></i> Find a delivery person</button>
+                            </div> 
+                            : !this.props.requestAccepted ?
+                            !this.props.privateRequest ? 
+                        <button className="orderbtn btn btn-primary form-control" disabled={!this.state.price || !this.props.to || !this.props.from || !this.state.item ? true : false || !this.props.placeChoosen || !this.props.placeChoosenFrom} onClick={this.handleSendRequest} style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
+                        <i className="fa fa-search mx-2"></i> 
+                            Find a delivery person
+                        </button> : <button className="orderbtn btn btn-primary form-control" disabled={!this.state.price || !this.props.to || !this.props.from || !this.state.item ? true : false || !this.props.placeChoosen || !this.props.placeChoosenFrom} onClick={this.handleSendPrivateRequest} style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
+                        <i className="fa fa-location-arrow mx-2"></i> 
+                             Send to {this.props.toPrivateDeliveryGuy.firstName}
+                        </button> 
                                 :
                                 !this.props.completeChoice ? 
                                 <div>

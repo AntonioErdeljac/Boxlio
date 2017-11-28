@@ -3,6 +3,12 @@ import {REMOVE_FROM_TO, SET_TO, SET_TO_SPECIAL, SET_FROM, UPDATE_FROM, UPDATE_TO
 
 export default (state={from: '', requestReceived:false, travelMode: 'walking'}, action) => {
     switch(action.type){
+        case 'SET_PRIVATE_REQUEST':
+            return {
+                ...state,
+                privateRequest: true,
+                toPrivateDeliveryGuy: action.deliveryGuy
+            };
         case 'SET_ACTIVE_DELIVERY_JOB':
         console.log(action);
         if(action.job[0]){
