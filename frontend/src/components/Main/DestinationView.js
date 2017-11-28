@@ -159,7 +159,12 @@ class DestinationView extends React.Component{
                     <div className="container">
                         {this.props.requestAccepted ? null :
                             <div>
-                                <div className="text-muted">Delivery</div>
+                                {this.props.toPrivateDeliveryGuy ? 
+                                    <div className="text-muted">Private request for <b><span style={{textTransform: 'capitalize'}}>{this.props.toPrivateDeliveryGuy.firstName}</span> <span style={{textTransform: 'capitalize'}}>{this.props.toPrivateDeliveryGuy.lastName}</span></b><img src={this.props.toPrivateDeliveryGuy.image} className="ml-3 mr-2"  height="40" style={{borderRadius: '50%', boxShadow: '0 0 10px 0 rgba(0,0,0,.3)'}} alt=""/> </div>
+                                    :
+                                    <div className="text-muted">Delivery</div>
+                                }
+                                
                                 <div className="row my-3">
                                     <div className="col-2 mt-2" style={{marginTop: '70px'}}>
                                         <i className="fa fa-dot-circle-o " style={{color: '#1fcf7c'}}></i>

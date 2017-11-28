@@ -25,7 +25,7 @@ class Chat extends React.Component{
                  </p>
                  <hr className="col-3" />
                     <button 
-                        disabled={this.props.currentUser.isOrdering || !this.props.profile.deliveryMode || !this.props.profile.available || this.props.profile.isDelivering} 
+                        disabled={this.props.currentUser.isOrdering || this.props.currentUser.deliveryMode || !this.props.profile.deliveryMode || !this.props.profile.available || this.props.profile.isDelivering} 
                         className="orderbtn btn btn-primary mb-2"
                         onClick={() => this.sendPrivateRequest(this.props.currentUser, this.props.profile)}
                         style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
