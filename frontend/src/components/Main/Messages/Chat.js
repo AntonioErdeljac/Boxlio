@@ -27,7 +27,9 @@ class Chat extends React.Component{
                     {this.props.profile.firstName} {this.props.profile.lastName} <i className="mx-3 fa fa-circle" style={this.props.profile.available ? {color: '#1fcf7c'} : {color: '#E7475E'}} />
                  </p>
                  <hr className="col-3" />
-                    {this.props.profile.deliveryMode && this.props.profile.available ? <p  style={{color: '#1fcf7c'}}> <i className="fa fa-truck  " /> Active for delivery</p> : <p className="text-muted"><i className="fa fa-truck  " /> Not delivering.</p>}
+                    <button disabled={this.props.currentUser.isOrdering || !this.props.profile.deliveryMode || !this.props.profile.available} className="orderbtn btn btn-primary mb-2"
+                                        style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
+                                    <i className="fa fa-truck"></i> Request a delivery </button> 
                  </div> : null}
             </div>
             <MessageList socket={this.props.socket} messages={this.props.messages} currentUser={this.props.currentUser}/>
