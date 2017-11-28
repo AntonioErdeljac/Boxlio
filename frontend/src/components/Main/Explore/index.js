@@ -20,6 +20,7 @@ class Explore extends React.Component{
 		return (
 			<div style={{height: '100%', width: '100%', backgroundColor: '#fff'}}>
 				<div className="container" style={{paddingTop: '7%'}}>
+					<h2>Explore</h2>
 					<AvailableDeliveryUsers addClient={this.addClient} nearDeliveryUsers={this.props.nearDeliveryUsers} currentUser={this.props.currentUser} />
 				</div>
 			</div>

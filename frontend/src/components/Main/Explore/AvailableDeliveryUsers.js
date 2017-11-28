@@ -12,7 +12,6 @@ const AvailableDeliveryUsers = (props) => {
 		if(props.nearDeliveryUsers.length === 0){
 			return(
 				<div>
-			<h2>Explore Users</h2>
 			<h6 className="text-muted">Find <span style={{color: '#1fcf7c'}}>new</span> clients.</h6>
 			<hr />
 			<h5 className="text-muted my-3">There are no <span style={{color: '#1fcf7c'}}>new</span> clients available <span style={{color: '#1fcf7c'}}>near you</span>, <br/> come back later to add new clients!</h5>
@@ -22,7 +21,6 @@ const AvailableDeliveryUsers = (props) => {
 
 		return (
 			<div>
-			<h2>Explore Users</h2>
 			<h6 className="text-muted">Find <span style={{color: '#1fcf7c'}}>new</span> clients.</h6>
 				<hr />
 				<div className="row">
