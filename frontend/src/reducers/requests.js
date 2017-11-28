@@ -3,6 +3,12 @@ import {CHANGE_LOCATION, SET_REQUEST, DECLINE_REQUEST, CANCEL_REQUEST, SEND_REQU
 export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest: false, requestSent: false, 
     sentCompleteChoice: false, completeChoice: false}, action) => {
     switch(action.type){
+        case 'SET_PRIVATE_REQUEST':
+            return {
+                ...state,
+                privateRequest: true,
+                toPrivateDeliveryGuy: action.deliveryGuy
+            };
         case 'SET_SENT_COMPLETE_CHOICE':
         return {
             ...state,
@@ -76,7 +82,9 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 requestSent: false,
                 acceptedRequest: false,
                 completeChoice: false,
-                sentCompleteChoice: false
+                sentCompleteChoice: false,
+                privateRequest: false,
+                toPrivateDeliveryGuy: false
             };
         case 'CONFIRM_COMPLETED_DELIVERY':
             return {
@@ -87,7 +95,9 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 requestSent: false,
                 acceptedRequest: false,
                 completeChoice: false,
-                sentCompleteChoice: false
+                sentCompleteChoice: false,
+                privateRequest: false,
+                toPrivateDeliveryGuy: false
             }
         case 'RECEIVE_CANCEL_FROM_DELIVERY_GUY':
             return {
@@ -98,7 +108,9 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 requestSent: false,
                 acceptedRequest: false,
                 completeChoice: false,
-                sentCompleteChoice: false
+                sentCompleteChoice: false,
+                privateRequest: false,
+                toPrivateDeliveryGuy: false
             }
         case 'RECEIVE_CANCEL_FROM_CLIENT':
             return {
@@ -136,7 +148,9 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 requestSent: false,
                 acceptedRequest: false,
                 completeChoice: false,
-                sentCompleteChoice: false
+                sentCompleteChoice: false,
+                privateRequest: false,
+                toPrivateDeliveryGuy: false
             };
         case SEND_REQUEST:
             return {
