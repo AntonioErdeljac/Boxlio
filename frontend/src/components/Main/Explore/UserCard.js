@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const UserCard = (props) => {
 	return (
@@ -40,11 +41,16 @@ const UserCard = (props) => {
 						</div>
 						<div className="row my-3">
 							<div className="col">
-							{props.user.obj.areClients}
 								<button onClick={() => props.addClient(props.user.obj)} className="orderbtn btn btn-primary form-control"
 										style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
 									<i className="fa fa-user-plus"></i> Add as client
 								</button>
+
+
+								<Link to={`/@${props.user.obj.username}`} className="mt-3 orderbtn btn btn-primary form-control"
+										style={{backgroundColor: '#2d89e5', borderStyle: 'none'}}>
+									<i className="fa fa-user"></i> See Profile
+								</Link>
 							</div>
 						</div>
 					</div>

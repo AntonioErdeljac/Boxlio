@@ -29,23 +29,25 @@ const ProfileHeader = props => {
 					</div>
 				</div>
 				<div className="col">
-					{props.profile.areClients ? 
+					{props.profile.areClients && props.profile.username !== props.currentUser.username ? 
 
 						<Link to={`/messages/${props.profile.username}`} className="mb-3 orderbtn btn btn-primary "
 							style={{backgroundColor: '#2d89e5', borderStyle: 'none'}}>
 							<i className="fa fa-envelope"></i> Message
 						</Link>
 						:
-						<button className="orderbtn btn btn-primary my-3"
+						props.profile.username !== props.currentUser.username ?
+						<button onClick={() => props.addClient(props.profile)} className="orderbtn btn btn-primary"
 								style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
 							<i className="fa fa-user-plus"></i> Add as client
-						</button>
-					}
+						</button> : null
+					}	
 					<br />
+					{props.profile.username !== props.currentUser.username ?
 					<p className=" my-3"
 							style={{color: '#E7475E', borderStyle: 'none', opacity: '0.7'}}>
 						<i className="fa fa-exclamation-triangle mx-2"></i>Report this user
-					</p>
+					</p> : null}
 				</div>
 			</div>
 			<ProfileDiscussion></ProfileDiscussion>
