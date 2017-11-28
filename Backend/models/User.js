@@ -106,6 +106,7 @@ UserSchema.methods.toProfileJSONFor = function(user){
         transportation: this.transportation,
         available: this.available,
         isRequesting: this.isRequesting,
+        clients: this.clients,
         ratings: this.ratings.length > 0 ? ((this.ratings.reduce((a,b) => a+b))/this.ratings.length).toFixed(2) : 0
     };
 };

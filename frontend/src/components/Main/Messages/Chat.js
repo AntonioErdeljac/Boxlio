@@ -4,6 +4,7 @@ import MessageInput from "./MessageInput";
 import io from "socket.io-client";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
 
 class Chat extends React.Component{
     constructor(props){
@@ -26,11 +27,15 @@ class Chat extends React.Component{
                  <hr className="col-3" />
                     <button 
                         disabled={this.props.currentUser.isOrdering || this.props.currentUser.deliveryMode || !this.props.profile.deliveryMode || !this.props.profile.available || this.props.profile.isDelivering} 
-                        className="orderbtn btn btn-primary mb-2"
+                        className="orderbtn btn btn-primary mb-2 mx-3"
                         onClick={() => this.sendPrivateRequest(this.props.currentUser, this.props.profile)}
                         style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
                             <i className="fa fa-truck"></i> Request a delivery 
-                    </button> 
+                    </button>
+                    <Link to={`/@${this.props.profile.username}`} className="mb-2 orderbtn btn btn-primary "
+                        style={{backgroundColor: '#2d89e5', borderStyle: 'none'}}>
+                        <i className="fa fa-user"></i> See Profile
+                    </Link> 
                  </div> : null}
             </div>
             <MessageList socket={this.props.socket} messages={this.props.messages} currentUser={this.props.currentUser}/>

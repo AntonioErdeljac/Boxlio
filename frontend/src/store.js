@@ -13,6 +13,7 @@ import messenger from "./reducers/messenger";
 import deliveryUserInterface from "./reducers/deliveryUserInterface";
 import explore from "./reducers/explore";
 import clientList from "./reducers/clientList";
+import profile from "./reducers/profile";
 
 const reducer = combineReducers({
     auth,
@@ -26,7 +27,8 @@ const reducer = combineReducers({
     deliveryUserInterface,
     messenger,
     clientList,
-    explore
+    explore,
+    profile
 });
 
 const store = createStore(reducer, applyMiddleware(promiseMiddleware, localStorageMiddleware));

@@ -11,6 +11,7 @@ import agent from "../agent";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import io from "socket.io-client";
 import Register from "./Register";
+import Profile from "./Main/Profile";
 import {REDIRECT, APP_LOADED} from "../constants/actions";
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -43,6 +44,7 @@ class App extends React.Component{
                         <Route path="/messages/:username" exact component={Messages} />
                         <Route path="/settings" exact  component={Settings} />
                         <Route path="/explore" exact component={Explore} />
+                        <Route path="/@:username" exact component={Profile} />
                         <Route path="/" exact component={Main} />
                     </Switch>
                     </div>

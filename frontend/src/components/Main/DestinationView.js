@@ -293,6 +293,11 @@ class DestinationView extends React.Component{
                                             style={{backgroundColor: '#2d89e5', borderStyle: 'none'}}>
                                         <i className="fa fa-envelope"></i> Message
                                     </Link>
+
+                                    <Link to={`/@${this.props.deliveryGuy.username}`} className="mb-3 orderbtn btn btn-primary form-control"
+                                            style={{backgroundColor: '#2d89e5', borderStyle: 'none'}}>
+                                        <i className="fa fa-user"></i> See Profile
+                                    </Link>
                                         <button className="orderbtn btn btn-primary form-control"
                                                 onClick={this.handleCancelRequest}
                                                 style={{backgroundColor: '#E7475E', borderStyle: 'none'}}>
