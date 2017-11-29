@@ -19,7 +19,7 @@ router.get('/', auth.required, function(req,res,next){
             	nearDeliveryUsers: filteredUsers
             })
 		})
-	})
+	}).catch(next);
 })
 
 module.exports = router;

@@ -66,6 +66,11 @@ export default (state={isLoading: true, joinedSelfGroup: false, positionSet: fal
                 ...state,
                 redirectTo: action.error ? `/messages` : `/messages/${action.payload.profile.username}`
             };
+        case 'UPDATE_CURRENT_USER':
+            return {
+                ...state,
+                currentUser: action.data.currentUser
+            }
         case LOGIN:
             return {
                 ...state,

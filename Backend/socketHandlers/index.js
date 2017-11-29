@@ -161,6 +161,9 @@ exports = module.exports = function(io){
                         io.in(client.username).emit('RECEIVE_CANCEL_DELIVERY_JOB_DELIVERY_GUY', {
                             deliveryGuy: deliveryGuy
                         })
+                        io.in(deliveryGuy.username).emit('UPDATE_CURRENT_USER', {
+                            currentUser: deliveryGuy
+                        })
                     })
                 })
             })
@@ -193,6 +196,10 @@ exports = module.exports = function(io){
                     return chat.save().then(function(){
                         io.in(deliveryGuy.username).emit('RECEIVE_CANCEL_DELIVERY_JOB_CLIENT', {
                             client: client
+                        });
+
+                        io.in(client.username).emit('UPDATE_CURRENT_USER', {
+                            currentUser: client
                         })
                     })
                 })
@@ -209,7 +216,7 @@ exports = module.exports = function(io){
                 {maxDistance: 50000, spherical: true}
             ).then(function(users){
                 console.log(users, 'INITIAL USERS')
-                let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode === true && user.obj.available === true );
+                let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode === true && user.obj.available == true );
                 let user = filteredUsers[Math.floor(Math.random()*filteredUsers.length)];
                 console.log(user, 'IZABRANI KORISNIK'),
                 console.log(filteredUsers, 'izabrani useri')

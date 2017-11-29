@@ -11,7 +11,7 @@ router.get('/', auth.required, function(req,res,next){
             return res.json({
                 clients: user.clients
             
-        })
+            })
         })
 })
 

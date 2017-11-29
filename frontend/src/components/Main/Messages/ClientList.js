@@ -30,7 +30,7 @@ class ClientList extends React.Component{
                 <i className="fa fa-circle-o-notch fa-spin fa-3x my-2" style={{color: '#1fcf7c'}}></i> 
             </div>           
         }
-        if(this.props.clients && this.props.clients.length > 0){
+        if(this.props.clients && this.props.clients[0].firstName){
             const currentClient = this.props.match.params.username;
             let filteredClients = this.props.clients.filter(client => client.firstName.toLowerCase().indexOf(this.state.search) !== -1 || client.lastName.toLowerCase().indexOf(this.state.search) !== -1)
             return (
@@ -64,7 +64,7 @@ class ClientList extends React.Component{
 
 const mapStateToProps = state => ({
     clients: state.clientList.clients,
-    ...state.common.currentUser
+    currentUser: state.common.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
