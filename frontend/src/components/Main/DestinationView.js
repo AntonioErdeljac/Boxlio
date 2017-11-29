@@ -289,11 +289,7 @@ class DestinationView extends React.Component{
                                         </div>
                                     </div>
                                     <div>
-                                    <Link to={`/messages/${this.props.deliveryGuy.username}`} className="mb-3 orderbtn btn btn-primary form-control"
-                                            style={{backgroundColor: '#2d89e5', borderStyle: 'none'}}>
-                                        <i className="fa fa-envelope"></i> Message
-                                    </Link>
-
+                                        
                                     <Link to={`/@${this.props.deliveryGuy.username}`} className="mb-3 orderbtn btn btn-primary form-control"
                                             style={{backgroundColor: '#2d89e5', borderStyle: 'none'}}>
                                         <i className="fa fa-user"></i> See Profile
