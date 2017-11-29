@@ -36,7 +36,8 @@ var UserSchema = new mongoose.Schema({
     geometry: GeoSchema,
     available: {type: Boolean, default: true},
     ratings: [{type: Number}],
-    isRequesting: {type: Boolean, default: false}
+    isRequesting: {type: Boolean, default: false},
+    opinions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Opinion'}]
 });
 
 UserSchema.plugin(uniqueValidator, {message: "is already taken."});
@@ -107,6 +108,7 @@ UserSchema.methods.toProfileJSONFor = function(user){
         available: this.available,
         isRequesting: this.isRequesting,
         clients: this.clients,
+        opinions: this.opinions,
         ratings: this.ratings.length > 0 ? ((this.ratings.reduce((a,b) => a+b))/this.ratings.length).toFixed(2) : 0
     };
 };

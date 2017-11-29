@@ -2,11 +2,20 @@ let auth = require('../auth');
 let router = require('express').Router();
 let mongoose = require('mongoose');
 let User = mongoose.model('User');
+let Opinion = mongoose.model('Opinion');
 let Chat = mongoose.model('Chat');
 let Message = mongoose.model('Message');
 
 router.param('username', function(req,res,next, username){
-    User.findOne({username: username}).then(function(user){
+    User.findOne({username: username})
+    .populate('opinions')
+    .populate({
+        path: 'opinions',
+        populate: {
+            path: 'author'
+        }
+    })
+    .then(function(user){
         if(!user){return res.sendStatus(404);}
 
         req.profile = user;
@@ -15,6 +24,28 @@ router.param('username', function(req,res,next, username){
     }).catch(next);
 });
 
+router.get('/:username/opinions', auth.required, function(req,res,next){
+    User.findById(req.payload.id).then(function(user){
+        return res.json({
+            opinions: req.profile.opinions
+        })
+    })
+})
+
+router.post('/:username/opinion', auth.required, function(req,res,next){
+    User.findById(req.payload.id).then(function(user){
+            let opinion = new Opinion();
+            opinion.text = req.body.opinion.text;
+            opinion.author = user._id
+            opinion.save();
+            req.profile.opinions.push(opinion);
+            req.profile.save().then(function(){
+                return res.json({
+                    opinion: opinion
+                });
+            })
+    }).catch(next);
+});
 
 router.get('/:username', auth.optional, function(req,res,next){
     if(req.payload){
@@ -82,6 +113,7 @@ router.get('/', auth.optional, function(req,res,next){
             })
         }).catch(next);
 });
+
 
 
 

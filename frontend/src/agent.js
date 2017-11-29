@@ -33,7 +33,11 @@ const Profiles = {
     byName: username =>
         requests.get(`/profiles/${username}`),
     add: (client) =>
-        requests.post(`/profiles/${client.username}/client`)
+        requests.post(`/profiles/${client.username}/client`),
+    postOpinion: (opinion) =>
+        requests.post(`/profiles/${opinion.profile.username}/opinion`, {opinion}),
+    getOpinions: username =>
+        requests.get(`/profiles/${username}/opinions`)
 };
 
 const Chat = {

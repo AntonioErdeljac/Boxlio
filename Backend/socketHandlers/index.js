@@ -288,7 +288,7 @@ exports = module.exports = function(io){
                 if(!client.isOrdering && client.isRequesting){
                     let newDeliveryJob = new DeliveryJob();
                 newDeliveryJob.client = client;
-                newDeliveryJob.deliveryGuy = deliveryGuy;
+                newDeliveryJob.deliveryGuy = deliveryGuy.toProfileJSONFor(client);
                 newDeliveryJob.price = data.price,
                 newDeliveryJob.transportation = data.transportation,
                 newDeliveryJob.item = data.item,

@@ -40,6 +40,7 @@ if(isProduction){
 require('./models/User');
 require('./models/Message');
 require('./models/Chat');
+require('./models/Opinion');
 require('./models/DeliveryJob');
 require('./config/passport');
 app.use(require('./routes'));

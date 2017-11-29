@@ -1,11 +1,17 @@
 import React from "react";
 import {connect} from "react-redux";
 import ProfileHeader from "./ProfileHeader";
+import ProfileDiscussion from "./ProfileDiscussion";
 import agent from "../../../agent";
 
 class Profile extends React.Component{
 	componentWillMount(){
-		this.props.onLoad(agent.Profiles.byName(this.props.match.params.username))
+		this.props.onLoad(
+			Promise.all([
+				agent.Profiles.byName(this.props.match.params.username),
+				agent.Profiles.getOpinions(this.props.match.params.username),
+			])
+		)
 	}
 	constructor(props){
 		super(props);
@@ -28,6 +34,7 @@ class Profile extends React.Component{
 				<div style={{height: '100%', width: '100%', backgroundColor: '#fff'}}>
 					<div className="container-fluid" style={{paddingTop: '7%'}}>
 						<ProfileHeader addClient={this.addClient} profile={this.props.profile} currentUser={this.props.currentUser}/>
+						<ProfileDiscussion opinions={this.props.opinions} profile={this.props.profile}></ProfileDiscussion>
 					</div>
 				</div>
 			);

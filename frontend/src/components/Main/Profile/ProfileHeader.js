@@ -1,6 +1,5 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import ProfileDiscussion from "./ProfileDiscussion";
 
 const ProfileHeader = props => {
 	return (
@@ -50,7 +49,6 @@ const ProfileHeader = props => {
 					</p> : null}
 				</div>
 			</div>
-			<ProfileDiscussion></ProfileDiscussion>
 		</div>
 	);
 }
