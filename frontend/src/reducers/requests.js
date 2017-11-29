@@ -37,7 +37,7 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
         } else {
             return {...state}
         }
-        case CHANGE_LOCATION:
+    case CHANGE_LOCATION:
         console.log(action, 'STATE');
         if(state.deliveryGuy){
             console.log(action.data.deliveryGuy, 'DELIVERY GUY KAD SE PROMJENI LOKACIJA IZ REDUCERS')
@@ -158,19 +158,17 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 requestSent: true
             };
         case REQUEST_ACCEPTED:
-        console.log(action.data.deliveryGuy, 'DELIVERY GUY FROM REDUCER WHEN ACCEPTED');
+        console.log(action.data.locationName, 'DELIVERY GUY FROM REDUCER WHEN ACCEPTED');
             return {
                 ...state,
                 requestAccepted: true,
                 deliveryGuy: action.data.deliveryGuy,
-                locationName: action.data.locationName,
-                redirectTo: '/messages'
+                locationName: action.data.locationName
             };
         case ACCEPT_REQUEST:
             return {
                 ...state,
-                acceptedRequest: true,
-                redirectTo: '/messages'
+                acceptedRequest: true
             };
         case REDIRECT_TO_MAIN:
             return {

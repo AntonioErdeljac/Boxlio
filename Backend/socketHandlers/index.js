@@ -206,8 +206,9 @@ exports = module.exports = function(io){
             client.save(err => console.log(err));
             User.geoNear(
                 {type: 'Point', coordinates: [client.geometry.coordinates[0], client.geometry.coordinates[1]]},
-                {maxDistance: 10000, spherical: true}
+                {maxDistance: 50000, spherical: true}
             ).then(function(users){
+                console.log(users, 'INITIAL USERS')
                 let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode === true && user.obj.available === true );
                 let user = filteredUsers[Math.floor(Math.random()*filteredUsers.length)];
                 console.log(user, 'IZABRANI KORISNIK'),
@@ -347,7 +348,7 @@ exports = module.exports = function(io){
                         return chat.save().then(function(){
                             io.in(data.client.username).emit('REQUEST_ACCEPTED', {
                                 deliveryGuy: data.deliveryGuy,
-                                locationName: data.locationName
+                                locationName: newDeliveryJob.deliveryGuyLocationName
                         });
                         io.in(data.deliveryGuy.username).emit('SUCCESS_REQUEST_ACCEPTED', {
                             client: data.client
@@ -389,6 +390,7 @@ exports = module.exports = function(io){
       });
   
     socket.on('UPDATE_DELIVERY_GUY_LOCATION', function(data){
+        console.log(data, 'DELIVERY GUY LOCATION FIX');
       io.in(data.client.username).emit('DELIVERY_GUY_CHANGE_LOCATION', {
           deliveryGuy: data.deliveryGuy,
           locationName: data.locationName

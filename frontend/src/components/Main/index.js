@@ -142,7 +142,7 @@ class Main extends React.Component{
 
             socket.on('DELIVERY_GUY_CHANGE_LOCATION', (data) => {
                 console.log('dobivam lokaciju')
-                if(this.props.deliveryGuy){
+                if(this.props.currentUser.activeDeliveryJob){
                     console.log(data, 'OVO MU TREBA ZA PROMJENU')
                     this.props.onChangeLocationName(data);
                 }
@@ -189,6 +189,7 @@ class Main extends React.Component{
                     if(this.props.acceptedRequest){
                     const client = this.props.client;
                     const currentUser = this.props.currentUser;
+                    console.log(data, 'OVO TRAZIM');
                     this.props.onChangePosition(pos, data);
                     socket.emit('UPDATE_DELIVERY_GUY_LOCATION', {
                         client: client,
