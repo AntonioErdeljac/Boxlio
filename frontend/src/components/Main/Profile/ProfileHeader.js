@@ -5,10 +5,10 @@ const ProfileHeader = props => {
 	return (
 		<div className="container">
 			<div className="row">
-				<div className="col-1">
+				<div className="col-md-1">
 					<img src={props.profile.image} style={{borderRadius: '50%', boxShadow: '0 0 20px 0 rgba(0,0,0,.1)'}} height="70" />
 				</div>
-				<div className="col">
+				<div className="col-md-7">
 					<div>
 						<h5 style={{color: 'rgba(0,0,0,.6)'}}>{props.profile.firstName} {props.profile.lastName}</h5> 
 					</div>

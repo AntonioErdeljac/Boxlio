@@ -36,12 +36,12 @@ router.post('/:username/opinion', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
             let opinion = new Opinion();
             opinion.text = req.body.opinion.text;
-            opinion.author = user._id
+            opinion.author = user;
             opinion.save();
             req.profile.opinions.push(opinion);
             req.profile.save().then(function(){
                 return res.json({
-                    opinion: opinion
+                    opinion: opinion.toJSONFor(user)
                 });
             })
     }).catch(next);

@@ -32,8 +32,9 @@ class Profile extends React.Component{
 		if(this.props.profile){
 			return (
 				<div style={{height: '100%', width: '100%', backgroundColor: '#fff'}}>
-					<div className="container-fluid" style={{paddingTop: '7%'}}>
+					<div className="container" style={{paddingTop: '10%'}}>
 						<ProfileHeader addClient={this.addClient} profile={this.props.profile} currentUser={this.props.currentUser}/>
+						<hr className="my-3" />
 						<ProfileDiscussion opinions={this.props.opinions} profile={this.props.profile}></ProfileDiscussion>
 					</div>
 				</div>
