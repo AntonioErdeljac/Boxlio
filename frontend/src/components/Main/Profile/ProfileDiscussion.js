@@ -10,7 +10,9 @@ const ProfileDiscussion = props => {
                     <div className="row">
                         <div className="col">
                             <h4 className=" my-3" style={{color: 'rgba(0,0,0,.6)'}}>Discussion</h4>
-                            <OpinionInput profile={props.profile} />
+                            {props.currentUser.username !== props.profile.username ?
+                            <OpinionInput profile={props.profile} /> : null}
+
                         </div>
                     </div>
                     <hr />  

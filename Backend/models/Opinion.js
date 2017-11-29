@@ -12,7 +12,8 @@ OpinionSchema.methods.toJSONFor = function(user){
 		text: this.text,
 		author: this.author.toProfileJSONFor(user),
 		likes: this.likes,
-		likers: this.likers
+		likers: this.likers,
+		createdAt: this.createdAt
 	};
 }
 

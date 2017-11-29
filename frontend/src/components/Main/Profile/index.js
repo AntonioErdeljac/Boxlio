@@ -24,7 +24,13 @@ class Profile extends React.Component{
 
 	componentWillReceiveProps(nextProps){
 		if(nextProps.match.params.username !== this.props.match.params.username){
-			this.props.onLoad(agent.Profiles.byName(nextProps.match.params.username))
+			
+		this.props.onLoad(
+			Promise.all([
+				agent.Profiles.byName(nextProps.match.params.username),
+				agent.Profiles.getOpinions(nextProps.match.params.username),
+			])
+		)
 		}
 	}
 
@@ -35,7 +41,7 @@ class Profile extends React.Component{
 					<div className="container" style={{paddingTop: '10%'}}>
 						<ProfileHeader addClient={this.addClient} profile={this.props.profile} currentUser={this.props.currentUser}/>
 						<hr className="my-3" />
-						<ProfileDiscussion opinions={this.props.opinions} profile={this.props.profile}></ProfileDiscussion>
+							<ProfileDiscussion opinions={this.props.opinions} currentUser={this.props.currentUser} profile={this.props.profile}></ProfileDiscussion>
 					</div>
 				</div>
 			);

@@ -13,6 +13,11 @@ router.param('username', function(req,res,next, username){
         path: 'opinions',
         populate: {
             path: 'author'
+        },
+        options: {
+            sort: {
+                createdAt: 'desc'
+            }
         }
     })
     .then(function(user){
