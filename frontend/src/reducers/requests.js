@@ -37,18 +37,14 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
         } else {
             return {...state}
         }
-    case CHANGE_LOCATION:
-        if(state.deliveryGuy){
-
-            console.log(action, 'STATE');
-            console.log(action.data.deliveryGuy, 'DELIVERY GUY KAD SE PROMJENI LOKACIJA IZ REDUCERS')
+        case CHANGE_LOCATION:
             
             return {
                 ...state,
                 locationName: action.data.locationName,
                 deliveryGuy: action.data.deliveryGuy
             };
-        }
+        
         case SET_REQUEST:
             return {
                 ...state,

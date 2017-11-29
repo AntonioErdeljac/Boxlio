@@ -146,7 +146,7 @@ class Main extends React.Component{
 
             socket.on('DELIVERY_GUY_CHANGE_LOCATION', (data) => {
                 console.log('dobivam lokaciju')
-                if(this.props.currentUser.isOrdering){
+                if(1){
                     console.log(data, 'OVO MU TREBA ZA PROMJENU')
                     this.props.onChangeLocationName(data);
                 }

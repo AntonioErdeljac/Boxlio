@@ -161,9 +161,6 @@ exports = module.exports = function(io){
                         io.in(client.username).emit('RECEIVE_CANCEL_DELIVERY_JOB_DELIVERY_GUY', {
                             deliveryGuy: deliveryGuy
                         })
-                        io.in(deliveryGuy.username).emit('UPDATE_CURRENT_USER', {
-                            currentUser: deliveryGuy
-                        })
                     })
                 })
             })
@@ -197,10 +194,6 @@ exports = module.exports = function(io){
                         io.in(deliveryGuy.username).emit('RECEIVE_CANCEL_DELIVERY_JOB_CLIENT', {
                             client: client
                         });
-
-                        io.in(client.username).emit('UPDATE_CURRENT_USER', {
-                            currentUser: client
-                        })
                     })
                 })
             })
@@ -357,9 +350,9 @@ exports = module.exports = function(io){
                                 deliveryGuy: data.deliveryGuy,
                                 locationName: newDeliveryJob.deliveryGuyLocationName
                         });
-                        io.in(data.deliveryGuy.username).emit('SUCCESS_REQUEST_ACCEPTED', {
-                            client: data.client
-                        })
+                            io.in(data.deliveryGuy.username).emit('SUCCESS_REQUEST_ACCEPTED', {
+                                client: data.client
+                            })
                         })
                     }
                     else if(!chat){
@@ -398,10 +391,17 @@ exports = module.exports = function(io){
   
     socket.on('UPDATE_DELIVERY_GUY_LOCATION', function(data){
         console.log(data, 'DELIVERY GUY LOCATION FIX');
-      io.in(data.client.username).emit('DELIVERY_GUY_CHANGE_LOCATION', {
-          deliveryGuy: data.deliveryGuy,
-          locationName: data.locationName
-      })
+        User.findOne({username: data.client.username}).then(function(client){
+            User.findOne({username: data.deliveryGuy.username}).then(function(deliveryGuy){
+                if(client.isOrdering && deliveryGuy.isDelivering){
+
+                  io.in(data.client.username).emit('DELIVERY_GUY_CHANGE_LOCATION', {
+                      deliveryGuy: data.deliveryGuy,
+                      locationName: data.locationName
+                  })
+                }
+            })
+        })
     });
   
     socket.on('USER_IS_TYPING', function(data){
