@@ -32,7 +32,7 @@ const setFromHandler = (latLng) => {
         .then(function(data) {
             setFrom(lat,lng,data.results[0].formatted_address);
         });
-}
+};
 
 
 
