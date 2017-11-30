@@ -63,8 +63,8 @@ exports = module.exports = function(io){
             User.findOne({username: data.client.username}).then(function(client){
                 deliveryGuy.isDelivering = false;
                 deliveryGuy.isOrdering = false;
-                deliveryGuy.earnedMoney += deliveryGuy.activeDeliveryJob[0].price;
-                deliveryGuy.deliveredItems += deliveryGuy.activeDeliveryJob[0].item;
+                deliveryGuy.earnedMoney += deliveryGuy.activeDeliveryJob.price;
+                deliveryGuy.deliveredItems += deliveryGuy.activeDeliveryJob.item;
                 deliveryGuy.ratings.push(data.rating);
                 deliveryGuy.save(err => console.log(err)).then(function(){
                     deliveryGuy.activeDeliveryJob = null;
@@ -84,7 +84,7 @@ exports = module.exports = function(io){
                     message.body = 'Thank you for your delivery!'
                     message.save();
 
-                    chat.messages.push(message);
+                    chat.messages.push(message._id);
                     chat.save();
 
                     io.in(deliveryGuy.username).emit('SUCCESS_COMPLETE_DELIVERY', {
@@ -121,7 +121,7 @@ exports = module.exports = function(io){
                 message.body = 'You have not delivered what I wanted.'
                 message.save();
 
-                chat.messages.push(message);
+                chat.messages.push(message._id);
                 chat.save();
 
                 //opet success zato jer ne radi ništa posebno šta bi failure
@@ -156,7 +156,7 @@ exports = module.exports = function(io){
                 message.save();
 
                 Chat.findOne({users: {$all: [client, deliveryGuy]}}).then(function(chat){
-                    chat.messages.push(message);
+                    chat.messages.push(message._id);
                     return chat.save().then(function(){
                         io.in(client.username).emit('RECEIVE_CANCEL_DELIVERY_JOB_DELIVERY_GUY', {
                             deliveryGuy: deliveryGuy
@@ -189,7 +189,7 @@ exports = module.exports = function(io){
                 message.save();
 
                 Chat.findOne({users: {$all: [client, deliveryGuy]}}).then(function(chat){
-                    chat.messages.push(message);
+                    chat.messages.push(message._id);
                     return chat.save().then(function(){
                         io.in(deliveryGuy.username).emit('RECEIVE_CANCEL_DELIVERY_JOB_CLIENT', {
                             client: client
@@ -208,11 +208,11 @@ exports = module.exports = function(io){
                 {type: 'Point', coordinates: [client.geometry.coordinates[0], client.geometry.coordinates[1]]},
                 {maxDistance: 50000, spherical: true}
             ).then(function(users){
-                console.log(users, 'INITIAL USERS')
-                let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode === true && user.obj.available == true );
+                console.log(users, 'INITIAL USERS');
+                let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode === true && user.obj.available === true );
                 let user = filteredUsers[Math.floor(Math.random()*filteredUsers.length)];
-                console.log(user, 'IZABRANI KORISNIK'),
-                console.log(filteredUsers, 'izabrani useri')
+                console.log(user, 'IZABRANI KORISNIK');
+                console.log(filteredUsers, 'izabrani useri');
                 if(user){
                     if(user.obj.deliveryMode) {
                         if(data.transportation !== ''){
@@ -287,99 +287,101 @@ exports = module.exports = function(io){
             User.findOne({username: data.client.username}).then(function(client){
                 if(!client.isOrdering && client.isRequesting){
                     let newDeliveryJob = new DeliveryJob();
-                newDeliveryJob.client = client;
-                newDeliveryJob.deliveryGuy = deliveryGuy.toProfileJSONFor(client);
-                newDeliveryJob.price = data.price,
-                newDeliveryJob.transportation = data.transportation,
-                newDeliveryJob.item = data.item,
-                newDeliveryJob.fromName = data.fromName,
-                newDeliveryJob.toName = data.locationName,
-                newDeliveryJob.deliveryGuyLocationName = data.deliveryGuyLocationName,
-                newDeliveryJob.toLocation = [data.client.geometry[0], data.client.geometry[1]],
-                newDeliveryJob.fromLocation = [data.lat, data.lng];
-                newDeliveryJob.save(err => {
-                    if(err){
-                        console.log(err);
-                    }
-                });
-                client.isOrdering = true;
-                client.isRequesting = false;
-                client.activeDeliveryJob = newDeliveryJob;
-                client.save(err => {
-                    if(err){
-                        console.log(err);
-                    }
-                });
-                deliveryGuy.isDelivering = true;
-                deliveryGuy.activeDeliveryJob = newDeliveryJob;
-                deliveryGuy.save(err => {
-                    if(err){
-                        console.log(err);
-                    }
-                });
-                deliveryGuy.addClient(client._id);
-                deliveryGuy.save();
-                client.addClient(deliveryGuy._id);
-                client.save();
-                let name = deliveryGuy.username+'_and_'+client.username;
-                Chat.findOne({users: {$all: [deliveryGuy, client]}})
-                .populate('messages')
-                .populate('users')
-                .populate({
-                    path: 'messages',
-                    populate: {
-                        path: 'receiver'
-                    }
-                })
-                .populate({
-                    path: 'messages',
-                    populate: {
-                        path: 'author'
-                    }
-                })
-                .then(function(chat){
-                    if(chat){
-                        let message = new Message();
-                        message.author = deliveryGuy;
-                        message.receiver = client;
-                        message.body = `Hello again ${client.firstName}! I am your delivery guy. Please describe what kind of products do you want me to buy.`
-                        message.save();
-                        chat.messages.push(message);
-                        return chat.save().then(function(){
-                            io.in(data.client.username).emit('REQUEST_ACCEPTED', {
-                                deliveryGuy: data.deliveryGuy,
-                                locationName: newDeliveryJob.deliveryGuyLocationName
+                    newDeliveryJob.client = client._id;
+                    newDeliveryJob.deliveryGuy = deliveryGuy._id;
+                    newDeliveryJob.price = data.price;
+                    newDeliveryJob.transportation = data.transportation;
+                    newDeliveryJob.item = data.item;
+                    newDeliveryJob.fromName = data.fromName;
+                    newDeliveryJob.toName = data.locationName;
+                    newDeliveryJob.deliveryGuyLocationName = data.deliveryGuyLocationName;
+                    newDeliveryJob.toLocation = [data.client.geometry[0], data.client.geometry[1]];
+                    newDeliveryJob.fromLocation = [data.lat, data.lng];
+                    newDeliveryJob.save().then(function(){
+                        client.isOrdering = true;
+                        client.isRequesting = false;
+                        client.activeDeliveryJob = newDeliveryJob._id;
+                        client.addClient(deliveryGuy._id);
+                        client.save(err => {
+                            if(err){
+                                console.log(err);
+                            }
                         });
-                            io.in(data.deliveryGuy.username).emit('SUCCESS_REQUEST_ACCEPTED', {
-                                client: data.client
+                        deliveryGuy.isDelivering = true;
+                        deliveryGuy.activeDeliveryJob = newDeliveryJob._id;
+                        deliveryGuy.addClient(client._id);
+                        deliveryGuy.save(err => {
+                            if(err){
+                                console.log(err);
+                            }
+                        });
+
+
+
+                        let name = deliveryGuy.username+'_and_'+client.username;
+                        Chat.findOne({users: {$all: [deliveryGuy, client]}})
+                            .populate('messages')
+                            .populate('users')
+                            .populate({
+                                path: 'messages',
+                                populate: {
+                                    path: 'receiver'
+                                }
                             })
-                        })
-                    }
-                    else if(!chat){
-                      const nChat = new Chat();
-                      nChat.users.push(deliveryGuy, client);
-                      nChat.save(function(err){
-                          if(err){
-                              console.log(err);
-                          }
-                      })
-                      let message = new Message();
-                      message.author = deliveryGuy;
-                      message.receiver = client;
-                      message.body = `Hi ${client.firstName}! I am your delivery guy. Please describe what kind of products do you want me to buy.`
-                      message.save();
-                      nChat.messages.push(message);
-                      return nChat.save(function(err){console.log(err)}).then(function(){
-                              io.in(data.client.username).emit('REQUEST_ACCEPTED', {
-                                  deliveryGuy: data.deliveryGuy,
-                                  locationName: data.locationName
-                              });
-                              io.in(data.deliveryGuy.username).emit('SUCCESS_REQUEST_ACCEPTED', {
-                                  client: data.client
-                              })
-                          })
-                      }
-                  })
+                            .populate({
+                                path: 'messages',
+                                populate: {
+                                    path: 'author'
+                                }
+                            })
+                            .then(function(chat){
+                                if(chat){
+                                    let message = new Message();
+                                    message.author = deliveryGuy;
+                                    message.receiver = client;
+                                    message.body = `Hello again ${client.firstName}! I am your delivery guy. Please describe what kind of products do you want me to buy.`
+                                    message.save();
+                                    chat.messages.push(message._id);
+                                    return chat.save().then(function(){
+                                        io.in(data.client.username).emit('REQUEST_ACCEPTED', {
+                                            deliveryGuy: data.deliveryGuy,
+                                            locationName: newDeliveryJob.deliveryGuyLocationName
+                                        });
+                                        io.in(data.deliveryGuy.username).emit('SUCCESS_REQUEST_ACCEPTED', {
+                                            client: data.client
+                                        })
+                                    })
+                                }
+                                else if(!chat){
+                                    const nChat = new Chat();
+                                    nChat.users.push(deliveryGuy._id, client._id);
+                                    nChat.save(function(err){
+                                        if(err){
+                                            console.log(err);
+                                        }
+                                    });
+                                    let message = new Message();
+                                    message.author = deliveryGuy;
+                                    message.receiver = client;
+                                    message.body = `Hi ${client.firstName}! I am your delivery guy. Please describe what kind of products do you want me to buy.`
+                                    message.save();
+                                    nChat.messages.push(message._id);
+                                    return nChat.save(function(err){console.log(err)}).then(function(){
+                                        io.in(data.client.username).emit('REQUEST_ACCEPTED', {
+                                            deliveryGuy: data.deliveryGuy,
+                                            locationName: data.locationName
+                                        });
+                                        io.in(data.deliveryGuy.username).emit('SUCCESS_REQUEST_ACCEPTED', {
+                                            client: data.client
+                                        })
+                                    })
+                                }
+                            })
+
+
+                    });
+
+
                 } else {
                     io.in(deliveryGuy.username).emit('FAILURE_REQUEST_ACCEPTED', {
                         client: data.client
@@ -431,7 +433,7 @@ exports = module.exports = function(io){
             message.body = data.body;
             message.save();
   
-            chat.messages.push(message);
+            chat.messages.push(message._id);
             return chat.save().then(function(){
                 let nameAlt = data.name.split('_')[2]+'_and_'+data.name.split('_')[0];
                 io.to(data.name).emit('RECEIVE_MESSAGE', {

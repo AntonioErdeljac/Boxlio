@@ -6,20 +6,20 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
         
         case 'SET_ACTIVE_DELIVERY_JOB':
         console.log(action);
-        if(action.job[0]){
+        if(action.job){
             return {
                 ...state,
-                from: action.job[0].fromName,
-                lat: action.job[0].fromLocation[0],
-                lng: action.job[0].fromLocation[1],
-                clientLat: action.job[0].client.geometry.coordinates[0],
-                clientLng: action.job[0].client.geometry.coordinates[1],
+                from: action.job.fromName,
+                lat: action.job.fromLocation[0],
+                lng: action.job.fromLocation[1],
+                clientLat: action.job.client.geometry.coordinates[0],
+                clientLng: action.job.client.geometry.coordinates[1],
                 requestReceived: true,
                 initialSet: true,
                 placeChoosen: true,
                 placeChoosenFrom: true,
                 checkSet: true,
-                to: action.job[0].toName
+                to: action.job.toName
             }
         } else {
             return {...state}

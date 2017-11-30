@@ -1,10 +1,10 @@
-var mongoose = require('mongoose');
-var crypto = require('crypto');
-var jwt = require('jsonwebtoken');
-var secret = require('../config').secret;
-var uniqueValidator = require('mongoose-unique-validator');
+let mongoose = require('mongoose');
+let crypto = require('crypto');
+let jwt = require('jsonwebtoken');
+let secret = require('../config').secret;
+let uniqueValidator = require('mongoose-unique-validator');
 
-var GeoSchema = new mongoose.Schema({
+let GeoSchema = new mongoose.Schema({
     type: {
         type: String,
         default: "Point"
@@ -16,7 +16,7 @@ var GeoSchema = new mongoose.Schema({
 });
 
 
-var UserSchema = new mongoose.Schema({
+let UserSchema = new mongoose.Schema({
     firstName: {type: String, required: [true, "is required"], index: true},
     lastName: {type: String, required: [true, "is required"], index: true},
     username: {type: String, required: [true, "is required"], index: true, unique: true, lowercase: true},
@@ -27,7 +27,7 @@ var UserSchema = new mongoose.Schema({
     salt: String,
     hash: String,
     deliveryMode: {type: Boolean},
-    activeDeliveryJob: [{type: mongoose.Schema.Types.ObjectId, ref: 'DeliveryJob'}],
+    activeDeliveryJob: {type: mongoose.Schema.Types.ObjectId, ref: 'DeliveryJob'},
     isDelivering: {type: Boolean, default: false},
     isOrdering: {type: Boolean, default: false},
     earnedMoney: {type: Number, default: 0},
@@ -48,13 +48,13 @@ UserSchema.methods.setPassword = function(password){
 };
 
 UserSchema.methods.checkPassword = function(password){
-    var hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
+    let hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
     return this.hash === hash;
 };
 
 UserSchema.methods.generateJWT = function(){
-    var today = new Date();
-    var exp = new Date(today);
+    let today = new Date();
+    let exp = new Date(today);
     exp.setDate(today.getDate()+60);
 
     return jwt.sign({

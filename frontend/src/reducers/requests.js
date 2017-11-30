@@ -13,26 +13,26 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
         return {
             ...state,
             sentCompleteChoice: true
-        }
+        };
         case 'SET_COMPLETE_CHOICE':
             return {
                 ...state,
                 completeChoice: true
             };
         case 'SET_ACTIVE_DELIVERY_JOB':
-        if(action.job[0]){
-            console.log(action.job[0])
+        if(action.job){
+            console.log(action.job, 'AKTIVNI POSAO')
             return {
                 ...state,
                 requestAccepted: true,
                 gotRequest: true,
-                client: action.job[0].client,
-                deliveryGuy: action.job[0].deliveryGuy,
-                item: action.job[0].item,
-                price: action.job[0].price,
+                client: action.job.client,
+                deliveryGuy: action.job.deliveryGuy,
+                item: action.job.item,
+                price: action.job.price,
                 acceptedRequest: true,
                 checkSet: true,
-                locationName: action.job[0].deliveryGuyLocationName
+                locationName: action.job.deliveryGuyLocationName
             }
         } else {
             return {...state}

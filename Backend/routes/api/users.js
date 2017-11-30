@@ -106,10 +106,11 @@ router.get('/user', auth.required, function(req,res,next){
         }
     })
     .then(function(user){
+        console.log(user, 'OVO JE INITIAL USER')
         if(!user){return res.sendStatus(401);}
-        return res.json({
-            user: user.toAuthJSON()
-        });
+            return res.json({
+                user: user.toAuthJSON()
+            });
     }).catch(next);
 });
 

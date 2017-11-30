@@ -18,13 +18,13 @@ class Main extends React.Component{
     render(){
 
         if(this.props.currentUser){
-
-            if(this.props.currentUser.activeDeliveryJob && this.props.currentUser.activeDeliveryJob[0] && !this.props.checkSet){
+            console.log(this.props.currentUser, 'Provjeravam active job');
+            if(this.props.currentUser.activeDeliveryJob && !this.props.checkSet){
                 console.log(this.props.currentUser.activeDeliveryJob, 'JOB');
                 this.props.setActiveDeliveryJob(this.props.currentUser.activeDeliveryJob);
                 const data = {
-                    locationName: this.props.currentUser.activeDeliveryJob[0].toName,
-                    deliveryGuy: this.props.currentUser.activeDeliveryJob[0].deliveryGuy
+                    locationName: this.props.currentUser.activeDeliveryJob.toName,
+                    deliveryGuy: this.props.currentUser.activeDeliveryJob.deliveryGuy
                 };
                 this.props.onChangeLocationName(data);
             }

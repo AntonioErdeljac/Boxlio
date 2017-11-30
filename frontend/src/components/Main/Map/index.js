@@ -55,8 +55,9 @@ const MyMapComponent = compose(
             },
 
             onClick: ({onClick}) => ev => {
-                //mako sam if(!props.requestSent jer se ocito ne updejta)
+                if(!props.deliveryGuy) {
                     setFromHandler(ev.latLng);
+                }
             }
         }
     }),
