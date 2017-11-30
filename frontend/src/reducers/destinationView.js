@@ -5,25 +5,25 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
     switch(action.type){
         
         case 'SET_ACTIVE_DELIVERY_JOB':
-        console.log(action);
-        if(action.job){
-            return {
-                ...state,
-                from: action.job.fromName,
-                lat: action.job.fromLocation[0],
-                lng: action.job.fromLocation[1],
-                clientLat: action.job.client.geometry.coordinates[0],
-                clientLng: action.job.client.geometry.coordinates[1],
-                requestReceived: true,
-                initialSet: true,
-                placeChoosen: true,
-                placeChoosenFrom: true,
-                checkSet: true,
-                to: action.job.toName
+            console.log(action);
+            if(action.job){
+                return {
+                    ...state,
+                    from: action.job.fromName,
+                    lat: action.job.fromLocation[0],
+                    lng: action.job.fromLocation[1],
+                    clientLat: action.job.client.geometry.coordinates[0],
+                    clientLng: action.job.client.geometry.coordinates[1],
+                    requestReceived: true,
+                    initialSet: true,
+                    placeChoosen: true,
+                    placeChoosenFrom: true,
+                    checkSet: true,
+                    to: action.job.toName
+                }
+            } else {
+                return {...state}
             }
-        } else {
-            return {...state}
-        }
         case SET_TO:
             return {
                 ...state,

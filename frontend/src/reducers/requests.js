@@ -95,7 +95,7 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 sentCompleteChoice: false,
                 privateRequest: false,
                 toPrivateDeliveryGuy: false
-            }
+            };
         case 'RECEIVE_CANCEL_FROM_DELIVERY_GUY':
             return {
                 ...state,

@@ -55,7 +55,7 @@ const MyMapComponent = compose(
             },
 
             onClick: ({onClick}) => ev => {
-                if(!props.deliveryGuy) {
+                if(!props.currentUser.isOrdering) {
                     setFromHandler(ev.latLng);
                 }
             }
