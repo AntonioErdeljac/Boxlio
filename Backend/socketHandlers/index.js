@@ -7,30 +7,129 @@ let DeliveryJob = mongoose.model('DeliveryJob');
 exports = module.exports = function(io){
     io.sockets.on('connection', function(socket){
     console.log(socket.id);
-    socket.removeAllListeners()
-  
+    socket.removeAllListeners();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     socket.on('JOIN_SELF_GROUP', function(data){
         User.findOne({username: data.user.username}).then(function(user){
             user.isRequesting = false;
             user.save();
-        })
+        });
         console.log('JOINAM', data.user.username);
         socket.join(data.user.username);
         io.in('driver').emit('TEST');
     });
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     socket.on('JOIN_DRIVER_GROUP', function(){
       socket.join('drivers');
     });
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     socket.on('JOIN_CHATROOM', function(data){
         socket.join(data.name);
     });
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     socket.on('LEAVE_CHATROOM', function(data){
         socket.leave(data.name);
-    })
-  
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     socket.on('NEAR_DRIVERS', function(data){
         User.findOne({username: data.user.username}).then(function(user){
             User.geoNear(
@@ -50,11 +149,52 @@ exports = module.exports = function(io){
         });
     });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     socket.on('COMEPLETE_DELIVERY', function(data){
         User.findOne({username: data.client.username}).then(function(user){
             io.in(user.username).emit('RECEIVE_COMPLETE_DELIVERY');
         })
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     socket.on('CONFIRM_COMPLETED_DELIVERY', function(data){
         User.findOne({username: data.deliveryGuy.username})
@@ -96,43 +236,86 @@ exports = module.exports = function(io){
         })
     });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     socket.on('DECLINE_COMPLETED_DELIVERY', data => {
         User.findOne({username: data.deliveryGuy.username})
         .populate('activeDeliveryJob')    
         .then(function(deliveryGuy){
-        User.findOne({username: data.client.username}).then(function(client){
-            deliveryGuy.isDelivering = false;
-            deliveryGuy.isOrdering = false;
-            deliveryGuy.save(err => console.log(err)).then(function(){
-                deliveryGuy.activeDeliveryJob = null;
-                deliveryGuy.save();
-            });
+            User.findOne({username: data.client.username}).then(function(client){
+                deliveryGuy.isDelivering = false;
+                deliveryGuy.isOrdering = false;
+                deliveryGuy.save(err => console.log(err)).then(function(){
+                    deliveryGuy.activeDeliveryJob = null;
+                    deliveryGuy.save();
+                });
 
 
-            client.activeDeliveryJob = null;
-            client.isDelivering = false;
-            client.isOrdering = false;
-            client.save();
+                client.activeDeliveryJob = null;
+                client.isDelivering = false;
+                client.isOrdering = false;
+                client.save();
 
-            Chat.findOne({users: {$all: [client, deliveryGuy]}}).then(function(chat){
-                let message = new Message();
-                message.author = client;
-                message.receiver = deliveryGuy;
-                message.body = 'You have not delivered what I wanted.'
-                message.save();
+                Chat.findOne({users: {$all: [client, deliveryGuy]}}).then(function(chat){
+                    let message = new Message();
+                    message.author = client;
+                    message.receiver = deliveryGuy;
+                    message.body = 'You have not delivered what I wanted.';
+                    message.save();
 
-                chat.messages.push(message._id);
-                chat.save();
+                    chat.messages.push(message._id);
+                    chat.save();
 
-                //opet success zato jer ne radi ništa posebno šta bi failure
-                io.in(deliveryGuy.username).emit('SUCCESS_COMPLETE_DELIVERY', {
-                    client: client,
-                    currentUser: deliveryGuy
+                    //opet success zato jer ne radi ništa posebno šta bi failure
+                    io.in(deliveryGuy.username).emit('SUCCESS_COMPLETE_DELIVERY', {
+                        client: client,
+                        currentUser: deliveryGuy
+                    })
                 })
             })
         })
-    })
-    })
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     socket.on('CANCEL_DELIVERY_JOB_DELIVERY_GUY', function(data){
         User.findOne({username: data.client.username}).then(function(client){
@@ -165,12 +348,25 @@ exports = module.exports = function(io){
                 })
             })
         })
-    })
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     socket.on('CANCEL_DELIVERY_JOB_CLIENT', function(data){
         User.findOne({username: data.client.username}).then(function(client){
             User.findOne({username: data.deliveryGuy.username}).then(function(deliveryGuy){
-                console.log(deliveryGuy.username, 'USERNAME')
+                console.log(deliveryGuy.username, 'USERNAME');
 
                 client.isOrdering = false;
                 client.isDelivering = false;
@@ -198,7 +394,32 @@ exports = module.exports = function(io){
                 })
             })
         })
-    })
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
     socket.on('REQUEST_DRIVER', function(data){
         User.findOne({username: data.user.username}).then(function(client){
@@ -247,7 +468,26 @@ exports = module.exports = function(io){
             });
         });
     });
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
     socket.on('SAVE_LOCATION', function(data){
         console.log('SAVING POSITION', data.user.username);
@@ -258,15 +498,36 @@ exports = module.exports = function(io){
         })
     });
   
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     socket.on('NEAR_CLIENTS', function(data){
         User.findOne({username: data.user.username}).then(function(user){
             User.geoNear(
                 {type: 'Point', coordinates: [parseFloat(user.geometry.coordinates[0]), parseFloat(user.geometry.coordinates[1])]},
                   {maxDistance: 100000, spherical: true}
             ).then(function(users){
-                var count = 0;
-                for(var i = 0; i<users.length; i++){
+                let count = 0;
+                for(let i = 0; i<users.length; i++){
   
                         console.log(users[i].obj);
                         if(!users[i].obj.deliveryMode){
@@ -281,7 +542,34 @@ exports = module.exports = function(io){
         })
     });
   
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     socket.on('ACCEPT_REQUEST', function(data){
         User.findOne({username: data.deliveryGuy.username}).then(function(deliveryGuy){
             User.findOne({username: data.client.username}).then(function(client){
@@ -390,7 +678,19 @@ exports = module.exports = function(io){
                 })
           })
       });
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
     socket.on('UPDATE_DELIVERY_GUY_LOCATION', function(data){
         console.log(data, 'DELIVERY GUY LOCATION FIX');
         User.findOne({username: data.client.username}).then(function(client){
@@ -405,19 +705,60 @@ exports = module.exports = function(io){
             })
         })
     });
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     socket.on('USER_IS_TYPING', function(data){
       io.to(data.name).emit('RECEIVE_USER_IS_TYPING', {
           author: data.author
       })
     });
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
     socket.on('USER_STOPPED_TYPING', function(data){
         io.to(data.name).emit('RECEIVE_USER_STOPPED_TYPING', {
             author: data.author
         })
     });
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     socket.on('SEND_MESSAGE', function(data){
         Promise.all([
             User.findOne({username: data.receiver}),
@@ -446,7 +787,22 @@ exports = module.exports = function(io){
   
           })
         })
-    })
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     socket.on('REQUEST_PRIVATE_DRIVER', function(data){
         console.log(data.deliveryGuy, 'PRIVATE DELIVERy GUY');
@@ -467,5 +823,25 @@ exports = module.exports = function(io){
             })
         })
     })
+
+
+
+
+
+
+
+
+
+
   });
-}
+
+
+
+
+
+
+
+
+
+
+};
