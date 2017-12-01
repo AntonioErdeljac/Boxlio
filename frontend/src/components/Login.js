@@ -6,7 +6,7 @@ import agent from "../agent";
 import Errors from "./Errors";
 import {Link} from "react-router-dom";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {UPDATE_FIELD_LOGIN, LOGIN} from "../constants/actions";
+import * as actions from "../constants/actions";
 
 class Login extends React.Component{
     handleClickOutside = evt => {
@@ -85,11 +85,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onChangeEmail: value =>
-        dispatch({type: UPDATE_FIELD_LOGIN, key: 'emailL', value}),
+        dispatch({type: actions.UPDATE_FIELD_LOGIN, key: 'emailL', value}),
     onChangePassword: value =>
-        dispatch({type: UPDATE_FIELD_LOGIN, key: 'passwordL', value}),
+        dispatch({type: actions.UPDATE_FIELD_LOGIN, key: 'passwordL', value}),
     onSubmitForm: (email, password) =>
-        dispatch({type: LOGIN, payload: agent.Auth.login(email, password)})
+        dispatch({type: actions.LOGIN, payload: agent.Auth.login(email, password)})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(onClickOutside(Login));

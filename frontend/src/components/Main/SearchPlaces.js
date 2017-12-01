@@ -5,7 +5,7 @@ import {
     withScriptjs,
 } from "react-google-maps";
 import StandaloneSearchBox from "react-google-maps/lib/components/places/StandaloneSearchBox";
-import {SET_FROM, UPDATE_FROM_NAME} from "../../constants/actions";
+import * as actions from "../../constants/actions";
 
 const SearchPlaces = compose(
     withProps({
@@ -68,10 +68,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onSaveFrom: places =>
-        dispatch({type: SET_FROM, places}),
+        dispatch({type: actions.SET_FROM, places}),
 
     onUpdateFromName:(name) =>
-        dispatch({type: UPDATE_FROM_NAME, name})
+        dispatch({type: actions.UPDATE_FROM_NAME, name})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPlaces);

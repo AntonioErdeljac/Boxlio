@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import ProfileHeader from "./ProfileHeader";
 import ProfileDiscussion from "./ProfileDiscussion";
 import agent from "../../../agent";
+import * as actions from "../../../constants/actions";
 
 class Profile extends React.Component{
 	componentWillMount(){
@@ -57,9 +58,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	onLoad: payload =>
-		dispatch({type: 'PROFILE_PAGE_LOADED', payload}),
+		dispatch({type: actions.PROFILE_PAGE_LOADED, payload}),
 	onAddClient: payload =>
-		dispatch({type: 'ADD_CLIENT', payload})
+		dispatch({type: actions.ADD_CLIENT, payload})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

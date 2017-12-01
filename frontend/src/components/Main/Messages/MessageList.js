@@ -3,6 +3,7 @@ import Message from "./Message";
 import io from "socket.io-client";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
+import * as actions from "../../../constants/actions";
 import $ from "jquery";
 
 class MessageList extends React.Component{
@@ -132,9 +133,9 @@ class MessageList extends React.Component{
 
 const mapDispatchToProps = dispatch => ({
     onSetActiveChat: name =>
-        dispatch({type: 'SET_ACTIVE_CHAT', name}),
+        dispatch({type: actions.SET_ACTIVE_CHAT, name}),
     onAddMessage: data =>
-    dispatch({type: 'ADD_MESSAGE', data})
+    dispatch({type: actions.ADD_MESSAGE, data})
 })
 
 const mapStateToProps = state => ({

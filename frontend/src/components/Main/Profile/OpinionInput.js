@@ -1,6 +1,7 @@
 import React from "react";
 import agent from "../../../agent";
 import {connect} from "react-redux";
+import * as actions from "../../../constants/actions";
 
 class OpinionInput extends React.Component{
 	constructor(props){
@@ -49,7 +50,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	onSubmit: payload =>
-		dispatch({type: 'ADD_OPINION', payload})
+		dispatch({type: actions.ADD_OPINION, payload})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OpinionInput);

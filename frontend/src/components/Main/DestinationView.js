@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import SearchPlaces from "./SearchPlaces";
 import SearchPlacesTo from "./SearchPlacesTo";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {SEND_REQUEST, SET_TO, CANCEL_REQUEST} from "../../constants/actions";
+import * as actions from "../../constants/actions";
 import agent from "../../agent";
 
 
@@ -385,15 +385,15 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onSetFrom: data =>
-        dispatch({type: SET_TO, data}),
+        dispatch({type: actions.SET_TO, data}),
     onSendRequest: () =>
-        dispatch({type: SEND_REQUEST}),
+        dispatch({type: actions.SEND_REQUEST}),
     onCancelRequest: payload =>
-        dispatch({type: CANCEL_REQUEST, payload}),
+        dispatch({type: actions.CANCEL_REQUEST, payload}),
     onChangeTravelMode: field =>
-        dispatch({type: 'CHANGE_TRAVEL_MODE', field}),
+        dispatch({type: actions.CHANGE_TRAVEL_MODE, field}),
     confirmCompletedDelivery: () =>
-        dispatch({type: 'CONFIRM_COMPLETED_DELIVERY'})
+        dispatch({type: actions.CONFIRM_COMPLETED_DELIVERY})
 });
 
 

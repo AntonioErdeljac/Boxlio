@@ -3,7 +3,7 @@ import jQuery from 'jquery';
 import onClickOutside from "react-onclickoutside";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-import {LOGOUT} from "../constants/actions";
+import * as actions from "../constants/actions";
 
 class CurrentUserDropDown extends React.Component{
     render(){
@@ -21,7 +21,7 @@ class CurrentUserDropDown extends React.Component{
 
 const mapDispatchToProps = dispatch => ({
     onClickLogout: () =>
-        dispatch({type: LOGOUT})
+        dispatch({type: actions.LOGOUT})
 });
 
 export default connect(null, mapDispatchToProps)(CurrentUserDropDown);

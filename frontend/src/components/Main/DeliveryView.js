@@ -1,6 +1,7 @@
 import React from "react";
 import SearchPlacesDelivery from "./SearchPlacesDelivery";
 import {connect} from "react-redux";
+import * as actions from "../../constants/actions";
 
 class DeliveryView extends React.Component{
 
@@ -77,7 +78,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onSetFrom: data =>
-        dispatch({type: 'SET_TO', data})
+        dispatch({type: actions.SET_TO, data})
 });
 
 

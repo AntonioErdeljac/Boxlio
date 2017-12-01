@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import AvailableDeliveryUsers from "./AvailableDeliveryUsers";
 import agent from "../../../agent";
+import * as actions from "../../../constants/actions";
 
 class Explore extends React.Component{
 	componentWillMount(){
@@ -35,11 +36,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchtoProps = dispatch => ({
 	onLoad: payload =>
-		dispatch({type: 'EXPLORE_PAGE_LOADED', payload}),
+		dispatch({type: actions.EXPLORE_PAGE_LOADED, payload}),
 	onUnload: () =>
-		dispatch({type: 'EXPLORE_PAGE_UNLOADED'}),
+		dispatch({type: actions.EXPLORE_PAGE_UNLOADED}),
 	onAddClient: payload =>
-		dispatch({type: 'ADD_CLIENT', payload})
+		dispatch({type: actions.ADD_CLIENT, payload})
 })
 
 export default connect(mapStateToProps, mapDispatchtoProps)(Explore);

@@ -2,6 +2,7 @@
 import React from 'react';
 import agent from "../../agent";
 import {connect} from "react-redux";
+import * as actions from "../../constants/actions";
 
 const UsersList = props => {
     if(props.profiles){
@@ -62,7 +63,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onLoad: payload =>
-        dispatch({type: 'ACTIVE_DELIVERY_USERS_LOADED', payload})
+        dispatch({type: actions.ACTIVE_DELIVERY_USERS_LOADED, payload})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActiveDeliveryUsers);

@@ -6,7 +6,7 @@ import agent from "../../agent";
 import onClickOutside from "react-onclickoutside";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {withRouter} from "react-router-dom";
-import {SETTINGS_SAVED, REMOVE_FROM_TO} from "../../constants/actions";
+import * as actions from "../../constants/actions";
 
 class Form extends React.Component{
 
@@ -194,9 +194,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onSubmitForm: user =>
-        dispatch({type: SETTINGS_SAVED, payload: agent.Auth.update(user)}),
+        dispatch({type: actions.SETTINGS_SAVED, payload: agent.Auth.update(user)}),
     onRemoveFromTo: () =>
-        dispatch({type: REMOVE_FROM_TO})
+        dispatch({type: actions.REMOVE_FROM_TO})
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Settings));

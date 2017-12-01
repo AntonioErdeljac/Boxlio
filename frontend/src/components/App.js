@@ -12,7 +12,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import io from "socket.io-client";
 import Register from "./Register";
 import Profile from "./Main/Profile";
-import {REDIRECT, APP_LOADED} from "../constants/actions";
+import * as actions from "../constants/actions";
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 
@@ -78,9 +78,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onRedirect: () =>
-        dispatch({type: REDIRECT}),
+        dispatch({type: actions.REDIRECT}),
     onLoad: (payload, token) =>
-        dispatch({type: APP_LOADED, payload, token})
+        dispatch({type: actions.APP_LOADED, payload, token})
     
 });
 

@@ -7,14 +7,15 @@ import DestinationView from "../DestinationView";
 import RequestView from "../RequestView";
 import DeliveryUserInterface from "../DeliveryUserInterface";
 import {styles} from "./mapStyles";
+import * as actions from "../../../constants/actions";
 
 
 const mapLoaded = () => {
-    store.dispatch({type: 'MAP_LOADED'});
+    store.dispatch({type: actions.MAP_LOADED});
 };
 
 const setFrom = (lat, lng, from) => {
-    store.dispatch({type: 'UPDATE_FROM', lat, lng, from})
+    store.dispatch({type: actions.UPDATE_FROM, lat, lng, from})
 };
 
 
@@ -382,9 +383,9 @@ class Map extends React.PureComponent {
 
 const mapDispatchToProps = dispatch => ({
     onTilesLoaded: () =>
-        dispatch({type: 'MAP_LOADED'}),
+        dispatch({type: actions.MAP_LOADED}),
     setFrom: (lat, lng) =>
-        dispatch({type: 'UPDATE_FROM', lat, lng})
+        dispatch({type: actions.UPDATE_FROM, lat, lng})
 });
 
 const mapStateToProps = state => ({

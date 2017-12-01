@@ -6,6 +6,7 @@ import SearchPlaces from "./SearchPlaces";
 import SearchPlacesTo from "./SearchPlacesTo";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import agent from "../../agent";
+import * as actions from "../../constants/actions";
 
 
 class DeliveryUserInterface extends React.Component{
@@ -184,15 +185,15 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onSetFrom: data =>
-        dispatch({type: 'SET_TO', data}),
+        dispatch({type: actions.SET_TO, data}),
     onDeclineRequest: () =>
-        dispatch({type: 'DECLINE_REQUEST'}),
+        dispatch({type: actions.DECLINE_REQUEST}),
     onSetClientCount: data =>
-        dispatch({type: 'SET_CLIENT_COUNT', data}),
+        dispatch({type: actions.SET_CLIENT_COUNT, data}),
     onChangeTransportation: field => 
-        dispatch({type: 'CHANGE_TRANSPORTATION', field}),
+        dispatch({type: actions.CHANGE_TRANSPORTATION, field}),
     onChangeAvailable: (payload) =>
-        dispatch({type: 'CHANGE_AVAILABLE', payload})
+        dispatch({type: actions.CHANGE_AVAILABLE, payload})
 });
 
 

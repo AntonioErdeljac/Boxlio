@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
+import * as actions from "../../../constants/actions";
 
 class Chat extends React.Component{
     constructor(props){
@@ -56,7 +57,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onSetPrivateRequest: (client, deliveryGuy) => 
-        dispatch({type: 'SET_PRIVATE_REQUEST', client, deliveryGuy})
+        dispatch({type: actions.SET_PRIVATE_REQUEST, client, deliveryGuy})
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Chat));

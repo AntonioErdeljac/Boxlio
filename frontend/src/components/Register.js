@@ -5,7 +5,7 @@ import Errors from "./Errors";
 import onClickOutside from "react-onclickoutside";
 import {Link} from "react-router-dom";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {UPDATE_FIELD_AUTH, REGISTER, UPDATE_FIELD_AUTH_LOCATION} from "../constants/actions";
+import * as actions from "../constants/actions";
 
 class Register extends React.Component{
     constructor(props){
@@ -108,21 +108,21 @@ class Register extends React.Component{
 
 const mapDispatchToProps = dispatch => ({
     onChangeUsername: value =>
-        dispatch({type: UPDATE_FIELD_AUTH, key: 'username', value}),
+        dispatch({type: actions.UPDATE_FIELD_AUTH, key: 'username', value}),
     onChangeEmail: value =>
-        dispatch({type: UPDATE_FIELD_AUTH, key: 'email', value}),
+        dispatch({type: actions.UPDATE_FIELD_AUTH, key: 'email', value}),
     onChangePassword: value =>
-        dispatch({type: UPDATE_FIELD_AUTH, key: 'password', value}),
+        dispatch({type: actions.UPDATE_FIELD_AUTH, key: 'password', value}),
     onChangeLastName: value =>
-        dispatch({type: UPDATE_FIELD_AUTH, key: 'lastName', value}),
+        dispatch({type: actions.UPDATE_FIELD_AUTH, key: 'lastName', value}),
     onChangeFirstName: value =>
-        dispatch({type: UPDATE_FIELD_AUTH, key: 'firstName', value}),
+        dispatch({type: actions.UPDATE_FIELD_AUTH, key: 'firstName', value}),
     onChangeType: value =>
-        dispatch({type: UPDATE_FIELD_AUTH, key: 'type', value}),
+        dispatch({type: actions.UPDATE_FIELD_AUTH, key: 'type', value}),
     onSubmitForm: (firstName, lastName, username, email, password, location, type) =>
-        dispatch({type: REGISTER, payload: agent.Auth.register(firstName, lastName, username, email, password, location, type)}),
+        dispatch({type: actions.REGISTER, payload: agent.Auth.register(firstName, lastName, username, email, password, location, type)}),
     onSetPosition: value =>
-        dispatch({type: UPDATE_FIELD_AUTH_LOCATION, key: 'location', value})
+        dispatch({type: actions.UPDATE_FIELD_AUTH_LOCATION, key: 'location', value})
 
 });
 
@@ -131,39 +131,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
-
-/*<div className="Absolute-Center" >
- <div className="container">
- <div className="row">
- <div className="col-6 offset-3 text-center">
- <img src="images/logo2.png" className="mb-3" height="50" alt=""/>
- <h1 className="display-5 d-none d-lg-block" style={{color: 'rgba(0,0,0,.6)'}}>Register for <b style={{color: "#1fcf7c"}}>Boxlio</b></h1>
- <h6 className="display-7 d-md-none" style={{color: 'rgba(0,0,0,.6)'}}>Register for <b style={{color: "#1fcf7c"}}>Boxlio</b></h6>
- <p className="">Or <Link to="/login"><b style={{color: "#1fcf7c"}}>Login</b></Link></p>
- <Errors errors={this.props.errors}/>
- <form onSubmit={this.submitForm(firstName, lastName, username, email, password)}>
- <fieldset>
- <fieldset className="form-group">
- <input type="text" placeholder="First Name" value={firstName} onChange={this.changeFirstName} className="form-control"/>
- </fieldset>
- <fieldset className="form-group">
- <input type="text" placeholder="Last Name" value={lastName} onChange={this.changeLastName} className="form-control"/>
- </fieldset>
- <fieldset className="form-group">
- <input type="text" className="form-control" value={username} onChange={this.changeUsername} placeholder="Username"/>
- </fieldset>
- <fieldset className="form-group">
- <input type="text" className="form-control" value={email} onChange={this.changeEmail} placeholder="Email"/>
- </fieldset>
- <fieldset className="form-group">
- <input type="password" placeholder="Password" value={password} onChange={this.changePassword} className="form-control"/>
- </fieldset>
- <fieldset className="form-group">
- <button disabled={this.props.inProgress} className="btn btn-primary login-btn" type="submit" style={{backgroundColor: '#1fcf7c', outline: "none"}}>Register</button>
- </fieldset>
- </fieldset>
- </form>
- </div>
- </div>
- </div>
- </div>*/

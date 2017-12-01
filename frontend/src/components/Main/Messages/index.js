@@ -7,6 +7,7 @@ import ClientList from "./ClientList";
 import Chat from "./Chat";
 import ActiveClient from "./ActiveClient";
 import io from "socket.io-client";
+import * as actions from "../../../constants/actions";
 
 class Messages  extends React.Component{
     componentWillMount(){
@@ -74,9 +75,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onLoad: payload =>
-        dispatch({type: 'MESSENGER_PAGE_LOADED', payload}),
+        dispatch({type: actions.MESSENGER_PAGE_LOADED, payload}),
     onUnload: () =>
-        dispatch({type: 'MESSENGER_PAGE_UNLOADED'})
+        dispatch({type: actions.MESSENGER_PAGE_UNLOADED})
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Messages));

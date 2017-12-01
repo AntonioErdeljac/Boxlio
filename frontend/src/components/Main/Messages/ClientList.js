@@ -2,6 +2,7 @@ import React from "react";
 import agent from "../../../agent";
 import {connect} from "react-redux";
 import {Link, withRouter} from "react-router-dom"
+import * as actions from "../../../constants/actions";
 
 class ClientList extends React.Component{
     constructor(props){
@@ -69,9 +70,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onLoad: payload =>
-        dispatch({type: 'CLIENT_LIST_PAGE_LOADED', payload}),
+        dispatch({type: actions.CLIENT_LIST_PAGE_LOADED, payload}),
     onUnload: () =>
-        dispatch({type: 'CLIENT_LIST_PAGE_UNLOADED'})
+        dispatch({type: actions.CLIENT_LIST_PAGE_UNLOADED})
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ClientList));
