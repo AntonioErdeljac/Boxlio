@@ -1,8 +1,8 @@
-var router = require('express').Router();
-var mongoose = require('mongoose');
-var Chat = mongoose.model('Chat');
-var User = mongoose.model('User');
-var auth = require('../auth');
+let router = require('express').Router();
+let mongoose = require('mongoose');
+let Chat = mongoose.model('Chat');
+let User = mongoose.model('User');
+let auth = require('../auth');
 
 
 
@@ -16,8 +16,8 @@ router.param('name', function(req,res,next,name){
         User.findOne({username: name1}),
         User.findOne({username: name2})
     ]).then(function(result){
-        var user1 = result[0];
-        var user2 = result[1];
+        let user1 = result[0];
+        let user2 = result[1];
 
         Chat.findOne({users: {$all: [user1, user2]}})
         .populate('users')
@@ -71,7 +71,7 @@ router.get('/:name', auth.required, function(req,res,next){
         }
         return res.sendStatus(403);
     }).catch(next);
-})
+});
 
 router.get('/:name/messages', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){

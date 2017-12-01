@@ -10,10 +10,6 @@ import agent from "../../agent";
 
 
 class DestinationView extends React.Component{
-    componentWillMount(){
-
-    }
-
     constructor(props){
         super(props);
 
@@ -35,7 +31,7 @@ class DestinationView extends React.Component{
                 this.props.onChangeTravelMode(field);
                 this.setState({transportation: field}); 
             }
-        }
+        };
 
         this.socket = io('localhost:8000');
 
@@ -45,7 +41,7 @@ class DestinationView extends React.Component{
             this.socket.emit('CANCEL_DELIVERY_JOB_CLIENT', {
                 deliveryGuy: this.props.deliveryGuy,
                 client: this.props.currentUser
-            })
+            });
             this.props.onCancelRequest(agent.Auth.update({isRequesting: false, isOrdering: false, isDelivering: false, activeDeliveryJob: null}));
             
         };
@@ -68,7 +64,7 @@ class DestinationView extends React.Component{
             });
 
             this.props.onSendRequest();
-        }
+        };
 
         this.handleSendPrivateRequest = ev => {
             this.socket.emit('REQUEST_PRIVATE_DRIVER', {
@@ -86,7 +82,7 @@ class DestinationView extends React.Component{
             });
 
             this.props.onSendRequest();
-        }
+        };
 
         this.handleConfirmDelivered = ev => {
             ev.preventDefault();
@@ -105,13 +101,14 @@ class DestinationView extends React.Component{
             this.socket.emit('DECLINE_COMPLETED_DELIVERY', {
                 deliveryGuy: this.props.deliveryGuy,
                 client: this.props.currentUser
-            })
+            });
 
             this.props.confirmCompletedDelivery(); //možemo isto koristiti jer iste props postavlja
         }
     }
 
     render(){
+
         if(this.props.positionSet && this.props.currentUser){
 
             const setForm = data => {
@@ -160,19 +157,26 @@ class DestinationView extends React.Component{
                         {this.props.requestAccepted ? null :
                             <div>
                                 {this.props.toPrivateDeliveryGuy ? 
-                                    <div className="text-muted">Private request for <b><span style={{textTransform: 'capitalize'}}>{this.props.toPrivateDeliveryGuy.firstName}</span> <span style={{textTransform: 'capitalize'}}>{this.props.toPrivateDeliveryGuy.lastName}</span></b><img src={this.props.toPrivateDeliveryGuy.image} className="ml-3 mr-2"  height="40" style={{borderRadius: '50%', boxShadow: '0 0 10px 0 rgba(0,0,0,.3)'}} alt=""/> </div>
+                                    <div className="text-muted">
+                                        Private request for
+                                        <b>
+                                            <span style={{textTransform: 'capitalize'}}>{this.props.toPrivateDeliveryGuy.firstName}</span>
+                                            <span style={{textTransform: 'capitalize'}}>{this.props.toPrivateDeliveryGuy.lastName}</span>
+                                        </b>
+                                        <img src={this.props.toPrivateDeliveryGuy.image} className="ml-3 mr-2"  height="40" style={{borderRadius: '50%', boxShadow: '0 0 10px 0 rgba(0,0,0,.3)'}} alt=""/>
+                                    </div>
                                     :
                                     <div className="text-muted">Delivery</div>
                                 }
                                 
                                 <div className="row my-3">
                                     <div className="col-2 mt-2" style={{marginTop: '70px'}}>
-                                        <i className="fa fa-dot-circle-o " style={{color: '#1fcf7c'}}></i>
+                                        <i className="fa fa-dot-circle-o " style={{color: '#1fcf7c'}} />
                                         <br/>
                                         <i className="fa fa-ellipsis-v fa-3x my-2"
-                                           style={{marginLeft: '2px',  color: 'rgba(0,0,0,.2)'}}></i>
+                                           style={{marginLeft: '2px',  color: 'rgba(0,0,0,.2)'}} />
                                         <br/>
-                                        <i className="fa fa-dot-circle-o " style={{color: '#59ABE3'}}></i>
+                                        <i className="fa fa-dot-circle-o " style={{color: '#59ABE3'}} />
                                     </div>
                                     <div className="col-8">
                                         <SearchPlacesTo/>
@@ -181,32 +185,32 @@ class DestinationView extends React.Component{
                                     </div>
                                 </div>
 
-                                <hr syle={{color: 'rgba(0,0,0,.05)'}} />
+                                <hr style={{color: 'rgba(0,0,0,.05)'}} />
                             <div className="text-muted">Transportation</div>
                             <div className="row my-3 ml-3">
                                 <div className="col my-2" style={{marginTop: '70px'}}>
-                                        <i className="fa fa-male " onClick={this.handleChangeTravelMode('walking')} style={this.state.transportation === 'walking' || this.state.transportation === '' ? {color: '#1fcf7c', fontSize: '30px', cursor: 'pointer'} : {color: 'rgba(0,0,0,.3)', fontSize: '30px', cursor: 'pointer'}}></i>
+                                        <i className="fa fa-male " onClick={this.handleChangeTravelMode('walking')} style={this.state.transportation === 'walking' || this.state.transportation === '' ? {color: '#1fcf7c', fontSize: '30px', cursor: 'pointer'} : {color: 'rgba(0,0,0,.3)', fontSize: '30px', cursor: 'pointer'}} />
                                 </div>
                                 <div className="col my-2" style={{marginTop: '70px'}}>
-                                        <i className="fa fa-car " onClick={this.handleChangeTravelMode('car')}style={this.state.transportation === 'car' || this.state.transportation === '' ? {color: '#1fcf7c', fontSize: '30px', cursor: 'pointer'} : {color: 'rgba(0,0,0,.3)', fontSize: '30px', cursor: 'pointer'}}></i>
+                                        <i className="fa fa-car " onClick={this.handleChangeTravelMode('car')}style={this.state.transportation === 'car' || this.state.transportation === '' ? {color: '#1fcf7c', fontSize: '30px', cursor: 'pointer'} : {color: 'rgba(0,0,0,.3)', fontSize: '30px', cursor: 'pointer'}} />
                                 </div>
                                 <div className="col my-2" style={{marginTop: '70px'}}>
-                                        <i className="fa fa-bicycle " onClick={this.handleChangeTravelMode('bicycle')}  style={this.state.transportation === 'bicycle' || this.state.transportation === '' ? {color: '#1fcf7c', fontSize: '30px', cursor: 'pointer'} : {color: 'rgba(0,0,0,.3)', fontSize: '30px', cursor: 'pointer'}}></i>
-                                </div>
-                                
-                                <div className="col my-2" style={{marginTop: '70px'}}>
-                                        <i className="fa fa-bus " onClick={this.handleChangeTravelMode('transit')}  style={this.state.transportation === 'transit' || this.state.transportation === '' ? {color: '#1fcf7c', fontSize: '30px', cursor: 'pointer'} : {color: 'rgba(0,0,0,.3)', fontSize: '30px', cursor: 'pointer'}}></i>
+                                        <i className="fa fa-bicycle " onClick={this.handleChangeTravelMode('bicycle')}  style={this.state.transportation === 'bicycle' || this.state.transportation === '' ? {color: '#1fcf7c', fontSize: '30px', cursor: 'pointer'} : {color: 'rgba(0,0,0,.3)', fontSize: '30px', cursor: 'pointer'}} />
                                 </div>
                                 
                                 <div className="col my-2" style={{marginTop: '70px'}}>
-                                        <i className="fa fa-check " onClick={this.handleChangeTravelMode('')}  style={this.state.transportation === '' ? {color: '#1fcf7c', fontSize: '30px', cursor: 'pointer'} : {color: 'rgba(0,0,0,.3)', fontSize: '30px', cursor: 'pointer'}}></i>
+                                        <i className="fa fa-bus " onClick={this.handleChangeTravelMode('transit')}  style={this.state.transportation === 'transit' || this.state.transportation === '' ? {color: '#1fcf7c', fontSize: '30px', cursor: 'pointer'} : {color: 'rgba(0,0,0,.3)', fontSize: '30px', cursor: 'pointer'}} />
+                                </div>
+                                
+                                <div className="col my-2" style={{marginTop: '70px'}}>
+                                        <i className="fa fa-check " onClick={this.handleChangeTravelMode('')}  style={this.state.transportation === '' ? {color: '#1fcf7c', fontSize: '30px', cursor: 'pointer'} : {color: 'rgba(0,0,0,.3)', fontSize: '30px', cursor: 'pointer'}} />
                                 </div>
                             </div>
                                 <hr style={{color: 'rgba(0,0,0,.05)'}}/>
                                 <div className="text-muted">Options</div>
                                 <div className="row my-3">
                                     <div className="col-1">
-                                        <i className="fa fa-usd" style={{color: '#1fcf7c'}}></i>
+                                        <i className="fa fa-usd" style={{color: '#1fcf7c'}} />
                                     </div>
                                     <div className="col-10">
                                         <div className="input-group">
@@ -222,7 +226,7 @@ class DestinationView extends React.Component{
                                 <div className="row my-3">
                                     <div className="col-1">
                                         <i className="fa fa-shopping-cart"
-                                           style={{color: '#1fcf7c'}}></i>
+                                           style={{color: '#1fcf7c'}} />
                                     </div>
                                     <div className="col-10">
                                         <div className="input-group">
@@ -238,17 +242,17 @@ class DestinationView extends React.Component{
                         }
                         { this.props.requestSent && !this.props.requestAccepted ? 
                             <div className="mt-3 text-center" style={{marginTop: '100px'}}>
-                                <i className="fa fa-circle-o-notch fa-spin fa-3x my-2" style={{color: '#1fcf7c'}}></i>
+                                <i className="fa fa-circle-o-notch fa-spin fa-3x my-2" style={{color: '#1fcf7c'}} />
                                 <p className="text-muted">Waiting for a delivery person to accept.</p>
                                 <button className="orderbtn btn btn-primary form-control" onClick={this.handleCancelRequest} style={{backgroundColor: '#E7475E', borderStyle: 'none'}}><i className="fa fa-close"></i> Cancel</button>
                             </div> 
                             : !this.props.requestAccepted ?
                             !this.props.privateRequest ? 
                         <button className="orderbtn btn btn-primary form-control" disabled={!this.state.price || !this.props.to || !this.props.from || !this.state.item ? true : false || !this.props.placeChoosen || !this.props.placeChoosenFrom} onClick={this.handleSendRequest} style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
-                        <i className="fa fa-search mx-2"></i> 
+                        <i className="fa fa-search mx-2" />
                             Find a delivery person
                         </button> : <button className="orderbtn btn btn-primary form-control" disabled={!this.state.price || !this.props.to || !this.props.from || !this.state.item ? true : false || !this.props.placeChoosen || !this.props.placeChoosenFrom} onClick={this.handleSendPrivateRequest} style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
-                        <i className="fa fa-location-arrow mx-2"></i> 
+                        <i className="fa fa-location-arrow mx-2" />
                              Send to {this.props.toPrivateDeliveryGuy.firstName}
                         </button> 
                                 :

@@ -187,20 +187,20 @@ class Main extends React.Component{
                     });
             };
 
-                const changePosition = (pos, data) => {
-                    if(this.props.acceptedRequest){
-                        const client = this.props.client;
-                        const currentUser = this.props.currentUser;
-                        console.log(data, 'OVO TRAZIM');
-                        this.props.onChangePosition(pos, data);
-                        socket.emit('UPDATE_DELIVERY_GUY_LOCATION', {
-                            client: client,
-                            deliveryGuy: currentUser,
-                            locationName: data.formatted_address
-                        });
+            const changePosition = (pos, data) => {
+                if(this.props.acceptedRequest){
+                    const client = this.props.client;
+                    const currentUser = this.props.currentUser;
+                    console.log(data, 'OVO TRAZIM');
+                    this.props.onChangePosition(pos, data);
+                    socket.emit('UPDATE_DELIVERY_GUY_LOCATION', {
+                        client: client,
+                        deliveryGuy: currentUser,
+                        locationName: data.formatted_address
+                    });
 
-                    }
-                };
+                }
+            };
 
 
             let id, target, options;

@@ -46,7 +46,7 @@ require('./config/passport');
 app.use(require('./routes'));
 
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -72,7 +72,7 @@ app.use(function(err, req, res, next) {
   }});
 });
 
-var server = app.listen( process.env.PORT || 8000, function(){
+let server = app.listen( process.env.PORT || 8000, function(){
   console.log('Listening on port ' + server.address().port);
 });
 

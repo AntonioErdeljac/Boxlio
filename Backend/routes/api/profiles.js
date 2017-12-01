@@ -35,7 +35,7 @@ router.get('/:username/opinions', auth.required, function(req,res,next){
             opinions: req.profile.opinions
         })
     })
-})
+});
 
 router.post('/:username/opinion', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
