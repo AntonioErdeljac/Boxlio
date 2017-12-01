@@ -31,6 +31,8 @@ const reducer = combineReducers({
     profile
 });
 
-const store = createStore(reducer, applyMiddleware(promiseMiddleware, localStorageMiddleware));
+const middleware = applyMiddleware(promiseMiddleware, localStorageMiddleware);
+
+const store = createStore(reducer, middleware);
 
 export default store;
