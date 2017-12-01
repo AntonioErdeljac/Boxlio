@@ -237,7 +237,7 @@ class Main extends React.Component{
             } else {
                 return (
                     <div>
-                       < MapView />
+                       <MapView />
                     </div>
                 );
             }

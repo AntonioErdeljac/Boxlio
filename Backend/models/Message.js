@@ -1,6 +1,6 @@
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 
-var MessageSchema = new mongoose.Schema({
+let MessageSchema = new mongoose.Schema({
     author: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
     receiver: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
     body: String

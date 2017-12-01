@@ -5,8 +5,20 @@ let Message = mongoose.model('Message');
 let DeliveryJob = mongoose.model('DeliveryJob');
 
 exports = module.exports = function(io){
+
+
+
+
+
     io.sockets.on('connection', function(socket){
     console.log(socket.id);
+
+
+
+
+
+
+    
     socket.removeAllListeners();
 
 
@@ -675,9 +687,9 @@ exports = module.exports = function(io){
                         client: data.client
                     })
                 }
-                })
-          })
-      });
+            })
+        })
+    });
 
 
 

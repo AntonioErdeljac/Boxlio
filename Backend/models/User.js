@@ -115,7 +115,6 @@ UserSchema.methods.toProfileJSONFor = function(user){
 
 UserSchema.methods.addClient = function(id){
     if(this.clients.indexOf(id) === -1){
-        console.log(id, 'OKEJ SA SE DESAVA');
         this.clients.push(id);
     }
 };
