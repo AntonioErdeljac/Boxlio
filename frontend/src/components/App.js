@@ -17,12 +17,14 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 
 class App extends React.Component{
+    
     componentWillReceiveProps(nextProps){
         if(nextProps.redirectTo){
             this.props.history.push(nextProps.redirectTo);
             this.props.onRedirect();
         }
     }
+
     componentWillMount(){
         const token = window.localStorage.getItem('jwt');
         if(token){
@@ -30,6 +32,7 @@ class App extends React.Component{
         }
         this.props.onLoad(token ? agent.Auth.current() : null, token);
     }
+
     render(){
         if(this.props.currentUser){
             return (

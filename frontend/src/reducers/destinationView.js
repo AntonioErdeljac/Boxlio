@@ -1,6 +1,12 @@
 import * as actions from "../constants/actions";
 
-export default (state={from: '', requestReceived:false, travelMode: 'walking'}, action) => {
+const initialState = {
+    from: '', 
+    requestReceived:false, 
+    travelMode: 'walking'
+};
+
+export default (state=initialState, action) => {
     switch(action.type){
         
         case actions.SET_ACTIVE_DELIVERY_JOB:

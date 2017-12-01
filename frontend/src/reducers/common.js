@@ -1,6 +1,12 @@
 import * as actions from "../constants/actions";
 
-export default (state={isLoading: true, joinedSelfGroup: false, positionSet: false}, action) => {
+const initialState = {
+    isLoading: true, 
+    joinedSelfGroup: false, 
+    positionSet: false
+};
+
+export default (state=initialState, action) => {
     switch(action.type){
         case actions.SET_PRIVATE_REQUEST:
             return {

@@ -10,7 +10,7 @@ import DeliveryUserInterface from "./DeliveryUserInterface";
 import RequestView from "./RequestView";
 import Messages from "./Messages";
 import Settings from "./Settings";
-import {SET_REQUEST, REQUEST_ACCEPTED, CHANGE_LOCATION, REDIRECT_TO_MAIN, CHANGE_POSITION, SET_POSITION, SUCCESS_REQUEST_ACCEPTED} from "../../constants/actions";
+import * as actions from "../../constants/actions";
 
 
 class Main extends React.Component{
@@ -260,33 +260,33 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onSetRequest: data =>
-        dispatch({type: SET_REQUEST, data}),
+        dispatch({type: actions.SET_REQUEST, data}),
     onRequestAccepted: data =>
-        dispatch({type: REQUEST_ACCEPTED, data}),
+        dispatch({type: actions.REQUEST_ACCEPTED, data}),
     onChangeLocationName: data =>
-        dispatch({type: CHANGE_LOCATION, data}),
+        dispatch({type: actions.CHANGE_LOCATION, data}),
     onRedirectMain: () =>
-        dispatch({type: REDIRECT_TO_MAIN}),
+        dispatch({type: actions.REDIRECT_TO_MAIN}),
     onChangePosition: (pos, data) =>
-        dispatch({type: CHANGE_POSITION, pos, data}),
+        dispatch({type: actions.CHANGE_POSITION, pos, data}),
     onSetPosition: position =>
-        dispatch({type: SET_POSITION, position}),
+        dispatch({type: actions.SET_POSITION, position}),
     onConfirmRequest: data =>
-        dispatch({type: SUCCESS_REQUEST_ACCEPTED, data}),
+        dispatch({type: actions.SUCCESS_REQUEST_ACCEPTED, data}),
     setActiveDeliveryJob: job =>
-        dispatch({type: 'SET_ACTIVE_DELIVERY_JOB', job}),
+        dispatch({type: actions.SET_ACTIVE_DELIVERY_JOB, job}),
     receiveCancelFromClient: data =>
-        dispatch({type: 'RECEIVE_CANCEL_FROM_CLIENT', data}),
+        dispatch({type: actions.RECEIVE_CANCEL_FROM_CLIENT, data}),
     receiveCancelFromDeliveryGuy: data =>
-        dispatch({type: 'RECEIVE_CANCEL_FROM_DELIVERY_GUY', data}),
+        dispatch({type: actions.RECEIVE_CANCEL_FROM_DELIVERY_GUY, data}),
     onSetCompleteChoice: data =>
-        dispatch({type: 'SET_COMPLETE_CHOICE', data}),
+        dispatch({type: actions.SET_COMPLETE_CHOICE, data}),
     onSuccessCompleteDelivery: data =>
-        dispatch({type: 'SUCCESS_COMPLETE_DELIVERY', data}),
+        dispatch({type: actions.SUCCESS_COMPLETE_DELIVERY, data}),
     onSetFailureAccepted: data =>
-        dispatch({type: 'SET_FAILURE_ACCEPTED', data}),
+        dispatch({type: actions.SET_FAILURE_ACCEPTED, data}),
     onUpdateCurrentUser: data =>
-        dispatch({type: 'UPDATE_CURRENT_USER', data})
+        dispatch({type: actions.UPDATE_CURRENT_USER, data})
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main)); 

@@ -1,6 +1,10 @@
 import * as actions from "../constants/actions";
 
-export default (state={clients: null}, action) => {
+const initialState = {
+    clients: null
+};
+
+export default (state=initialState, action) => {
     switch(action.type){
         case actions.CLIENT_LIST_PAGE_LOADED:
         return {

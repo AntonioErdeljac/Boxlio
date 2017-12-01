@@ -1,8 +1,15 @@
 import * as actions from "../constants/actions";
 
+const initialState = {
+    gotRequest: false,
+    requestAccepted:false, 
+    acceptedRequest: false, 
+    requestSent: false, 
+    sentCompleteChoice: false, 
+    completeChoice: false
+};
 
-export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest: false, requestSent: false, 
-    sentCompleteChoice: false, completeChoice: false}, action) => {
+export default (state=initialState, action) => {
     switch(action.type){
         case actions.SET_PRIVATE_REQUEST:
             return {

@@ -1,9 +1,10 @@
 import _superagent from "superagent";
 import superagentPromise from "superagent-promise";
+import * as routes from "./constants/routes";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = '//localhost:8000/api';
+const API_ROOT = routes.API_ROOT;
 
 const responseBody = res => res.body;
 
@@ -18,45 +19,45 @@ const requests = {
 
 const Auth = {
     login: (email, password) =>
-        requests.post(`/users/login`, {user: {email, password}}),
+        requests.post(`${routes.users_login}`, {user: {email, password}}),
     register: (firstName, lastName, username, email, password, location, type) =>
-        requests.post(`/users`, {user: {firstName, lastName, username, email, password, location, type}}),
+        requests.post(`${routes.user}`, {user: {firstName, lastName, username, email, password, location, type}}),
     current: () =>
-        requests.get(`/user`),
+        requests.get(`${routes.user}`),
     update: user =>
-        requests.put(`/user`, {user})
+        requests.put(`${routes.user}`, {user})
 };
 
 const Profiles = {
     all: () =>
-        requests.get(`/profiles`),
+        requests.get(`${routes.profiles}`),
     byName: username =>
-        requests.get(`/profiles/${username}`),
+        requests.get(`${routes.profiles}${username}`),
     add: (client) =>
-        requests.post(`/profiles/${client.username}/client`),
+        requests.post(`${routes.profiles}${client.username}${routes.client}`),
     postOpinion: (opinion) =>
-        requests.post(`/profiles/${opinion.profile.username}/opinion`, {opinion}),
+        requests.post(`${routes.profiles}${opinion.profile.username}${routes.opinion}`, {opinion}),
     getOpinions: username =>
-        requests.get(`/profiles/${username}/opinions`)
+        requests.get(`${routes.profiles}${username}${routes.opinions}`)
 };
 
 const Chat = {
     byName: name =>
-        requests.get(`/chatrooms/${name}`),
+        requests.get(`${routes.chatrooms}${name}`),
     messagesByName: name =>
-        requests.get(`/chatrooms/${name}/messages`),
+        requests.get(`${routes.chatrooms}${name}${routes.messages}`),
     all: () =>
-        requests.get(`/chatrooms`)
+        requests.get(`${routes.chatrooms}`)
 }
 
 const Clients = {
     all: () =>
-        requests.get(`/clients`)
+        requests.get(`${routes.clients}`)
 }
 
 const Explore = {
     nearDeliveryUsers: () =>
-        requests.get(`/explore`)
+        requests.get(`${routes.explore}`)
 }
 
 let token = null;
