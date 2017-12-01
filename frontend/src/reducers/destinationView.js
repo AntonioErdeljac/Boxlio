@@ -1,10 +1,9 @@
-import {SUCCESS_COMPLETE_DELIVERY, SET_FAILURE_ACCEPTED, RECEIVE_CANCEL_FROM_CLIENT, SET_ACTIVE_DELIVERY_JOB, REMOVE_FROM_TO, SET_TO, SET_TO_SPECIAL, SET_FROM, UPDATE_FROM, UPDATE_TO, CHANGE_POSITION, UPDATE_FROM_NAME, UPDATE_TO_NAME, LOGOUT, CANCEL_REQUEST, SET_REQUEST, DECLINE_REQUEST} from "../constants/actions"
-
+import * as actions from "../constants/actions";
 
 export default (state={from: '', requestReceived:false, travelMode: 'walking'}, action) => {
     switch(action.type){
         
-        case SET_ACTIVE_DELIVERY_JOB:
+        case actions.SET_ACTIVE_DELIVERY_JOB:
             if(action.job){
                 return {
                     ...state,
@@ -23,20 +22,20 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
             } else {
                 return {...state}
             }
-        case SET_TO:
+        case actions.SET_TO:
             return {
                 ...state,
                 to: action.data.results[0]["formatted_address"],
                 initialSet: true,
                 placeChoosen: true
             };
-        case SET_TO_SPECIAL:
+        case actions.SET_TO_SPECIAL:
             return {
                 ...state,
                 to: action.places[0].formatted_address,
                 placeChoosen: true
             };
-        case SET_FROM:
+        case actions.SET_FROM:
             return {
                 ...state,
                 from: action.places[0].formatted_address,
@@ -44,7 +43,7 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
                 lng: action.places[0].geometry.location.lng(),
                 placeChoosenFrom: true
             };
-        case UPDATE_FROM:
+        case actions.UPDATE_FROM:
             return {
                 ...state,
                 from: action.from,
@@ -52,43 +51,43 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
                 lng: action.lng,
                 placeChoosenFrom: true
             };
-        case UPDATE_TO:
+        case actions.UPDATE_TO:
             return {
                 ...state,
                 to: action.to,
                 lat: action.lat,
                 lng: action.lng
             };
-        case CHANGE_POSITION:
+        case actions.CHANGE_POSITION:
             return {
                 ...state,
                 to: action.data.formatted_address
             }
-        case UPDATE_FROM_NAME:
+        case actions.UPDATE_FROM_NAME:
             return {
                 ...state,
                 from: action.name,
                 placeChoosenFrom: false
             };
-        case UPDATE_TO_NAME:
+        case actions.UPDATE_TO_NAME:
             return {
                 ...state,
                 to: action.name,
                 placeChoosen: false
             };
-        case LOGOUT:
+        case actions.LOGOUT:
             return {
                 ...state,
                 from: null,
                 to: null
             };
-        case CANCEL_REQUEST:
+        case actions.CANCEL_REQUEST:
             return {
                 ...state,
                 requestReceived: false,
                 to: state.to
             };
-        case SET_FAILURE_ACCEPTED:
+        case actions.SET_FAILURE_ACCEPTED:
             return {
                 ...state,
                 lat: null,
@@ -97,14 +96,14 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
                 clientLng: null,
                 requestReceived: false
             }
-        case SUCCESS_COMPLETE_DELIVERY:
+        case actions.SUCCESS_COMPLETE_DELIVERY:
             return {
                 ...state,
                 lat: null,
                 lng: null,
                 requestReceived: false
             }
-        case SET_REQUEST:
+        case actions.SET_REQUEST:
             return {
                 ...state,
                 lat: action.data.lat,
@@ -113,32 +112,27 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
                 clientLng: action.data.clientLng,
                 requestReceived: true
             };
-        case RECEIVE_CANCEL_FROM_CLIENT:
+        case actions.RECEIVE_CANCEL_FROM_CLIENT:
             return {
                 ...state,
                 lat: null,
                 lng: null,
                 requestReceived: false
             };
-        case DECLINE_REQUEST:
+        case actions.DECLINE_REQUEST:
             return {
                 ...state,
                 lat: null,
                 lng: null,
                 requestReceived: false
             };
-        case REMOVE_FROM_TO:
+        case actions.REMOVE_FROM_TO:
             return {
                 ...state,
                 lat: null,
                 lng: null,
                 requestReceived: false
             };
-        /*case 'CHANGE_TRAVEL_MODE':
-            return {
-                ...state,
-                travelMode: action.field
-            };*/
     }
     return state;
 }

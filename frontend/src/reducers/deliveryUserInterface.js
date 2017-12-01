@@ -1,8 +1,8 @@
-import {SET_CLIENT_COUNT} from "../constants/actions";
+import * as actions from "../constants/actions";
 
 export default (state={}, action) => {
     switch(action.type){
-        case SET_CLIENT_COUNT:
+        case actions.SET_CLIENT_COUNT:
             return {
                 ...state,
                 clientCount: action.data.clientCount

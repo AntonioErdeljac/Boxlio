@@ -1,20 +1,20 @@
-import {SUCCESS_COMPLETE_DELIVERY, RECEIVE_CANCEL_FROM_CLIENT, RECEIVE_CANCEL_FROM_DELIVERY_GUY, UPDATE_CURRENT_USER, ADD_CLIENT, CHANGE_AVAILABLE, SET_PRIVATE_REQUEST, ASYNC_START, CANCEL_REQUEST, SUCCESS_REQUEST_ACCEPTED, REDIRECT, APP_LOADED, ACCEPT_REQUEST, REQUEST_ACCEPTED, LOGOUT, LOGIN, REGISTER, SETTINGS_SAVED, MAP_LOADED, CHANGE_POSITION, SET_POSITION, SET_TO_SPECIAL, JOIN_SELF_GROUP, DECLINE_REQUEST} from "../constants/actions";
+import * as actions from "../constants/actions";
 
 export default (state={isLoading: true, joinedSelfGroup: false, positionSet: false}, action) => {
     switch(action.type){
-        case SET_PRIVATE_REQUEST:
+        case actions.SET_PRIVATE_REQUEST:
             return {
                 ...state,
                 redirectTo: '/'
             };
-        case CHANGE_AVAILABLE:
+        case actions.CHANGE_AVAILABLE:
             return {
                 ...state,
                 currentUser: action.payload ? action.payload.user : state.currentUser,
                 inProgress: false
             };
-        case ASYNC_START:
-        if(action.subtype === CHANGE_AVAILABLE){
+        case actions.ASYNC_START:
+        if(action.subtype === actions.CHANGE_AVAILABLE){
             return {
                 ...state,
                 inProgress: true
@@ -24,29 +24,29 @@ export default (state={isLoading: true, joinedSelfGroup: false, positionSet: fal
                 ...state
             }
         }
-        case APP_LOADED:
+        case actions.APP_LOADED:
             return {
                 ...state,
                 token: action.token || null,
                 currentUser: action.payload ? action.payload.user : null,
                 appLoaded: true
             };
-        case SUCCESS_REQUEST_ACCEPTED:
+        case actions.SUCCESS_REQUEST_ACCEPTED:
             return {
                 ...state,
                 redirectTo: `/messages/${action.data.client.username}`
             };
-        case REQUEST_ACCEPTED:
+        case actions.REQUEST_ACCEPTED:
             return {
                 ...state,
                 redirectTo:`/messages/${action.data.deliveryGuy.username}`
             }
-        case REDIRECT:
+        case actions.REDIRECT:
             return {
                 ...state,
                 redirectTo: null
             };
-        case LOGOUT:
+        case actions.LOGOUT:
             return {
                 ...state,
                 redirectTo: '/',
@@ -55,40 +55,40 @@ export default (state={isLoading: true, joinedSelfGroup: false, positionSet: fal
                 joinSelfGroup: false,
                 positionSet: false
             };
-        case SETTINGS_SAVED:
+        case actions.SETTINGS_SAVED:
             return {
                 ...state,
                 currentUser: action.error ? state.currentUser : action.payload.user,
                 redirectTo: action.error ? null : '/'
             };
-        case ADD_CLIENT:
+        case actions.ADD_CLIENT:
             return {
                 ...state,
                 redirectTo: action.error ? `/messages` : `/messages/${action.payload.profile.username}`
             };
-        case UPDATE_CURRENT_USER:
+        case actions.UPDATE_CURRENT_USER:
             return {
                 ...state,
                 currentUser: action.data.currentUser
             }
-        case LOGIN:
+        case actions.LOGIN:
             return {
                 ...state,
                 redirectTo: action.error ? null : '/',
                 currentUser: action.error ? null : action.payload.user,
                 token: action.error ? null : action.payload.user.token
             };
-        case RECEIVE_CANCEL_FROM_DELIVERY_GUY:
+        case actions.RECEIVE_CANCEL_FROM_DELIVERY_GUY:
             return {
                 ...state,
                 redirectTo: `/messages/${action.data.deliveryGuy.username}`
             }
-        case RECEIVE_CANCEL_FROM_CLIENT:
+        case actions.RECEIVE_CANCEL_FROM_CLIENT:
             return {
                 ...state,
                 redirectTo: `/messages/${action.data.client.username}`
             };
-        case SUCCESS_COMPLETE_DELIVERY:
+        case actions.SUCCESS_COMPLETE_DELIVERY:
             return {
                 ...state,
                 redirectTo: `/messages/${action.data.client.username}`,
@@ -99,26 +99,26 @@ export default (state={isLoading: true, joinedSelfGroup: false, positionSet: fal
                     ratings: action.data.currentUser.ratings
                 })
             }
-        case REGISTER:
+        case actions.REGISTER:
             return {
                 ...state,
                 redirectTo: action.error ? null : '/settings',
                 currentUser: action.error ? null : action.payload.user,
                 token: action.error ? null : action.payload.user.token
             };
-        case MAP_LOADED:
+        case actions.MAP_LOADED:
             return {
                 ...state,
                 isLoading: false
             };
-        case CHANGE_POSITION:
+        case actions.CHANGE_POSITION:
             return {
                 ...state,
                 currentUser: Object.assign({}, state.currentUser, {
                     geometry: [action.pos.coords.latitude, action.pos.coords.longitude]
                 })
             };
-        case SET_POSITION:
+        case actions.SET_POSITION:
             return {
                 ...state,
                 currentUser: Object.assign(state.currentUser, state.currentUser, {
@@ -127,17 +127,17 @@ export default (state={isLoading: true, joinedSelfGroup: false, positionSet: fal
                 }),
                 positionSet: true
             };
-        case SET_TO_SPECIAL:
+        case actions.SET_TO_SPECIAL:
             return {
                 ...state,
                 currentUser: action.payload.user
             };
-        case JOIN_SELF_GROUP:
+        case actions.JOIN_SELF_GROUP:
             return {
                 ...state,
                 joinedSelfGroup: true
             };
-        case 'CHANGE_TRANSPORTATION':
+        case actions.CHANGE_TRANSPORTATION:
             return {
                 ...state,
                 currentUser: Object.assign({}, {}, {

@@ -1,8 +1,8 @@
-import {SET_NEAR_STORES} from "../constants/actions";
+import * as actions from "../constants/actions";
 
 export default (state={}, action) => {
     switch(action.type){
-        case SET_NEAR_STORES:
+        case actions.SET_NEAR_STORES:
             console.log(action.results, 'IN REDUCER');
             return {
                 ...state,

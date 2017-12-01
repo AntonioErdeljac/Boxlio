@@ -1,23 +1,21 @@
-import {MESSENGER_PAGE_LOADED, MESSENGER_PAGE_UNLOADED, SET_ACTIVE_CHAT, ADD_MESSAGE} from "../constants/actions";
+import * as actions from "../constants/actions";
 
 export default (state={}, action) => {
     switch(action.type){
-        case MESSENGER_PAGE_LOADED:
+        case actions.MESSENGER_PAGE_LOADED:
             return {
                 ...state,
                 profile: action.payload[0].profile,
                 messages: action.payload[2].messages        
             };
-        case MESSENGER_PAGE_UNLOADED:
+        case actions.MESSENGER_PAGE_UNLOADED:
             return {};
-        case ADD_MESSAGE:
-            console.log(action, 'ACTION');
+        case actions.ADD_MESSAGE:
             return {
                 ...state,
                 messages: (state.messages || []).concat([action.data.message])
             };
-        case SET_ACTIVE_CHAT:
-        console.log('postavljam trenutni chat', action);
+        case actions.SET_ACTIVE_CHAT:
             return {
                 ...state,
                 activeChat: action.name

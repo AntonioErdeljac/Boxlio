@@ -1,34 +1,34 @@
-import {UPDATE_FIELD_AUTH, UPDATE_FIELD_LOGIN, UPDATE_FIELD_AUTH_LOCATION, LOGIN, REGISTER, ASYNC_START} from "../constants/actions"
+import * as actions from "../constants/actions";
 
 export default (state={}, action) => {
     switch(action.type){
-        case UPDATE_FIELD_AUTH:
+        case actions.UPDATE_FIELD_AUTH:
             return {
                 ...state,
                 [action.key]: action.value,
                 errors: null
             };
-        case UPDATE_FIELD_LOGIN:
+        case actions.UPDATE_FIELD_LOGIN:
             return {
                 ...state,
                 [action.key]:action.value,
                 errors: null
             };
-        case UPDATE_FIELD_AUTH_LOCATION:
+        case actions.UPDATE_FIELD_AUTH_LOCATION:
             return {
                 ...state,
                 [action.key]: action.value
             };
-        case LOGIN:
-        case REGISTER:
+        case actions.LOGIN:
+        case actions.REGISTER:
             return {
                 ...state,
                 inProgress: false,
                 errors: action.error ? action.payload.errors : null,
                 isLoading: false
             };
-        case ASYNC_START:
-            if(action.subtype === REGISTER || action.subtype === LOGIN) {
+        case actions.ASYNC_START:
+            if(action.subtype === actions.REGISTER || action.subtype === actions.LOGIN) {
                 return {
                     ...state,
                     inProgress: true,
