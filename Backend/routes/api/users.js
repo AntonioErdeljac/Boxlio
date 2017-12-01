@@ -1,8 +1,8 @@
-var router = require('express').Router();
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
-var auth = require('../auth');
-var passport = require('passport');
+let router = require('express').Router();
+let mongoose = require('mongoose');
+let User = mongoose.model('User');
+let auth = require('../auth');
+let passport = require('passport');
 
 router.post('/users', function(req,res,next){
 
@@ -31,13 +31,14 @@ router.post('/users', function(req,res,next){
         return res.status(422).json({errors: {how: 'do you want to use Boxlio?'}})
     }
 
-    var user = new User();
+    let user = new User();
     user.username = req.body.user.username;
     user.firstName = req.body.user.firstName;
     user.lastName = req.body.user.lastName;
     user.email = req.body.user.email;
     user.available = true;
     user.geometry = {coordinates: [req.body.user.location.lat, req.body.user.location.lng], type: 'point'};
+
     if(req.body.user.type === 'deliver'){
         user.deliveryMode = true;
     } else {
@@ -64,20 +65,6 @@ router.post('/users/login', function(req,res,next){
         if(err){return next(err);}
 
         if(user){
-            user.populate('clients');
-            user.populate('activeDeliveryJob')
-            user.populate({
-                path: 'activeDeliveryJob',
-                populate: {
-                    path: 'client'
-                }
-            })
-            user.populate({
-                path: 'activeDeliveryJob',
-                populate: {
-                    path: 'deliveryGuy'
-                }
-            })
             user.token = user.generateJWT();
             return res.json({
                 user: user.toAuthJSON()
