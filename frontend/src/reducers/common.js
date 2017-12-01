@@ -1,20 +1,20 @@
-import {CANCEL_REQUEST, SUCCESS_REQUEST_ACCEPTED, REDIRECT, APP_LOADED, ACCEPT_REQUEST, REQUEST_ACCEPTED, LOGOUT, LOGIN, REGISTER, SETTINGS_SAVED, MAP_LOADED, CHANGE_POSITION, SET_POSITION, SET_TO_SPECIAL, JOIN_SELF_GROUP, DECLINE_REQUEST} from "../constants/actions";
+import {SUCCESS_COMPLETE_DELIVERY, RECEIVE_CANCEL_FROM_CLIENT, RECEIVE_CANCEL_FROM_DELIVERY_GUY, UPDATE_CURRENT_USER, ADD_CLIENT, CHANGE_AVAILABLE, SET_PRIVATE_REQUEST, ASYNC_START, CANCEL_REQUEST, SUCCESS_REQUEST_ACCEPTED, REDIRECT, APP_LOADED, ACCEPT_REQUEST, REQUEST_ACCEPTED, LOGOUT, LOGIN, REGISTER, SETTINGS_SAVED, MAP_LOADED, CHANGE_POSITION, SET_POSITION, SET_TO_SPECIAL, JOIN_SELF_GROUP, DECLINE_REQUEST} from "../constants/actions";
 
 export default (state={isLoading: true, joinedSelfGroup: false, positionSet: false}, action) => {
     switch(action.type){
-        case 'SET_PRIVATE_REQUEST':
+        case SET_PRIVATE_REQUEST:
             return {
                 ...state,
                 redirectTo: '/'
             };
-        case 'CHANGE_AVAILABLE':
+        case CHANGE_AVAILABLE:
             return {
                 ...state,
                 currentUser: action.payload ? action.payload.user : state.currentUser,
                 inProgress: false
             };
-        case 'ASYNC_START':
-        if(action.subtype === 'CHANGE_AVAILABLE'){
+        case ASYNC_START:
+        if(action.subtype === CHANGE_AVAILABLE){
             return {
                 ...state,
                 inProgress: true
@@ -61,12 +61,12 @@ export default (state={isLoading: true, joinedSelfGroup: false, positionSet: fal
                 currentUser: action.error ? state.currentUser : action.payload.user,
                 redirectTo: action.error ? null : '/'
             };
-        case 'ADD_CLIENT':
+        case ADD_CLIENT:
             return {
                 ...state,
                 redirectTo: action.error ? `/messages` : `/messages/${action.payload.profile.username}`
             };
-        case 'UPDATE_CURRENT_USER':
+        case UPDATE_CURRENT_USER:
             return {
                 ...state,
                 currentUser: action.data.currentUser
@@ -78,18 +78,17 @@ export default (state={isLoading: true, joinedSelfGroup: false, positionSet: fal
                 currentUser: action.error ? null : action.payload.user,
                 token: action.error ? null : action.payload.user.token
             };
-        case 'RECEIVE_CANCEL_FROM_DELIVERY_GUY':
+        case RECEIVE_CANCEL_FROM_DELIVERY_GUY:
             return {
                 ...state,
                 redirectTo: `/messages/${action.data.deliveryGuy.username}`
             }
-        case 'RECEIVE_CANCEL_FROM_CLIENT':
+        case RECEIVE_CANCEL_FROM_CLIENT:
             return {
                 ...state,
                 redirectTo: `/messages/${action.data.client.username}`
             };
-        case 'SUCCESS_COMPLETE_DELIVERY':
-        console.log(action.data.currentUser, 'EVO RATINWS');
+        case SUCCESS_COMPLETE_DELIVERY:
             return {
                 ...state,
                 redirectTo: `/messages/${action.data.client.username}`,
@@ -129,7 +128,6 @@ export default (state={isLoading: true, joinedSelfGroup: false, positionSet: fal
                 positionSet: true
             };
         case SET_TO_SPECIAL:
-        console.log(action, 'SPECIAL SET');
             return {
                 ...state,
                 currentUser: action.payload.user
@@ -140,7 +138,6 @@ export default (state={isLoading: true, joinedSelfGroup: false, positionSet: fal
                 joinedSelfGroup: true
             };
         case 'CHANGE_TRANSPORTATION':
-        console.log('transportation je ', action.field);
             return {
                 ...state,
                 currentUser: Object.assign({}, {}, {

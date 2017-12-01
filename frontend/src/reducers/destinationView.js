@@ -1,11 +1,10 @@
-import {REMOVE_FROM_TO, SET_TO, SET_TO_SPECIAL, SET_FROM, UPDATE_FROM, UPDATE_TO, CHANGE_POSITION, UPDATE_FROM_NAME, UPDATE_TO_NAME, LOGOUT, CANCEL_REQUEST, SET_REQUEST, DECLINE_REQUEST} from "../constants/actions"
+import {SUCCESS_COMPLETE_DELIVERY, SET_FAILURE_ACCEPTED, RECEIVE_CANCEL_FROM_CLIENT, SET_ACTIVE_DELIVERY_JOB, REMOVE_FROM_TO, SET_TO, SET_TO_SPECIAL, SET_FROM, UPDATE_FROM, UPDATE_TO, CHANGE_POSITION, UPDATE_FROM_NAME, UPDATE_TO_NAME, LOGOUT, CANCEL_REQUEST, SET_REQUEST, DECLINE_REQUEST} from "../constants/actions"
 
 
 export default (state={from: '', requestReceived:false, travelMode: 'walking'}, action) => {
     switch(action.type){
         
-        case 'SET_ACTIVE_DELIVERY_JOB':
-            console.log(action);
+        case SET_ACTIVE_DELIVERY_JOB:
             if(action.job){
                 return {
                     ...state,
@@ -38,7 +37,6 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
                 placeChoosen: true
             };
         case SET_FROM:
-            console.log('place from choosen.')
             return {
                 ...state,
                 from: action.places[0].formatted_address,
@@ -85,13 +83,12 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
                 to: null
             };
         case CANCEL_REQUEST:
-        console.log('canceling request', state);
             return {
                 ...state,
                 requestReceived: false,
                 to: state.to
             };
-        case 'SET_FAILURE_ACCEPTED':
+        case SET_FAILURE_ACCEPTED:
             return {
                 ...state,
                 lat: null,
@@ -100,7 +97,7 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
                 clientLng: null,
                 requestReceived: false
             }
-        case 'SUCCESS_COMPLETE_DELIVERY':
+        case SUCCESS_COMPLETE_DELIVERY:
             return {
                 ...state,
                 lat: null,
@@ -116,7 +113,7 @@ export default (state={from: '', requestReceived:false, travelMode: 'walking'}, 
                 clientLng: action.data.clientLng,
                 requestReceived: true
             };
-        case 'RECEIVE_CANCEL_FROM_CLIENT':
+        case RECEIVE_CANCEL_FROM_CLIENT:
             return {
                 ...state,
                 lat: null,

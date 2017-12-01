@@ -1,27 +1,27 @@
-import {CHANGE_LOCATION, SET_REQUEST, DECLINE_REQUEST, CANCEL_REQUEST, SEND_REQUEST, REQUEST_ACCEPTED, ACCEPT_REQUEST, REDIRECT_TO_MAIN} from "../constants/actions";
+import * as actions from "../constants/actions";
+
 
 export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest: false, requestSent: false, 
     sentCompleteChoice: false, completeChoice: false}, action) => {
     switch(action.type){
-        case 'SET_PRIVATE_REQUEST':
+        case actions.SET_PRIVATE_REQUEST:
             return {
                 ...state,
                 privateRequest: true,
                 toPrivateDeliveryGuy: action.deliveryGuy
             };
-        case 'SET_SENT_COMPLETE_CHOICE':
+        case actions.SET_SENT_COMPLETE_CHOICE:
         return {
             ...state,
             sentCompleteChoice: true
         };
-        case 'SET_COMPLETE_CHOICE':
+        case actions.SET_COMPLETE_CHOICE:
             return {
                 ...state,
                 completeChoice: true
             };
-        case 'SET_ACTIVE_DELIVERY_JOB':
+        case actions.SET_ACTIVE_DELIVERY_JOB:
         if(action.job){
-            console.log(action.job, 'AKTIVNI POSAO')
             return {
                 ...state,
                 requestAccepted: true,
@@ -37,7 +37,7 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
         } else {
             return {...state}
         }
-        case CHANGE_LOCATION:
+        case actions.CHANGE_LOCATION:
             
             return {
                 ...state,
@@ -45,7 +45,7 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 deliveryGuy: action.data.deliveryGuy
             };
         
-        case SET_REQUEST:
+        case actions.SET_REQUEST:
             return {
                 ...state,
                 gotRequest: true,
@@ -55,8 +55,7 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 price: action.data.price,
                 item: action.data.item
             };
-        case DECLINE_REQUEST:
-        console.log('micem sve na false i null');
+        case actions.DECLINE_REQUEST:
             return {
                 ...state,
                 gotRequest: false,
@@ -70,7 +69,7 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 completeChoice: false,
                 sentCompleteChoice: false
             };
-        case CANCEL_REQUEST:
+        case actions.CANCEL_REQUEST:
             return {
                 ...state,
                 requestAccepted: false,
@@ -83,7 +82,7 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 privateRequest: false,
                 toPrivateDeliveryGuy: false
             };
-        case 'CONFIRM_COMPLETED_DELIVERY':
+        case actions.CONFIRM_COMPLETED_DELIVERY:
             return {
                 ...state,
                 requestAccepted: false,
@@ -96,7 +95,7 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 privateRequest: false,
                 toPrivateDeliveryGuy: false
             };
-        case 'RECEIVE_CANCEL_FROM_DELIVERY_GUY':
+        case actions.RECEIVE_CANCEL_FROM_DELIVERY_GUY:
             return {
                 ...state,
                 requestAccepted: false,
@@ -109,7 +108,7 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 privateRequest: false,
                 toPrivateDeliveryGuy: false
             }
-        case 'RECEIVE_CANCEL_FROM_CLIENT':
+        case actions.RECEIVE_CANCEL_FROM_CLIENT:
             return {
                 ...state,
                 requestAccepted: false,
@@ -121,7 +120,7 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 completeChoice: false,
                 sentCompleteChoice: false
             };
-        case 'SET_FAILURE_ACCEPTED':
+        case actions.SET_FAILURE_ACCEPTED:
             return {
                 ...state,
                 gotRequest: false,
@@ -135,7 +134,7 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 completeChoice: false,
                 sentCompleteChoice: false
             };
-        case 'SUCCESS_COMPLETE_DELIVERY':
+        case actions.SUCCESS_COMPLETE_DELIVERY:
             return {
                 ...state,
                 requestAccepted: false,
@@ -149,25 +148,24 @@ export default (state={gotRequest: false,requestAccepted:false ,acceptedRequest:
                 privateRequest: false,
                 toPrivateDeliveryGuy: false
             };
-        case SEND_REQUEST:
+        case actions.SEND_REQUEST:
             return {
                 ...state,
                 requestSent: true
             };
-        case REQUEST_ACCEPTED:
-        console.log(action.data.locationName, 'DELIVERY GUY FROM REDUCER WHEN ACCEPTED');
+        case actions.REQUEST_ACCEPTED:
             return {
                 ...state,
                 requestAccepted: true,
                 deliveryGuy: action.data.deliveryGuy,
                 locationName: action.data.locationName
             };
-        case ACCEPT_REQUEST:
+        case actions.ACCEPT_REQUEST:
             return {
                 ...state,
                 acceptedRequest: true
             };
-        case REDIRECT_TO_MAIN:
+        case actions.REDIRECT_TO_MAIN:
             return {
                 ...state,
                 redirectTo: null
