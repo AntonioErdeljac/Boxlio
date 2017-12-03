@@ -11,7 +11,6 @@ exports = module.exports = function(io){
 
 
     io.sockets.on('connection', function(socket){
-    console.log(socket.id);
 
 
 
@@ -48,7 +47,6 @@ exports = module.exports = function(io){
             user.isRequesting = false;
             user.save();
         });
-        console.log('JOINAM', data.user.username);
         socket.join(data.user.username);
         io.in('driver').emit('TEST');
     });
@@ -332,7 +330,6 @@ exports = module.exports = function(io){
     socket.on('CANCEL_DELIVERY_JOB_DELIVERY_GUY', function(data){
         User.findOne({username: data.client.username}).then(function(client){
             User.findOne({username: data.deliveryGuy.username}).then(function(deliveryGuy){
-                console.log(deliveryGuy.username, 'USERNAME')
 
                 client.isOrdering = false;
                 client.isDelivering = false;
@@ -378,7 +375,6 @@ exports = module.exports = function(io){
     socket.on('CANCEL_DELIVERY_JOB_CLIENT', function(data){
         User.findOne({username: data.client.username}).then(function(client){
             User.findOne({username: data.deliveryGuy.username}).then(function(deliveryGuy){
-                console.log(deliveryGuy.username, 'USERNAME');
 
                 client.isOrdering = false;
                 client.isDelivering = false;
@@ -441,11 +437,8 @@ exports = module.exports = function(io){
                 {type: 'Point', coordinates: [client.geometry.coordinates[0], client.geometry.coordinates[1]]},
                 {maxDistance: 50000, spherical: true}
             ).then(function(users){
-                console.log(users, 'INITIAL USERS');
                 let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode === true && user.obj.available === true );
                 let user = filteredUsers[Math.floor(Math.random()*filteredUsers.length)];
-                console.log(user, 'IZABRANI KORISNIK');
-                console.log(filteredUsers, 'izabrani useri');
                 if(user){
                     if(user.obj.deliveryMode) {
                         if(data.transportation !== ''){
@@ -502,9 +495,7 @@ exports = module.exports = function(io){
 
   
     socket.on('SAVE_LOCATION', function(data){
-        console.log('SAVING POSITION', data.user.username);
         User.findOne({username: data.user.username}).then(function(user){
-            console.log('SAVED COORD', data);
             user.geometry.coordinates = [data.positionLat, data.positionLng];
             user.save();
         })
@@ -540,8 +531,6 @@ exports = module.exports = function(io){
             ).then(function(users){
                 let count = 0;
                 for(let i = 0; i<users.length; i++){
-  
-                        console.log(users[i].obj);
                         if(!users[i].obj.deliveryMode){
                           count++;
                         }
@@ -704,7 +693,6 @@ exports = module.exports = function(io){
 
 
     socket.on('UPDATE_DELIVERY_GUY_LOCATION', function(data){
-        console.log(data, 'DELIVERY GUY LOCATION FIX');
         User.findOne({username: data.client.username}).then(function(client){
             User.findOne({username: data.deliveryGuy.username}).then(function(deliveryGuy){
                 if(client.isOrdering && deliveryGuy.isDelivering){
@@ -817,7 +805,6 @@ exports = module.exports = function(io){
 
 
     socket.on('REQUEST_PRIVATE_DRIVER', function(data){
-        console.log(data.deliveryGuy, 'PRIVATE DELIVERy GUY');
         User.findOne({username: data.user.username}).then(function(user){
             user.isRequesting = true;
             user.save(err => console.log(err)).then(function(){
