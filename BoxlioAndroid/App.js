@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   Platform,
@@ -11,6 +5,11 @@ import {
   Text,
   View
 } from 'react-native';
+
+import { Container, Header, Content, Form, Item, Input , Button, H1} from 'native-base';
+
+import {Col, Row, Grid} from "react-native-easy-grid";
+
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -22,26 +21,21 @@ const instructions = Platform.select({
 export default class App extends Component<{}> {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to Boxlio!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
-      </View>
+        <Container style={styles.container}>
+            <Content>
+                <Grid>
+                  <Col>
+                    <H1 style={{color: '#fff', fontWeight: 'bold', textAlign: 'center', paddingTop: 100}}>Boxlio</H1>
+                  </Col>
+                </Grid>
+            </Content>
+        </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#1fcf7c',
   },
   welcome: {
