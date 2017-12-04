@@ -19,12 +19,22 @@ import {Col, Row, Grid} from "react-native-easy-grid";
 import ErrorsList from "./ErrorsList";
 import * as Animatable from "react-native-animatable";
 import WelcomeCurrentUser from "./WelcomeCurrentUser";
+import {Actions} from "react-native-router-flux";
 const GridAnimated = Animatable.createAnimatableComponent(Grid);
 const FormAnimated = Animatable.createAnimatableComponent(Form);
 
 class Welcome2 extends Component<{}> {
+    componentDidMount(){
+        if(this.props.currentUser){
+            this.setState({hideLogin: true})
+        }
+    }
     constructor(props){
         super(props);
+
+        this.state = {
+            hideLogin: false
+        }
 
         this.setEmail = text => 
             this.props.onSetEmail(text);
@@ -45,6 +55,9 @@ class Welcome2 extends Component<{}> {
             this.refs.grid.fadeOutDown(300);
             this.refs.text.fadeOutDown(300);
             this.refs.logo.fadeOutDown(300);
+            setTimeout(() => {
+                Actions.welcomecurrentuser()
+            }, 400)
         }
     }
 
@@ -53,7 +66,7 @@ class Welcome2 extends Component<{}> {
         const {email, password} = this.props;
         return (
                 <Container style={styles.container}>
-                    <WelcomeCurrentUser currentUser={this.props.currentUser}/>
+                    {!this.state.hideLogin ? 
                     <GridAnimated  animation="fadeInRight">
                         <Row>
                         <Animatable.Image delay={500} ref="logo" animation="bounceIn" source={{uri: 'https://i.imgur.com/TpS1vMz.png'}} style={{flex: 1, marginTop: 30,justifyContent: 'center',resizeMode: 'contain', height:70, width: 70}}></Animatable.Image>
@@ -101,6 +114,7 @@ class Welcome2 extends Component<{}> {
                             </Col>
                         </Row>
                     </GridAnimated>
+                : null}
                 </Container>
         );
     }

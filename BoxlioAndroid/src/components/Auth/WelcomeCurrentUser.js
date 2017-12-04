@@ -5,29 +5,30 @@ import {Grid, Row, Col} from "react-native-easy-grid";
 import {StyleSheet} from "react-native";
 import * as Animatable from "react-native-animatable";
 const TouchableOpacityAnimated = Animatable.createAnimatableComponent(TouchableOpacity);
+import {connect} from "react-redux";
 
 const WelcomeCurrentUser = props => {
 	if(props.currentUser){
 		return (
-			<Container style={{marginTop: 100}}>
+			<Container style={styles.container}>
 				<Grid>
-					<Row>
-						<Col>
+					<Row size={2}>
+						<Col style={{marginTop: 90}}>
 							<Animatable.Text animation="fadeInDown" style={styles.userText}>Welcome, {props.currentUser.firstName}</Animatable.Text>
 						</Col>
 					</Row>
-					<Row>
+					<Row size={2}>
 						<Col style={{alignItems: 'center'}}>
-						<Row>
 						<Animatable.View animation="fadeInDown" style={styles.imageContainer}>
                         	<Animatable.Image source={{uri: props.currentUser.image}} style={styles.userImage}></Animatable.Image>
 						</Animatable.View>
-						</Row>
-						<Row style={{marginTop: 260}}>
-						<TouchableOpacityAnimated animation="fadeInDown" style={styles.loginButton}>
-							<Text style={styles.loginButtonText}>Continue</Text>
-						</TouchableOpacityAnimated>
-						</Row>
+						</Col>
+					</Row>
+					<Row >
+						<Col style={{alignItems: 'center'}}>
+							<TouchableOpacityAnimated animation="fadeInDown" style={styles.loginButton}>
+								<Text style={styles.loginButtonText}>Continue</Text>
+							</TouchableOpacityAnimated>
 						</Col>
 					</Row>
 				</Grid>
@@ -38,6 +39,9 @@ const WelcomeCurrentUser = props => {
 }
 
 const styles = StyleSheet.create({
+	container: {
+		backgroundColor: '#fff'
+	},
 	userText: {
 		fontFamily: 'VarelaRound-Regular',
 		fontSize: 25,
@@ -96,4 +100,8 @@ const styles = StyleSheet.create({
     }
 })
 
-export default WelcomeCurrentUser;
+const mapStateToProps = state => ({
+	currentUser: state.common.currentUser
+})
+
+export default connect(mapStateToProps, null)(WelcomeCurrentUser);
