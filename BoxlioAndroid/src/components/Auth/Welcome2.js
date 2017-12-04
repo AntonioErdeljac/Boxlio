@@ -44,6 +44,7 @@ class Welcome2 extends Component<{}> {
         if(nextProps.currentUser){
             this.refs.grid.fadeOutDown(300);
             this.refs.text.fadeOutDown(300);
+            this.refs.logo.fadeOutDown(300);
         }
     }
 
@@ -52,9 +53,10 @@ class Welcome2 extends Component<{}> {
         const {email, password} = this.props;
         return (
                 <Container style={styles.container}>
+                    <WelcomeCurrentUser currentUser={this.props.currentUser}/>
                     <GridAnimated  animation="fadeInRight">
                         <Row>
-                        <Animatable.Image delay={500} animation="bounceIn" source={{uri: 'https://i.imgur.com/TpS1vMz.png'}} style={{flex: 1, marginTop: 30,justifyContent: 'center',resizeMode: 'contain', height:70, width: 70}}></Animatable.Image>
+                        <Animatable.Image delay={500} ref="logo" animation="bounceIn" source={{uri: 'https://i.imgur.com/TpS1vMz.png'}} style={{flex: 1, marginTop: 30,justifyContent: 'center',resizeMode: 'contain', height:70, width: 70}}></Animatable.Image>
                       
                         </Row>
                         <Row >
@@ -65,7 +67,6 @@ class Welcome2 extends Component<{}> {
                             </Col>
                         </Row>
                         <ErrorsList errors={this.props.errors}/>
-                        <WelcomeCurrentUser currentUser={this.props.currentUser}/>
                         <Row size={2}>
                             <Col size={1}>
                                 <Container style={{marginRight: 10}}>

@@ -1,4 +1,6 @@
-export default (state={}, action) => {
+const initialState = {currentUser: null}
+
+export default (state=initialState, action) => {
 	switch(action.type){
 		case 'UPDATE_FIELD_AUTH':
 			return {
