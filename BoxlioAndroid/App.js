@@ -3,50 +3,19 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+    Image,
+    ImageBackground
 } from 'react-native';
 
-import { Container, Header, Content, Form, Item, Input , Button, H1} from 'native-base';
-
-import {Col, Row, Grid} from "react-native-easy-grid";
-
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-    'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import AppView from "./src/components/AppView";
 
 export default class App extends Component<{}> {
   render() {
+
     return (
-        <Container style={styles.container}>
-            <Content>
-                <Grid>
-                  <Col>
-                    <H1 style={{color: '#fff', fontWeight: 'bold', textAlign: 'center', paddingTop: 100}}>Boxlio</H1>
-                  </Col>
-                </Grid>
-            </Content>
-        </Container>
+        <AppView />
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#1fcf7c',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: '#fff',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#fff',
-    marginBottom: 5,
-  },
-});

@@ -4,8 +4,14 @@
     <list default="true" id="87ab1eb2-a1ae-4ba8-bc58-ca9d268dce01" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/BoxlioAndroid/App.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/App.js" />
-      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/package-lock.json" afterPath="$PROJECT_DIR$/BoxlioAndroid/package-lock.json" />
+      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/android/app/build.gradle" afterPath="$PROJECT_DIR$/BoxlioAndroid/android/app/build.gradle" />
+      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/ios/BoxlioAndroid.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/BoxlioAndroid/ios/BoxlioAndroid.xcodeproj/project.pbxproj" />
+      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/ios/BoxlioAndroid/Info.plist" afterPath="$PROJECT_DIR$/BoxlioAndroid/ios/BoxlioAndroid/Info.plist" />
       <change beforePath="$PROJECT_DIR$/BoxlioAndroid/package.json" afterPath="$PROJECT_DIR$/BoxlioAndroid/package.json" />
+      <change beforePath="$PROJECT_DIR$/frontend/README.md" afterPath="$PROJECT_DIR$/frontend/README.md" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" afterPath="$PROJECT_DIR$/frontend/public/index.html" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/registerServiceWorker.js" afterPath="$PROJECT_DIR$/frontend/src/registerServiceWorker.js" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -19,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="App.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BoxlioAndroid/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="394">
-              <caret line="27" column="103" lean-forward="false" selection-start-line="27" selection-start-column="103" selection-end-line="27" selection-end-column="103" />
+            <state relative-caret-position="238">
+              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -31,7 +37,36 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="AppView.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/AppView.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="37" lean-forward="true" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BoxlioAndroid/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -43,6 +78,7 @@
       <find>[0]</find>
       <find>OVO JE</find>
       <find>var</find>
+      <find>resizeMode</find>
     </findStrings>
     <replaceStrings>
       <replace>let</replace>
@@ -70,6 +106,9 @@
         <option value="$PROJECT_DIR$/Backend/routes/api/clients.js" />
         <option value="$PROJECT_DIR$/Backend/routes/api/chatRooms.js" />
         <option value="$PROJECT_DIR$/Backend/app.js" />
+        <option value="$PROJECT_DIR$/BoxlioAndroid/android/app/build.gradle" />
+        <option value="$PROJECT_DIR$/BoxlioAndroid/package.json" />
+        <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/App.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/App.js" />
       </list>
     </option>
@@ -90,6 +129,7 @@
     <handled-path value="$PROJECT_DIR$/Backend/node_modules" />
     <handled-path value="$PROJECT_DIR$/BoxlioAndroid/node_modules" />
     <handled-path value="$PROJECT_DIR$/frontend/node_modules" />
+    <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-1" />
@@ -127,6 +167,19 @@
               <item name="Boxlio" type="b2602c69:ProjectViewProjectNode" />
               <item name="Boxlio" type="462c0819:PsiDirectoryNode" />
               <item name="BoxlioAndroid" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Boxlio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Boxlio" type="462c0819:PsiDirectoryNode" />
+              <item name="BoxlioAndroid" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Boxlio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Boxlio" type="462c0819:PsiDirectoryNode" />
+              <item name="BoxlioAndroid" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -238,12 +291,12 @@
       <workItem from="1512075359405" duration="6948000" />
       <workItem from="1512089278857" duration="293000" />
       <workItem from="1512089598264" duration="99000" />
-      <workItem from="1512338236906" duration="1472000" />
+      <workItem from="1512338236906" duration="7359000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8812000" />
+    <option name="totallyTimeSpent" value="14699000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-4" width="1680" height="1054" extended-state="6" />
@@ -253,6 +306,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3340336" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32983193" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -264,7 +318,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -641,10 +694,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/android/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="80" column="71" lean-forward="false" selection-start-line="80" selection-start-column="71" selection-end-line="80" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/public/boxlio.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/BoxlioAndroid/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="27" column="103" lean-forward="false" selection-start-line="27" selection-start-column="103" selection-end-line="27" selection-end-column="103" />
+        <state relative-caret-position="238">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/AppView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="37" lean-forward="true" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
