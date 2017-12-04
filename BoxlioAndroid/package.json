@@ -10,7 +10,12 @@
 		"native-base": "^2.3.3",
 		"react": "16.0.0",
 		"react-native": "0.50.3",
-		"react-native-easy-grid": "^0.1.15"
+		"react-native-animatable": "^1.2.4",
+		"react-native-easy-grid": "^0.1.15",
+		"react-redux": "^5.0.6",
+		"redux": "^3.7.2",
+		"superagent": "^3.8.1",
+		"superagent-promise": "^1.1.0"
 	},
 	"devDependencies": {
 		"babel-jest": "21.2.0",

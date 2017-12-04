@@ -7,15 +7,18 @@ import {
     Image,
     ImageBackground
 } from 'react-native';
+import {Provider} from "react-redux";
+import store from "./src/store";
 
 import AppView from "./src/components/AppView";
 
-export default class App extends Component<{}> {
+export default class App extends Component{
   render() {
-
     return (
-        <AppView />
-    );
+        <Provider store={store}>
+          <AppView />
+        </Provider>
+    )
   }
 }
 
