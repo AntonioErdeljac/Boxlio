@@ -6,7 +6,8 @@ export default (state=initialState, action) => {
 			return {
 				...state,
 				[action.key]: action.value,
-				errors: null
+				errors: null,
+				isTyping: true
 			};
 		case 'LOGIN':
 			return {
@@ -18,7 +19,8 @@ export default (state=initialState, action) => {
 		if(action.subtype === 'LOGIN' || action.subtype === 'REGISTER'){
 			return {
 				...state,
-				isLoading: true
+				isLoading: true,
+				isTyping: false
 			}
 		} else {
 			return {

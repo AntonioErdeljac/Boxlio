@@ -3,22 +3,32 @@ import superagentPromise from "superagent-promise";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = 'https://e8d61d20.ngrok.io/api';
+const API_ROOT = 'http://192.168.5.14:8000/api';
 
 const getBody = res => res.body;
 
 const requests = {
 	get: url =>
-		superagent.get(`${API_ROOT}${url}`).then(getBody),
+		superagent.get(`${API_ROOT}${url}`).use(tokenPlugin).then(getBody),
 	post: (url, body) =>
-		superagent.post(`${API_ROOT}${url}`, body).then(getBody)
+		superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(getBody)
 };
 
 const Auth = {
 	login: (email, password) =>
-		requests.post('/users/login', {user: {email, password}})
+		requests.post('/users/login', {user: {email, password}}),
+	current: () =>
+		requests.get('/user')
 };
 
+let token = null;
+let tokenPlugin = req => {
+	if(token){
+		req.set('authorization', `Token ${token}`)
+	}
+}
+
 export default {
-	Auth
+	Auth,
+	setToken: _token => {token = _token}
 }

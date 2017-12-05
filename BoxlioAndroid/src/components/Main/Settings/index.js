@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React from "react";
+import {Container, Content} from "native-base";
+import {  Header, Form, Item, Input , Button, H1, H3, Label, Icon,} from 'native-base';
 import {
     Platform,
     StyleSheet,
@@ -12,120 +14,82 @@ import {
     Alert,
     TextInput,
     ActivityIndicator,
-    AsyncStorage
-} from 'react-native';
-import agent from "../../agent";
-import {connect} from "react-redux";
-import { Container, Header, Content, Form, Item, Input , Button, H1, H3, Label, Icon,} from 'native-base';
-import {Col, Row, Grid} from "react-native-easy-grid";
-import ErrorsList from "./ErrorsList";
+    AsyncStorage} from "react-native";
+import {Grid, Row, Col} from "react-native-easy-grid";
 import * as Animatable from "react-native-animatable";
-import WelcomeCurrentUser from "./WelcomeCurrentUser";
-import {Actions} from "react-native-router-flux";
+import {connect} from "react-redux";
+
 const GridAnimated = Animatable.createAnimatableComponent(Grid);
 const FormAnimated = Animatable.createAnimatableComponent(Form);
 const ActivityIndicatorAnimated = Animatable.createAnimatableComponent(ActivityIndicator);
 
-class Welcome2 extends Component<{}> {
-    constructor(props){
-        super(props);
 
-        this.state = {
-            hideLogin: false
-        }
-
-        this.setEmail = text => 
-            this.props.onSetEmail(text);
-
-
-        this.setPassword = text => 
-            this.props.onSetPassword(text);
-
-        this.submitForm = (email, password) => {
-            this.props.onSubmitForm(email, password);
-        }
-
-
-    }
-
-    componentWillReceiveProps(nextProps){
-        if(nextProps.currentUser){
-            if(this.refs.text){
-            this.refs.text.fadeOutDown(300);
-            }
-            if(this.refs.loading){
-            this.refs.loading.fadeOutDown(300);
-            }
-            if(this.refs.logo){
-            this.refs.logo.fadeOutDown(300);
-            }
-            {!nextProps.userIsSaved ?
-            Actions.welcomecurrentuser()
-            : Actions.navigation()}
-        }
-
-        if(nextProps.isLoading && this.props.errors){
-            this.refs.grid.shake(300);
-        }
-
-        if(nextProps.isLoading && !this.props.errors){
-            this.refs.grid.bounceOut(300);
-        }
-        if(nextProps.errors && !this.props.errors && !nextProps.isTyping && !nextProps.currentUser){
-            this.refs.grid.bounceIn(300);
-        }
-    }
-
-
-    render() {
-        const {email, password} = this.props;
-        if(!this.props.currentUser){
-        return (
-                <Container style={styles.container}>
-                    <GridAnimated  animation="fadeInRight">
+class Settings extends React.Component{
+	render(){
+		return (
+			<Container style={styles.container}>
+                    <GridAnimated  animation="fadeInUp">
                         <Row>
-                        <Animatable.Image delay={500} ref="logo" animation="bounceIn" source={{uri: 'https://i.imgur.com/TpS1vMz.png'}} style={{flex: 1, marginTop: 30,justifyContent: 'center',resizeMode: 'contain', height:70, width: 70}}></Animatable.Image>
-                      
-                        </Row>
-                        <Row >
                             <Col>
-                            <View style={{justifyContent: 'space-around'}}>
-                                <Animatable.Text ref="text" style={styles.headerText}>Welcome to Boxlio</Animatable.Text>
-                            </View>
+	                            <View style={{justifyContent: 'space-around'}}>
+	                                <Animatable.Text ref="text" style={styles.headerText}>Your Settings</Animatable.Text>
+	                            </View>
                             </Col>
                         </Row>
-                        <ErrorsList errors={this.props.errors}/>
-                        <Row size={2}>
+                        <Row size={3}>
                             <Col size={1}>
                                 <Container style={{marginRight: 10}}>
-                                {this.props.isLoading && !this.props.errors ?
-                                    <ActivityIndicatorAnimated animation="bounceIn" delay={300} ref="loading" size={50} color="#1fcf7c" />
-                                    : null}
                                     <FormAnimated ref="grid">
                                         <Item style={{borderColor: 'transparent', marginBottom: 10, marginTop: 10}}>
                                             
                                             <Input 
-                                            value={email}
-                                            onChangeText={(text) => this.setEmail(text)}
                                             block 
                                             placeholderTextColor="gray" 
                                             style={styles.Input} 
                                             underlineColorAndroid='transparent'
-                                            placeholder="Email" />
+                                            placeholder="Username" />
                                         </Item>
                                         <Item style={{borderColor: 'transparent', marginBottom: 10}}>
                                             <Input
                                             secureTextEntry={true}
                                             block
-                                            value={password}
-                                            onChangeText={(text) => this.setPassword(text)} 
+                                            placeholderTextColor="gray" 
+                                            style={styles.Input} 
+                                            underlineColorAndroid='transparent'
+                                            placeholder="First Name" />    
+                                        </Item>
+                                        <Item style={{borderColor: 'transparent', marginBottom: 10}}>
+                                            <Input
+                                            secureTextEntry={true}
+                                            block
+                                            placeholderTextColor="gray" 
+                                            style={styles.Input} 
+                                            underlineColorAndroid='transparent'
+                                            placeholder="Last Name" />    
+                                        </Item>
+                                        <Item style={{borderColor: 'transparent', marginBottom: 10}}>
+                                            <Input
+                                            secureTextEntry={true}
+                                            block
                                             placeholderTextColor="gray" 
                                             style={styles.Input} 
                                             underlineColorAndroid='transparent'
                                             placeholder="Password" />    
                                         </Item>
-                                            <TouchableOpacity disabled={this.props.isLoading} onPress={() => this.submitForm(email, password)} style={this.props.isLoading ? styles.loginButtonDisabled : styles.loginButton}>
-                                            <Text style={styles.loginButtonText}>Login</Text>
+                                        <Item style={{borderColor: 'transparent', marginBottom: 10}}>
+                                            <Input
+                                            secureTextEntry={true}
+                                            block
+                                            placeholderTextColor="gray" 
+                                            style={styles.Input} 
+                                            underlineColorAndroid='transparent'
+                                            placeholder="Image" />    
+                                        </Item>
+                                            <TouchableOpacity style={this.props.isLoading ? styles.loginButtonDisabled : styles.loginButton}>
+                                            <Text style={styles.loginButtonText}>Save</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity onPress={() => this.props.onClickLogout()} style={this.props.isLoading ? styles.loginButtonDisabled : styles.logoutButton}>
+                                            <Text style={styles.logoutButtonText}>Logout</Text>
                                             </TouchableOpacity>
                                     </FormAnimated>
                                 </Container>
@@ -133,13 +97,9 @@ class Welcome2 extends Component<{}> {
                         </Row>
                     </GridAnimated>
                 </Container>
-        );
-        }
-        return null;
-    }
+		);
+	}
 }
-
-
 
 const styles = StyleSheet.create({
     container: {
@@ -204,6 +164,24 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 30,
     },
+    logoutButton: {
+		borderColor: 'transparent',
+        backgroundColor: '#E7475E',
+        marginTop: 10,
+        marginLeft: 10,
+        shadowColor: 'rgba(255,255,255,1)',
+        elevation: 3,
+        shadowOffset: {height: 10, width: 10},
+        shadowOpacity: 0.3,
+        padding: 10,
+        borderRadius: 30,
+    },
+    logoutButtonText: {
+        color: '#fff',
+        fontSize: 20,
+        textAlign: 'center',
+        fontFamily: 'VarelaRound-Regular'
+    },
     loginButtonDisabled: {
         opacity: 0.5,
         borderColor: 'transparent',
@@ -226,20 +204,9 @@ const styles = StyleSheet.create({
 
 });
 
-const mapStateToProps = state => ({
-    ...state.auth,
-    currentUser: state.common.currentUser,
-    token: state.common.token,
-    userIsSaved: state.common.userIsSaved
-})
-
 const mapDispatchToProps = dispatch => ({
-    onSetEmail: value =>
-        dispatch({type: 'UPDATE_FIELD_AUTH', value, key: 'email'}),
-    onSetPassword: value =>
-        dispatch({type: 'UPDATE_FIELD_AUTH', value, key: 'password'}),
-    onSubmitForm: (email, password) =>
-        dispatch({type: 'LOGIN', payload: agent.Auth.login(email, password)})
+	onClickLogout: () =>
+		dispatch({type: 'LOGOUT'})
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Welcome2);
+export default connect(null, mapDispatchToProps)(Settings);

@@ -4,13 +4,15 @@ import {Text} from "react-native";
 import { Header, Content, Footer, FooterTab, Button, Icon } from 'native-base';
 import MapView from 'react-native-maps';
 import {StyleSheet} from "react-native";
+import * as Animatable from "react-native-animatable";
+const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 
 class Map extends React.Component{
 	render(){
 		return (
-			<Container style={styles.container}>
+			<ContainerAnimatable animation="fadeInUp" style={styles.container}>
 				<MapView style={styles.map} />
-			</Container>
+			</ContainerAnimatable>
 		);
 	}
 }
