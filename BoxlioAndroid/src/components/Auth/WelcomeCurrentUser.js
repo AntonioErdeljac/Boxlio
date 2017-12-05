@@ -1,41 +1,57 @@
 import React from "react";
-import {Text, View, TouchableOpacity} from "react-native";
+import {Text, View, TouchableOpacity, Image} from "react-native";
 import {Container} from "native-base";
 import {Grid, Row, Col} from "react-native-easy-grid";
 import {StyleSheet} from "react-native";
 import * as Animatable from "react-native-animatable";
+import {Actions} from "react-native-router-flux";
 const TouchableOpacityAnimated = Animatable.createAnimatableComponent(TouchableOpacity);
+const ColAnimated = Animatable.createAnimatableComponent(Col);
+const ContainerAnimated = Animatable.createAnimatableComponent(Container);
 import {connect} from "react-redux";
 
-const WelcomeCurrentUser = props => {
-	if(props.currentUser){
-		return (
-			<Container style={styles.container}>
-				<Grid>
-					<Row size={2}>
-						<Col style={{marginTop: 90}}>
-							<Animatable.Text animation="fadeInDown" style={styles.userText}>Welcome, {props.currentUser.firstName}</Animatable.Text>
-						</Col>
-					</Row>
-					<Row size={2}>
-						<Col style={{alignItems: 'center'}}>
-						<Animatable.View animation="fadeInDown" style={styles.imageContainer}>
-                        	<Animatable.Image source={{uri: props.currentUser.image}} style={styles.userImage}></Animatable.Image>
-						</Animatable.View>
-						</Col>
-					</Row>
-					<Row >
-						<Col style={{alignItems: 'center'}}>
-							<TouchableOpacityAnimated animation="fadeInDown" style={styles.loginButton}>
-								<Text style={styles.loginButtonText}>Continue</Text>
-							</TouchableOpacityAnimated>
-						</Col>
-					</Row>
-				</Grid>
-			</Container>
-		);
+class WelcomeCurrentUser extends React.Component {
+	constructor(props){
+		super(props);
+		this.routeToMain = () => {
+				this.refs.container.fadeOutDown(300);
+				setTimeout(() => {
+					Actions.main();
+				}, 350)
+			}
 	}
-	return null;
+	render(){
+		const props = this.props;
+		if(props.currentUser){
+			
+			return (
+				<ContainerAnimated ref="container" style={styles.container}>
+					<Grid>
+						<Row size={2}>
+							<Col style={{marginTop: 90}}>
+								<Text  style={styles.userText}>Welcome, {props.currentUser.firstName}</Text>
+							</Col>
+						</Row>
+						<Row size={2}>
+							<Col style={{alignItems: 'center'}}>
+							<View  style={styles.imageContainer}>
+	                        	<Image source={{uri: props.currentUser.image}} style={styles.userImage}></Image>
+							</View>
+							</Col>
+						</Row>
+						<Row >
+							<Col  style={{alignItems: 'center'}}>
+								<TouchableOpacity onPress={() => this.routeToMain()} style={styles.loginButton}>
+									<Text style={styles.loginButtonText}>Continue</Text>
+								</TouchableOpacity>
+							</Col>
+						</Row>
+					</Grid>
+				</ContainerAnimated>
+			);
+		}
+		return null;
+	}
 }
 
 const styles = StyleSheet.create({
@@ -59,11 +75,9 @@ const styles = StyleSheet.create({
 		borderRadius: 50,
 		height: 150,
 		width: 150,
-		shadowColor: '#000',
-        elevation: 3,
-        shadowOffset: {height: 2, width: 2},
-        shadowOpacity: 0.2,
-        shadowRadius: 11,
+		borderWidth: 5,
+		borderColor: '#1fcf7c',
+		alignItems: 'center'
 	},
     loginButton: {
         borderColor: 'transparent',
@@ -102,6 +116,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
 	currentUser: state.common.currentUser
-})
+});
 
 export default connect(mapStateToProps, null)(WelcomeCurrentUser);
