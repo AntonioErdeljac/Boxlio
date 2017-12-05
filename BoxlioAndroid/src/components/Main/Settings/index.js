@@ -17,6 +17,7 @@ import {
     AsyncStorage} from "react-native";
 import {Grid, Row, Col} from "react-native-easy-grid";
 import * as Animatable from "react-native-animatable";
+import agent from "../../../agent";
 import {connect} from "react-redux";
 
 const GridAnimated = Animatable.createAnimatableComponent(Grid);
@@ -25,9 +26,62 @@ const ActivityIndicatorAnimated = Animatable.createAnimatableComponent(ActivityI
 
 
 class Settings extends React.Component{
+	constructor(props){
+		super(props);
+
+		this.state={
+			username: '',
+			email: '',
+			firstName: '',
+			lastName: '',
+			password: '',
+			image: ''
+		};
+
+		this.submitForm = ev => {
+			ev.preventDefault();
+
+			let user = Object.assign({}, this.state);
+
+			if(!user.password){
+				delete user.password;
+			}
+
+			this.props.onSubmitForm(user);
+		};
+
+	}
+
+	componentWillMount(){
+		if(this.props.currentUser){
+			Object.assign(this.state, {
+				username: this.props.currentUser.username,
+				firstName: this.props.currentUser.firstName,
+				lastName: this.props.currentUser.lastName,
+				email: this.props.currentUser.email,
+				password: this.props.currentUser.password,
+				image: this.props.currentUser.image || ''
+			})
+		}
+	}
+
+	componentWillReceiveProps(nextProps){
+		if(nextProps.currentUser){
+			this.setState(Object.assign({}, this.state, {
+				firstName: nextProps.currentUser.firstName,
+				lastName: nextProps.currentUser.lastName,
+				username: nextProps.currentUser.username,
+				email: nextProps.currentUser.email,
+				password: nextProps.currentUser.password,
+				image: nextProps.currentUser.image
+			}))
+		}
+	}
+
 	render(){
 		return (
 			<Container style={styles.container}>
+				<Content>
                     <GridAnimated  animation="fadeInUp">
                         <Row>
                             <Col>
@@ -42,7 +96,9 @@ class Settings extends React.Component{
                                     <FormAnimated ref="grid">
                                         <Item style={{borderColor: 'transparent', marginBottom: 10, marginTop: 10}}>
                                             
-                                            <Input 
+                                            <Input
+                                            value={this.state.username}
+                                            onChangeText={(text) => this.setState({username: text})} 
                                             block 
                                             placeholderTextColor="gray" 
                                             style={styles.Input} 
@@ -51,7 +107,8 @@ class Settings extends React.Component{
                                         </Item>
                                         <Item style={{borderColor: 'transparent', marginBottom: 10}}>
                                             <Input
-                                            secureTextEntry={true}
+                                            value={this.state.firstName}
+                                            onChangeText={(text) => this.setState({firstName: text})}
                                             block
                                             placeholderTextColor="gray" 
                                             style={styles.Input} 
@@ -60,7 +117,8 @@ class Settings extends React.Component{
                                         </Item>
                                         <Item style={{borderColor: 'transparent', marginBottom: 10}}>
                                             <Input
-                                            secureTextEntry={true}
+                                            value={this.state.lastName}
+                                            onChangeText={(text) => this.setState({lastName: text})}
                                             block
                                             placeholderTextColor="gray" 
                                             style={styles.Input} 
@@ -69,12 +127,24 @@ class Settings extends React.Component{
                                         </Item>
                                         <Item style={{borderColor: 'transparent', marginBottom: 10}}>
                                             <Input
+                                            value={this.state.email}
+                                            onChangeText={(text) => this.setState({email: text})}
+                                            block
+                                            placeholderTextColor="gray" 
+                                            style={styles.Input} 
+                                            underlineColorAndroid='transparent'
+                                            placeholder="Email" />    
+                                        </Item>
+                                        <Item style={{borderColor: 'transparent', marginBottom: 10}}>
+                                            <Input
+                                            value={this.state.password}
+                                            onChangeText={(text) => this.setState({password: text})}
                                             secureTextEntry={true}
                                             block
                                             placeholderTextColor="gray" 
                                             style={styles.Input} 
                                             underlineColorAndroid='transparent'
-                                            placeholder="Password" />    
+                                            placeholder="New Password" />    
                                         </Item>
                                         <Item style={{borderColor: 'transparent', marginBottom: 10}}>
                                             <Input
@@ -85,7 +155,7 @@ class Settings extends React.Component{
                                             underlineColorAndroid='transparent'
                                             placeholder="Image" />    
                                         </Item>
-                                            <TouchableOpacity style={this.props.isLoading ? styles.loginButtonDisabled : styles.loginButton}>
+                                            <TouchableOpacity onPress={this.submitForm} style={this.props.isLoading ? styles.loginButtonDisabled : styles.loginButton}>
                                             <Text style={styles.loginButtonText}>Save</Text>
                                             </TouchableOpacity>
                                             <TouchableOpacity onPress={() => this.props.onClickLogout()} style={this.props.isLoading ? styles.loginButtonDisabled : styles.logoutButton}>
@@ -96,6 +166,7 @@ class Settings extends React.Component{
                             </Col>
                         </Row>
                     </GridAnimated>
+                    </Content>
                 </Container>
 		);
 	}
@@ -162,7 +233,7 @@ const styles = StyleSheet.create({
         shadowOffset: {height: 10, width: 10},
         shadowOpacity: 0.3,
         padding: 10,
-        borderRadius: 30,
+        borderRadius: 6,
     },
     logoutButton: {
 		borderColor: 'transparent',
@@ -174,11 +245,11 @@ const styles = StyleSheet.create({
         shadowOffset: {height: 10, width: 10},
         shadowOpacity: 0.3,
         padding: 10,
-        borderRadius: 30,
+        borderRadius: 6,
     },
     logoutButtonText: {
         color: '#fff',
-        fontSize: 20,
+        fontSize: 15,
         textAlign: 'center',
         fontFamily: 'VarelaRound-Regular'
     },
@@ -197,7 +268,7 @@ const styles = StyleSheet.create({
     },
     loginButtonText: {
         color: '#fff',
-        fontSize: 20,
+        fontSize: 15,
         textAlign: 'center',
         fontFamily: 'VarelaRound-Regular'
     }
@@ -206,7 +277,13 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => ({
 	onClickLogout: () =>
-		dispatch({type: 'LOGOUT'})
+		dispatch({type: 'LOGOUT'}),
+	onSubmitForm: user =>	
+		dispatch({type: 'SAVE_SETTINGS', payload: agent.Auth.update(user)})
 })
 
-export default connect(null, mapDispatchToProps)(Settings);
+const mapStateToProps = state => ({
+	currentUser: state.common.currentUser
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

@@ -8,6 +8,12 @@ export default (state={}, action) => {
 				token: action.token || null,
 				userIsSaved: action.payload ? true : false
 			}
+		case 'SAVE_SETTINGS':
+			return {
+				...state,
+				currentUser: !action.payload ? state.currentUser : action.payload.user,
+				redirectTo: action.error ? null : 'welcomecurrentuser'
+			}
 		case 'LOGOUT':
 			return {
 				...state,

@@ -11,14 +11,18 @@ const requests = {
 	get: url =>
 		superagent.get(`${API_ROOT}${url}`).use(tokenPlugin).then(getBody),
 	post: (url, body) =>
-		superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(getBody)
+		superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(getBody),
+	put: (url, body) =>
+		superagent.put(`${API_ROOT}${url}`, body).use(tokenPlugin).then(getBody)
 };
 
 const Auth = {
 	login: (email, password) =>
 		requests.post('/users/login', {user: {email, password}}),
 	current: () =>
-		requests.get('/user')
+		requests.get('/user'),
+	update: user =>
+		requests.put('/user', {user})
 };
 
 let token = null;

@@ -14,6 +14,9 @@ class App extends Component<{}> {
             if(nextProps.redirectTo === 'home'){
                 Actions.home();
             }
+            if(nextProps.redirectTo === 'welcomecurrentuser'){
+                Actions.welcomecurrentuser();
+            }
             this.props.onRedirect();
         }
     }
