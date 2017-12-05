@@ -16,7 +16,7 @@ class WelcomeCurrentUser extends React.Component {
 		this.routeToMain = () => {
 				this.refs.container.fadeOutDown(300);
 				setTimeout(() => {
-					Actions.main();
+					Actions.navigation();
 				}, 350)
 			}
 	}
