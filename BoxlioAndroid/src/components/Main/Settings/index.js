@@ -47,7 +47,10 @@ class Settings extends React.Component{
 				delete user.password;
 			}
 
-			this.props.onSubmitForm(user);
+			this.refs.grid.fadeOutDown(300).then(() => {
+
+				this.props.onSubmitForm(user);
+			})
 		};
 
 	}
@@ -80,22 +83,24 @@ class Settings extends React.Component{
 
 	render(){
 		return (
-			<Container style={styles.container}>
-				<Content>
-                    <GridAnimated  animation="fadeInUp">
+			<Content style={{backgroundColor: '#fff'}}>
+				<ScrollView>
+                    <GridAnimated  style={{paddingBottom: 150}}   animation="fadeInUp">
                         <Row>
                             <Col>
 	                            <View style={{justifyContent: 'space-around'}}>
-	                                <Animatable.Text ref="text" style={styles.headerText}>Your Settings</Animatable.Text>
+	                                <Animatable.Text ref="text" style={styles.headerText}>Account Settings</Animatable.Text>
 	                            </View>
                             </Col>
                         </Row>
-                        <Row size={3}>
-                            <Col size={1}>
+                        <Row >
+                            <Col>
                                 <Container style={{marginRight: 10}}>
                                     <FormAnimated ref="grid">
-                                        <Item style={{borderColor: 'transparent', marginBottom: 10, marginTop: 10}}>
-                                            
+                                    	<Item style={{borderColor: 'transparent', marginBottom: 5, marginTop: 10}}>
+                                    		<Text style={styles.label}>Username</Text>
+                                    	</Item>
+                                        <Item style={{borderColor: 'transparent', marginBottom: 15, marginTop: 10}}>
                                             <Input
                                             value={this.state.username}
                                             onChangeText={(text) => this.setState({username: text})} 
@@ -105,7 +110,10 @@ class Settings extends React.Component{
                                             underlineColorAndroid='transparent'
                                             placeholder="Username" />
                                         </Item>
-                                        <Item style={{borderColor: 'transparent', marginBottom: 10}}>
+                                    	<Item style={{borderColor: 'transparent', marginBottom: 5, marginTop: 10}}>
+                                    		<Text style={styles.label}>First Name</Text>
+                                    	</Item>
+                                        <Item style={{borderColor: 'transparent', marginBottom: 15}}>
                                             <Input
                                             value={this.state.firstName}
                                             onChangeText={(text) => this.setState({firstName: text})}
@@ -115,7 +123,10 @@ class Settings extends React.Component{
                                             underlineColorAndroid='transparent'
                                             placeholder="First Name" />    
                                         </Item>
-                                        <Item style={{borderColor: 'transparent', marginBottom: 10}}>
+                                    	<Item style={{borderColor: 'transparent', marginBottom: 5, marginTop: 10}}>
+                                    		<Text style={styles.label}>Last Name</Text>
+                                    	</Item>
+                                        <Item style={{borderColor: 'transparent', marginBottom: 15}}>
                                             <Input
                                             value={this.state.lastName}
                                             onChangeText={(text) => this.setState({lastName: text})}
@@ -125,7 +136,10 @@ class Settings extends React.Component{
                                             underlineColorAndroid='transparent'
                                             placeholder="Last Name" />    
                                         </Item>
-                                        <Item style={{borderColor: 'transparent', marginBottom: 10}}>
+                                    	<Item style={{borderColor: 'transparent', marginBottom: 5, marginTop: 10}}>
+                                    		<Text style={styles.label}>Email</Text>
+                                    	</Item>
+                                        <Item style={{borderColor: 'transparent', marginBottom: 15}}>
                                             <Input
                                             value={this.state.email}
                                             onChangeText={(text) => this.setState({email: text})}
@@ -135,7 +149,10 @@ class Settings extends React.Component{
                                             underlineColorAndroid='transparent'
                                             placeholder="Email" />    
                                         </Item>
-                                        <Item style={{borderColor: 'transparent', marginBottom: 10}}>
+                                    	<Item style={{borderColor: 'transparent', marginBottom: 5, marginTop: 10}}>
+                                    		<Text style={styles.label}>New password</Text>
+                                    	</Item>
+                                        <Item style={{borderColor: 'transparent', marginBottom: 15}}>
                                             <Input
                                             value={this.state.password}
                                             onChangeText={(text) => this.setState({password: text})}
@@ -146,7 +163,10 @@ class Settings extends React.Component{
                                             underlineColorAndroid='transparent'
                                             placeholder="New Password" />    
                                         </Item>
-                                        <Item style={{borderColor: 'transparent', marginBottom: 10}}>
+                                    	<Item style={{borderColor: 'transparent', marginBottom: 5, marginTop: 10}}>
+                                    		<Text style={styles.label}>Profile Image</Text>
+                                    	</Item>
+                                        <Item style={{borderColor: 'transparent', marginBottom: 15}}>
                                             <Input
                                             secureTextEntry={true}
                                             block
@@ -166,15 +186,20 @@ class Settings extends React.Component{
                             </Col>
                         </Row>
                     </GridAnimated>
-                    </Content>
-                </Container>
+                </ScrollView>
+                </Content>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
+	label: {
+		color: 'rgba(0,0,0,.5)',
+		fontFamily: 'VarelaRound-Regular',
+		marginLeft: 10
+	},
     container: {
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
     },
     headerText: {
         color: 'rgba(0,0,0,.6)',
@@ -216,11 +241,13 @@ const styles = StyleSheet.create({
         fontFamily: 'VarelaRound-Regular'
     },
     Input: {
-        backgroundColor: 'rgba(0,0,0,.02)',
+        backgroundColor: '#fff',
+        borderColor: 'rgba(0,0,0,.4)',
+        borderWidth: 0.3,
         paddingLeft: 20,
-        color: 'rgba(0,0,0,.6)',
+        fontSize: 15,
+        color: 'rgba(0,0,0,.4)',
         borderRadius: 6,
-        borderColor: 'transparent',
         fontFamily: 'VarelaRound-Regular'
     },
     loginButton: {

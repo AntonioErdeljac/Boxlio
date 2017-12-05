@@ -25,22 +25,24 @@ class Main extends React.Component{
 	}
 
 	render(){
+
 		return (
 			<ContainerAnimatable duration={300} animation="fadeInUp">
 				{this.props.tab === 'map' ?
 					<Map />
 					: null
 				}
-				
+
 				<Content >
+				
+				{this.props.tab === 'settings' ? 
+					<Settings/> : null
+				}
 				{this.props.tab === 'explore' ?
 					null : null
 				}
 				{this.props.tab === 'messages' ? 
 					null : null
-				}
-				{this.props.tab === 'settings' ? 
-					<Settings/> : null
 				}
 				</Content>
 				<Footer >
