@@ -8,6 +8,8 @@ import {Actions} from "react-native-router-flux";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 
+import Map from "../Main/Map";
+
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 const MapViewAnimatable = Animatable.createAnimatableComponent(MapView);
 
@@ -23,26 +25,29 @@ class Main extends React.Component{
 
 	render(){
 		return (
-			<ContainerAnimatable animation="fadeInUp" style={styles.container}>
-			{this.props.tab === 'main' ?
-				<MapView style={styles.map} />
-				: null
-			}
-			{this.props.tab === 'explore' ?
-				null : null
-			}
-			<Content >
-			</Content>
+			<ContainerAnimatable style={styles.container} animation="fadeInUp">
+				{this.props.tab === 'map' ?
+					<Map />
+					: null
+				}
+				{this.props.tab === 'explore' ?
+					null : null
+				}
+				{this.props.tab === 'messages' ? 
+					null : null
+				}
+				<Content >
+				</Content>
 				<Footer>
 		          <FooterTab style={{backgroundColor: '#1fcf7c'}}>
-		            <Button style={{backgroundColor: '#1fcf7c'}} onPress={() => this.changeTab('main')}>
-		              <Icon style={this.props.tab !== 'main' ? {color: '#fff', opacity: 0.5} : {color: '#fff'}} name="globe" />
+		            <Button style={{backgroundColor: '#1fcf7c'}} onPress={() => this.changeTab('map')}>
+		              <Icon style={this.props.tab !== 'map' ? {color: '#fff', opacity: 0.5} : {color: '#fff'}} name="globe" />
+		            </Button>
+		            <Button style={{backgroundColor: '#1fcf7c'}} onPress={() => this.changeTab('messages')}>
+		              <Icon style={this.props.tab !== 'messages' ? {color: '#fff', opacity: 0.5} : {color: '#fff'}} name="ios-mail-outline" />
 		            </Button>
 		            <Button style={{backgroundColor: '#1fcf7c'}} onPress={() => this.changeTab('explore')}>
 		              <Icon style={this.props.tab !== 'explore' ? {color: '#fff', opacity: 0.5} : {color: '#fff'}} name="ios-compass-outline" />
-		            </Button>
-		            <Button style={{backgroundColor: '#1fcf7c'}}>
-		              <Icon style={this.props.tab !== 'settings' ? {color: '#fff', opacity: 0.5} : {color: '#fff'}} name="ios-mail-outline" />
 		            </Button>
 		          </FooterTab>
 		        </Footer>
