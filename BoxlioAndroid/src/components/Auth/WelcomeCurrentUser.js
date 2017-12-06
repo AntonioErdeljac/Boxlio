@@ -16,7 +16,7 @@ class WelcomeCurrentUser extends React.Component {
 		this.routeToMain = () => {
 				this.refs.container.fadeOutDown(300);
 				setTimeout(() => {
-					Actions.navigation();
+					Actions.main();
 				}, 350)
 			}
 	}
@@ -69,13 +69,12 @@ const styles = StyleSheet.create({
 		resizeMode: 'cover', 
 		height:150, 
 		width: 150,
-		borderRadius: 50,
+		borderRadius: 150,
 	},
 	imageContainer: {
-		borderRadius: 50,
+		borderRadius: 150,
 		height: 150,
 		width: 150,
-		borderWidth: 5,
 		borderColor: '#1fcf7c',
 		alignItems: 'center'
 	},

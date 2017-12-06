@@ -55,7 +55,7 @@ class Welcome2 extends Component<{}> {
             if(!nextProps.userIsSaved){
                 Actions.welcomecurrentuser();
             } else {
-                Actions.navigation();
+                Actions.main();
             }
            }, 300)
             

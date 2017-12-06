@@ -6,6 +6,7 @@ import {Router, Scene} from "react-native-router-flux";
 import {connect} from "react-redux";
 import {Actions} from "react-native-router-flux";
 import {AsyncStorage} from "react-native";
+import Options from "./Main/Options";
 import agent from "../agent";
 
 class App extends Component<{}> {
@@ -31,7 +32,7 @@ class App extends Component<{}> {
             }
             this.props.onLoad(token ? agent.Auth.current() : null, token);
             if(token && !this.props.appLoaded){
-                Actions.navigation();
+                Actions.main();
             }
         })
         
@@ -43,7 +44,8 @@ class App extends Component<{}> {
                 <Scene key="root">
                     <Scene key="home" hideNavBar={true} component={Welcome2} />
                     <Scene key="welcomecurrentuser" hideNavBar={true} component={WelcomeCurrentUser} />
-                    <Scene key="navigation" hideNavBar={true} component={Navigation} />
+                    <Scene key="main" hideNavBar={true} component={Navigation} />
+                    <Scene key="options" hideNavBar={true} component={Options} />
                 </Scene>
            </Router>
         )       

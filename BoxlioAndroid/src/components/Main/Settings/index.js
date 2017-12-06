@@ -87,7 +87,7 @@ class Settings extends React.Component{
 				username: nextProps.currentUser.username,
 				email: nextProps.currentUser.email,
 				password: nextProps.currentUser.password,
-				image: nextProps.currentUser.image,
+				image: nextProps.currentUser.image || '',
 				deliveryMode: nextProps.currentUser.deliveryMode
 			}))
 		}
@@ -189,10 +189,10 @@ class Settings extends React.Component{
                                     	</Item>
                                         <Item style={{borderColor: 'transparent', marginBottom: 15}}>
                                             <Input
-                                            secureTextEntry={true}
                                             block
                                             placeholderTextColor="gray" 
-                                            style={styles.Input} 
+                                            style={styles.Input}
+                                            onChangeText={(text) => this.setState({image: text})} 
                                             underlineColorAndroid='transparent'
                                             placeholder="Image" />    
                                         </Item>

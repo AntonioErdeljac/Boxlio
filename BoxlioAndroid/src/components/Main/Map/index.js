@@ -6,26 +6,23 @@ import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import {StyleSheet, Dimensions, View} from "react-native";
 import * as Animatable from "react-native-animatable";
 import mapStyles from "./mapStyles";
+import SearchPlacesTo from "./SearchPlacesTo";
+import UserIcon from "./UserIcon";
+
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 
 class Map extends React.Component{
+  constructor(props){
+    super(props);
+  }
 	render(){
 		return (
-			<ContainerAnimatable animation="fadeInUp" style={styles.container}>
+			<ContainerAnimatable ref="map-component" animation="fadeInUp" style={styles.container}>
         <Container style={styles.container}>
-          <View style={styles.searchTo}>
-            <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
-              <Col size={1}>
-                <Icon name="ios-home" />
-              </Col>
-              <Col>
-                <Text>test</Text>
-              </Col>
-            </Grid>
-          </View>
+          <UserIcon />
+          <SearchPlacesTo />
 				<MapView 
-        provider={PROVIDER_GOOGLE}
-        customMapStyle={mapStyles}
+        showCompass={false}
         style={styles.map} />
         </Container>
 			</ContainerAnimatable>
@@ -45,7 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     shadowColor: '#000',
     position: 'absolute',
-    top: 10,
+    top: 30,
     backgroundColor: '#fff'
   },
   container: {
