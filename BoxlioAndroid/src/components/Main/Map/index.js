@@ -11,7 +11,9 @@ class Map extends React.Component{
 	render(){
 		return (
 			<ContainerAnimatable animation="fadeInUp" style={styles.container}>
+        <Container style={styles.container}>
 				<MapView style={styles.map} />
+        </Container>
 			</ContainerAnimatable>
 		);
 	}
@@ -25,7 +27,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     justifyContent: 'flex-end',
-    alignItems: 'center',
+    alignItems: 'center', 
   },
   map: {
     position: 'absolute',
