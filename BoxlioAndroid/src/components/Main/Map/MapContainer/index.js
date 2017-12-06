@@ -5,43 +5,43 @@ import {Grid, Col, Row} from "react-native-easy-grid";
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import {StyleSheet, Dimensions, View} from "react-native";
 import * as Animatable from "react-native-animatable";
-import mapStyles from "./mapStyles";
-import SearchPlacesTo from "./SearchPlacesTo";
-import UserIcon from "./UserIcon";
+import SearchPlacesTo from "../SearchPlacesTo";
+import UserIcon from "../UserIcon";
 import {connect} from "react-redux";
-import MapContainer from "./MapContainer";
 import io from "socket.io-client";
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 
-class Map extends React.Component{
+class MapContainer extends React.Component{
   constructor(props){
     super(props);
   }
 	render(){
 
-    if(this.props.currentUser){
-
-    const socket = io('localhost:8000');
-
-    navigator.geolocation.getCurrentPosition(position => {
-      if(!this.props.currentUser.isOrdering && !this.props.currentUser.isDelivering && !this.props.positionSet){
-        socket.emit('SAVE_LOCATION', {
-          user: this.props.currentUser,
-          positionLat: position.coords.latitude,
-          positionLng: position.coords.longitude
-        });
-        this.props.onSetPosition(position);
-      }
-    })
-
 		return (
-			<ContainerAnimatable ref="map-component" animation="fadeInUp" style={styles.container}>
-        <MapContainer currentUser={this.props.currentUser} />
-			</ContainerAnimatable>
+			<Container style={styles.container}>
+          <UserIcon />
+          <SearchPlacesTo />
+        <MapView 
+        initialRegion={{
+          latitude: this.props.currentUser.geometry[0],
+          longitude: this.props.currentUser.geometry[1],
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+        showCompass={false}
+        style={styles.map} >
+            <MapView.Marker 
+              title="Hello"
+              description="test"
+              coordinate={{
+                latitude: this.props.currentUser.geometry[0],
+                longitude: this.props.currentUser.geometry[1]
+              }}
+            />
+        </MapView>
+        </Container>
 		);
-  }
-  return null;
 	}
 }
 
@@ -78,14 +78,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = state => ({
-  currentUser: state.common.currentUser
-});
 
-const mapDispatchToProps = dispatch => ({
-  onSetPosition: position => 
-    dispatch({type: 'SET_POSITION', position})
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default MapContainer;
 
