@@ -5,9 +5,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {Grid, Col, Row} from "react-native-easy-grid";
 import {StyleSheet, Dimensions, View, TextInput} from "react-native";
 import * as Animatable from "react-native-animatable";
+import {connect} from "react-redux";
 
 
-class SearchPlacesTo extends React.Component{
+class SearchPlacesFrom extends React.Component{
 	render(){
 		return (
 			<Animatable.View animation="fadeInUp" delay={300} style={styles.searchTo}>
@@ -17,7 +18,7 @@ class SearchPlacesTo extends React.Component{
               </Col>
               <Col size={2}>
               	<View style={{justifyContent: 'space-around', alignItems: 'center'}}>
-               <TextInput style={styles.input} placeholderTextColor="gray"  placeholder="Deliver from where?"/>
+               <TextInput value={this.props.from} onChangeText={(text) => this.props.setFrom(text)} style={styles.input} placeholderTextColor="gray"  placeholder="Deliver from where?"/>
                </View>
               </Col>
             </Grid>
@@ -75,4 +76,13 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchPlacesTo;
+const mapDispatchToProps = dispatch => ({
+  setFrom: text =>
+    dispatch({type: 'SET_FROM', text})
+});
+
+const mapStateToProps = state => ({
+  ...state.destinationView
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPlacesFrom);

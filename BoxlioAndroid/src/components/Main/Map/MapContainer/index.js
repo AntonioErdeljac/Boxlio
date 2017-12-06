@@ -7,6 +7,7 @@ import {StyleSheet, Dimensions, View} from "react-native";
 import * as Animatable from "react-native-animatable";
 import SearchPlacesFrom from "../SearchPlacesFrom";
 import SearchPlacesTo from "../SearchPlacesTo";
+import LocationChooser from "../LocationChooser";
 import UserIcon from "../UserIcon";
 import {connect} from "react-redux";
 import io from "socket.io-client";
@@ -24,6 +25,7 @@ class MapContainer extends React.Component{
 			<Container style={styles.container}>
           <UserIcon />
           <SearchPlacesFrom />
+          <LocationChooser />
         <MapViewAnimatable 
         animation="fadeIn"
         customMapStyle={[

@@ -6,6 +6,11 @@ export default (state={}, action) => {
 				to: action.data.results[0]["formatted_address"],
 				initialSet: true,
 				placeChoosen: true
+			};
+		case 'SET_FROM':
+			return {
+				...state,
+				from: action.text
 			}
 	}
 	return state;
