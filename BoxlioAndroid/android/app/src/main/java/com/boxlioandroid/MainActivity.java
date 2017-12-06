@@ -1,6 +1,9 @@
 package com.boxlioandroid;
 
 import com.facebook.react.ReactActivity;
+import com.reactnativecomponent.splashscreen.RCTSplashScreen;
+import android.os.Bundle;
+//import android.widget.ImageView; // uncomment if opening fullscreen
 
 public class MainActivity extends ReactActivity {
 
@@ -12,4 +15,10 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "BoxlioAndroid";
     }
+
+	protected void onCreate(Bundle savedInstanceState) {
+	    RCTSplashScreen.openSplashScreen(this);   //open splashscreen
+	    //RCTSplashScreen.openSplashScreen(this, true, ImageView.ScaleType.FIT_XY);   //open splashscreen fullscreen
+	    super.onCreate(savedInstanceState);
+	}
 }

@@ -3,12 +3,14 @@ package com.boxlioandroid;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.arttitude360.reactnative.rngoogleplaces.RNGooglePlacesPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.airbnb.android.react.maps.MapsPackage;
+import com.reactnativecomponent.splashscreen.RCTSplashScreenPackage; 
 
 
 import java.util.Arrays;
@@ -26,7 +28,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new MapsPackage()
+            new RNGooglePlacesPackage(),
+            new MapsPackage(),
+            new RCTSplashScreenPackage()
       );
     }
 

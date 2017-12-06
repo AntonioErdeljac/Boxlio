@@ -5,27 +5,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {Grid, Col, Row} from "react-native-easy-grid";
 import {StyleSheet, Dimensions, View, TextInput} from "react-native";
 import * as Animatable from "react-native-animatable";
-import {connect} from "react-redux";
 
 
 class SearchPlacesTo extends React.Component{
 	render(){
-    if(this.props.positionSet && this.props.currentUser){
-      const lat = this.props.currentUser.geometry[0];
-      const lng = this.props.currentUser.geometry[1];
-      const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&key=AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
-      if(!this.props.initialSet){
-      fetch(url)
-          .then((response) =>  {
-              if (response.status >= 400) {
-                  throw new Error("Bad response from server");
-              }
-              return response.json();
-          })
-          .then((data) => {
-              this.props.onSetTo(data);
-          });
-      }
 		return (
 			<Animatable.View animation="fadeInUp" delay={300} style={styles.searchTo}>
             <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
@@ -34,14 +17,12 @@ class SearchPlacesTo extends React.Component{
               </Col>
               <Col size={2}>
               	<View style={{justifyContent: 'space-around', alignItems: 'center'}}>
-               <TextInput value={this.props.to} style={styles.input} placeholderTextColor="gray"  placeholder="Deliver to where?"/>
+               <TextInput style={styles.input} placeholderTextColor="gray"  placeholder="Deliver from where?"/>
                </View>
               </Col>
             </Grid>
           </Animatable.View>
 		);
-    }
-    return null;
 	}
 }
 
@@ -54,11 +35,11 @@ const styles = StyleSheet.create({
     fontFamily: 'VarelaRound-Regular',
     color: 'rgba(0,0,0,.5)',
     zIndex: 1001,
-    height: 90
+    height: 200
 
 	},
 	iconTo:{
-		color: '#1fcf7c',
+		color: '#2d89e5',
 		fontSize: 15
 	},
   searchTo: {
@@ -66,8 +47,9 @@ const styles = StyleSheet.create({
     height: 45 ,
     width: Dimensions.get('window').width-30,
     padding: 25,
-    borderRadius: 3,
-    elevation: 3,
+    borderRadius: 10,
+    elevation: 2,
+    shadowOpacity: 0.1,
     alignItems: 'center',
     justifyContent: 'space-around',
     shadowColor: '#000',
@@ -93,14 +75,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapDispatchToProps = dispatch => ({
-  onSetTo: data => 
-    dispatch({type: 'SET_TO', data})
-});
-
-const mapStateToProps = state => ({
-  ...state.common,
-  ...state.destinationView
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchPlacesTo);
+export default SearchPlacesTo;

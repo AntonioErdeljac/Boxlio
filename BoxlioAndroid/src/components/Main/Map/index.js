@@ -6,7 +6,7 @@ import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import {StyleSheet, Dimensions, View} from "react-native";
 import * as Animatable from "react-native-animatable";
 import mapStyles from "./mapStyles";
-import SearchPlacesTo from "./SearchPlacesTo";
+import SearchPlacesFrom from "./SearchPlacesFrom";
 import UserIcon from "./UserIcon";
 import {connect} from "react-redux";
 import MapContainer from "./MapContainer";

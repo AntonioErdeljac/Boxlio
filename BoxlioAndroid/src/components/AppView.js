@@ -8,6 +8,7 @@ import {Actions} from "react-native-router-flux";
 import {AsyncStorage} from "react-native";
 import Options from "./Main/Options";
 import agent from "../agent";
+import SplashScreen from 'react-native-smart-splash-screen'
 
 class App extends Component<{}> {
     componentWillReceiveProps(nextProps){
@@ -20,6 +21,14 @@ class App extends Component<{}> {
             }
             this.props.onRedirect();
         }
+    }
+
+    componentDidMount(){
+    SplashScreen.close({
+        animationType: SplashScreen.animationType.scale,
+        duration: 850,
+        delay: 500,
+     })
     }
 
     componentWillMount(){

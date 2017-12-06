@@ -1,6 +1,6 @@
 import React from "react";
 import {Container, Content} from "native-base";
-import {  Header, Form, Item, Input , Button, H1, H3, Label, Icon, Card, CardItem, Right} from 'native-base';
+import {  Header, Form, Item, Input , Button, H1, H3, Label, Icon, Card, CardItem, Right, Left} from 'native-base';
 import {
     Platform,
     StyleSheet,
@@ -50,9 +50,9 @@ class Options extends React.Component{
 			<ContainerAnimatable ref="options" animation="fadeInDown" style={styles.container}>
                 <TouchableOpacity onPress={this.goBack}>
                     <CardItem>
-                        <Right>
-                            <Icon style={{color: 'rgba(0,0,0,.6)', fontSize: 30}} name="ios-close-outline" />
-                        </Right>
+                        <Left>
+                            <Icon style={{color: 'rgba(0,0,0,.6)', fontSize: 30}} name="ios-arrow-round-back-outline" />
+                        </Left>
                     </CardItem>
                 </TouchableOpacity>
                 <Content style={{marginTop: 30}}>
