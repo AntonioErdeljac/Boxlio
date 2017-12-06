@@ -26,13 +26,13 @@ class Main extends React.Component{
 
 	render(){
 		return (
-			<ContainerAnimatable duration={300} animation="fadeInUp"  style={this.props.tab === 'map' ? styles.container : null}>
+			<ContainerAnimatable duration={300} animation="fadeInUp"  style={this.props.tab === 'map' ? styles.container : null }>
 				{this.props.tab === 'map' ?
 					<Map />
 					: null
 				}
 
-				<Content >
+				<Content>
 
 				{this.props.tab === 'settings' ? 
 					<Settings/> : null

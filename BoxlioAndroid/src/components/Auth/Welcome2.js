@@ -50,18 +50,15 @@ class Welcome2 extends Component<{}> {
 
     componentWillReceiveProps(nextProps){
         if(nextProps.currentUser){
-            if(this.refs.text){
-            this.refs.text.fadeOutDown(300);
+           this.refs.all.fadeOutDown(300);
+           setTimeout(() => {
+            if(!nextProps.userIsSaved){
+                Actions.welcomecurrentuser();
+            } else {
+                Actions.navigation();
             }
-            if(this.refs.loading){
-            this.refs.loading.fadeOutDown(300);
-            }
-            if(this.refs.logo){
-            this.refs.logo.fadeOutDown(300);
-            }
-            {!nextProps.userIsSaved ?
-            Actions.welcomecurrentuser()
-            : Actions.navigation()}
+           }, 300)
+            
         }
 
         if(nextProps.isLoading && this.props.errors){
@@ -79,10 +76,9 @@ class Welcome2 extends Component<{}> {
 
     render() {
         const {email, password} = this.props;
-        if(!this.props.currentUser){
         return (
                 <Container style={styles.container}>
-                    <GridAnimated  animation="fadeInRight">
+                    <GridAnimated ref="all" animation="fadeInRight">
                         <Row>
                         <Animatable.Image delay={500} ref="logo" animation="bounceIn" source={{uri: 'https://i.imgur.com/TpS1vMz.png'}} style={{flex: 1, marginTop: 30,justifyContent: 'center',resizeMode: 'contain', height:70, width: 70}}></Animatable.Image>
                       
@@ -134,8 +130,6 @@ class Welcome2 extends Component<{}> {
                     </GridAnimated>
                 </Container>
         );
-        }
-        return null;
     }
 }
 

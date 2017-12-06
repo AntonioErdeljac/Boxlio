@@ -14,6 +14,8 @@ import {
     Alert,
     TextInput,
     ActivityIndicator,
+    Switch,
+    Dimensions,
     AsyncStorage} from "react-native";
 import {Grid, Row, Col} from "react-native-easy-grid";
 import * as Animatable from "react-native-animatable";
@@ -35,8 +37,16 @@ class Settings extends React.Component{
 			firstName: '',
 			lastName: '',
 			password: '',
-			image: ''
+			image: '',
+			deliveryMode: false
 		};
+
+		this.screenHeight = Dimensions.get('window').height;
+		this.sceenWidth = Dimensions.get('window').width;
+
+		this.changeDeliveryMode = ev => {
+			this.setState({deliveryMode: !this.state.deliveryMode});
+		}
 
 		this.submitForm = ev => {
 			ev.preventDefault();
@@ -63,7 +73,8 @@ class Settings extends React.Component{
 				lastName: this.props.currentUser.lastName,
 				email: this.props.currentUser.email,
 				password: this.props.currentUser.password,
-				image: this.props.currentUser.image || ''
+				image: this.props.currentUser.image || '',
+				deliveryMode: this.props.currentUser.deliveryMode
 			})
 		}
 	}
@@ -76,7 +87,8 @@ class Settings extends React.Component{
 				username: nextProps.currentUser.username,
 				email: nextProps.currentUser.email,
 				password: nextProps.currentUser.password,
-				image: nextProps.currentUser.image
+				image: nextProps.currentUser.image,
+				deliveryMode: nextProps.currentUser.deliveryMode
 			}))
 		}
 	}
@@ -85,7 +97,7 @@ class Settings extends React.Component{
 		return (
 			<Content style={{backgroundColor: '#fff'}}>
 				<ScrollView>
-                    <GridAnimated  style={{paddingBottom: 150}}   animation="fadeInUp">
+                    <GridAnimated  style={{paddingBottom: 100, alignItems: 'center', justifyContent: 'space-around'}}   animation="fadeInUp">
                         <Row>
                             <Col>
 	                            <View style={{justifyContent: 'space-around'}}>
@@ -93,10 +105,19 @@ class Settings extends React.Component{
 	                            </View>
                             </Col>
                         </Row>
-                        <Row >
-                            <Col>
-                                <Container style={{marginRight: 10}}>
-                                    <FormAnimated ref="grid">
+                        <Row>
+                        	<Col>
+                        		<View style={{justifyContent: 'space-around', marginRight: 15}}>
+                                    <FormAnimated ref="grid" style={{justifyContent: 'space-around'}}>
+                                    	<Item style={{borderColor: 'transparent', marginBottom: 5, marginTop: 10, justifyContent: 'center'}}>
+                                    		<Text style={styles.label}>Delivery Mode</Text>
+                                    	</Item>
+                                    	<Item style={{borderColor: 'transparent', marginBottom: 5, marginTop: 10, justifyContent: 'center'}}>
+                                    		<Switch
+                                    			onValueChange={this.changeDeliveryMode}
+                                    			value={this.state.deliveryMode}
+                                    		 />
+                                    	</Item>
                                     	<Item style={{borderColor: 'transparent', marginBottom: 5, marginTop: 10}}>
                                     		<Text style={styles.label}>Username</Text>
                                     	</Item>
@@ -182,8 +203,8 @@ class Settings extends React.Component{
                                             <Text style={styles.logoutButtonText}>Logout</Text>
                                             </TouchableOpacity>
                                     </FormAnimated>
-                                </Container>
-                            </Col>
+                                    </View>
+                                </Col>
                         </Row>
                     </GridAnimated>
                 </ScrollView>

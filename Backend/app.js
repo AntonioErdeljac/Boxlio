@@ -72,7 +72,7 @@ app.use(function(err, req, res, next) {
   }});
 });
 
-let server = app.listen( process.env.PORT || 8000, '192.168.5.14', function(){
+let server = app.listen( process.env.PORT || 8000, function(){
   console.log('Listening on port ' + server.address().port);
 });
 
