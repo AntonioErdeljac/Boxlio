@@ -13,7 +13,7 @@ class UserIcon extends React.Component{
 	render(){
     if(this.props.currentUser){
 		return (
-      <TouchableOpacity onPress={() => this.refs.user.bounceOut(300).then(() => Actions.options())} style={styles.TouchableOpacityComponent}>
+      <TouchableOpacity onPress={() => this.refs.user.bounceOut(300).then(() => this.props.navigation.navigate('options'))} style={styles.TouchableOpacityComponent}>
   			<Animatable.View ref="user" animation="bounceIn" delay={300} style={styles.searchTo}>
               <Grid>
                 <Col>

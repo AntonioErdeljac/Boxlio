@@ -11,7 +11,7 @@ import {connect} from "react-redux";
 class SearchPlacesFrom extends React.Component{
 	render(){
 		return (
-			<Animatable.View animation="fadeInUp" delay={300} style={styles.searchTo}>
+			<Animatable.View animation="bounceIn" style={styles.searchTo}>
             <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
               <Col size={1}>
                 <Icon theme={{iconFamily: 'FontAwesome'}} style={styles.iconTo} name="dot-circle-o" />

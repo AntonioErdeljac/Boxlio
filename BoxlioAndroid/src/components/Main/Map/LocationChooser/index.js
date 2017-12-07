@@ -8,15 +8,17 @@ import {connect} from "react-redux";
 import RNGooglePlaces from "react-native-google-places";
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
+const CardItemAnimatable = Animatable.createAnimatableComponent(CardItem);
 
 
 
 class LocationChooser extends React.Component{
   componentWillReceiveProps(nextProps){
     if(nextProps.from){
-      RNGooglePlaces.getAutocompletePredictions(nextProps.from)
+      RNGooglePlaces.getAutocompletePredictions(nextProps.from, {
+        radius: 0.1
+      })
       .then((results) => this.setState({predictions: results}))
-      .catch((error) => console.log(error))
     }
   }
   constructor(props){
@@ -39,9 +41,6 @@ class LocationChooser extends React.Component{
                           <CardItem key={prediction.placeID}>
                               <Icon active name="ios-navigate-outline" />
                               <Text style={{fontFamily: 'VarelaRound-Regular', fontSize: 15, color: 'rgba(0,0,0,.5)'}}>{prediction.fullText}</Text>
-                              <Right>
-                                  <Icon name="ios-arrow-forward-outline" />
-                              </Right>
                           </CardItem>
                         )
                         })}

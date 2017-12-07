@@ -11,15 +11,19 @@ import UserIcon from "./UserIcon";
 import {connect} from "react-redux";
 import MapContainer from "./MapContainer";
 import io from "socket.io-client";
+import {NavigatorActions} from "react-navigation";
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 
 class Map extends React.Component{
+
+  componentWillMount(){
+  }
   constructor(props){
     super(props);
   }
 	render(){
-
+    
     if(this.props.currentUser){
 
     const socket = io('localhost:8000');
@@ -37,7 +41,7 @@ class Map extends React.Component{
 
 		return (
 			<ContainerAnimatable ref="map-component" animation="fadeInUp" style={styles.container}>
-        <MapContainer currentUser={this.props.currentUser} />
+        <MapContainer navigation={this.props.navigation} currentUser={this.props.currentUser} />
 			</ContainerAnimatable>
 		);
   }

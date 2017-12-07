@@ -53,9 +53,9 @@ class Welcome2 extends Component<{}> {
            this.refs.all.fadeOutDown(300);
            setTimeout(() => {
             if(!nextProps.userIsSaved){
-                Actions.welcomecurrentuser();
+                this.props.navigation.navigate('welcomecurrentuser');
             } else {
-                Actions.main();
+                this.props.navigation.navigate('main');
             }
            }, 300)
             

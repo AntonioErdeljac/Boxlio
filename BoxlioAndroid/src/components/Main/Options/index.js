@@ -33,13 +33,14 @@ class Options extends React.Component{
 
         this.goBack = () => {
             this.refs.options.fadeOutDown(300).then(() => {
-                Actions.main()
+                this.props.navigation.navigate('main')
             })
         }
 
         this.handleLogout = () => {
             this.refs.options.fadeOutDown(300).then(() => {
                 this.props.onClickLogout()
+                this.props.navigation.navigate('logout')
             })
         }
     }

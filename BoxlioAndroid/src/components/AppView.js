@@ -1,27 +1,13 @@
 import React, { Component } from 'react';
-import Welcome2 from "./Auth/Welcome2";
-import WelcomeCurrentUser from "./Auth/WelcomeCurrentUser";
-import Navigation from "./Navigation";
 import {Router, Scene} from "react-native-router-flux";
 import {connect} from "react-redux";
 import {Actions} from "react-native-router-flux";
 import {AsyncStorage} from "react-native";
-import Options from "./Main/Options";
 import agent from "../agent";
+import RouterComponent from "./Main/RouterComponent";
+import LoggedInRouter from "./Main/LoggedInRouter";
 
 class App extends Component<{}> {
-    componentWillReceiveProps(nextProps){
-        if(nextProps.redirectTo){
-            if(nextProps.redirectTo === 'home'){
-                Actions.home();
-            }
-            if(nextProps.redirectTo === 'welcomecurrentuser'){
-                Actions.welcomecurrentuser();
-            }
-            this.props.onRedirect();
-        }
-    }
-
     componentWillMount(){
         let token = null;
         AsyncStorage.getItem('Token').then((value) => {
@@ -31,30 +17,26 @@ class App extends Component<{}> {
                 agent.setToken(token);
             }
             this.props.onLoad(token ? agent.Auth.current() : null, token);
-            if(token && !this.props.appLoaded){
-                Actions.main();
-            }
         })
         
     }
 
     render() {
+        if(!this.props.currentUser){
         return (
-            <Router >
-                <Scene key="root">
-                    <Scene key="home" hideNavBar={true} component={Welcome2} />
-                    <Scene key="welcomecurrentuser" hideNavBar={true} component={WelcomeCurrentUser} />
-                    <Scene key="main" hideNavBar={true} component={Navigation} />
-                    <Scene key="options" hideNavBar={true} component={Options} />
-                </Scene>
-           </Router>
+            <RouterComponent />
         )       
+        }
+        return (
+            <LoggedInRouter />
+        )
     }
 }
 
 
 const mapStateToProps = state => ({
-    redirectTo: state.common.redirectTo
+    redirectTo: state.common.redirectTo,
+    currentUser: state.common.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
