@@ -7,13 +7,13 @@ export default (state={}, action) => {
 				currentUser: action.payload ? action.payload.user : null,
 				token: action.token || null,
 				userIsSaved: action.payload ? true : false
-			}
+			};
 		case 'SAVE_SETTINGS':
 			return {
 				...state,
 				currentUser: !action.payload ? state.currentUser : action.payload.user,
 				redirectTo: action.error ? null : 'welcomecurrentuser'
-			}
+			};
 		case 'LOGOUT':
 			return {
 				...state,
@@ -32,6 +32,14 @@ export default (state={}, action) => {
 				...state,
 				redirectTo: null
 			};
+		case 'SET_TO_SPECIAL':
+				return {
+					...state,
+					currentUser: Object.assign({}, {
+						...state.currentUser,
+						geometry: [action.place.latitude, action.place.longitude]
+					})
+				};
 		case 'SET_POSITION':
 			return {
 				...state,

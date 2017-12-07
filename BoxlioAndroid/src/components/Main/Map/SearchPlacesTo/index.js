@@ -34,7 +34,7 @@ class SearchPlacesTo extends React.Component{
               </Col>
               <Col size={3}>
               	<View style={{justifyContent: 'space-around', alignItems: 'center'}}>
-               <TextInput value={this.props.to} style={styles.input} placeholderTextColor="gray"  placeholder="Deliver to where?"/>
+               <TextInput onChangeText={(text) => this.props.setToName(text)} value={this.props.to} style={styles.input} placeholderTextColor="gray"  placeholder="Deliver to where?"/>
                </View>
               </Col>
             </Grid>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 		width: Dimensions.get('window').width-100,
 		marginRight: 30,
 		backgroundColor: 'transparent',
-    fontSize: 15,
+    fontSize: 14,
     fontFamily: 'VarelaRound-Regular',
     color: 'rgba(0,0,0,.5)',
     zIndex: 1001,
@@ -98,8 +98,10 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSetTo: data => 
-    dispatch({type: 'SET_TO', data})
+    onSetTo: data =>
+        dispatch({type: 'SET_TO', data}),
+    setToName: text =>
+        dispatch({type: 'SET_TO_NAME', text})
 });
 
 const mapStateToProps = state => ({

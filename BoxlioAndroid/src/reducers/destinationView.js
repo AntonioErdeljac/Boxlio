@@ -1,4 +1,4 @@
-export default (state={}, action) => {
+export default (state={placeToChoosen: true}, action) => {
 	switch(action.type){
 		case 'SET_TO':
 			return {
@@ -21,10 +21,23 @@ export default (state={}, action) => {
 				lng: action.place.longitude,
 				placeFromChoosen: true
 			};
+		case 'SET_TO_SPECIAL':
+			return {
+				...state,
+                to: action.place.address,
+                placeToChoosen: true,
+				hasTyped: true
+			};
 		case 'SET_DIRECTIONS':
 				return {
 					...state,
 					directions: action.direction
+				};
+		case 'SET_TO_NAME':
+				return {
+					...state,
+					to: action.text,
+					placeToChoosen: false
 				}
 	}
 	return state;

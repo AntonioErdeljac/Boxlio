@@ -31,7 +31,7 @@ class Map extends React.Component{
     
 
     let watchId = navigator.geolocation.watchPosition(position => {
-      if(1){
+      if(!this.props.placeFromChoosen){
         socket.emit('SAVE_LOCATION', {
           user: this.props.currentUser,
           positionLat: position.coords.latitude,

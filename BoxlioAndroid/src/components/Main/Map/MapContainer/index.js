@@ -6,11 +6,13 @@ import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import {StyleSheet, Dimensions, View} from "react-native";
 import * as Animatable from "react-native-animatable";
 import SearchPlacesFrom from "../SearchPlacesFrom";
+import LocationChooserTo from "../LocationChooser/LocationChooserTo";
 import SearchPlacesTo from "../SearchPlacesTo";
 import mapStyles from "../mapStyles";
 import LocationChooser from "../LocationChooser";
 import UserIcon from "../UserIcon";
 import {connect} from "react-redux";
+import SendRequestButton from "../SendRequestButton";
 import io from "socket.io-client";
 const MapViewAnimatable = Animatable.createAnimatableComponent(MapView);
 
@@ -25,6 +27,32 @@ class MapContainer extends React.Component{
                 duration: 500
             }).start();
         }
+
+        if(nextProps.currentUser.geometry[0] !== this.props.currentUser.geometry[0] && nextProps.currentUser.geometry[1] !== this.props.currentUser.geometry[1]){
+            this.state.coordinate.timing({
+                latitude: nextProps.currentUser.geometry[0],
+                longitude: nextProps.currentUser.geometry[1],
+                duration: 500
+            }).start();
+
+            const mode = 'driving';
+            const origin = `${nextProps.currentUser.geometry[0]}, ${nextProps.currentUser.geometry[1]}`;
+            const destination = `${this.props.lat}, ${this.props.lng}`;
+            const APIKEY = 'AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
+            const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(responseJson => {
+                    if (responseJson.routes.length) {
+                        this.props.onSetDirections(this.decode(responseJson.routes[0].overview_polyline.points));
+                        this.setState({
+                            directionsCoords: this.decode(responseJson.routes[0].overview_polyline.points)
+                        })
+                    }
+                }).catch(e => {console.error(e)});
+        }
+
         if(nextProps.lat && nextProps.lng && nextProps.placeFromChoosen && nextProps.from !== this.props.from){
             this.state.fromCoordinate.timing({
                 latitude: nextProps.lat,
@@ -84,8 +112,10 @@ class MapContainer extends React.Component{
           <SearchPlacesTo/>
                     : null}
           <LocationChooser />
-        <MapViewAnimatable 
-        customMapStyle={mapStyle}
+          <LocationChooserTo />
+                {this.props.placeFromChoosen && this.props.placeToChoosen &&  <SendRequestButton />}
+        <MapViewAnimatable
+            customMapStyle={mapStyle}
         initialRegion={this.state.region}
         showCompass={false}
         style={styles.map} >

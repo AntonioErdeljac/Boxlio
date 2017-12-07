@@ -39,7 +39,7 @@ class LocationChooser extends React.Component{
     };
 
     this.handleSetFrom = (prediction) => {
-      this.refs.locationchooser.fadeOutDown().then(() => {
+      this.refs.locationchooser.fadeOutDown(100).then(() => {
         RNGooglePlaces.lookUpPlaceByID(prediction.placeID)
             .then((place) => this.props.setFrom(place))
       })
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     zIndex: 1000,
     height: Dimensions.get('window').height-200 ,
     width: Dimensions.get('window').width-30,
-    borderRadius: 10,
+    borderRadius: 3,
     elevation: 2,
     shadowOpacity: 0.1,
     alignItems: 'center',
