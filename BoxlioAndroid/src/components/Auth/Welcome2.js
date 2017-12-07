@@ -76,6 +76,7 @@ class Welcome2 extends Component<{}> {
 
     render() {
         const {email, password} = this.props;
+        if(this.props.appLoaded){
         return (
                 <Container style={styles.container}>
                     <GridAnimated ref="all" animation="fadeInRight">
@@ -130,6 +131,8 @@ class Welcome2 extends Component<{}> {
                     </GridAnimated>
                 </Container>
         );
+        }
+        return null;
     }
 }
 
@@ -224,7 +227,8 @@ const mapStateToProps = state => ({
     ...state.auth,
     currentUser: state.common.currentUser,
     token: state.common.token,
-    userIsSaved: state.common.userIsSaved
+    userIsSaved: state.common.userIsSaved,
+    appLoaded: state.common.appLoaded
 })
 
 const mapDispatchToProps = dispatch => ({

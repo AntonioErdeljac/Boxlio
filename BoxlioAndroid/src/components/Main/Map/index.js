@@ -39,12 +39,12 @@ class Map extends React.Component{
         });
         this.props.onSetPosition(position);
         }
-    }, null, {enableHighAccuracy: true})
+    }, null, {enableHighAccuracy: true});
 
 		return (
 			<ContainerAnimatable ref="map-component" animation="fadeInUp" style={styles.container}>
       
-        <MapContainer navigation={this.props.navigation} currentUser={this.props.currentUser} />
+        <MapContainer {...this.props.destinationView} focusedOnInput={this.props.focusedOnInput} navigation={this.props.navigation} currentUser={this.props.currentUser} />
       
 			</ContainerAnimatable>
 		);
@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  currentUser: state.common.currentUser
+  currentUser: state.common.currentUser,
+    ...state.destinationView
 });
 
 const mapDispatchToProps = dispatch => ({

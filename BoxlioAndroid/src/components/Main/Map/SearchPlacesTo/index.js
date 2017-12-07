@@ -10,7 +10,7 @@ import {connect} from "react-redux";
 
 class SearchPlacesTo extends React.Component{
 	render(){
-    if(this.props.positionSet && this.props.currentUser){
+    if(this.props.currentUser){
       const lat = this.props.currentUser.geometry[0];
       const lng = this.props.currentUser.geometry[1];
       const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&key=AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
@@ -29,10 +29,10 @@ class SearchPlacesTo extends React.Component{
 		return (
 			<Animatable.View animation="fadeInUp" delay={300} style={styles.searchTo}>
             <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
-              <Col size={1}>
+              <Col>
                 <Icon theme={{iconFamily: 'FontAwesome'}} style={styles.iconTo} name="dot-circle-o" />
               </Col>
-              <Col size={2}>
+              <Col size={3}>
               	<View style={{justifyContent: 'space-around', alignItems: 'center'}}>
                <TextInput value={this.props.to} style={styles.input} placeholderTextColor="gray"  placeholder="Deliver to where?"/>
                </View>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 		width: Dimensions.get('window').width-100,
 		marginRight: 30,
 		backgroundColor: 'transparent',
-    fontSize: 20,
+    fontSize: 15,
     fontFamily: 'VarelaRound-Regular',
     color: 'rgba(0,0,0,.5)',
     zIndex: 1001,
@@ -62,18 +62,22 @@ const styles = StyleSheet.create({
 		fontSize: 15
 	},
   searchTo: {
-    zIndex: 1000,
-    height: 45 ,
-    width: Dimensions.get('window').width-30,
-    padding: 25,
-    borderRadius: 3,
-    elevation: 3,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    shadowColor: '#000',
-    position: 'absolute',
-    top: 90,
-    backgroundColor: '#fff'
+      zIndex: 1000,
+      height: 45 ,
+      width: Dimensions.get('window').width-30,
+      padding: 25,
+      borderTopLeftRadius: 3,
+      borderTopRightRadius: 3,
+      borderBottomRightRadius: 3,
+      borderBottomLeftRadius: 3,
+      elevation: 1,
+      shadowOpacity: 0.1,
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      shadowColor: '#000',
+      position: 'absolute',
+      top: 150,
+      backgroundColor: '#fff'
   },
   container: {
     position: 'absolute',
@@ -101,6 +105,6 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   ...state.common,
   ...state.destinationView
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPlacesTo);

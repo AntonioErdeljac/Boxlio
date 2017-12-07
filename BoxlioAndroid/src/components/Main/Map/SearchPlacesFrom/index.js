@@ -3,7 +3,7 @@ import {Container} from "native-base";
 import { Header, Content, Footer, FooterTab, Button, Card, CardItem, Body, Text,  } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Grid, Col, Row} from "react-native-easy-grid";
-import {StyleSheet, Dimensions, View, TextInput} from "react-native";
+import {StyleSheet, Dimensions, View, TextInput, TouchableWithoutFeedback} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 
@@ -13,10 +13,10 @@ class SearchPlacesFrom extends React.Component{
 		return (
 			<Animatable.View animation="bounceIn" style={styles.searchTo}>
             <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
-              <Col size={1}>
+              <Col>
                 <Icon theme={{iconFamily: 'FontAwesome'}} style={styles.iconTo} name="dot-circle-o" />
               </Col>
-              <Col size={2}>
+              <Col size={3}>
               	<View style={{justifyContent: 'space-around', alignItems: 'center'}}>
                <TextInput value={this.props.from} onChangeText={(text) => this.props.setFrom(text)} style={styles.input} placeholderTextColor="gray"  placeholder="Deliver from where?"/>
                </View>
@@ -32,12 +32,11 @@ const styles = StyleSheet.create({
 		width: Dimensions.get('window').width-100,
 		marginRight: 30,
 		backgroundColor: 'transparent',
-    fontSize: 20,
-    fontFamily: 'VarelaRound-Regular',
-    color: 'rgba(0,0,0,.5)',
-    zIndex: 1001,
-    height: 200
-
+        fontSize: 14,
+        fontFamily: 'VarelaRound-Regular',
+        color: 'rgba(0,0,0,.5)',
+        zIndex: 1001,
+        height: 200
 	},
 	iconTo:{
 		color: '#2d89e5',
@@ -48,8 +47,11 @@ const styles = StyleSheet.create({
     height: 45 ,
     width: Dimensions.get('window').width-30,
     padding: 25,
-    borderRadius: 10,
-    elevation: 2,
+    borderTopLeftRadius: 3,
+    borderTopRightRadius:3,
+    borderBottomRightRadius: 3,
+    borderBottomLeftRadius: 3,
+    elevation: 1,
     shadowOpacity: 0.1,
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -78,7 +80,9 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => ({
   setFrom: text =>
-    dispatch({type: 'SET_FROM', text})
+    dispatch({type: 'SET_FROM_NAME', text}),
+  onSetFocused: () =>
+    dispatch({type: 'FOCUSED_ON_INPUT'})
 });
 
 const mapStateToProps = state => ({

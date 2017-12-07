@@ -2,7 +2,7 @@ import React from "react";
 import {Container} from "native-base";
 import { Header, Content, Footer, FooterTab, Button, Card, CardItem, Body, Text, Right, Left, Icon  } from 'native-base';
 import {Grid, Col, Row} from "react-native-easy-grid";
-import {StyleSheet, Dimensions, View, TextInput} from "react-native";
+import {StyleSheet, Dimensions, View, TextInput, TouchableOpacity} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import RNGooglePlaces from "react-native-google-places";
@@ -11,6 +11,7 @@ Places.apiKey = 'AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 const CardItemAnimatable = Animatable.createAnimatableComponent(CardItem);
+const CardAnimatable = Animatable.createAnimatableComponent(Card);
 
 
 
@@ -18,8 +19,15 @@ class LocationChooser extends React.Component{
 
   componentWillReceiveProps(nextProps){
     if(nextProps.from){
-      Places.autocomplete({input: nextProps.from})
+        RNGooglePlaces.getAutocompletePredictions(nextProps.from)
       .then((results) => this.setState({predictions: results}))
+          .catch((error) => {throw error})
+    }
+
+    if(nextProps.placeFromChoosen){
+      this.setState({
+          predictions: null
+      })
     }
   }
 
@@ -28,31 +36,34 @@ class LocationChooser extends React.Component{
 
     this.state = {
       predictions: null
-    }
+    };
+
+    this.handleSetFrom = (prediction) => {
+      this.refs.locationchooser.fadeOutDown().then(() => {
+        RNGooglePlaces.lookUpPlaceByID(prediction.placeID)
+            .then((place) => this.props.setFrom(place))
+      })
+    };
     
   }
 
 	render(){
-    if(this.props.from && this.state.predictions && this.state.predictions.length > 0){
+    if(!this.props.placeFromChoosen && this.props.from && this.state.predictions && this.state.predictions.length > 0){
   		return (
-  			<ContainerAnimatable ref="locationchooser" animation="slideInUp" duration={100} style={styles.searchTo}>
-              <Content>
-                  <Card style={styles.card}>
-                    {this.state.predictions.map((prediction, i) => {
-                      Places.details({placeid: prediction.place_id})
-                      .then((result) => 
-                        this.setState({predictions: [
-                          this.state.predictions[i].details: result,
-                          ...state.predictions
-                        ]}))
+  			<ContainerAnimatable ref="locationchooser" style={styles.searchTo}>
+              <Content keyboardShouldPersistTaps="handled">
+                  <CardAnimatable ref="cardanimatable" style={styles.card}>
+                    {(this.state.predictions || []).map((prediction) => {
                       return(
-                            <CardItemAnimatable animation="slideInUp" key={prediction.place_id}>
+                          <TouchableOpacity key={prediction.placeID} onPress={() => this.handleSetFrom(prediction)}>
+                            <CardItemAnimatable animation="slideInUp" duration={50}>
                                 <Icon active name="ios-navigate-outline" />
-                                <Text style={{fontFamily: 'VarelaRound-Regular', fontSize: 15, color: 'rgba(0,0,0,.5)'}}>{prediction.description}</Text>
+                                <Text style={{fontFamily: 'VarelaRound-Regular', fontSize: 15, color: 'rgba(0,0,0,.5)'}}>{prediction.fullText}</Text>
                             </CardItemAnimatable>
+                          </TouchableOpacity>
                           )
                     })}
-                  </Card>
+                  </CardAnimatable>
               </Content>
         </ContainerAnimatable>
   		);
@@ -118,4 +129,9 @@ const mapStateToProps = state => ({
   ...state.destinationView
 });
 
-export default connect(mapStateToProps, null)(LocationChooser);
+const mapDispatchToProps = dispatch => ({
+    setFrom: place =>
+        dispatch({type: 'SET_FROM', place})
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LocationChooser);
