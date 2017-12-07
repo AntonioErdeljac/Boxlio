@@ -6,6 +6,8 @@ import {StyleSheet, Dimensions, View, TextInput} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import RNGooglePlaces from "react-native-google-places";
+import {Places} from 'google-places-web';
+Places.apiKey = 'AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 const CardItemAnimatable = Animatable.createAnimatableComponent(CardItem);
@@ -13,41 +15,41 @@ const CardItemAnimatable = Animatable.createAnimatableComponent(CardItem);
 
 
 class LocationChooser extends React.Component{
+
   componentWillReceiveProps(nextProps){
     if(nextProps.from){
-      RNGooglePlaces.getAutocompletePredictions(nextProps.from, {
-        radius: 0.1
-      })
+      Places.autocomplete({input: nextProps.from})
       .then((results) => this.setState({predictions: results}))
     }
   }
+
   constructor(props){
     super(props);
 
     this.state = {
       predictions: null
     }
-
     
   }
+
 	render(){
     if(this.props.from && this.state.predictions && this.state.predictions.length > 0){
-		return (
-			<ContainerAnimatable animation="slideInUp" style={styles.searchTo}>
-            <Content>
-                <Card style={styles.card}>
-                  {this.state.predictions.map((prediction) => {
-                    return(
-                          <CardItem key={prediction.placeID}>
-                              <Icon active name="ios-navigate-outline" />
-                              <Text style={{fontFamily: 'VarelaRound-Regular', fontSize: 15, color: 'rgba(0,0,0,.5)'}}>{prediction.fullText}</Text>
-                          </CardItem>
-                        )
-                        })}
-                    </Card>
-            </Content>
-      </ContainerAnimatable>
-		);
+  		return (
+  			<ContainerAnimatable ref="locationchooser" duration={1000} style={styles.searchTo}>
+              <Content>
+                  <Card style={styles.card}>
+                    {this.state.predictions.map((prediction) => {
+                      return(
+                            <CardItemAnimatable animation="slideInUp" key={prediction.place_id}>
+                                <Icon active name="ios-navigate-outline" />
+                                <Text style={{fontFamily: 'VarelaRound-Regular', fontSize: 15, color: 'rgba(0,0,0,.5)'}}>{prediction.description}</Text>
+                            </CardItemAnimatable>
+                          )
+                    })}
+                  </Card>
+              </Content>
+        </ContainerAnimatable>
+  		);
     }
     return null;
 	}
