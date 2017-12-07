@@ -35,7 +35,8 @@ export default (state={}, action) => {
 		case 'SET_POSITION':
 			return {
 				...state,
-				currentUser: Object.assign(state.currentUser, state.currentUser, {
+				currentUser: Object.assign({}, {
+					...state.currentUser,
 					geometry: [action.position.coords.latitude, action.position.coords.longitude]
 				}),
 				positionSet: true

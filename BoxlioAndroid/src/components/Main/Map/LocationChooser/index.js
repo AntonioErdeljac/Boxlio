@@ -35,10 +35,16 @@ class LocationChooser extends React.Component{
 	render(){
     if(this.props.from && this.state.predictions && this.state.predictions.length > 0){
   		return (
-  			<ContainerAnimatable ref="locationchooser" duration={1000} style={styles.searchTo}>
+  			<ContainerAnimatable ref="locationchooser" animation="slideInUp" duration={100} style={styles.searchTo}>
               <Content>
                   <Card style={styles.card}>
-                    {this.state.predictions.map((prediction) => {
+                    {this.state.predictions.map((prediction, i) => {
+                      Places.details({placeid: prediction.place_id})
+                      .then((result) => 
+                        this.setState({predictions: [
+                          this.state.predictions[i].details: result,
+                          ...state.predictions
+                        ]}))
                       return(
                             <CardItemAnimatable animation="slideInUp" key={prediction.place_id}>
                                 <Icon active name="ios-navigate-outline" />

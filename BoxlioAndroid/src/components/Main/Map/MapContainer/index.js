@@ -7,6 +7,7 @@ import {StyleSheet, Dimensions, View} from "react-native";
 import * as Animatable from "react-native-animatable";
 import SearchPlacesFrom from "../SearchPlacesFrom";
 import SearchPlacesTo from "../SearchPlacesTo";
+import mapStyles from "../mapStyles";
 import LocationChooser from "../LocationChooser";
 import UserIcon from "../UserIcon";
 import {connect} from "react-redux";
@@ -16,9 +17,31 @@ const MapViewAnimatable = Animatable.createAnimatableComponent(MapView);
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 
 class MapContainer extends React.Component{
-  constructor(props){
-    super(props);
-  }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.currentUser.geometry[0] !== this.state.coordinate.latitude && nextProps.currentUser.geometry[1] !== this.state.coordinate.longitude){
+            this.state.coordinate.timing({
+                latitude: nextProps.currentUser.geometry[0],
+                longitude: nextProps.currentUser.geometry[1],
+                duration: 500
+            }).start();
+        }
+    }
+      constructor(props){
+        super(props);
+
+        this.state = {
+            region: {
+                latitude: this.props.currentUser.geometry[0],
+                longitude: this.props.currentUser.geometry[1],
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+            },
+            coordinate: new MapView.AnimatedRegion({
+                latitude: this.props.currentUser.geometry[0],
+                longitude: this.props.currentUser.geometry[1]
+            })
+        }
+      }
 	render(){
 
 		return (
@@ -28,26 +51,18 @@ class MapContainer extends React.Component{
           <LocationChooser />
         <MapViewAnimatable 
         
-        initialRegion={{
-          latitude: this.props.currentUser.geometry[0],
-          longitude: this.props.currentUser.geometry[1],
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        initialRegion={this.state.region}
         showCompass={false}
         style={styles.map} >
-            <MapView.Marker 
-              coordinate={{
-                latitude: this.props.currentUser.geometry[0],
-                longitude: this.props.currentUser.geometry[1]
-              }}
+            <MapView.Marker.Animated 
+              coordinate={this.state.coordinate}
             >
-              <Animatable.View animation="pulse" iterationCount="infinite" easing="ease-out" style={{backgroundColor: 'rgba(31,207,124,.4)', height: 30, width: 30, borderRadius: 50, justifyContent: 'center', alignItems: 'center'}}>
-                <Animatable.View animation="pulse" iterationCount="infinite" easing="ease-out" style={{backgroundColor: '#1fcf7c', height: 20, width: 20, borderRadius: 50}}>
+              <Animatable.View animation="pulse" iterationCount="infinite" style={{backgroundColor: 'rgba(31,207,124,.4)', height: 30, width: 30, borderRadius: 50, justifyContent: 'center', alignItems: 'center'}}>
+                <Animatable.View animation="pulse" iterationCount="infinite" style={{backgroundColor: '#1fcf7c', height: 20, width: 20, borderRadius: 50}}>
 
               </Animatable.View>
               </Animatable.View>
-            </MapView.Marker>
+            </MapView.Marker.Animated>
         </MapViewAnimatable>
         </Container>
 		);

@@ -28,20 +28,24 @@ class Map extends React.Component{
 
     const socket = io('localhost:8000');
 
-    navigator.geolocation.getCurrentPosition(position => {
-      if(!this.props.currentUser.isOrdering && !this.props.currentUser.isDelivering && !this.props.positionSet){
+    
+
+    let watchId = navigator.geolocation.watchPosition(position => {
+      if(1){
         socket.emit('SAVE_LOCATION', {
           user: this.props.currentUser,
           positionLat: position.coords.latitude,
           positionLng: position.coords.longitude
         });
         this.props.onSetPosition(position);
-      }
-    })
+        }
+    }, null, {enableHighAccuracy: true})
 
 		return (
 			<ContainerAnimatable ref="map-component" animation="fadeInUp" style={styles.container}>
+      
         <MapContainer navigation={this.props.navigation} currentUser={this.props.currentUser} />
+      
 			</ContainerAnimatable>
 		);
   }
