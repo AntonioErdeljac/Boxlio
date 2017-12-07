@@ -33,7 +33,7 @@ class LocationChooser extends React.Component{
 	render(){
     if(this.props.from && this.state.predictions && this.state.predictions.length > 0){
 		return (
-			<ContainerAnimatable animation="fadeInUp" style={styles.searchTo}>
+			<ContainerAnimatable animation="slideInUp" style={styles.searchTo}>
             <Content>
                 <Card style={styles.card}>
                   {this.state.predictions.map((prediction) => {
