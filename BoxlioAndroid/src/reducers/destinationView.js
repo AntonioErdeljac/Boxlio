@@ -38,6 +38,20 @@ export default (state={placeToChoosen: true}, action) => {
 					...state,
 					to: action.text,
 					placeToChoosen: false
+				};
+		case 'LOGOUT':
+				return {
+					...state,
+                    placeToChoosen: true,
+					to: null,
+					from: null,
+					initialSet: false,
+					placeChoosen: false,
+					placeFromChoosen: false,
+					hasTyped: false,
+					lat: null,
+					lng: null,
+					directions: null
 				}
 	}
 	return state;
