@@ -267,8 +267,8 @@ const MyMapComponent = compose(
 
             {1 === 0 ?<span><img src="images/map-marker.png" height="90" className="map-marker-user"/>
                 <img src={props.currentUser.image} style={{borderRadius: '50%'}} height="50" class="map-marker-inside"/> </span>: null}
-                <div className="user-marker-outside">
-                    <div className="user-marker-inside">
+                <div className={props.currentUser.available ? "user-marker-outside" : "user-marker-outside-inactive"}>
+                    <div className={props.currentUser.available ? "user-marker-inside" : "user-marker-inside-inactive"}>
                     </div>
                 </div>
             </div>
