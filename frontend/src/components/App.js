@@ -54,6 +54,7 @@ class App extends React.Component{
             </div>
             );
         }
+        if(this.props.appLoaded){
         return (
             <div>
                 <NavigationBar currentUser={this.props.currentUser}/>
@@ -67,6 +68,8 @@ class App extends React.Component{
                 <Register/>
             </div>
         )
+        }
+        return null;
     }
 }
 
