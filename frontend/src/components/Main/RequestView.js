@@ -185,12 +185,11 @@ class RequestView extends React.Component{
                         <hr/>
                         <div className="row my-3">
                             <div className="col-1">
-                                <i className="fa fa-shopping-cart" style={{color: '#1fcf7c', fontSize: '30px'}}></i>
+                                <i className="fa fa-evnelope-o" style={{color: '#1fcf7c', fontSize: '30px'}}></i>
                             </div>
                             <div className="col-10">
                                 <div className="input-group">
-                                    <input type="number" className="form-control form-control-lg destinationInput" style={{fontSize: '30px'}} value={this.props.item} name="items" placeholder="Number of items"/>
-                                    <span className="input-group-addon">Items</span>
+                                    <input type="text" className="form-control form-control-lg destinationInput" style={{fontSize: '30px'}} value={this.props.item} name="items" placeholder="Short description"/>
                                 </div>
                             </div>
                         </div>

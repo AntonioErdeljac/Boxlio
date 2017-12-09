@@ -8,7 +8,7 @@ let DeliveryJobSchema = new mongoose.Schema({
     fromLocation: [{type: Number}],
     toLocation: [{type: Number}],
     price: Number,
-    item: Number,
+    item: String,
     transportation: String,
     deliveryGuyLocationName: String
 }, {timestamps: true});

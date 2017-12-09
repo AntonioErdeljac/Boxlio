@@ -7,6 +7,7 @@ import SearchPlacesTo from "./SearchPlacesTo";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import * as actions from "../../constants/actions";
 import agent from "../../agent";
+import {WithContext as ReactTags} from "react-tag-input";
 
 
 class DestinationView extends React.Component{
@@ -23,7 +24,8 @@ class DestinationView extends React.Component{
             price: '',
             item: '',
             transportation: '',
-            rating: 0
+            rating: 0,
+            tags: []
         };
 
         this.handleChangeTravelMode = field => ev => {
@@ -31,7 +33,13 @@ class DestinationView extends React.Component{
                 this.props.onChangeTravelMode(field);
                 this.setState({transportation: field}); 
             }
+
+
         };
+
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleAddition = this.handleAddition.bind(this);
+        this.handleDrag = this.handleDrag.bind(this);
 
         this.socket = io('localhost:8000');
 
@@ -107,9 +115,36 @@ class DestinationView extends React.Component{
         }
     }
 
+    handleDelete(i) {
+        let tags = this.state.tags;
+        tags.splice(i, 1);
+        this.setState({tags: tags});
+    }
+ 
+    handleAddition(tag) {
+        let tags = this.state.tags;
+        tags.push({
+            id: tags.length + 1,
+            text: tag
+        });
+        this.setState({tags: tags});
+    }
+ 
+    handleDrag(tag, currPos, newPos) {
+        let tags = this.state.tags;
+ 
+        // mutate array 
+        tags.splice(currPos, 1);
+        tags.splice(newPos, 0, tag);
+ 
+        // re-render 
+        this.setState({ tags: tags });
+    }
+
     render(){
 
         if(this.props.positionSet && this.props.currentUser){
+            const { tags, suggestions } = this.state;
 
             const setForm = data => {
                 this.props.onSetFrom(data);
@@ -210,7 +245,7 @@ class DestinationView extends React.Component{
                                 <div className="text-muted">Options</div>
                                 <div className="row my-3">
                                     <div className="col-1">
-                                        <i className="fa fa-usd" style={{color: '#1fcf7c'}} />
+                                        <i className="fa fa-money" style={{color: '#1fcf7c', fontSize: '30px', marginTop: '3px'}} />
                                     </div>
                                     <div className="col-10">
                                         <div className="input-group">
@@ -225,16 +260,19 @@ class DestinationView extends React.Component{
                                 <hr/>
                                 <div className="row my-3">
                                     <div className="col-1">
-                                        <i className="fa fa-shopping-cart"
-                                           style={{color: '#1fcf7c'}} />
+                                        <i className="fa fa-envelope-o"
+                                           style={{color: '#1fcf7c', fontSize: '30px', marginTop: '3px'}} />
                                     </div>
-                                    <div className="col-10">
+                                    <div className="col-11">
                                         <div className="input-group">
-                                            <input disabled={this.props.requestSent} type="number"
-                                                   className="form-control form-control-lg destinationInput"
-                                                   style={{fontSize: '30px'}} value={this.state.item} onChange={setItem}
-                                                   name="items" placeholder="Number of items"/>
-                                            <span className="input-group-addon">Items</span>
+                                            <input disabled={this.props.requestSent}
+                                                    value={this.state.item}
+                                                    onChange={ev => this.setState({item: ev.target.value})}
+                                                    style={{fontSize: '9px'}}
+                                                   rows="1"
+                                                   className="form-control form-control-lg shortMessageInput"
+                                                   name="price" 
+                                                   placeholder="Describe what to buy" />
                                         </div>
                                     </div>
                                 </div>

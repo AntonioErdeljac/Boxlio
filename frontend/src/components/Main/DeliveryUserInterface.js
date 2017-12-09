@@ -143,24 +143,12 @@ class DeliveryUserInterface extends React.Component{
                             <hr />
                             <div className="row my-3">
                                 <div className="col-1">
-                                    <i className="fa fa-usd" style={{color: '#1fcf7c', fontSize: '30px'}}></i>
+                                    <i className="fa fa-money" style={{color: '#1fcf7c', fontSize: '30px'}}></i>
                                 </div>
                                 <div className="col-10">
                                     <div className="input-group">
                                         <input type="text" className="form-control form-control-lg destinationInput" style={{fontSize: '30px'}} value={this.props.currentUser.earnedMoney} onChange={setPrice} name="price" placeholder="Delivery Price"/>
                                         <span className="input-group-addon">HRK</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr/>
-                            <div className="row my-3">
-                                <div className="col-1">
-                                    <i className="fa fa-truck" style={{color: '#1fcf7c', fontSize: '30px'}}></i>
-                                </div>
-                                <div className="col-10">
-                                    <div className="input-group">
-                                        <input type="number" className="form-control form-control-lg destinationInput" style={{fontSize: '30px'}} value={this.props.currentUser.deliveredItems} name="items" placeholder="Number of items"/>
-                                        <span className="input-group-addon">Deliveries</span>
                                     </div>
                                 </div>
                             </div>

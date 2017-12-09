@@ -214,7 +214,6 @@ exports = module.exports = function(io){
                 deliveryGuy.isDelivering = false;
                 deliveryGuy.isOrdering = false;
                 deliveryGuy.earnedMoney += deliveryGuy.activeDeliveryJob.price;
-                deliveryGuy.deliveredItems += deliveryGuy.activeDeliveryJob.item;
                 deliveryGuy.ratings.push(data.rating);
                 deliveryGuy.save(err => console.log(err)).then(function(){
                     deliveryGuy.activeDeliveryJob = null;
@@ -626,12 +625,18 @@ exports = module.exports = function(io){
                             .then(function(chat){
                                 if(chat){
                                     let message = new Message();
-                                    message.author = deliveryGuy;
-                                    message.receiver = client;
+                                    message.author = deliveryGuy._id;
+                                    message.receiver = client._id;
                                     message.body = `Hello again ${client.firstName}! I am your delivery guy. Please describe what kind of products do you want me to buy.`
                                     message.save();
+                                    let messageTwo = new Message();
+                                    messageTwo.author = client._id;
+                                    messageTwo.receiver = deliveryGuy._id;
+                                    messageTwo.body = `Hello, this is a short description about what to buy: ${data.item}`;
+                                    messageTwo.save((err) => console.log(err));
                                     chat.messages.push(message._id);
-                                    return chat.save().then(function(){
+                                    chat.messages.push(messageTwo._id);
+                                    return chat.save((err) => console.log(err)).then(function(){
                                         io.in(data.client.username).emit('REQUEST_ACCEPTED', {
                                             deliveryGuy: data.deliveryGuy,
                                             locationName: newDeliveryJob.deliveryGuyLocationName
@@ -654,7 +659,13 @@ exports = module.exports = function(io){
                                     message.receiver = client;
                                     message.body = `Hi ${client.firstName}! I am your delivery guy. Please describe what kind of products do you want me to buy.`
                                     message.save();
+                                    let messageTwo = new Message();
+                                    messageTwo.author = client;
+                                    messageTwo.receiver = deliveryGuy;
+                                    messageTwo.body = `Hello, this is a short description about what to buy: ${data.item}`;
+                                    messageTwo.save();
                                     nChat.messages.push(message._id);
+                                    nChat.messages.push(messageTwo._id);
                                     return nChat.save(function(err){console.log(err)}).then(function(){
                                         io.in(data.client.username).emit('REQUEST_ACCEPTED', {
                                             deliveryGuy: data.deliveryGuy,
