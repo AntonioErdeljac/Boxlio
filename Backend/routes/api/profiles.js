@@ -42,6 +42,9 @@ router.post('/:username/opinion', auth.required, function(req,res,next){
             if(!req.body.opinion.text){
                 return res.status(422).json({errors: {opinion: 'is required'}})
             }
+            if(req.body.opinion.text.length > 500){
+                return res.status(422).json({errors: {opinion: 'is too long, maximum 500 characters.'}})
+            }
             let opinion = new Opinion();
             opinion.text = req.body.opinion.text;
             opinion.author = user;

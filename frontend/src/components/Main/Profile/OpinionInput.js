@@ -35,7 +35,7 @@ class OpinionInput extends React.Component{
 						style={{borderRadius: '10px', borderStyle: 'none', boxShadow: '0 0 20px 0 rgba(0,0,0,.1)', padding: '25px'}} 
 						rows="4">
 					</textarea>
-	                <button disabled={false} onClick={this.handleSubmit} className="orderbtn btn btn-primary my-3  float-md-right float-center"
+	                <button disabled={this.state.text.length === 0 || this.state.text.length > 500} onClick={this.handleSubmit} className="orderbtn btn btn-primary my-3  float-md-right float-center"
 	                        style={{backgroundColor: '#2d89e5', borderStyle: 'none'}}>
 	                	<i className="fa fa-paper-plane"></i> Post opinion
 	        		</button>
