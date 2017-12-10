@@ -5,8 +5,8 @@ export default (state={}, action) => {
         case actions.PROFILE_PAGE_LOADED:
             return {
                 ...state,
-                profile: action.payload[0].profile,
-                opinions: action.payload[1].opinions,
+                profile: action.payload ? action.payload[0].profile : null ,
+                opinions: action.payload ? action.payload[1].opinions : null,
             };
         case actions.ADD_OPINION:
         	return {
