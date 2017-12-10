@@ -100,7 +100,7 @@ class DeliveryUserInterface extends React.Component{
                             </div>
                             <div className="row my-3">
                                 <div className="col-2 mt-2" style={{marginTop: '70px'}}>
-                                    <i className="fa fa-dot-circle-o " style={{color: '#1fcf7c'}}></i>
+                                    <i className="fa fa-dot-circle-o " style={this.props.currentUser.available ? {color: '#1fcf7c'} : {color: '#E7475E'}}></i>
                                 </div>
                                 <div className="col-8">
                                     <input
