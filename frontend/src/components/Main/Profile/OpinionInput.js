@@ -31,7 +31,7 @@ class OpinionInput extends React.Component{
 						placeholder="Write an opinion on this user, good or bad." 
 						onChange={ev => this.setState({text: ev.target.value})} 
 						value={this.state.text} 
-						className="form-control" 
+						className="form-control"
 						style={{borderRadius: '10px', borderStyle: 'none', boxShadow: '0 0 20px 0 rgba(0,0,0,.1)', padding: '25px'}} 
 						rows="4">
 					</textarea>

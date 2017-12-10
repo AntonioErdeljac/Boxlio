@@ -14,6 +14,7 @@ import Register from "./Register";
 import Profile from "./Main/Profile";
 import * as actions from "../constants/actions";
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import NotFoundView from "./Main/NotFoundView";
 
 
 class App extends React.Component{
@@ -36,22 +37,23 @@ class App extends React.Component{
     render(){
         if(this.props.currentUser){
             return (
-            <div>
-                <NavigationBar currentUser={this.props.currentUser} />
+                <div>
+                    <NavigationBar currentUser={this.props.currentUser} />
 
-                    <div>
-                    <Switch>
-                        <Route path="/login" component={Login} />
-                        <Route path="/register"  exact component={Register} />
-                        <Route path="/messages" exact component={Messages} />
-                        <Route path="/messages/:username" exact component={Messages} />
-                        <Route path="/settings" exact  component={Settings} />
-                        <Route path="/explore" exact component={Explore} />
-                        <Route path="/@:username" exact component={Profile} />
-                        <Route path="/" exact component={Main} />
-                    </Switch>
-                    </div>
-            </div>
+                        <div>
+                        <Switch>
+                            <Route path="/login" component={Login} />
+                            <Route path="/register"  exact component={Register} />
+                            <Route path="/messages" exact component={Messages} />
+                            <Route path="/messages/:username" exact component={Messages} />
+                            <Route path="/settings" exact  component={Settings} />
+                            <Route path="/explore" exact component={Explore} />
+                            <Route path="/@:username" exact component={Profile} />
+                            <Route path="/" exact component={Main} />
+                            <Route component={NotFoundView} />
+                        </Switch>
+                        </div>
+                </div>
             );
         }
         if(this.props.appLoaded){
