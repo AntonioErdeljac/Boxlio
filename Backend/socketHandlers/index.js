@@ -215,6 +215,7 @@ exports = module.exports = function(io){
                 deliveryGuy.isOrdering = false;
                 deliveryGuy.earnedMoney += deliveryGuy.activeDeliveryJob.price;
                 deliveryGuy.ratings.push(data.rating);
+                deliveryGuy.deliveredItems += 1;
                 deliveryGuy.save(err => console.log(err)).then(function(){
                     deliveryGuy.activeDeliveryJob = null;
                     deliveryGuy.save();
