@@ -20,7 +20,7 @@ class NotFoundView extends React.Component{
 		return (
 			<div  style={{height: '100%', width: '100%', backgroundColor: '#fff', color: 'rgba(0,0,0,.7)'}}>
 				<div className="container text-center mx-auto" style={{paddingTop: '7%'}}>
-					<h2>404</h2>
+					<h2 className="my-3"><b>404</b></h2>
 					<p>Page you're trying to find is not available<br/>or has been removed.</p>
 					<button onClick={() => this.props.history.push('/')} className="btn btn-primary" style={{borderRadius: '30px', backgroundColor: '#1fcf7c', color: '#fff', fontSize: '15px', borderStyle: 'none', boxShadow:'0 0 20px 0 rgba(0,0,0,.1)'}}>
 						Take me back
