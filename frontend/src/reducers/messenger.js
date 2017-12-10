@@ -5,8 +5,8 @@ export default (state={}, action) => {
         case actions.MESSENGER_PAGE_LOADED:
             return {
                 ...state,
-                profile: action.payload[0].profile,
-                messages: action.payload[2].messages        
+                profile: action.payload ? action.payload[0].profile : null,
+                messages: action.payload ? action.payload[2].messages : null     
             };
         case actions.MESSENGER_PAGE_UNLOADED:
             return {};

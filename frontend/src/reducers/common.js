@@ -8,6 +8,11 @@ const initialState = {
 
 export default (state=initialState, action) => {
     switch(action.type){
+        case actions.MESSENGER_PAGE_LOADED:
+            return {
+                ...state,
+                redirectTo: action.payload ? null : '/notfound'
+            }
         case actions.PROFILE_PAGE_LOADED:
             return {
                 ...state,
