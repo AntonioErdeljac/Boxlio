@@ -2,6 +2,7 @@ import React from "react";
 import agent from "../../../agent";
 import {connect} from "react-redux";
 import * as actions from "../../../constants/actions";
+import Errors from "../../Errors";
 
 class OpinionInput extends React.Component{
 	constructor(props){
@@ -25,6 +26,7 @@ class OpinionInput extends React.Component{
 		if(this.props.profile){
 			return (
 				<div>
+					<Errors errors={this.props.errors} />
 					<textarea 
 						placeholder="Write an opinion on this user, good or bad." 
 						onChange={ev => this.setState({text: ev.target.value})} 
@@ -33,7 +35,7 @@ class OpinionInput extends React.Component{
 						style={{borderRadius: '10px', borderStyle: 'none', boxShadow: '0 0 20px 0 rgba(0,0,0,.1)', padding: '25px'}} 
 						rows="4">
 					</textarea>
-	                <button disabled={this.state.text.length === 0} onClick={this.handleSubmit} className="orderbtn btn btn-primary my-3  float-md-right float-center"
+	                <button disabled={false} onClick={this.handleSubmit} className="orderbtn btn btn-primary my-3  float-md-right float-center"
 	                        style={{backgroundColor: '#2d89e5', borderStyle: 'none'}}>
 	                	<i className="fa fa-paper-plane"></i> Post opinion
 	        		</button>

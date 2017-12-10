@@ -42,7 +42,7 @@ class Profile extends React.Component{
 					<div className="container" style={{paddingTop: '10%'}}>
 						<ProfileHeader addClient={this.addClient} profile={this.props.profile} currentUser={this.props.currentUser}/>
 						<hr className="my-3" />
-							<ProfileDiscussion opinions={this.props.opinions} currentUser={this.props.currentUser} profile={this.props.profile}></ProfileDiscussion>
+							<ProfileDiscussion errors={this.props.errors} opinions={this.props.opinions} currentUser={this.props.currentUser} profile={this.props.profile}></ProfileDiscussion>
 					</div>
 				</div>
 			);

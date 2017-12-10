@@ -185,7 +185,7 @@ class RequestView extends React.Component{
                         <hr/>
                         <div className="row my-3">
                             <div className="col-1">
-                                <i className="fa fa-evnelope-o" style={{color: '#1fcf7c', fontSize: '30px'}}></i>
+                                <i className="fa fa-envelope-o" style={{color: '#1fcf7c', fontSize: '30px'}}></i>
                             </div>
                             <div className="col-10">
                                 <div className="input-group">

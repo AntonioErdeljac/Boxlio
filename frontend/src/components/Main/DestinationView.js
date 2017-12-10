@@ -193,7 +193,7 @@ class DestinationView extends React.Component{
                             <div>
                                 {this.props.toPrivateDeliveryGuy ? 
                                     <div className="text-muted">
-                                        Private request for
+                                        Private request for 
                                         <b>
                                             <span style={{textTransform: 'capitalize'}}>{this.props.toPrivateDeliveryGuy.firstName}</span>
                                             <span style={{textTransform: 'capitalize'}}>{this.props.toPrivateDeliveryGuy.lastName}</span>

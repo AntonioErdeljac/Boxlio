@@ -629,13 +629,15 @@ exports = module.exports = function(io){
                                     message.receiver = client._id;
                                     message.body = `Hello again ${client.firstName}! I am your delivery guy. Please describe what kind of products do you want me to buy.`
                                     message.save();
-                                    let messageTwo = new Message();
-                                    messageTwo.author = client._id;
-                                    messageTwo.receiver = deliveryGuy._id;
-                                    messageTwo.body = `Hello, this is a short description about what to buy: ${data.item}`;
-                                    messageTwo.save((err) => console.log(err));
                                     chat.messages.push(message._id);
-                                    chat.messages.push(messageTwo._id);
+                                    if(data.item){
+                                        let messageTwo = new Message();
+                                        messageTwo.author = client._id;
+                                        messageTwo.receiver = deliveryGuy._id;
+                                        messageTwo.body = `Hello, this is a short description about what to buy: ${data.item}`;
+                                        messageTwo.save((err) => console.log(err));
+                                        chat.messages.push(messageTwo._id);
+                                    }
                                     return chat.save((err) => console.log(err)).then(function(){
                                         io.in(data.client.username).emit('REQUEST_ACCEPTED', {
                                             deliveryGuy: data.deliveryGuy,

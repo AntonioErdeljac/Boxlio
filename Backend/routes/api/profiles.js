@@ -39,6 +39,9 @@ router.get('/:username/opinions', auth.required, function(req,res,next){
 
 router.post('/:username/opinion', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
+            if(!req.body.opinion.text){
+                return res.status(422).json({errors: {opinion: 'is required'}})
+            }
             let opinion = new Opinion();
             opinion.text = req.body.opinion.text;
             opinion.author = user;
