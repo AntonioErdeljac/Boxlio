@@ -30,7 +30,7 @@ class NavigationBar extends React.Component{
                 <nav className=" navbar fixed-top navbar-expand-md " style={{borderRadius: '0px',opacity: this.state.opacity}}>
                     <div className="container-fluid">
                         <LoggedOutTabs currentUser={this.props.currentUser}/>
-                        <LoggedInTabs history={this.props.history} currentUser={this.props.currentUser}/>
+                        <LoggedInTabs alertMessage={this.props.alertMessage} history={this.props.history} currentUser={this.props.currentUser}/>
 
                     <a href="/" className="navbar-brand mr-0 abs-center-x">
                         {this.props.isLoading && this.props.currentUser && this.props.history.location.pathname === '/' ? <div className="actionLoad"></div> : <img src="images/logo.png" className="userimg" height="35" alt=""/>}
@@ -85,7 +85,7 @@ const LoggedInTabs = props => {
                 </li>
                 <li className="nav-item mx-3">
                     <Link to="/messages" style={{textDecoration: 'none', color: 'rgba(0,0,0,.5)'}} className={props.history.location.pathname === '/messages' || props.history.location.pathname.split('/')[1] === 'messages' ? "nav-button-active" : 'nav-button'}>
-                        <i className="fa fa-circle" style={{fontSize: '10px',top:'20px',position:'absolute', color: '#1fcf7c'}}/>&nbsp;&nbsp;&nbsp;<i className="fa fa-envelope-o"></i>&nbsp;Messages
+                        {props.alertMessage ? <i className="fa fa-circle mr-3" style={{fontSize: '10px',bottom:'10px',position:'relative', color: '#1fcf7c'}}/> : null} {props.alertMessage ? <i className="fa fa-envelope"></i> : <i className="fa fa-envelope-o"></i>} &nbsp;Messages
                     </Link>
                 </li>
                 <li className="nav-item mx-3">
@@ -115,7 +115,8 @@ const LoggedOutTabs = props => {
 };
 
 const mapStateToProps = state => ({
-    ...state.common
+    ...state.common,
+    ...state.notifications
 });
 
 export default withRouter(connect(mapStateToProps, null)(NavigationBar));

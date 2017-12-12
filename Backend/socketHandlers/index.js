@@ -797,6 +797,9 @@ exports = module.exports = function(io){
                 io.to(nameAlt).emit('RECEIVE_MESSAGE', {
                     message: message
                 });
+                io.to(receiver.username).emit('RECEIVE_MESSAGE', {
+                    message: message
+                })
             })
   
           })

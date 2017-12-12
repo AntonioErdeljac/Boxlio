@@ -129,6 +129,10 @@ class Main extends React.Component{
                 // add function for this
             });
 
+            socket.on('RECEIVE_MESSAGE', (data) => {
+                this.props.onAlertMessage();
+            })
+
             const changeLocationName = data => {
                 
             };
@@ -286,7 +290,9 @@ const mapDispatchToProps = dispatch => ({
     onSetFailureAccepted: data =>
         dispatch({type: actions.SET_FAILURE_ACCEPTED, data}),
     onUpdateCurrentUser: data =>
-        dispatch({type: actions.UPDATE_CURRENT_USER, data})
+        dispatch({type: actions.UPDATE_CURRENT_USER, data}),
+    onAlertMessage: () =>
+        dispatch({type: 'ALERT_MESSAGE'})
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main)); 

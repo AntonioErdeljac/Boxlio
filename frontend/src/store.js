@@ -14,6 +14,7 @@ import deliveryUserInterface from "./reducers/deliveryUserInterface";
 import explore from "./reducers/explore";
 import clientList from "./reducers/clientList";
 import profile from "./reducers/profile";
+import notifications from "./reducers/notifications";
 
 const reducer = combineReducers({
     auth,
@@ -28,7 +29,8 @@ const reducer = combineReducers({
     messenger,
     clientList,
     explore,
-    profile
+    profile,
+    notifications
 });
 
 const middleware = applyMiddleware(promiseMiddleware, localStorageMiddleware);
