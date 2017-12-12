@@ -21,7 +21,7 @@ const Auth = {
     login: (email, password) =>
         requests.post(`${routes.users_login}`, {user: {email, password}}),
     register: (firstName, lastName, username, email, password, location, type) =>
-        requests.post(`${routes.user}`, {user: {firstName, lastName, username, email, password, location, type}}),
+        requests.post(`${routes.users}`, {user: {firstName, lastName, username, email, password, location, type}}),
     current: () =>
         requests.get(`${routes.user}`),
     update: user =>

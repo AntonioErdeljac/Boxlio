@@ -780,6 +780,9 @@ exports = module.exports = function(io){
         ]).then(function(results){
             let receiver = results[0];
             let author = results[1];
+
+            receiver.alertMessage = true;
+            receiver.save();
   
             Chat.findOne({users: {$all: [receiver, author]}}).then(function(chat){
             let message = new Message();

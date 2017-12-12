@@ -51,6 +51,8 @@ router.param('name', function(req,res,next,name){
 router.get('/', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
         if(!user){return res.sendStatus(401);}
+        user.alertMessage = false;
+        user.save();
         Chat.find({})
             .populate('client')
             .populate('deliveryGuy')

@@ -8,6 +8,22 @@ const initialState = {
 
 export default (state=initialState, action) => {
     switch(action.type){
+        case 'ALERT_MESSAGE':
+            return {
+                ...state,
+                currentUser: Object.assign({}, {}, {
+                    ...state.currentUser,
+                    alertMessage: true
+                })
+            }
+        case 'REMOVE_ALERT_MESSAGE':
+            return {
+                ...state,
+                currentUser: Object.assign({}, {}, {
+                    ...state.currentUser,
+                    alertMessage: false
+                })
+            }
         case actions.MESSENGER_PAGE_LOADED:
             return {
                 ...state,

@@ -21,6 +21,9 @@ class Messages  extends React.Component{
                 ])
             )
         }
+
+        this.props.onRemoveAlertMessages();
+        agent.Auth.update({alertMessage: false})
     }
 
     componentWillReceiveProps(nextProps){
@@ -47,7 +50,6 @@ class Messages  extends React.Component{
     }
 
     render(){
-        this.props.onRemoveAlertMessages();
         this.socket = io('localhost:8000');
         let name = this.props.currentUser.deliveryMode ? this.props.currentUser.username+'_and_'+this.props.match.params.username : this.props.match.params.username+'_and_'+this.props.currentUser.username;                    
             return (
