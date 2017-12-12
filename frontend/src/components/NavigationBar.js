@@ -1,4 +1,5 @@
 import CurrentUserDropdown from "./CurrentUserDropdown";
+import NotificationDropdown from "./NotificationDropdown";
 import React from 'react';
 import {connect} from "react-redux";
 import {Link, withRouter} from "react-router-dom";
@@ -46,9 +47,6 @@ const LoggedIn = props => {
     if(props.currentUser){
         return (
             <ul className="nav navbar-nav ml-auto">
-                <li className="nav-item mx-3" style={{marginTop: '13px', textTransform:"capitalize"}} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i className="fa fa-bell-o" style={{color: '#1fcf7c'}} />
-                </li>
                 <li className="nav-item" style={{marginTop: '13px', textTransform:"capitalize"}} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span style={{textTransform: 'capitalize'}}>{props.currentUser.firstName}</span> <i className="fa fa-caret-down"></i>
                 </li>
@@ -87,7 +85,7 @@ const LoggedInTabs = props => {
                 </li>
                 <li className="nav-item mx-3">
                     <Link to="/messages" style={{textDecoration: 'none', color: 'rgba(0,0,0,.5)'}} className={props.history.location.pathname === '/messages' || props.history.location.pathname.split('/')[1] === 'messages' ? "nav-button-active" : 'nav-button'}>
-                        <i className="fa fa-envelope-o"></i>&nbsp;Messages
+                        <i className="fa fa-circle" style={{fontSize: '10px',top:'20px',position:'absolute', color: '#1fcf7c'}}/>&nbsp;&nbsp;&nbsp;<i className="fa fa-envelope-o"></i>&nbsp;Messages
                     </Link>
                 </li>
                 <li className="nav-item mx-3">
