@@ -46,6 +46,9 @@ const LoggedIn = props => {
     if(props.currentUser){
         return (
             <ul className="nav navbar-nav ml-auto">
+                <li className="nav-item mx-3" style={{marginTop: '13px', textTransform:"capitalize"}} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i className="fa fa-bell-o" style={{color: '#1fcf7c'}} />
+                </li>
                 <li className="nav-item" style={{marginTop: '13px', textTransform:"capitalize"}} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span style={{textTransform: 'capitalize'}}>{props.currentUser.firstName}</span> <i className="fa fa-caret-down"></i>
                 </li>
