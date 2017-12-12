@@ -47,7 +47,7 @@ class Messages  extends React.Component{
     }
 
     render(){
-        
+        this.props.onRemoveAlertMessages();
         this.socket = io('localhost:8000');
         let name = this.props.currentUser.deliveryMode ? this.props.currentUser.username+'_and_'+this.props.match.params.username : this.props.match.params.username+'_and_'+this.props.currentUser.username;                    
             return (
@@ -77,7 +77,9 @@ const mapDispatchToProps = dispatch => ({
     onLoad: payload =>
         dispatch({type: actions.MESSENGER_PAGE_LOADED, payload}),
     onUnload: () =>
-        dispatch({type: actions.MESSENGER_PAGE_UNLOADED})
+        dispatch({type: actions.MESSENGER_PAGE_UNLOADED}),
+    onRemoveAlertMessages: () =>
+        dispatch({type: 'REMOVE_ALERT_MESSAGE'})
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Messages));
