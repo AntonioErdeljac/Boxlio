@@ -252,6 +252,8 @@ class DestinationView extends React.Component{
                                             <input disabled={this.props.requestSent} type="number"
                                                    className="form-control form-control-lg destinationInput"
                                                    style={{fontSize: '30px'}} value={this.state.price}
+                                                   min="1" 
+                                                   step="1"
                                                    onChange={setPrice} name="price" placeholder="Delivery guy's profit"/>
                                             <span className="input-group-addon">HRK</span>
                                         </div>
@@ -286,7 +288,7 @@ class DestinationView extends React.Component{
                             </div> 
                             : !this.props.requestAccepted ?
                             !this.props.privateRequest ? 
-                        <button className="orderbtn btn btn-primary form-control" disabled={!this.state.price || !this.props.to || !this.props.from || !this.state.item ? true : false || !this.props.placeChoosen || !this.props.placeChoosenFrom} onClick={this.handleSendRequest} style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
+                        <button className="orderbtn btn btn-primary form-control" disabled={!this.state.price || this.state.price < 0 || !this.props.to || !this.props.from || !this.state.item ? true : false || !this.props.placeChoosen || !this.props.placeChoosenFrom} onClick={this.handleSendRequest} style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
                         <i className="fa fa-search mx-2" />
                             Find a delivery person
                         </button> : <button className="orderbtn btn btn-primary form-control" disabled={!this.state.price || !this.props.to || !this.props.from || !this.state.item ? true : false || !this.props.placeChoosen || !this.props.placeChoosenFrom} onClick={this.handleSendPrivateRequest} style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>

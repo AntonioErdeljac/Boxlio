@@ -14,6 +14,10 @@ class RequestView extends React.Component{
 
     }
 
+    componentDidMount(){
+        
+    }
+
     constructor(props){
         super(props);
 
@@ -85,6 +89,14 @@ class RequestView extends React.Component{
 
     render(){
         if(this.props.currentUser && this.props.gotRequest){
+
+
+
+            setTimeout(() => {
+                if(!this.props.acceptedRequest){
+                    this.handleDeclineRequest()
+                }
+            },5000)
 
             const setForm = data => {
                 this.props.onSetFrom(data);
