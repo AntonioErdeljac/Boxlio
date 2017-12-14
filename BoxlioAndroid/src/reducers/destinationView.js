@@ -1,10 +1,15 @@
 export default (state={placeToChoosen: true, transportation:null}, action) => {
 	switch(action.type){
+		case 'SET_ITEM':
+			return {
+				...state,
+				item: action.text
+			};
 		case 'SET_PROFIT':
 			return {
 				...state,
 				price: action.amount
-			}
+			};
 		case 'CHANGE_TRAVEL_MODE':
 				return {
 					...state,

@@ -9,6 +9,7 @@ import SearchPlacesFrom from "../SearchPlacesFrom";
 import LocationChooserTo from "../LocationChooser/LocationChooserTo";
 import DeliveryGuyProfit from "../DeliveryGuyProfit";
 import TransportationType from "../TransportationType";
+import ShortMessage from "../ShortMessage";
 import SearchPlacesTo from "../SearchPlacesTo";
 import mapStyles from "../mapStyles";
 import LocationChooser from "../LocationChooser";
@@ -116,6 +117,9 @@ class MapContainer extends React.Component{
           <LocationChooserTo />
           {this.props.placeFromChoosen && this.props.placeToChoosen ? <TransportationType /> : null}
           {this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null}
+          {this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage /> : null}
+          {this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton /> : null}
+
         <MapViewAnimatable
             customMapStyle={mapStyle}
         initialRegion={this.state.region}
