@@ -13,7 +13,15 @@ class DeliveryGuyProfit extends React.Component{
         super(props);
 
         this.handleSetProfit = amount => {
-            this.props.onSetProfit(amount);
+            let newText = '';
+            let numbers = '0123456789';
+
+            for (let i = 0; i < amount.length; i++) {
+                if ( numbers.indexOf(amount[i]) > -1 ) {
+                    newText = newText + amount[i];
+                }
+            }
+            this.props.onSetProfit(newText);
         }
     }
     render(){
@@ -26,7 +34,7 @@ class DeliveryGuyProfit extends React.Component{
                         </Col>
                         <Col size={3}>
                             <View style={{justifyContent: 'space-around', alignItems: 'center'}}>
-                                <TextInput value={this.props.price} onChangeText={(text) => this.handleSetProfit(text)} style={styles.input} placeholderTextColor="rgba(0,0,0,.3)" type="number"  placeholder="Delivery guy's profit"/>
+                                <TextInput keyboardType = 'numeric' value={this.props.price} onChangeText={(text) => this.handleSetProfit(text)} style={styles.input} placeholderTextColor="rgba(0,0,0,.3)" type="number"  placeholder="Delivery guy's profit"/>
                             </View>
                         </Col>
                     </Grid>
