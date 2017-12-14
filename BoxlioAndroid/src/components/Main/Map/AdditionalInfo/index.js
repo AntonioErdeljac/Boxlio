@@ -19,10 +19,11 @@ class AdditionalInfo extends React.Component{
         super(props);
 
         this.state={
-          transportation: ''
+          transportation: 'all'
         };
 
         this.handleChangeTravelMode = field => ev => {
+            this.props.onChangeTravelMode(field);
             this.setState({transportation: field});
         };
     }
@@ -30,11 +31,7 @@ class AdditionalInfo extends React.Component{
     render(){
             return (
             <ContainerAnimatable animation="fadeInUp" ref="locationchooser" delay={300} style={styles.searchTo}>
-                <Content keyboardShouldPersistTaps="handled">
-                    <Grid style={{padding: 30}}>
-                        <Row>
-                            <Text style={{fontFamily: 'VarelaRound-Regular', fontSize: 15, color:'rgba(0,0,0,.4)', marginBottom: 30}}>Transportation</Text>
-                        </Row>
+                    <Grid style={{padding: 20}}>
                         <Row style={{justifyContent: 'space-between'}}>
                             <TouchableOpacity onPress={this.handleChangeTravelMode('walking')}>
                                 <Icon name="male" style={this.state.transportation !== 'walking' && this.state.transportation !== 'all' ? {fontSize: 23, color:'rgba(0,0,0,.3)'} : {fontSize: 23, color:'#1fcf7c'}}></Icon>
@@ -54,7 +51,6 @@ class AdditionalInfo extends React.Component{
                             </TouchableOpacity>
                         </Row>
                     </Grid>
-                </Content>
             </ContainerAnimatable>
         );
 
@@ -84,14 +80,14 @@ const styles = StyleSheet.create({
     },
     searchTo: {
         zIndex: 1000,
-        height: Dimensions.get('window').height-270 ,
+        height: 65 ,
         width: Dimensions.get('window').width-30,
         borderRadius: 3,
         elevation: 2,
         shadowOpacity: 0.1,
         shadowColor: '#000',
         position: 'absolute',
-        bottom: 30,
+        top: 210,
         backgroundColor: '#fff'
     },
     container: {
@@ -117,8 +113,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setFrom: place =>
-        dispatch({type: 'SET_FROM', place})
+    onChangeTravelMode: field =>
+        dispatch({type: 'CHANGE_TRAVEL_MODE', field})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdditionalInfo);

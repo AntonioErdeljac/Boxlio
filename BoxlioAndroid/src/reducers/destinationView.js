@@ -1,5 +1,10 @@
 export default (state={placeToChoosen: true}, action) => {
 	switch(action.type){
+		case 'CHANGE_TRAVEL_MODE':
+				return {
+					...state,
+					transportation: action.field
+				};
 		case 'SET_TO':
 			return {
 				...state,
