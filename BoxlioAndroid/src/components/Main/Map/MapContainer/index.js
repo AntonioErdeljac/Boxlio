@@ -7,6 +7,7 @@ import {StyleSheet, Dimensions, View} from "react-native";
 import * as Animatable from "react-native-animatable";
 import SearchPlacesFrom from "../SearchPlacesFrom";
 import LocationChooserTo from "../LocationChooser/LocationChooserTo";
+import AdditionalInfo from "../AdditionalInfo";
 import SearchPlacesTo from "../SearchPlacesTo";
 import mapStyles from "../mapStyles";
 import LocationChooser from "../LocationChooser";
@@ -15,7 +16,7 @@ import {connect} from "react-redux";
 import SendRequestButton from "../SendRequestButton";
 import io from "socket.io-client";
 const MapViewAnimatable = Animatable.createAnimatableComponent(MapView);
-
+const AdditionalInfoAnimatable = Animatable.createAnimatableComponent(AdditionalInfo);
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 
 class MapContainer extends React.Component{
@@ -113,7 +114,7 @@ class MapContainer extends React.Component{
                     : null}
           <LocationChooser />
           <LocationChooserTo />
-                {this.props.placeFromChoosen && this.props.placeToChoosen &&  <SendRequestButton />}
+                {this.props.placeFromChoosen && this.props.placeToChoosen ? <AdditionalInfo /> : null}
         <MapViewAnimatable
             customMapStyle={mapStyle}
         initialRegion={this.state.region}
