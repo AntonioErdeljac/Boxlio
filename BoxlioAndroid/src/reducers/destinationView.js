@@ -1,4 +1,4 @@
-export default (state={placeToChoosen: true}, action) => {
+export default (state={placeToChoosen: true, transportation:null}, action) => {
 	switch(action.type){
 		case 'CHANGE_TRAVEL_MODE':
 				return {
