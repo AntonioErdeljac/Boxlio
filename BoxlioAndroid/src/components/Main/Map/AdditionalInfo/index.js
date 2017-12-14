@@ -15,19 +15,44 @@ const CardAnimatable = Animatable.createAnimatableComponent(Card);
 
 
 class AdditionalInfo extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.state={
+          transportation: ''
+        };
+
+        this.handleChangeTravelMode = field => ev => {
+            this.setState({transportation: field});
+        };
+    }
 
     render(){
             return (
             <ContainerAnimatable animation="fadeInUp" ref="locationchooser" delay={300} style={styles.searchTo}>
                 <Content keyboardShouldPersistTaps="handled">
-                    <Grid>
-                    <Row style={{justifyContent: 'space-between', padding:30}}>
-                        <Icon name="male" style={{fontSize: 30}}></Icon>
-                        <Icon name="car" style={{fontSize: 30}}></Icon>
-                        <Icon name="bicycle" style={{fontSize: 30}}></Icon>
-                        <Icon name="bus" style={{fontSize: 30}}></Icon>
-                        <Icon name="check" style={{fontSize: 30}}></Icon>
-                    </Row>
+                    <Grid style={{padding: 30}}>
+                        <Row>
+                            <Text style={{fontFamily: 'VarelaRound-Regular', fontSize: 15, color:'rgba(0,0,0,.4)', marginBottom: 30}}>Transportation</Text>
+                        </Row>
+                        <Row style={{justifyContent: 'space-between'}}>
+                            <TouchableOpacity onPress={this.handleChangeTravelMode('walking')}>
+                                <Icon name="male" style={this.state.transportation !== 'walking' && this.state.transportation !== 'all' ? {fontSize: 23, color:'rgba(0,0,0,.3)'} : {fontSize: 23, color:'#1fcf7c'}}></Icon>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity onPress={this.handleChangeTravelMode('car')}>
+                                <Icon name="car" style={this.state.transportation !== 'car' && this.state.transportation !== 'all' ? {fontSize: 23, color:'rgba(0,0,0,.3)'} : {fontSize: 23, color:'#1fcf7c'}}></Icon>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={this.handleChangeTravelMode('bicycle')}>
+                                <Icon name="bicycle" style={this.state.transportation !== 'bicycle' && this.state.transportation !== 'all' ? {fontSize: 23, color:'rgba(0,0,0,.3)'} : {fontSize: 23, color:'#1fcf7c'}}></Icon>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={this.handleChangeTravelMode('transit')}>
+                                <Icon name="bus" style={this.state.transportation !== 'transit' && this.state.transportation !== 'all' ? {fontSize: 23, color:'rgba(0,0,0,.3)'} : {fontSize: 23, color:'#1fcf7c'}}></Icon>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={this.handleChangeTravelMode('all')}>
+                                <Icon name="check" style={this.state.transportation !== 'all' && this.state.transportation !== 'all' ? {fontSize: 23, color:'rgba(0,0,0,.3)'} : {fontSize: 23, color:'#1fcf7c'}}></Icon>
+                            </TouchableOpacity>
+                        </Row>
                     </Grid>
                 </Content>
             </ContainerAnimatable>
