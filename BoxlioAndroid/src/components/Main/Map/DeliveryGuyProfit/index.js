@@ -9,6 +9,13 @@ import {connect} from "react-redux";
 
 
 class DeliveryGuyProfit extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.handleSetProfit = amount => {
+            this.props.onSetProfit(amount);
+        }
+    }
     render(){
         if(this.props.currentUser){
             return (
@@ -19,7 +26,7 @@ class DeliveryGuyProfit extends React.Component{
                         </Col>
                         <Col size={3}>
                             <View style={{justifyContent: 'space-around', alignItems: 'center'}}>
-                                <TextInput style={styles.input} placeholderTextColor="rgba(0,0,0,.3)" type="number"  placeholder="Delivery guy's profit"/>
+                                <TextInput value={this.props.price} onChangeText={(text) => this.handleSetProfit(text)} style={styles.input} placeholderTextColor="rgba(0,0,0,.3)" type="number"  placeholder="Delivery guy's profit"/>
                             </View>
                         </Col>
                     </Grid>
@@ -86,7 +93,9 @@ const mapDispatchToProps = dispatch => ({
     onSetTo: data =>
         dispatch({type: 'SET_TO', data}),
     setToName: text =>
-        dispatch({type: 'SET_TO_NAME', text})
+        dispatch({type: 'SET_TO_NAME', text}),
+    onSetProfit: amount =>
+        dispatch({type: 'SET_PROFIT', amount})
 });
 
 const mapStateToProps = state => ({
