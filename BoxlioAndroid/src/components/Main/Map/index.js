@@ -28,6 +28,21 @@ class Map extends React.Component{
 
     const socket = io('localhost:8000');
 
+    const handleSendRequest = ev => {
+      console.error('jel radi');
+        this.socket.emit('REQUEST_DRIVER', {
+            user: this.props.currentUser,
+            from: this.props.from,
+            to: this.props.to,
+            lat: this.props.lat,
+            lng: this.props.lng,
+            clientLat: this.props.currentUser.geometry[0],
+            clientLng: this.props.currentUser.geometry[1],
+            price: this.state.price,
+            item: this.state.item,
+            transportation: this.state.transportation
+        });
+    }
     
 
     let watchId = navigator.geolocation.watchPosition(position => {
@@ -44,7 +59,7 @@ class Map extends React.Component{
 		return (
 			<ContainerAnimatable ref="map-component" animation="fadeInUp" style={styles.container}>
       
-        <MapContainer {...this.props.destinationView} focusedOnInput={this.props.focusedOnInput} navigation={this.props.navigation} currentUser={this.props.currentUser} />
+        <MapContainer {...this.props.destinationView} handleSendRequest={handleSendRequest} focusedOnInput={this.props.focusedOnInput} navigation={this.props.navigation} currentUser={this.props.currentUser} />
       
 			</ContainerAnimatable>
 		);

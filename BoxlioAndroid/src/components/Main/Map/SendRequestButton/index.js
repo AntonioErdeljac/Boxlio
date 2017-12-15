@@ -1,22 +1,31 @@
 import React from "react";
-import {TouchableOpacity, Text, StyleSheet} from "react-native";
+import {TouchableOpacity, Text, StyleSheet, TouchableHighlight, Alert} from "react-native";
 import {Left, CardItem} from "native-base";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from "react-native-animatable";
 
 const TouchableOpacityAnimatable = Animatable.createAnimatableComponent(TouchableOpacity);
 
-const SendRequestButton = props => {
+class  SendRequestButton extends React.Component {
+    constructor(props){
+        super(props);
+
+        this.handleSendRequest = () => {
+            Alert.alert('test')
+        }
+    }
+    render(){
     return (
-        <TouchableOpacityAnimatable animation="bounceIn" style={props.isLoading ? styles.loginButtonDisabled : styles.loginButton}>
+        <TouchableHighlight onPress={this.handleSendRequest}  style={styles.loginButton}>
             <CardItem style={{backgroundColor: 'transparent'}}>
                 <Left>
                     <Icon name="truck" style={{color: '#fff', fontSize: 20}}/>
                 </Left>
                 <Text style={styles.loginButtonText}>Send Request</Text>
             </CardItem>
-        </TouchableOpacityAnimatable>
+        </TouchableHighlight>
     );
+    }
 };
 
 const styles = StyleSheet.create({
