@@ -3,7 +3,7 @@ import {Container} from "native-base";
 import { Header, Content, Footer, FooterTab, Button, Card, CardItem, Body, Text,  } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Grid, Col, Row} from "react-native-easy-grid";
-import {StyleSheet, Dimensions, View, TextInput, TouchableWithoutFeedback} from "react-native";
+import {StyleSheet, Dimensions, View, TextInput, TouchableWithoutFeedback, Keyboard} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 
@@ -23,7 +23,13 @@ class SearchPlacesFrom extends React.Component{
               </Col>
               <Col size={3}>
               	<View style={{justifyContent: 'space-around', alignItems: 'center'}}>
-               <TextInput value={this.props.from} onChangeText={(text) => this.props.setFrom(text)} style={styles.input} placeholderTextColor="gray"  placeholder="Deliver from where?"/>
+               <TextInput
+                   value={this.props.from}
+                   onChangeText={(text) => this.props.setFrom(text)}
+                   style={styles.input}
+                   placeholderTextColor="gray"
+                   onSubmitEditing={Keyboard.dismiss}
+                   placeholder="Deliver from where?"/>
                </View>
               </Col>
             </Grid>

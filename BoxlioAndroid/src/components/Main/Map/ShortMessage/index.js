@@ -3,7 +3,7 @@ import {Container} from "native-base";
 import { Header, Content, Footer, FooterTab, Button, Card, CardItem, Body, Text,  } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Grid, Col, Row} from "react-native-easy-grid";
-import {StyleSheet, Dimensions, View, TextInput} from "react-native";
+import {StyleSheet, Dimensions, View, TextInput, Keyboard} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 
@@ -28,6 +28,7 @@ class ShortMessage extends React.Component{
                 <Animatable.View animation="fadeInUp" ref="shortmessage" style={styles.searchTo}>
                     <View style={{justifyContent: 'space-around', alignItems: 'center'}}>
                     <TextInput
+                        onSubmitEditing={Keyboard.dismiss}
                         style={styles.input}
                         multiline = {true}
                         value={this.props.item}

@@ -21,6 +21,13 @@ const MapViewAnimatable = Animatable.createAnimatableComponent(MapView);
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 
 class MapContainer extends React.Component{
+    componentWillMount(){
+        if(this.props.requestSent){
+            this.setState({
+                disableRequestComponents: true
+            })
+        }
+    }
     componentWillReceiveProps(nextProps){
         if(!nextProps.directions && nextProps.currentUser.geometry[0] !== this.state.coordinate.latitude && nextProps.currentUser.geometry[1] !== this.state.coordinate.longitude){
             this.state.coordinate.timing({
@@ -79,9 +86,21 @@ class MapContainer extends React.Component{
                     }
                 }).catch(e => {console.error(e)});
         }
+
+        if(nextProps.requestSent){
+            setTimeout(() => {
+                this.setState({
+                    disableRequestComponents: true
+                })
+            }, 310)
+        }
     }
       constructor(props){
         super(props);
+
+        this.state={
+            disableRequestComponents: false
+        };
 
         this.decode = function(t,e){for(var n,o,u=0,l=0,r=0,d= [],h=0,i=0,a=null,c=Math.pow(10,e||5);u<t.length;){a=null,h=0,i=0;do a=t.charCodeAt(u++)-63,i|=(31&a)<<h,h+=5;while(a>=32);n=1&i?~(i>>1):i>>1,h=i=0;do a=t.charCodeAt(u++)-63,i|=(31&a)<<h,h+=5;while(a>=32);o=1&i?~(i>>1):i>>1,l+=n,r+=o,d.push([l/c,r/c])}return d=d.map(function(t){return{latitude:t[0],longitude:t[1]}})}
 
@@ -107,57 +126,55 @@ class MapContainer extends React.Component{
 	render(){
 
 		return (
-			<Container style={styles.container}>
-          <UserIcon navigation={this.props.navigation} />
+		    <Container style={styles.container}>
+                <UserIcon navigation={this.props.navigation} />
 
 
-          <SearchPlacesFrom />
-                {this.props.placeFromChoosen ?
-          <SearchPlacesTo/>
-                    : null}
-          <LocationChooser />
-          <LocationChooserTo />
-          {this.props.placeFromChoosen && this.props.placeToChoosen ? <TransportationType /> : null}
-          {this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null}
-          {this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage /> : null}
-          {this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null}
+                {this.state.disableRequestComponents ? null : <SearchPlacesFrom />}
+                  {this.props.placeFromChoosen && !this.state.disableRequestComponents ? <SearchPlacesTo/> : null}
+                {this.state.disableRequestComponents ? null : <LocationChooser />}
+                {this.state.disableRequestComponents ? null : <LocationChooserTo />}
+                  {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen ? <TransportationType /> : null}
+                  {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null}
+                  {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage /> : null}
+                  {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null}
 
 
 
 
-        <MapViewAnimatable
-            customMapStyle={mapStyle}
-        initialRegion={this.state.region}
-        showCompass={false}
-        style={styles.map} >
-            <MapView.Marker.Animated 
-              coordinate={this.state.coordinate}
-            >
-              <View  style={{backgroundColor: 'rgba(31,207,124,.4)', height: 30, width: 30, borderRadius: 50, justifyContent: 'center', alignItems: 'center'}}>
-                <View style={{backgroundColor: '#1fcf7c', height: 20, width: 20, borderRadius: 50}}>
+                <MapViewAnimatable
+                    customMapStyle={mapStyle}
+                initialRegion={this.state.region}
+                showCompass={false}
+                style={styles.map} >
+                    <MapView.Marker.Animated
+                      coordinate={this.state.coordinate}
+                    >
+                      <View  style={{backgroundColor: 'rgba(31,207,124,.4)', height: 30, width: 30, borderRadius: 50, justifyContent: 'center', alignItems: 'center'}}>
+                        <View style={{backgroundColor: '#1fcf7c', height: 20, width: 20, borderRadius: 50}}>
 
-              </View>
-              </View>
-            </MapView.Marker.Animated>
-            {this.props.lat && this.props.lng ?
-            <MapView.Marker.Animated
-                coordinate={this.state.fromCoordinate}
-            >
-                <View  style={{backgroundColor: 'rgba(45,137,229,.4)', height: 30, width: 30, borderRadius: 50, justifyContent: 'center', alignItems: 'center'}}>
-                    <View  style={{backgroundColor: '#2d89e5', height: 20, width: 20, borderRadius: 50}}>
+                      </View>
+                      </View>
+                    </MapView.Marker.Animated>
+                    {this.props.lat && this.props.lng ?
+                    <MapView.Marker.Animated
+                        coordinate={this.state.fromCoordinate}
+                    >
+                        <View  style={{backgroundColor: 'rgba(45,137,229,.4)', height: 30, width: 30, borderRadius: 50, justifyContent: 'center', alignItems: 'center'}}>
+                            <View  style={{backgroundColor: '#2d89e5', height: 20, width: 20, borderRadius: 50}}>
 
-                    </View>
-                </View>
-            </MapView.Marker.Animated> : null
-        }
-            {this.state.directionsCoords ?
-            <MapView.Polyline
-                coordinates={[
-                    ...this.state.directionsCoords
-                ]}
-                strokeWidth={4} strokeColor="#1fcf7c"/> : null }
-        </MapViewAnimatable>
-        </Container>
+                            </View>
+                        </View>
+                    </MapView.Marker.Animated> : null
+                }
+                    {this.state.directionsCoords ?
+                    <MapView.Polyline
+                        coordinates={[
+                            ...this.state.directionsCoords
+                        ]}
+                        strokeWidth={4} strokeColor="#1fcf7c"/> : null }
+                </MapViewAnimatable>
+            </Container>
 		);
 	}
 }
@@ -434,7 +451,8 @@ const mapStyle =  [
 ];
 
 const mapStateToProps = state => ({
-    ...state.destinationView
+    ...state.destinationView,
+    ...state.requests
 });
 
 const mapDispatchToProps = dispatch => ({

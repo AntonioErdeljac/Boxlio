@@ -2,7 +2,7 @@ import React from "react";
 import {Container} from "native-base";
 import { Header, Content, Footer, FooterTab, Button, Card, CardItem, Body, Text, Right, Left, Icon  } from 'native-base';
 import {Grid, Col, Row} from "react-native-easy-grid";
-import {StyleSheet, Dimensions, View, TextInput, TouchableOpacity} from "react-native";
+import {StyleSheet, Dimensions, View, TextInput, TouchableOpacity, Keyboard} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import RNGooglePlaces from "react-native-google-places";
@@ -39,9 +39,13 @@ class LocationChooserTo extends React.Component{
         };
 
         this.handleSetTo = (prediction) => {
+            Keyboard.dismiss()
             this.refs.locationchooser.fadeOutDown(100).then(() => {
                 RNGooglePlaces.lookUpPlaceByID(prediction.placeID)
-                    .then((place) => this.props.setTo(place))
+                    .then((place) => {
+                        this.props.setTo(place);
+                        Keyboard.dismiss()
+                    })
             })
         };
 

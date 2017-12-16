@@ -3,7 +3,7 @@ import {Container} from "native-base";
 import { Header, Content, Footer, FooterTab, Button, Card, CardItem, Body, Text,  } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Grid, Col, Row} from "react-native-easy-grid";
-import {StyleSheet, Dimensions, View, TextInput} from "react-native";
+import {StyleSheet, Dimensions, View, TextInput, Keyboard} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 
@@ -39,7 +39,13 @@ class SearchPlacesTo extends React.Component{
               </Col>
               <Col size={3}>
               	<View style={{justifyContent: 'space-around', alignItems: 'center'}}>
-               <TextInput onChangeText={(text) => this.props.setToName(text)} value={this.props.to} style={styles.input} placeholderTextColor="gray"  placeholder="Deliver to where?"/>
+               <TextInput
+                   onChangeText={(text) => this.props.setToName(text)}
+                   value={this.props.to}
+                   style={styles.input}
+                   placeholderTextColor="gray"
+                   onSubmitEditing={Keyboard.dismiss}
+                   placeholder="Deliver to where?"/>
                </View>
               </Col>
             </Grid>
