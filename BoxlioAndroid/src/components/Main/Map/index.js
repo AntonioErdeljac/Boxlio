@@ -21,15 +21,15 @@ class Map extends React.Component{
   }
   constructor(props){
     super(props);
+
+
+    this.socket = io('https://c923166c.ngrok.io');
   }
 	render(){
     
     if(this.props.currentUser){
 
-    const socket = io('localhost:8000');
-
     const handleSendRequest = ev => {
-      console.error('jel radi');
         this.socket.emit('REQUEST_DRIVER', {
             user: this.props.currentUser,
             from: this.props.from,
@@ -38,16 +38,16 @@ class Map extends React.Component{
             lng: this.props.lng,
             clientLat: this.props.currentUser.geometry[0],
             clientLng: this.props.currentUser.geometry[1],
-            price: this.state.price,
-            item: this.state.item,
-            transportation: this.state.transportation
+            price: this.props.price,
+            item: this.props.item,
+            transportation: this.props.transportation
         });
     }
     
 
     let watchId = navigator.geolocation.watchPosition(position => {
       if(!this.props.placeFromChoosen){
-        socket.emit('SAVE_LOCATION', {
+        this.socket.emit('SAVE_LOCATION', {
           user: this.props.currentUser,
           positionLat: position.coords.latitude,
           positionLng: position.coords.longitude

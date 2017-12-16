@@ -430,6 +430,7 @@ exports = module.exports = function(io){
 
   
     socket.on('REQUEST_DRIVER', function(data){
+        console.log('android test');
         User.findOne({username: data.user.username}).then(function(client){
             client.isRequesting = true;
             client.save(err => console.log(err));

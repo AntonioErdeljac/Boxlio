@@ -3,7 +3,7 @@ import superagentPromise from "superagent-promise";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = 'https://872d13c0.ngrok.io/api';
+const API_ROOT = 'https://c923166c.ngrok.io/api';
 
 const getBody = res => res.body;
 

@@ -76,7 +76,7 @@ let server = app.listen( process.env.PORT || 8000, function(){
   console.log('Listening on port ' + server.address().port);
 });
 
-let io = require('socket.io')(server);
+let io = require('socket.io')(server, {pingTimeout: 30000});
 let socketHandlers = require('./socketHandlers')(io);
 
 

@@ -57,7 +57,7 @@ class LocationChooser extends React.Component{
                       return(
                           <TouchableOpacity key={prediction.placeID} onPress={() => this.handleSetFrom(prediction)}>
                             <CardItemAnimatable animation="slideInUp" duration={50}>
-                                <Icon active name="ios-navigate-outline" />
+                                <Icon active name="ios-navigate-outline" style={{color: '#2d89e5'}} />
                                 <Text style={{fontFamily: 'VarelaRound-Regular', fontSize: 15, color: 'rgba(0,0,0,.5)'}}>{prediction.fullText}</Text>
                             </CardItemAnimatable>
                           </TouchableOpacity>

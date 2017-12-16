@@ -9,21 +9,17 @@ const TouchableOpacityAnimatable = Animatable.createAnimatableComponent(Touchabl
 class  SendRequestButton extends React.Component {
     constructor(props){
         super(props);
-
-        this.handleSendRequest = () => {
-            Alert.alert('test')
-        }
     }
     render(){
     return (
-        <TouchableHighlight onPress={this.handleSendRequest}  style={styles.loginButton}>
+        <TouchableOpacityAnimatable animation="fadeInUp" ref="searchbutton" onPress={() => this.refs.searchbutton.bounceOutDown(300).then(() => this.props.handleSendRequest)}  style={styles.loginButton}>
             <CardItem style={{backgroundColor: 'transparent'}}>
                 <Left>
                     <Icon name="truck" style={{color: '#fff', fontSize: 20}}/>
                 </Left>
                 <Text style={styles.loginButtonText}>Send Request</Text>
             </CardItem>
-        </TouchableHighlight>
+        </TouchableOpacityAnimatable>
     );
     }
 };
@@ -54,6 +50,7 @@ const styles = StyleSheet.create({
     },
     loginButton: {
         borderColor: 'transparent',
+        zIndex: 100000000,
         backgroundColor: '#1fcf7c',
         height: 50,
         width: 200,
