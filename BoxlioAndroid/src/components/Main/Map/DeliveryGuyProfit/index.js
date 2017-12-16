@@ -9,6 +9,11 @@ import {connect} from "react-redux";
 
 
 class DeliveryGuyProfit extends React.Component{
+    componentWillReceiveProps(nextProps){
+        if(nextProps.requestSent){
+            this.refs.deliveryguyprofit.fadeOutDown(300);
+        }
+    }
     constructor(props){
         super(props);
 
@@ -27,7 +32,7 @@ class DeliveryGuyProfit extends React.Component{
     render(){
         if(this.props.currentUser){
             return (
-                <Animatable.View animation="fadeInUp" style={styles.searchTo}>
+                <Animatable.View animation="fadeInUp" ref="deliveryguyprofit" style={styles.searchTo}>
                     <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
                         <Col>
                             <Icon theme={{iconFamily: 'FontAwesome'}} style={styles.iconTo} name="money" />
@@ -108,7 +113,8 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
     ...state.common,
-    ...state.destinationView
+    ...state.destinationView,
+    requestSent: state.requests.requestSent
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeliveryGuyProfit);

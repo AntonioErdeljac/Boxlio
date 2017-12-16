@@ -12,7 +12,7 @@ class  SendRequestButton extends React.Component {
     }
     render(){
     return (
-        <TouchableOpacityAnimatable animation="fadeInUp" ref="searchbutton" onPress={() => this.refs.searchbutton.bounceOutDown(300).then(() => this.props.handleSendRequest)}  style={styles.loginButton}>
+        <TouchableOpacityAnimatable animation="fadeInUp" ref="searchbutton" onPress={() => this.refs.searchbutton.bounceOutDown(300).then(this.props.handleSendRequest)}  style={styles.loginButton}>
             <CardItem style={{backgroundColor: 'transparent'}}>
                 <Left>
                     <Icon name="truck" style={{color: '#fff', fontSize: 20}}/>

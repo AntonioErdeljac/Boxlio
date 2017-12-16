@@ -30,6 +30,8 @@ class Map extends React.Component{
     if(this.props.currentUser){
 
     const handleSendRequest = ev => {
+        this.props.onSendRequest()
+
         this.socket.emit('REQUEST_DRIVER', {
             user: this.props.currentUser,
             from: this.props.from,
@@ -42,7 +44,7 @@ class Map extends React.Component{
             item: this.props.item,
             transportation: this.props.transportation
         });
-    }
+    };
     
 
     let watchId = navigator.geolocation.watchPosition(position => {
@@ -107,9 +109,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSetPosition: position => 
-    dispatch({type: 'SET_POSITION', position})
-})
+    onSetPosition: position =>
+      dispatch({type: 'SET_POSITION', position}),
+    onSendRequest: () =>
+      dispatch({type: 'SEND_REQUEST'})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
 

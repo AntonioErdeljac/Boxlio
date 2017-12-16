@@ -109,6 +109,8 @@ class MapContainer extends React.Component{
 		return (
 			<Container style={styles.container}>
           <UserIcon navigation={this.props.navigation} />
+
+
           <SearchPlacesFrom />
                 {this.props.placeFromChoosen ?
           <SearchPlacesTo/>
@@ -119,6 +121,9 @@ class MapContainer extends React.Component{
           {this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null}
           {this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage /> : null}
           {this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null}
+
+
+
 
         <MapViewAnimatable
             customMapStyle={mapStyle}

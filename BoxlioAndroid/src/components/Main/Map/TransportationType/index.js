@@ -15,6 +15,11 @@ const CardAnimatable = Animatable.createAnimatableComponent(Card);
 
 
 class AdditionalInfo extends React.Component{
+    componentWillReceiveProps(nextProps){
+        if(nextProps.requestSent){
+            this.refs.travelmodechooser.fadeOutDown(300);
+        }
+    }
     constructor(props){
         super(props);
 
@@ -30,7 +35,7 @@ class AdditionalInfo extends React.Component{
 
     render(){
             return (
-            <ContainerAnimatable animation="fadeInUp" ref="locationchooser" delay={300} style={styles.searchTo}>
+            <ContainerAnimatable animation="fadeInUp" ref="travelmodechooser" delay={300} style={styles.searchTo}>
                     <Grid style={{padding: 20}}>
                         <Row style={{justifyContent: 'space-between'}}>
                             <TouchableOpacity onPress={this.handleChangeTravelMode('walking')}>
@@ -110,7 +115,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    ...state.destinationView
+    ...state.destinationView,
+    requestSent: state.requests.requestSent
 });
 
 const mapDispatchToProps = dispatch => ({

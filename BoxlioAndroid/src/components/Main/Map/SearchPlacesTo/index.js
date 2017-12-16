@@ -9,6 +9,11 @@ import {connect} from "react-redux";
 
 
 class SearchPlacesTo extends React.Component{
+    componentWillReceiveProps(nextProps){
+        if(nextProps.requestSent){
+            this.refs.searchplacesto.fadeOutDown(300)
+        }
+    }
 	render(){
     if(this.props.currentUser){
       const lat = this.props.currentUser.geometry[0];
@@ -27,7 +32,7 @@ class SearchPlacesTo extends React.Component{
           });
       }
 		return (
-			<Animatable.View animation="fadeInUp" delay={300} style={styles.searchTo}>
+			<Animatable.View ref="searchplacesto" animation="fadeInUp" delay={300} style={styles.searchTo}>
             <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
               <Col>
                 <Icon theme={{iconFamily: 'FontAwesome'}} style={styles.iconTo} name="dot-circle-o" />
@@ -106,7 +111,8 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
   ...state.common,
-  ...state.destinationView
+  ...state.destinationView,
+    requestSent: state.requests.requestSent
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPlacesTo);

@@ -33,8 +33,6 @@ class DestinationView extends React.Component{
                 this.props.onChangeTravelMode(field);
                 this.setState({transportation: field}); 
             }
-
-
         };
 
         this.handleDelete = this.handleDelete.bind(this);

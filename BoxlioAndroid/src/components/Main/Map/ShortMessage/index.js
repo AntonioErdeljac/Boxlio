@@ -9,6 +9,12 @@ import {connect} from "react-redux";
 
 
 class ShortMessage extends React.Component{
+
+    componentWillReceiveProps(nextProps){
+        if(nextProps.requestSent){
+            this.refs.shortmessage.fadeOutDown(300);
+        }
+    }
     constructor(props){
         super(props);
 
@@ -19,7 +25,7 @@ class ShortMessage extends React.Component{
     render(){
         if(this.props.currentUser){
             return (
-                <Animatable.View animation="fadeInUp" style={styles.searchTo}>
+                <Animatable.View animation="fadeInUp" ref="shortmessage" style={styles.searchTo}>
                     <View style={{justifyContent: 'space-around', alignItems: 'center'}}>
                     <TextInput
                         style={styles.input}
@@ -103,7 +109,8 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({
     ...state.common,
-    ...state.destinationView
+    ...state.destinationView,
+    requestSent: state.requests.requestSent
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShortMessage);
