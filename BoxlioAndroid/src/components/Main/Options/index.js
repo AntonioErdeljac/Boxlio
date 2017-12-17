@@ -38,10 +38,8 @@ class Options extends React.Component{
         }
 
         this.handleLogout = () => {
-            this.refs.options.fadeOutDown(300).then(() => {
                 this.props.onClickLogout()
                 this.props.navigation.navigate('logout')
-            })
         }
     }
 

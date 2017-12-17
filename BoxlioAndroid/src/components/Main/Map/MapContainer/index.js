@@ -232,7 +232,7 @@ class MapContainer extends React.Component{
                 }
 
 
-                    {this.props.lat && this.props.lng && this.state.from ?
+                    {this.props.lat && this.props.lng && this.props.from ?
                         <MapView.Marker.Animated
                             coordinate={this.state.fromCoordinate}
 
@@ -250,7 +250,7 @@ class MapContainer extends React.Component{
                                     marginRight: 140,
                                 }}>
                                 <Text numberOfLines={1} style={{fontSize: 10, color: '#fff', fontFamily: 'VarelaRound-Regular', padding: 10}}>
-                                    {this.state.from}
+                                    {this.props.from}
                                 </Text>
                             </View>
                         </MapView.Marker.Animated> : null

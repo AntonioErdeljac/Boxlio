@@ -48,16 +48,17 @@ class Welcome2 extends Component<{}> {
 
     }
 
+    componentWillMount(){
+        if(this.props.currentUser){
+
+            this.props.navigation.navigate('main');
+        }
+    }
+
     componentWillReceiveProps(nextProps){
         if(nextProps.currentUser){
-           this.refs.all.fadeOutDown(300);
-           setTimeout(() => {
-            if(!nextProps.userIsSaved){
-                this.props.navigation.navigate('welcomecurrentuser');
-            } else {
+            console.error(nextProps.currentUser);
                 this.props.navigation.navigate('main');
-            }
-           }, 300)
             
         }
 

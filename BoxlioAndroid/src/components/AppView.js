@@ -22,21 +22,25 @@ class App extends Component<{}> {
     }
 
     render() {
+        if(this.props.appLoaded){
         if(!this.props.currentUser){
-        return (
-            <RouterComponent />
-        )       
+            return (
+                <RouterComponent />
+            )
         }
         return (
             <LoggedInRouter />
         )
+        }
+        return null;
     }
 }
 
 
 const mapStateToProps = state => ({
     redirectTo: state.common.redirectTo,
-    currentUser: state.common.currentUser
+    currentUser: state.common.currentUser,
+    appLoaded: state.common.appLoaded
 });
 
 const mapDispatchToProps = dispatch => ({
