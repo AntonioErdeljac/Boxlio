@@ -28,7 +28,7 @@ class ShortMessage extends React.Component{
                 <Animatable.View animation="fadeInUp" ref="shortmessage" style={styles.searchTo}>
                     <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
                         <Col>
-                            <Icon theme={{iconFamily: 'FontAwesome'}} style={styles.iconTo} name="sticky-note" />
+                            <Icon theme={{iconFamily: 'FontAwesome'}} style={styles.iconTo} name="shopping-basket" />
                         </Col>
                         <Col size={3}>
                             <View style={{justifyContent: 'space-around', alignItems: 'center'}}>
@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
         height: 45,
         width: Dimensions.get('window').width-30,
         padding: 25,
-        borderTopLeftRadius: 3,
-        borderTopRightRadius: 3,
+        borderTopLeftRadius: 0,
+        borderTopRightRadius: 0,
         borderBottomRightRadius: 3,
         borderBottomLeftRadius: 3,
         elevation: 1,
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         shadowColor: '#000',
         position: 'absolute',
-        top: 220,
+        top: 200,
         backgroundColor: '#fff'
     },
     container: {
