@@ -8,9 +8,14 @@ import {connect} from "react-redux";
 
 
 const LoggedInRouter = DrawerNavigator({
-	logout: {screen: Welcome2},
-	main: {screen: MapComponent},
-	options: {screen: Options},
+	logout: {screen: Welcome2, drawerLockMode: 'locked-closed'},
+	main: {screen: MapComponent, drawerLockMode: 'locked-closed'},
+	options: {screen: Options, drawerLockMode: 'locked-closed'},
+},
+{
+	navigationOptions: {
+		drawerLockMode: 'locked-closed'
+	}
 },
 {
 	initialRouteName: "main"

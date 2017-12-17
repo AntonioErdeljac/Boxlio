@@ -1,5 +1,17 @@
 export default (state={placeToChoosen: true, transportation:null}, action) => {
 	switch(action.type){
+		case 'SHOW_TO_INPUT':
+			return {
+				...state,
+				placeToChoosen: false,
+				closeToInput: false
+			};
+        case 'SHOW_FROM_INPUT':
+            return {
+                ...state,
+                placeFromChoosen: false,
+                closeFromInput: false
+            };
 		case 'SET_ITEM':
 			return {
 				...state,
@@ -20,7 +32,8 @@ export default (state={placeToChoosen: true, transportation:null}, action) => {
 				...state,
 				to: action.data.results[0]["formatted_address"],
 				initialSet: true,
-				placeChoosen: true
+				placeChoosen: true,
+				closeToInput: true
 			};
 		case 'SET_FROM_NAME':
 			return {
@@ -34,7 +47,8 @@ export default (state={placeToChoosen: true, transportation:null}, action) => {
 				from: action.place.address,
 				lat: action.place.latitude,
 				lng: action.place.longitude,
-				placeFromChoosen: true
+				placeFromChoosen: true,
+				closeFromInput: true
 			};
 		case 'SET_TO_SPECIAL':
 			return {

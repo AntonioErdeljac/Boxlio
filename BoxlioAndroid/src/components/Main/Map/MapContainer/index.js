@@ -1,9 +1,9 @@
 import React from "react";
 import {Container} from "native-base";
-import { Header, Content, Footer, FooterTab, Button, Icon, Card, CardItem, Body, Text } from 'native-base';
+import { Header, Content, Footer, FooterTab, Button, Icon, Card, CardItem, Body} from 'native-base';
 import {Grid, Col, Row} from "react-native-easy-grid";
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
-import {StyleSheet, Dimensions, View} from "react-native";
+import {StyleSheet, Dimensions, View, TouchableOpacity, Text} from "react-native";
 import * as Animatable from "react-native-animatable";
 import SearchPlacesFrom from "../SearchPlacesFrom";
 import LocationChooserTo from "../LocationChooser/LocationChooserTo";
@@ -28,6 +28,10 @@ class MapContainer extends React.Component{
             })
         }
     }
+    componentDidMount(){
+
+        this.refs.map.fitToElements(true);
+    }
     componentWillReceiveProps(nextProps){
         if(!nextProps.directions && nextProps.currentUser.geometry[0] !== this.state.coordinate.latitude && nextProps.currentUser.geometry[1] !== this.state.coordinate.longitude){
             this.state.coordinate.timing({
@@ -37,7 +41,19 @@ class MapContainer extends React.Component{
             }).start();
         }
 
-        if(nextProps.currentUser.geometry[0] !== this.props.currentUser.geometry[0] && nextProps.currentUser.geometry[1] !== this.props.currentUser.geometry[1]){
+        if(nextProps.from){
+            this.setState({
+                from: nextProps.from
+            })
+        }
+
+        if(nextProps.to){
+            this.setState({
+                to: nextProps.to
+            })
+        }
+
+        if(nextProps.currentUser.geometry[0] !== this.props.currentUser.geometry[0] && nextProps.currentUser.geometry[1] !== this.props.currentUser.geometry[1] && this.props.currentUser.geometry[1] && this.props.currentUser.geometry[0]){
             this.state.coordinate.timing({
                 latitude: nextProps.currentUser.geometry[0],
                 longitude: nextProps.currentUser.geometry[1],
@@ -87,31 +103,43 @@ class MapContainer extends React.Component{
                 }).catch(e => {console.error(e)});
         }
 
-        if(nextProps.requestSent){
+        if(nextProps.requestSent && !this.props.requestSent){
             setTimeout(() => {
                 this.setState({
                     disableRequestComponents: true
                 })
             }, 310)
         }
+
+        if(nextProps.lat && nextProps.lng){
+            this.refs.map.fitToElements(true);
+        }
     }
       constructor(props){
         super(props);
 
-        this.state={
-            disableRequestComponents: false
-        };
+        this.handleShowToInput = () => {
+            this.props.onShowToInput()
+            this.setState({showToInput: true})
+        }
+
+          this.handleShowFromInput = () => {
+              this.props.onShowFromInput()
+              this.setState({showFromInput: true})
+          }
+
+        this.mapRef = null;
 
         this.decode = function(t,e){for(var n,o,u=0,l=0,r=0,d= [],h=0,i=0,a=null,c=Math.pow(10,e||5);u<t.length;){a=null,h=0,i=0;do a=t.charCodeAt(u++)-63,i|=(31&a)<<h,h+=5;while(a>=32);n=1&i?~(i>>1):i>>1,h=i=0;do a=t.charCodeAt(u++)-63,i|=(31&a)<<h,h+=5;while(a>=32);o=1&i?~(i>>1):i>>1,l+=n,r+=o,d.push([l/c,r/c])}return d=d.map(function(t){return{latitude:t[0],longitude:t[1]}})}
 
 
           this.state = {
-            region: new MapView.AnimatedRegion({
+            region: {
                 latitude: this.props.currentUser.geometry[0],
                 longitude: this.props.currentUser.geometry[1],
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,
-            }),
+            },
             coordinate: new MapView.AnimatedRegion({
                 latitude: this.props.currentUser.geometry[0],
                 longitude: this.props.currentUser.geometry[1]
@@ -120,19 +148,23 @@ class MapContainer extends React.Component{
                   latitude: this.props.lat,
                   longitude: this.props.lng
               }),
-            directionsCoords: this.props.directions
+            directionsCoords: this.props.directions,
+              disableRequestComponents: false,
+              to: null,
+              from: null,
+              showToInput: true,
+              showFromInput: true
         }
       }
 	render(){
-
 		return (
 		    <Container style={styles.container}>
                 <UserIcon navigation={this.props.navigation} />
 
 
-                {this.state.disableRequestComponents ? null : <SearchPlacesFrom />}
-                  {this.props.placeFromChoosen && !this.state.disableRequestComponents ? <SearchPlacesTo/> : null}
-                {this.state.disableRequestComponents ? null : <LocationChooser />}
+                {this.state.disableRequestComponents && this.props.closeFromInput ? null : <SearchPlacesFrom  />}
+                  {this.props.placeFromChoosen && !this.props.closeToInput && !this.state.disableRequestComponents ? <SearchPlacesTo/> : null}
+                {this.state.disableRequestComponents ? null : <LocationChooser mapRef={this.refs.map} />}
                 {this.state.disableRequestComponents ? null : <LocationChooserTo />}
                   {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen ? <TransportationType /> : null}
                   {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null}
@@ -142,11 +174,16 @@ class MapContainer extends React.Component{
 
 
 
-                <MapViewAnimatable
+                <MapView
                     customMapStyle={mapStyle}
                 initialRegion={this.state.region}
+                    ref="map"
                 showCompass={false}
                 style={styles.map} >
+
+
+
+
                     <MapView.Marker.Animated
                       coordinate={this.state.coordinate}
                     >
@@ -156,6 +193,32 @@ class MapContainer extends React.Component{
                       </View>
                       </View>
                     </MapView.Marker.Animated>
+
+                    {this.props.lat && this.props.lng && this.props.to ?
+                    <MapView.Marker.Animated
+                        coordinate={this.state.coordinate}
+
+                        key='to'
+                        onPress={() => this.handleShowToInput()}
+                    >
+                            <View
+                                style={{
+                                    backgroundColor: '#1fcf7c',
+                                    height: 30,
+                                    width: 100,
+                                    borderRadius: 3,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    marginLeft: 140}}>
+                                <Text numberOfLines={1} style={{padding:10,fontSize: 10, color: '#fff', fontFamily: 'VarelaRound-Regular'}}>
+                                    {this.props.to}
+                                </Text>
+                            </View>
+                    </MapView.Marker.Animated>
+                        : null}
+
+
+
                     {this.props.lat && this.props.lng ?
                     <MapView.Marker.Animated
                         coordinate={this.state.fromCoordinate}
@@ -167,13 +230,43 @@ class MapContainer extends React.Component{
                         </View>
                     </MapView.Marker.Animated> : null
                 }
+
+
+                    {this.props.lat && this.props.lng && this.state.from ?
+                        <MapView.Marker.Animated
+                            coordinate={this.state.fromCoordinate}
+
+                            key='from'
+                            onPress={() => this.handleShowFromInput()}
+                        >
+                            <View
+                                style={{
+                                    backgroundColor: '#2d89e5',
+                                    height: 30,
+                                    width: 100,
+                                    borderRadius: 3,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    marginRight: 140,
+                                }}>
+                                <Text numberOfLines={1} style={{fontSize: 10, color: '#fff', fontFamily: 'VarelaRound-Regular', padding: 10}}>
+                                    {this.state.from}
+                                </Text>
+                            </View>
+                        </MapView.Marker.Animated> : null
+                    }
+
+
+
+
+
                     {this.state.directionsCoords ?
                     <MapView.Polyline
                         coordinates={[
                             ...this.state.directionsCoords
                         ]}
                         strokeWidth={4} strokeColor="#1fcf7c"/> : null }
-                </MapViewAnimatable>
+                </MapView>
             </Container>
 		);
 	}
@@ -457,7 +550,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onSetDirections: (direction) =>
-            dispatch({type: 'SET_DIRECTIONS', direction})
+            dispatch({type: 'SET_DIRECTIONS', direction}),
+    onShowToInput: () =>
+            dispatch({type: 'SHOW_TO_INPUT'}),
+    onShowFromInput: () =>
+        dispatch({type: 'SHOW_FROM_INPUT'})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapContainer);

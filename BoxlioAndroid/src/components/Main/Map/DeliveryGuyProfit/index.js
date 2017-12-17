@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         shadowColor: '#000',
         position: 'absolute',
-        top: 280,
+        top: 160,
         backgroundColor: '#fff'
     },
     container: {

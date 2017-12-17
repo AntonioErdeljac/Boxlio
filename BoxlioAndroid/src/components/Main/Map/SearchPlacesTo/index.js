@@ -13,6 +13,7 @@ class SearchPlacesTo extends React.Component{
         if(nextProps.requestSent){
             this.refs.searchplacesto.fadeOutDown(300)
         }
+
     }
 	render(){
     if(this.props.currentUser){
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
       justifyContent: 'space-around',
       shadowColor: '#000',
       position: 'absolute',
-      top: 150,
+      top: 90,
       backgroundColor: '#fff'
   },
   container: {

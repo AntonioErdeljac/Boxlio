@@ -54,13 +54,13 @@ class LocationChooserTo extends React.Component{
     render(){
         if(!this.props.placeToChoosen && this.props.placeFromChoosen && this.props.to && this.state.predictions && this.state.predictions.length > 0){
             return (
-                <ContainerAnimatable ref="locationchooser" style={styles.searchTo}>
+                <ContainerAnimatable animation="fadeInUp" ref="locationchooser" style={styles.searchTo}>
                     <Content keyboardShouldPersistTaps="handled">
 
                         {(this.state.predictions || []).map((prediction) => {
                             return(
-                        <CardAnimatable ref="cardanimatable" style={styles.card}>
-                                    <TouchableOpacity key={prediction.placeID} onPress={() => this.handleSetTo(prediction)}>
+                        <CardAnimatable key={prediction.placeID} ref="cardanimatable" style={styles.card}>
+                                    <TouchableOpacity  onPress={() => this.handleSetTo(prediction)}>
                                         <CardItemAnimatable animation="slideInUp" duration={50}>
                                             <Icon active name="ios-navigate-outline" style={{color: '#1fcf7c'}} />
                                             <Text style={{fontFamily: 'VarelaRound-Regular', fontSize: 15, color: 'rgba(0,0,0,.5)'}}>{prediction.fullText}</Text>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     },
     searchTo: {
         zIndex: 1000,
-        height: Dimensions.get('window').height-260 ,
+        height: Dimensions.get('window').height-200 ,
         width: Dimensions.get('window').width-30,
         borderRadius: 3,
         elevation: 2,

@@ -12,7 +12,7 @@ class ShortMessage extends React.Component{
 
     componentWillReceiveProps(nextProps){
         if(nextProps.requestSent){
-            this.refs.shortmessage.fadeOutDown(300);
+            //this.refs.shortmessage.fadeOutDown(300);
         }
     }
     constructor(props){
@@ -26,18 +26,24 @@ class ShortMessage extends React.Component{
         if(this.props.currentUser){
             return (
                 <Animatable.View animation="fadeInUp" ref="shortmessage" style={styles.searchTo}>
-                    <View style={{justifyContent: 'space-around', alignItems: 'center'}}>
-                    <TextInput
-                        onSubmitEditing={Keyboard.dismiss}
-                        style={styles.input}
-                        multiline = {true}
-                        value={this.props.item}
-                        onChangeText={(text) => this.handleSetItem(text)}
-                        numberOfLines = {5}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholderTextColor="rgba(0,0,0,.3)"
-                        placeholder="Short message eg. (I want you to buy me 2 bottles of milk)"/>
-                    </View>
+                    <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
+                        <Col>
+                            <Icon theme={{iconFamily: 'FontAwesome'}} style={styles.iconTo} name="sticky-note" />
+                        </Col>
+                        <Col size={3}>
+                            <View style={{justifyContent: 'space-around', alignItems: 'center'}}>
+
+                                <TextInput
+                                    onSubmitEditing={Keyboard.dismiss}
+                                    style={styles.input}
+                                    value={this.props.item}
+                                    onChangeText={(text) => this.handleSetItem(text)}
+                                    underlineColorAndroid='rgba(0,0,0,0)'
+                                    placeholderTextColor="rgba(0,0,0,.3)"
+                                    placeholder="What to buy?"/>
+                            </View>
+                        </Col>
+                    </Grid>
                 </Animatable.View>
             );
         }
@@ -63,7 +69,7 @@ const styles = StyleSheet.create({
     },
     searchTo: {
         zIndex: 1000,
-        height:Dimensions.get('window').height-500 ,
+        height: 45,
         width: Dimensions.get('window').width-30,
         padding: 25,
         borderTopLeftRadius: 3,
@@ -76,7 +82,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         shadowColor: '#000',
         position: 'absolute',
-        top: 340,
+        top: 220,
         backgroundColor: '#fff'
     },
     container: {
@@ -98,12 +104,6 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onSetTo: data =>
-        dispatch({type: 'SET_TO', data}),
-    setToName: text =>
-        dispatch({type: 'SET_TO_NAME', text}),
-    onSetProfit: amount =>
-        dispatch({type: 'SET_PROFIT', amount}),
     onSetItem: text =>
         dispatch({type: 'SET_ITEM', text}),
 });

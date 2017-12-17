@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         shadowColor: '#000',
         justifyContent: 'center',
         position: 'absolute',
-        top: 210,
+        top: 90,
         backgroundColor: '#fff'
     },
     container: {
