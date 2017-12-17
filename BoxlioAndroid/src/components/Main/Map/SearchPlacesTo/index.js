@@ -16,7 +16,7 @@ class SearchPlacesTo extends React.Component{
 
     }
 	render(){
-    if(this.props.currentUser){
+    if(this.props.currentUser && !this.props.closeToInput){
       const lat = this.props.currentUser.geometry[0];
       const lng = this.props.currentUser.geometry[1];
       const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&key=AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
@@ -33,7 +33,7 @@ class SearchPlacesTo extends React.Component{
           });
       }
 		return (
-			<Animatable.View ref="searchplacesto" animation="fadeInUp" delay={300} style={styles.searchTo}>
+			<Animatable.View ref="searchplacesto" animation="bounceIn" delay={300} style={styles.searchTo}>
             <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
               <Col>
                 <Icon theme={{iconFamily: 'FontAwesome'}} style={styles.iconTo} name="dot-circle-o" />
@@ -41,6 +41,7 @@ class SearchPlacesTo extends React.Component{
               <Col size={3}>
               	<View style={{justifyContent: 'space-around', alignItems: 'center'}}>
                <TextInput
+                   ref="inputto"
                    onChangeText={(text) => this.props.setToName(text)}
                    value={this.props.to}
                    style={styles.input}

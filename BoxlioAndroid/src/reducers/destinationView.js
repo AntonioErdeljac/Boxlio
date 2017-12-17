@@ -55,7 +55,8 @@ export default (state={placeToChoosen: true, transportation:null}, action) => {
 				...state,
                 to: action.place.address,
                 placeToChoosen: true,
-				hasTyped: true
+				hasTyped: true,
+				closeToInput: true
 			};
 		case 'SET_DIRECTIONS':
 				return {

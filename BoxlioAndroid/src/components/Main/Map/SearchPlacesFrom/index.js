@@ -15,6 +15,7 @@ class SearchPlacesFrom extends React.Component{
         }
     }
 	render(){
+        if(!this.props.closeFromInput){
 		return (
 			<Animatable.View animation="bounceIn" ref="searchplacesfrom" style={styles.searchTo}>
             <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
@@ -35,6 +36,7 @@ class SearchPlacesFrom extends React.Component{
             </Grid>
           </Animatable.View>
 		);
+        }return null;
 	}
 }
 

@@ -17,10 +17,21 @@ const CardAnimatable = Animatable.createAnimatableComponent(Card);
 
 class LocationChooser extends React.Component{
 
-  componentWillReceiveProps(nextProps){
+    componentWillMount(){
+        if(this.props.from){
+            RNGooglePlaces.getAutocompletePredictions(this.props.from)
+                .then((results) => this.setState({predictions: results}))
+                .catch((error) => {throw error})
+        }
+    }
+
+
+    componentWillReceiveProps(nextProps){
     if(nextProps.from){
         RNGooglePlaces.getAutocompletePredictions(nextProps.from)
-      .then((results) => this.setState({predictions: results}))
+      .then((results) => {
+        this.setState({predictions: results})
+      })
           .catch((error) => {throw error})
     }
 
