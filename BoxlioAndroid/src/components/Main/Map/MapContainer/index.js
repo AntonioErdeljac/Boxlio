@@ -10,6 +10,7 @@ import LocationChooserTo from "../LocationChooser/LocationChooserTo";
 import DeliveryGuyProfit from "../DeliveryGuyProfit";
 import TransportationType from "../TransportationType";
 import ShortMessage from "../ShortMessage";
+import LoadingView from "../LoadingView";
 import SearchPlacesTo from "../SearchPlacesTo";
 import mapStyles from "../mapStyles";
 import LocationChooser from "../LocationChooser";
@@ -29,8 +30,6 @@ class MapContainer extends React.Component{
         }
     }
     componentDidMount(){
-
-        this.refs.map.fitToElements(true);
     }
     componentWillReceiveProps(nextProps){
         if(!nextProps.directions && nextProps.currentUser.geometry[0] !== this.state.coordinate.latitude && nextProps.currentUser.geometry[1] !== this.state.coordinate.longitude){
@@ -157,6 +156,7 @@ class MapContainer extends React.Component{
         }
       }
 	render(){
+
 		return (
 		    <Container style={styles.container}>
                 <UserIcon navigation={this.props.navigation} />
@@ -170,7 +170,7 @@ class MapContainer extends React.Component{
                   {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null}
                   {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage /> : null}
                   {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null}
-
+                  {this.props.requestSent ? <LoadingView /> : null}
 
 
 

@@ -3,17 +3,12 @@ import {Container} from "native-base";
 import { Header, Content, Footer, FooterTab, Button, Card, CardItem, Body, Text,  } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Grid, Col, Row} from "react-native-easy-grid";
-import {StyleSheet, Dimensions, View, TextInput, TouchableWithoutFeedback, Keyboard} from "react-native";
+import {StyleSheet, Dimensions, View, TextInput, TouchableWithoutFeedback, Keyboard, TouchableOpacity} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 
 
 class SearchPlacesFrom extends React.Component{
-    componentWillReceiveProps(nextProps){
-        if(nextProps.requestSent){
-            this.refs.searchplacesfrom.fadeOutDown(300);
-        }
-    }
 	render(){
         if(!this.props.closeFromInput){
 		return (

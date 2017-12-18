@@ -9,12 +9,6 @@ import {connect} from "react-redux";
 
 
 class SearchPlacesTo extends React.Component{
-    componentWillReceiveProps(nextProps){
-        if(nextProps.requestSent){
-            this.refs.searchplacesto.fadeOutDown(300)
-        }
-
-    }
 	render(){
     if(this.props.currentUser && !this.props.closeToInput){
       const lat = this.props.currentUser.geometry[0];

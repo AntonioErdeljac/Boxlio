@@ -2,7 +2,7 @@ import React from "react";
 import {Container} from "native-base";
 import { Header, Content, Footer, FooterTab, Button, Card, CardItem, Body, Text, Right, Left, Icon  } from 'native-base';
 import {Grid, Col, Row} from "react-native-easy-grid";
-import {StyleSheet, Dimensions, View, TextInput, TouchableOpacity, Keyboard} from "react-native";
+import {StyleSheet, Dimensions, View, TextInput, TouchableOpacity, Keyboard, ActivityIndicator} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import RNGooglePlaces from "react-native-google-places";
@@ -62,12 +62,13 @@ class LocationChooser extends React.Component{
   }
 
 	render(){
-    if(!this.props.placeFromChoosen && this.props.from && this.state.predictions && this.state.predictions.length > 0){
+    if(!this.props.placeFromChoosen && this.props.from){
   		return (
-  			<ContainerAnimatable animation="fadeInUp" ref="locationchooser" style={styles.searchTo}>
+  			<ContainerAnimatable animation="fadeInUp" duration={100} ref="locationchooser" style={styles.searchTo}>
               <Content keyboardShouldPersistTaps="handled">
                   <CardAnimatable ref="cardanimatable" style={styles.card}>
-                    {(this.state.predictions || []).map((prediction) => {
+                      {this.state.predictions && this.state.predictions.length > 0 ?
+                    (this.state.predictions || []).map((prediction) => {
                       return(
                           <TouchableOpacity key={prediction.placeID} onPress={() => this.handleSetFrom(prediction)}>
                             <CardItemAnimatable animation="slideInUp" duration={50}>
@@ -76,7 +77,8 @@ class LocationChooser extends React.Component{
                             </CardItemAnimatable>
                           </TouchableOpacity>
                           )
-                    })}
+                    })
+                    : <ActivityIndicator size={50} color="#2d89e5" />}
                   </CardAnimatable>
               </Content>
         </ContainerAnimatable>
