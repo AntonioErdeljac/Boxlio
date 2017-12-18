@@ -2,7 +2,7 @@ import React from "react";
 import {Container} from "native-base";
 import { Header, Content, Footer, FooterTab, Button, Card, CardItem, Body, Text, Right, Left, Icon  } from 'native-base';
 import {Grid, Col, Row} from "react-native-easy-grid";
-import {StyleSheet, Dimensions, View, TextInput, TouchableOpacity, Keyboard} from "react-native";
+import {StyleSheet, Dimensions, View, TextInput, TouchableOpacity, Keyboard, ActivityIndicator} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import RNGooglePlaces from "react-native-google-places";
@@ -60,23 +60,27 @@ class LocationChooserTo extends React.Component{
     }
 
     render(){
-        if(!this.props.placeToChoosen && this.props.placeFromChoosen && this.props.to && this.state.predictions && this.state.predictions.length > 0){
+        if(!this.props.placeToChoosen && this.props.placeFromChoosen && this.props.to){
             return (
                 <ContainerAnimatable animation="fadeInUp" ref="locationchooser" style={styles.searchTo}>
                     <Content keyboardShouldPersistTaps="handled">
+                        {this.state.predictions && this.state.predictions.length > 0 ?
 
-                        {(this.state.predictions || []).map((prediction) => {
-                            return(
-                        <CardAnimatable key={prediction.placeID} ref="cardanimatable" style={styles.card}>
-                                    <TouchableOpacity  onPress={() => this.handleSetTo(prediction)}>
-                                        <CardItemAnimatable animation="slideInUp" duration={50}>
-                                            <Icon active name="ios-navigate-outline" style={{color: '#1fcf7c'}} />
-                                            <Text style={{fontFamily: 'VarelaRound-Regular', fontSize: 15, color: 'rgba(0,0,0,.5)'}}>{prediction.fullText}</Text>
-                                        </CardItemAnimatable>
-                                    </TouchableOpacity>
-                        </CardAnimatable>
-                            )
-                        })}
+                            <CardAnimatable ref="cardanimatable" style={styles.card}>
+
+                                {(this.state.predictions || []).map((prediction) => {
+                                    return(
+                                        <TouchableOpacity key={prediction.placeID} onPress={() => this.handleSetFrom(prediction)}>
+                                            <CardItemAnimatable animation="slideInUp" duration={50}>
+                                                <Icon active name="ios-navigate-outline" style={{color: '#1fcf7c'}} />
+                                                <Text style={{fontFamily: 'VarelaRound-Regular', fontSize: 15, color: 'rgba(0,0,0,.5)'}}>{prediction.fullText}</Text>
+                                            </CardItemAnimatable>
+                                        </TouchableOpacity>
+                                    )
+                                })}
+
+                            </CardAnimatable>
+                            : <ActivityIndicator size={50} color="#1fcf7c" />}
                     </Content>
                 </ContainerAnimatable>
             );
