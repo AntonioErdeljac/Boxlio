@@ -15,8 +15,8 @@ class UserIcon extends React.Component{
 	render(){
     if(this.props.currentUser){
 		return (
-      <TouchableOpacityAnimatable ref="user" animation="bounceIn" delay={300} onPress={() => this.refs.user.bounceOut(300).then(() => this.props.navigation.navigate('options'))} style={styles.TouchableOpacityComponent}>
-  			<Animatable.View   style={styles.searchTo}>
+      <TouchableOpacity onPress={() => this.refs.user.bounceOut(300).then(() => this.props.navigation.navigate('options'))} style={styles.TouchableOpacityComponent}>
+  			<Animatable.View  ref="user"  style={styles.searchTo}>
               <Grid>
                 <Col>
                   <View style={styles.imageContainer}>
@@ -25,7 +25,7 @@ class UserIcon extends React.Component{
                 </Col>
               </Grid>
          </Animatable.View>
-       </TouchableOpacityAnimatable>
+       </TouchableOpacity>
 		);
   }
   return null;
@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     resizeMode: 'contain', 
-    height: 50,
-    width: 50,
+    height: 65,
+    width: 65,
     borderRadius: 100,
   },
 	input: {
@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
     borderRadius: 70,
     alignItems: 'center',
     position: 'absolute',
-      elevation: 2,
     top: 10
   },
   searchTo: {

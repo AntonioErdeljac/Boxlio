@@ -10,7 +10,7 @@ import LocationChooserTo from "../LocationChooser/LocationChooserTo";
 import DeliveryGuyProfit from "../DeliveryGuyProfit";
 import TransportationType from "../TransportationType";
 import ShortMessage from "../ShortMessage";
-import LoadingView from "../LoadingView";
+import RequestHandler from "../RequestHandler";
 import SearchPlacesTo from "../SearchPlacesTo";
 import mapStyles from "../mapStyles";
 import LocationChooser from "../LocationChooser";
@@ -170,7 +170,7 @@ class MapContainer extends React.Component{
                   {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null}
                   {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage /> : null}
                   {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null}
-                  {this.props.requestSent ? <LoadingView /> : null}
+                  {this.props.requestSent ? <RequestHandler /> : null}
 
 
 
