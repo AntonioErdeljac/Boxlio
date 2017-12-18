@@ -23,14 +23,14 @@ class Map extends React.Component{
     super(props);
 
 
-    this.socket = io('https://c923166c.ngrok.io');
+    this.socket = io('https://a673bd70.ngrok.io');
   }
 	render(){
     
     if(this.props.currentUser){
 
     const handleSendRequest = ev => {
-        this.props.onSendRequest()
+        this.props.onSendRequest();
 
         this.socket.emit('REQUEST_DRIVER', {
             user: this.props.currentUser,
@@ -42,7 +42,7 @@ class Map extends React.Component{
             clientLng: this.props.currentUser.geometry[1],
             price: this.props.price,
             item: this.props.item,
-            transportation: this.props.transportation
+            transportation: this.props.transportation === 'all' ? '' : this.props.transportation
         });
     };
     

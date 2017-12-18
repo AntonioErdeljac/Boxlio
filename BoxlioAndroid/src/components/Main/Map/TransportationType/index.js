@@ -52,7 +52,7 @@ class AdditionalInfo extends React.Component{
                                 <Icon name="bus" style={this.props.transportation !== 'transit' && this.props.transportation !== 'all' ? {fontSize: 20, color:'rgba(0,0,0,.3)'} : {fontSize: 20, color:'#1fcf7c'}}></Icon>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={this.handleChangeTravelMode('all')}>
-                                <Icon name="check" style={this.props.transportation !== 'all' && this.props.transportation !== 'all' ? {fontSize: 20, color:'rgba(0,0,0,.3)'} : {fontSize: 20, color:'#1fcf7c'}}></Icon>
+                                <Icon name="check" style={this.props.transportation !== 'all' ? {fontSize: 20, color:'rgba(0,0,0,.3)'} : {fontSize: 20, color:'#1fcf7c'}}></Icon>
                             </TouchableOpacity>
                         </Row>
                     </Grid>

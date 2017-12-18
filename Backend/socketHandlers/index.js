@@ -430,7 +430,6 @@ exports = module.exports = function(io){
 
   
     socket.on('REQUEST_DRIVER', function(data){
-        console.log('android test');
         User.findOne({username: data.user.username}).then(function(client){
             client.isRequesting = true;
             client.save(err => console.log(err));
@@ -440,10 +439,14 @@ exports = module.exports = function(io){
             ).then(function(users){
                 let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode === true && user.obj.available === true );
                 let user = filteredUsers[Math.floor(Math.random()*filteredUsers.length)];
+                console.log(user);
                 if(user){
                     if(user.obj.deliveryMode) {
+                        console.log('sve je u redu')
                         if(data.transportation !== ''){
+                            console.log('sve je u redu')
                             if(user.obj.transportation === data.transportation && user.obj.isDelivering === false && user.obj.isOrdering === false){
+                                console.log('saljem korisniku', user.obj.username);
                                 io.in(user.obj.username).emit('REQUEST_DRIVER_CLIENT', {
                                     client: client.toProfileJSONFor(),
                                     from: data.from,
@@ -457,6 +460,7 @@ exports = module.exports = function(io){
                                 });
                             }
                         } else if(user.obj.isDelivering === false && user.obj.isOrdering === false) {
+                            console.log('saljem korisniku2', user.obj.username);
                             io.in(user.obj.username).emit('REQUEST_DRIVER_CLIENT', {
                                 client: client.toProfileJSONFor(),
                                 from: data.from,
