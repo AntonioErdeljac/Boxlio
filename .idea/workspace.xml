@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="87ab1eb2-a1ae-4ba8-bc58-ca9d268dce01" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/reducers/destinationView.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/reducers/destinationView.js" />
-      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/reducers/requests.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/reducers/requests.js" />
-    </list>
+    <list default="true" id="87ab1eb2-a1ae-4ba8-bc58-ca9d268dce01" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -447,12 +443,12 @@
       <workItem from="1513521443271" duration="20513000" />
       <workItem from="1513620846041" duration="730000" />
       <workItem from="1513626398098" duration="474000" />
-      <workItem from="1513627199550" duration="4545000" />
+      <workItem from="1513627199550" duration="4591000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97897000" />
+    <option name="totallyTimeSpent" value="97943000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
