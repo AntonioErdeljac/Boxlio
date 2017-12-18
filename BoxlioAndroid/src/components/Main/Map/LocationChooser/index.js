@@ -66,9 +66,11 @@ class LocationChooser extends React.Component{
   		return (
   			<ContainerAnimatable animation="fadeInUp" duration={100} ref="locationchooser" style={styles.searchTo}>
               <Content keyboardShouldPersistTaps="handled">
-                  <CardAnimatable ref="cardanimatable" style={styles.card}>
                       {this.state.predictions && this.state.predictions.length > 0 ?
-                    (this.state.predictions || []).map((prediction) => {
+
+                          <CardAnimatable ref="cardanimatable" style={styles.card}>
+
+                              {(this.state.predictions || []).map((prediction) => {
                       return(
                           <TouchableOpacity key={prediction.placeID} onPress={() => this.handleSetFrom(prediction)}>
                             <CardItemAnimatable animation="slideInUp" duration={50}>
@@ -77,9 +79,10 @@ class LocationChooser extends React.Component{
                             </CardItemAnimatable>
                           </TouchableOpacity>
                           )
-                    })
+                    })}
+
+                          </CardAnimatable>
                     : <ActivityIndicator size={50} color="#2d89e5" />}
-                  </CardAnimatable>
               </Content>
         </ContainerAnimatable>
   		);
