@@ -44,9 +44,9 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     resizeMode: 'contain', 
-    height: 60, 
-    width: 60,
-    borderRadius: 60,
+    height: 50,
+    width: 50,
+    borderRadius: 50,
   },
 	input: {
 		width: Dimensions.get('window').width-100,
