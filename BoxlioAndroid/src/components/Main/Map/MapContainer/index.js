@@ -198,8 +198,6 @@ class MapContainer extends React.Component{
                     {this.props.lat && this.props.lng && this.props.to ?
                     <MapView.Marker.Animated
                         coordinate={this.state.coordinate}
-
-                        key='to'
                         onPress={() => this.handleShowToInput()}
                     >
                             <View
