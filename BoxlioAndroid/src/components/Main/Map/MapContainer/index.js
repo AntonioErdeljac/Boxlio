@@ -32,6 +32,12 @@ class MapContainer extends React.Component{
     componentDidMount(){
     }
     componentWillReceiveProps(nextProps){
+
+        if(nextProps.reanimateComponents){
+            this.setState({
+                disableRequestComponents: false
+            })
+        }
         if(!nextProps.directions && nextProps.currentUser.geometry[0] !== this.state.coordinate.latitude && nextProps.currentUser.geometry[1] !== this.state.coordinate.longitude){
             this.state.coordinate.timing({
                 latitude: nextProps.currentUser.geometry[0],
@@ -118,13 +124,17 @@ class MapContainer extends React.Component{
         super(props);
 
         this.handleShowToInput = () => {
+            if(!this.props.requestSent){
             this.props.onShowToInput()
             this.setState({showToInput: true})
+            }
         }
 
           this.handleShowFromInput = () => {
+            if(!this.props.requestSent){
               this.props.onShowFromInput()
               this.setState({showFromInput: true})
+            }
           }
 
         this.mapRef = null;

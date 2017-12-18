@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {connect} from "react-redux";
 import RNGooglePlaces from "react-native-google-places";
 import {Places} from 'google-places-web';
+
 Places.apiKey = 'AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
@@ -27,6 +28,10 @@ class LoadingView extends React.Component{
             predictions: null
         };
 
+        this.handleCancelSendRequest = () =>{
+            this.props.onHandleCancelSendRequest()
+        }
+
     }
 
     render(){
@@ -34,7 +39,10 @@ class LoadingView extends React.Component{
             return (
                 <Animatable.View animation="fadeInUp" style={styles.searchTo}>
                     <ActivityIndicator size={50} color="#1fcf7c" />
-                    <Text style={{color: 'rgba(0,0,0,.6)', fontFamily:'VarelaRound-Regular', marginTop: 10}}>Searching</Text>
+                    <Text style={{color: 'rgba(0,0,0,.5)', fontFamily:'VarelaRound-Regular', marginTop: 10}}>Searching</Text>
+                    <TouchableOpacity onPress={this.handleCancelSendRequest} style={{borderRadius: 30, marginTop:30,backgroundColor: '#E7475E',justifyContent:'center', alignItems:'center', height:43, width: 100}}>
+                        <Text style={{color: '#fff', fontFamily:'VarelaRound-Regular'}}>Cancel</Text>
+                    </TouchableOpacity>
                 </Animatable.View>
             );
     }
@@ -63,7 +71,7 @@ const styles = StyleSheet.create({
     },
     searchTo: {
         zIndex: 1000000000000,
-        height: 100 ,
+        height: 200 ,
         width: Dimensions.get('window').width-30,
         borderRadius: 3,
         elevation: 2,
@@ -99,7 +107,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setFrom: place =>
-        dispatch({type: 'SET_FROM', place})
+        dispatch({type: 'SET_FROM', place}),
+    onHandleCancelSendRequest: () =>
+        dispatch({type: 'CANCEL_SEND_REQUEST'})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoadingView);
