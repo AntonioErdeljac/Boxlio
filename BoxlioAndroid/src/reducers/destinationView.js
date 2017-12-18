@@ -81,7 +81,9 @@ export default (state={placeToChoosen: true, transportation:null}, action) => {
 					hasTyped: false,
 					lat: null,
 					lng: null,
-					directions: null
+					directions: null,
+					closeFromInput: false,
+					closeToInput: false
 				}
 	}
 	return state;

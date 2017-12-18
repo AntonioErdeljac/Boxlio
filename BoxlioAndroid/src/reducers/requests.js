@@ -1,5 +1,11 @@
 export default (state={}, action) => {
     switch(action.type){
+        case 'LOGOUT':
+            return {
+                ...state,
+                requestSent: false,
+                reanimateComponents: true
+            };
         case 'CANCEL_SEND_REQUEST':
             return {
                 ...state,

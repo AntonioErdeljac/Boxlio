@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="87ab1eb2-a1ae-4ba8-bc58-ca9d268dce01" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/MapContainer/index.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/MapContainer/index.js" />
-      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/RequestHandler/index.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/RequestHandler/index.js" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/reducers/destinationView.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/reducers/destinationView.js" />
       <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/reducers/requests.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/reducers/requests.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -44,17 +44,17 @@
         <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/reducers/requests.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
-              <caret line="6" column="35" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="35" />
+              <caret line="6" column="41" lean-forward="false" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="destinationView.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="destinationView.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/reducers/destinationView.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" column="32" lean-forward="false" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
+            <state relative-caret-position="746">
+              <caret line="85" column="39" lean-forward="false" selection-start-line="85" selection-start-column="39" selection-end-line="85" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -70,14 +70,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/MapContainer/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="129" column="13" lean-forward="false" selection-start-line="129" selection-start-column="13" selection-end-line="129" selection-end-column="13" />
+            <state relative-caret-position="63">
+              <caret line="24" column="25" lean-forward="true" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="auth.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/reducers/auth.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -161,7 +171,6 @@
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/LoggedInRouter.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/reducers/common.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/AppView.js" />
-        <option value="$PROJECT_DIR$/BoxlioAndroid/src/reducers/destinationView.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/LocationChooser/LocationChooserTo.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/DeliveryGuyProfit/index.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/TransportationType/index.js" />
@@ -179,6 +188,7 @@
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/RequestHandler/index.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/reducers/requests.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/MapContainer/index.js" />
+        <option value="$PROJECT_DIR$/BoxlioAndroid/src/reducers/destinationView.js" />
       </list>
     </option>
   </component>
@@ -437,12 +447,12 @@
       <workItem from="1513521443271" duration="20513000" />
       <workItem from="1513620846041" duration="730000" />
       <workItem from="1513626398098" duration="474000" />
-      <workItem from="1513627199550" duration="3810000" />
+      <workItem from="1513627199550" duration="4545000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="97162000" />
+    <option name="totallyTimeSpent" value="97897000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -655,13 +665,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/reducers/auth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/reducers/common.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -822,22 +825,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/reducers/destinationView.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="32" lean-forward="false" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/reducers/requests.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="35" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/RequestHandler/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="671">
@@ -848,13 +835,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/reducers/auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/reducers/requests.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="41" lean-forward="false" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/MapContainer/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="129" column="13" lean-forward="false" selection-start-line="129" selection-start-column="13" selection-end-line="129" selection-end-column="13" />
+        <state relative-caret-position="63">
+          <caret line="24" column="25" lean-forward="true" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/reducers/destinationView.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="746">
+          <caret line="85" column="39" lean-forward="false" selection-start-line="85" selection-start-column="39" selection-end-line="85" selection-end-column="39" />
+          <folding />
         </state>
       </provider>
     </entry>
