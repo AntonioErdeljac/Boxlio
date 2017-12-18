@@ -175,6 +175,7 @@ class MapContainer extends React.Component{
 
 
                 <MapView
+                    provider={null}
                     customMapStyle={mapStyle}
                 initialRegion={this.state.region}
                     ref="map"

@@ -8,13 +8,15 @@ import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import {Actions} from "react-native-router-flux";
 
+const TouchableOpacityAnimatable = Animatable.createAnimatableComponent(TouchableOpacity);
+
 
 class UserIcon extends React.Component{
 	render(){
     if(this.props.currentUser){
 		return (
-      <TouchableOpacity onPress={() => this.refs.user.bounceOut(300).then(() => this.props.navigation.navigate('options'))} style={styles.TouchableOpacityComponent}>
-  			<Animatable.View ref="user" animation="bounceIn" delay={300} style={styles.searchTo}>
+      <TouchableOpacityAnimatable ref="user" animation="bounceIn" delay={300} onPress={() => this.refs.user.bounceOut(300).then(() => this.props.navigation.navigate('options'))} style={styles.TouchableOpacityComponent}>
+  			<Animatable.View   style={styles.searchTo}>
               <Grid>
                 <Col>
                   <View style={styles.imageContainer}>
@@ -23,7 +25,7 @@ class UserIcon extends React.Component{
                 </Col>
               </Grid>
          </Animatable.View>
-       </TouchableOpacity>
+       </TouchableOpacityAnimatable>
 		);
   }
   return null;
@@ -39,14 +41,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderColor: '#fff',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   image: {
     flex: 1,
     resizeMode: 'contain', 
     height: 50,
     width: 50,
-    borderRadius: 50,
+    borderRadius: 100,
   },
 	input: {
 		width: Dimensions.get('window').width-100,
@@ -70,6 +72,7 @@ const styles = StyleSheet.create({
     borderRadius: 70,
     alignItems: 'center',
     position: 'absolute',
+      elevation: 2,
     top: 10
   },
   searchTo: {
