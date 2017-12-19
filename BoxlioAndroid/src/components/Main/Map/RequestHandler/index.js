@@ -36,11 +36,11 @@ class LoadingView extends React.Component{
         this.handleCancelRequest = ev => {
             ev.preventDefault();
             console.log(this.props.deliveryGuy);
-            if(this.props.deliveryGuy){
-            this.socket.emit('CANCEL_DELIVERY_JOB_CLIENT', {
-                deliveryGuy: this.props.deliveryGuy,
-                client: this.props.currentUser
-            });
+            if(this.props.deliveryGuy) {
+                this.socket.emit('CANCEL_DELIVERY_JOB_CLIENT', {
+                    deliveryGuy: this.props.deliveryGuy,
+                    client: this.props.currentUser
+                });
             }
             this.props.onCancelRequest(agent.Auth.update({isRequesting: false, isOrdering: false, isDelivering: false, activeDeliveryJob: null}));
 
