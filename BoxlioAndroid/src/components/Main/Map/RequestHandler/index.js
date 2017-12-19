@@ -55,7 +55,7 @@ class LoadingView extends React.Component{
                     <ActivityIndicator size={50} color="#1fcf7c" />
                     <Text style={{color: 'rgba(0,0,0,.5)', fontFamily:'VarelaRound-Regular', marginTop: 10}}>Searching</Text>
                     <TouchableOpacity onPress={this.handleCancelRequest} style={{borderRadius: 30, marginTop:30,backgroundColor: '#E7475E',justifyContent:'center', alignItems:'center', height:43, width: 100}}>
-                        <Text style={{color: '#fff', fontFamily:'VarelaRound-Regular'}}>Cancel</Text>
+                        <Text style={{color: '#fff', fontFamily:'VarelaRound-Regular'}}>Cancel&nbsp;&nbsp;&nbsp;<Icon name="close" style={{color:'#fff'}}></Icon></Text>
                     </TouchableOpacity>
                 </Animatable.View>
             );
