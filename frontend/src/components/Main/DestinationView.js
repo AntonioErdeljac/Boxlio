@@ -43,12 +43,12 @@ class DestinationView extends React.Component{
 
         this.handleCancelRequest = ev => {
             ev.preventDefault();
-            window.alert(this.props.deliveryGuy)
-            console.log(this.props.deliveryGuy);
-            this.socket.emit('CANCEL_DELIVERY_JOB_CLIENT', {
-                deliveryGuy: this.props.deliveryGuy,
-                client: this.props.currentUser
-            });
+            if(this.props.deliveryGuy) {
+                this.socket.emit('CANCEL_DELIVERY_JOB_CLIENT', {
+                    deliveryGuy: this.props.deliveryGuy,
+                    client: this.props.currentUser
+                });
+            }
             this.props.onCancelRequest(agent.Auth.update({isRequesting: false, isOrdering: false, isDelivering: false, activeDeliveryJob: null}));
             
         };
