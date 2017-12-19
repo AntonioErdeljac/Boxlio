@@ -22,6 +22,27 @@ class Map extends React.Component{
   constructor(props){
     super(props);
 
+    this.watchId = navigator.geolocation.watchPosition(position => {
+        if(!this.props.placeFromChoosen){
+            this.socket.emit('SAVE_LOCATION', {
+                user: this.props.currentUser,
+                positionLat: position.coords.latitude,
+                positionLng: position.coords.longitude
+            });
+            this.props.onSetPosition(position);
+        }
+    }, null, {enableHighAccuracy: true});
+
+      navigator.geolocation.getCurrentPosition(position => {
+          if(!this.props.placeFromChoosen){
+              this.socket.emit('SAVE_LOCATION', {
+                  user: this.props.currentUser,
+                  positionLat: position.coords.latitude,
+                  positionLng: position.coords.longitude
+              });
+              this.props.onSetPosition(position);
+          }
+      }, null, {enableHighAccuracy: true});
 
     this.socket = io('https://a673bd70.ngrok.io');
   }
@@ -47,21 +68,12 @@ class Map extends React.Component{
     };
     
 
-    let watchId = navigator.geolocation.watchPosition(position => {
-      if(!this.props.placeFromChoosen){
-        this.socket.emit('SAVE_LOCATION', {
-          user: this.props.currentUser,
-          positionLat: position.coords.latitude,
-          positionLng: position.coords.longitude
-        });
-        this.props.onSetPosition(position);
-        }
-    }, null, {enableHighAccuracy: true});
+
 
 		return (
 			<ContainerAnimatable ref="map-component" animation="fadeInUp" style={styles.container}>
       
-        <MapContainer {...this.props.destinationView} handleSendRequest={handleSendRequest} focusedOnInput={this.props.focusedOnInput} navigation={this.props.navigation} currentUser={this.props.currentUser} />
+        <MapContainer {...this.props.destinationView} positionSet={this.props.positionSet} handleSendRequest={handleSendRequest} focusedOnInput={this.props.focusedOnInput} navigation={this.props.navigation} currentUser={this.props.currentUser} />
       
 			</ContainerAnimatable>
 		);
@@ -105,6 +117,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   currentUser: state.common.currentUser,
+    positionSet: state.common.positionSet,
     ...state.destinationView
 });
 

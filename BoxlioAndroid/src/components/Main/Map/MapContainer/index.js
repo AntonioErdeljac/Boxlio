@@ -33,6 +33,15 @@ class MapContainer extends React.Component{
     }
     componentWillReceiveProps(nextProps){
 
+        if(nextProps.currentUser && nextProps.positionSet !== this.props.positionSet){
+            this.setState({region: {
+                    latitude: nextProps.currentUser.geometry[0],
+                    longitude: nextProps.currentUser.geometry[1],
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+            }})
+        }
+
         if(nextProps.reanimateComponents){
             this.setState({
                 disableRequestComponents: false
@@ -143,12 +152,7 @@ class MapContainer extends React.Component{
 
 
           this.state = {
-            region: {
-                latitude: this.props.currentUser.geometry[0],
-                longitude: this.props.currentUser.geometry[1],
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,
-            },
+
             coordinate: new MapView.AnimatedRegion({
                 latitude: this.props.currentUser.geometry[0],
                 longitude: this.props.currentUser.geometry[1]
