@@ -8,6 +8,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {connect} from "react-redux";
 import RNGooglePlaces from "react-native-google-places";
 import {Places} from 'google-places-web';
+import agent from "../../../../agent";
+import io from "socket.io-client";
 
 Places.apiKey = 'AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
 
@@ -24,13 +26,25 @@ class LoadingView extends React.Component{
     constructor(props){
         super(props);
 
+        this.socket = io('https://a673bd70.ngrok.io/');
+
         this.state = {
             predictions: null
         };
 
-        this.handleCancelSendRequest = () =>{
-            this.props.onHandleCancelSendRequest()
-        }
+
+        this.handleCancelRequest = ev => {
+            ev.preventDefault();
+            console.log(this.props.deliveryGuy);
+            if(this.props.deliveryGuy){
+            this.socket.emit('CANCEL_DELIVERY_JOB_CLIENT', {
+                deliveryGuy: this.props.deliveryGuy,
+                client: this.props.currentUser
+            });
+            }
+            this.props.onCancelRequest(agent.Auth.update({isRequesting: false, isOrdering: false, isDelivering: false, activeDeliveryJob: null}));
+
+        };
 
     }
 
@@ -40,7 +54,7 @@ class LoadingView extends React.Component{
                 <Animatable.View animation="fadeInUp" style={styles.searchTo}>
                     <ActivityIndicator size={50} color="#1fcf7c" />
                     <Text style={{color: 'rgba(0,0,0,.5)', fontFamily:'VarelaRound-Regular', marginTop: 10}}>Searching</Text>
-                    <TouchableOpacity onPress={this.handleCancelSendRequest} style={{borderRadius: 30, marginTop:30,backgroundColor: '#E7475E',justifyContent:'center', alignItems:'center', height:43, width: 100}}>
+                    <TouchableOpacity onPress={this.handleCancelRequest} style={{borderRadius: 30, marginTop:30,backgroundColor: '#E7475E',justifyContent:'center', alignItems:'center', height:43, width: 100}}>
                         <Text style={{color: '#fff', fontFamily:'VarelaRound-Regular'}}>Cancel</Text>
                     </TouchableOpacity>
                 </Animatable.View>
@@ -108,7 +122,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     setFrom: place =>
         dispatch({type: 'SET_FROM', place}),
-    onHandleCancelSendRequest: () =>
+    onCancelRequest: () =>
         dispatch({type: 'CANCEL_SEND_REQUEST'})
 });
 

@@ -43,6 +43,7 @@ class DestinationView extends React.Component{
 
         this.handleCancelRequest = ev => {
             ev.preventDefault();
+            window.alert(this.props.deliveryGuy)
             console.log(this.props.deliveryGuy);
             this.socket.emit('CANCEL_DELIVERY_JOB_CLIENT', {
                 deliveryGuy: this.props.deliveryGuy,
