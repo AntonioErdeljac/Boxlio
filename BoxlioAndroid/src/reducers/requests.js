@@ -19,9 +19,10 @@ export default (state={}, action) => {
             };
         case 'REQUEST_ACCEPTED':
             return {
+                ...state,
                 requestAccepted: true,
-                deliveryGuy: data.deliveryGuy,
-                locationName: data.locationName
+                deliveryGuy: action.data.deliveryGuy,
+                locationName: action.data.locationName
             }
     }
     return state;

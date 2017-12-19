@@ -56,8 +56,7 @@ class Map extends React.Component{
           });
       }
 
-    this.socket.on('REQUEST_ACCEPTED', data => {
-        console.error('test')
+    this.socket.on('REQUEST_ACCEPTED', (data) => {
         this.props.onRequestAccepted(data);
     })
   }

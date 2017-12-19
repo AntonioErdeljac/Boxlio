@@ -2,7 +2,7 @@ import React from "react";
 import {Container} from "native-base";
 import { Header, Content, Footer, FooterTab, Button, Card, CardItem, Body, Right, Left  } from 'native-base';
 import {Grid, Col, Row} from "react-native-easy-grid";
-import {StyleSheet, Dimensions, View, TextInput, TouchableOpacity, Keyboard, ActivityIndicator, Text} from "react-native";
+import {StyleSheet, Dimensions, View, TextInput, TouchableOpacity, Keyboard, ActivityIndicator, Text, Image} from "react-native";
 import * as Animatable from "react-native-animatable";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {connect} from "react-redux";
@@ -36,7 +36,7 @@ class LoadingView extends React.Component{
         this.handleCancelRequest = ev => {
             ev.preventDefault();
             console.log(this.props.deliveryGuy);
-            if(this.props.deliveryGuy) {
+            if(this.props.requestAccepted) {
                 this.socket.emit('CANCEL_DELIVERY_JOB_CLIENT', {
                     deliveryGuy: this.props.deliveryGuy,
                     client: this.props.currentUser
@@ -52,8 +52,14 @@ class LoadingView extends React.Component{
 
             return (
                 <Animatable.View animation="fadeInUp" style={styles.searchTo}>
-                    <ActivityIndicator size={50} color="#1fcf7c" />
-                    <Text style={{color: 'rgba(0,0,0,.5)', fontFamily:'VarelaRound-Regular', marginTop: 10}}>Searching</Text>
+                    {!this.props.requestAccepted ?
+                    <ActivityIndicator size={50} color="#1fcf7c" /> : null}
+                    {!this.props.requestAccepted ? <Text style={{color: 'rgba(0,0,0,.5)', fontFamily:'VarelaRound-Regular', marginTop: 10}}>Searching</Text>
+                        :
+                        <View style={styles.imageContainer}>
+                            <Image source={{uri: this.props.deliveryGuy.image}} style={styles.image} />
+                        </View>
+                    }
                     <TouchableOpacity onPress={this.handleCancelRequest} style={{borderRadius: 30, marginTop:30,backgroundColor: '#E7475E',justifyContent:'center', alignItems:'center', height:43, width: 100}}>
                         <Text style={{color: '#fff', fontFamily:'VarelaRound-Regular'}}>Cancel&nbsp;&nbsp;&nbsp;<Icon name="close" style={{color:'#fff'}}></Icon></Text>
                     </TouchableOpacity>
@@ -113,10 +119,28 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
     },
+    imageContainer: {
+        borderRadius: 70,
+        height: 70,
+        width: 70,
+        backgroundColor: '#fff',
+        borderColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    image: {
+        flex: 1,
+        resizeMode: 'contain',
+        height: 65,
+        width: 65,
+        borderRadius: 100,
+    },
 });
 
 const mapStateToProps = state => ({
-    ...state.destinationView
+    currentUser: state.common.currentUser,
+    ...state.destinationView,
+    ...state.requests
 });
 
 const mapDispatchToProps = dispatch => ({
