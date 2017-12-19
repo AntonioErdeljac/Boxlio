@@ -47,7 +47,7 @@ class LocationChooserTo extends React.Component{
         };
 
         this.handleSetTo = (prediction) => {
-            Keyboard.dismiss()
+            Keyboard.dismiss();
             this.refs.locationchooser.fadeOutDown(100).then(() => {
                 RNGooglePlaces.lookUpPlaceByID(prediction.placeID)
                     .then((place) => {
