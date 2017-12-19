@@ -16,6 +16,12 @@ export default (state={}, action) => {
             return {
                 ...state,
                 requestSent: true
+            };
+        case 'REQUEST_ACCEPTED':
+            return {
+                requestAccepted: true,
+                deliveryGuy: data.deliveryGuy,
+                locationName: data.locationName
             }
     }
     return state;

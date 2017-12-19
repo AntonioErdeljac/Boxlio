@@ -39,7 +39,7 @@ let UserSchema = new mongoose.Schema({
     ratings: [{type: Number}],
     isRequesting: {type: Boolean, default: false},
     opinions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Opinion'}]
-});
+}, { usePushEach: true });
 
 UserSchema.plugin(uniqueValidator, {message: "is already taken."});
 
@@ -118,7 +118,7 @@ UserSchema.methods.toProfileJSONFor = function(user){
 
 UserSchema.methods.addClient = function(id){
     if(this.clients.indexOf(id) === -1){
-        this.clients.push(id);
+        this.clients = this.clients.concat([id]);
     }
 };
 

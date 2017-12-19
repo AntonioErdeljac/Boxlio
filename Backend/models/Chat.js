@@ -1,10 +1,10 @@
-var mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
+let mongoose = require('mongoose');
+let uniqueValidator = require('mongoose-unique-validator');
 
-var ChatSchema = new mongoose.Schema({
+let ChatSchema = new mongoose.Schema({
     users: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     messages: [{type: mongoose.Schema.Types.ObjectId, ref:'Message'}]
-}, {timestamps: true});
+}, { usePushEach: true, timestamps: true});
 
 ChatSchema.plugin(uniqueValidator, {message: 'is already taken'});
 

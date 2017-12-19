@@ -48,6 +48,11 @@ export default (state={}, action) => {
 					geometry: [action.position.coords.latitude, action.position.coords.longitude]
 				}),
 				positionSet: true
+			};
+		case 'JOIN_SELF_GROUP':
+			return {
+				...state,
+				joinedSelfGroup: true
 			}
 	}
 	return state;

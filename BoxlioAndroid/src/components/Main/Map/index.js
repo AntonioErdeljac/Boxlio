@@ -45,9 +45,24 @@ class Map extends React.Component{
       }, null, {enableHighAccuracy: true});
 
     this.socket = io('https://be2adc2a.ngrok.io');
+
+
+
+
+      if(!this.props.joinedSelfGroup){
+          this.props.onJoinSelfGroup();
+          this.socket.emit('JOIN_SELF_GROUP', {
+              user: this.props.currentUser
+          });
+      }
+
+    this.socket.on('REQUEST_ACCEPTED', data => {
+        console.error('test')
+        this.props.onRequestAccepted(data);
+    })
   }
 	render(){
-    
+
     if(this.props.currentUser){
 
     const handleSendRequest = ev => {
@@ -118,6 +133,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   currentUser: state.common.currentUser,
     positionSet: state.common.positionSet,
+    joinedSelfGroup: state.common.joinedSelfGroup,
     ...state.destinationView
 });
 
@@ -125,7 +141,11 @@ const mapDispatchToProps = dispatch => ({
     onSetPosition: position =>
       dispatch({type: 'SET_POSITION', position}),
     onSendRequest: () =>
-      dispatch({type: 'SEND_REQUEST'})
+      dispatch({type: 'SEND_REQUEST'}),
+    onRequestAccepted: (data) =>
+        dispatch({type: 'REQUEST_ACCEPTED', data}),
+    onJoinSelfGroup: () =>
+        dispatch({type: 'JOIN_SELF_GROUP'})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

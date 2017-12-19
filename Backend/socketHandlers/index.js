@@ -214,7 +214,7 @@ exports = module.exports = function(io){
                 deliveryGuy.isDelivering = false;
                 deliveryGuy.isOrdering = false;
                 deliveryGuy.earnedMoney += deliveryGuy.activeDeliveryJob.price;
-                deliveryGuy.ratings.push(data.rating);
+                deliveryGuy.ratings = deliveryGuy.ratings.concat([data.rating]);
                 deliveryGuy.deliveredItems += 1;
                 deliveryGuy.save(err => console.log(err)).then(function(){
                     deliveryGuy.activeDeliveryJob = null;
@@ -231,10 +231,10 @@ exports = module.exports = function(io){
                     let message = new Message();
                     message.author = client;
                     message.receiver = deliveryGuy;
-                    message.body = 'Thank you for your delivery!'
+                    message.body = 'Thank you for your delivery!';
                     message.save();
 
-                    chat.messages.push(message._id);
+                    chat.messages = chat.messages.concat([message._id]);
                     chat.save();
 
                     io.in(deliveryGuy.username).emit('SUCCESS_COMPLETE_DELIVERY', {
@@ -292,7 +292,7 @@ exports = module.exports = function(io){
                     message.body = 'You have not delivered what I wanted.';
                     message.save();
 
-                    chat.messages.push(message._id);
+                    chat.messages = chat.messages.concat([message._id]);
                     chat.save();
 
                     //opet success zato jer ne radi ništa posebno šta bi failure
@@ -348,7 +348,7 @@ exports = module.exports = function(io){
                 message.save();
 
                 Chat.findOne({users: {$all: [client, deliveryGuy]}}).then(function(chat){
-                    chat.messages.push(message._id);
+                    chat.messages = chat.messages.concat([message._id]);
                     return chat.save().then(function(){
                         io.in(client.username).emit('RECEIVE_CANCEL_DELIVERY_JOB_DELIVERY_GUY', {
                             deliveryGuy: deliveryGuy
@@ -393,7 +393,7 @@ exports = module.exports = function(io){
                 message.save();
 
                 Chat.findOne({users: {$all: [client, deliveryGuy]}}).then(function(chat){
-                    chat.messages.push(message._id);
+                    chat.messages = chat.messages.concat([message._id]);
                     return chat.save().then(function(){
                         io.in(deliveryGuy.username).emit('RECEIVE_CANCEL_DELIVERY_JOB_CLIENT', {
                             client: client
@@ -439,7 +439,7 @@ exports = module.exports = function(io){
             ).then(function(users){
                 let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode === true && user.obj.available === true );
                 let user = filteredUsers[Math.floor(Math.random()*filteredUsers.length)];
-                console.log(user);
+                console.log(user, 'ovo trayimo');
                 if(user){
                     if(user.obj.deliveryMode) {
                         console.log('sve je u redu')
@@ -592,6 +592,10 @@ exports = module.exports = function(io){
                     newDeliveryJob.toLocation = [data.client.geometry[0], data.client.geometry[1]];
                     newDeliveryJob.fromLocation = [data.lat, data.lng];
                     newDeliveryJob.save().then(function(){
+
+                        console.log('uspjesno napravljen posao, dodajem korisnike', client, deliveryGuy)
+
+
                         client.isOrdering = true;
                         client.isRequesting = false;
                         client.activeDeliveryJob = newDeliveryJob._id;
@@ -601,6 +605,9 @@ exports = module.exports = function(io){
                                 console.log(err);
                             }
                         });
+
+
+
                         deliveryGuy.isDelivering = true;
                         deliveryGuy.activeDeliveryJob = newDeliveryJob._id;
                         deliveryGuy.addClient(client._id);
@@ -635,14 +642,14 @@ exports = module.exports = function(io){
                                     message.receiver = client._id;
                                     message.body = `Hello again ${client.firstName}! I am your delivery guy. Please describe what kind of products do you want me to buy.`
                                     message.save();
-                                    chat.messages.push(message._id);
+                                    chat.messages = chat.messages.concat([message._id]);
                                     if(data.item){
                                         let messageTwo = new Message();
                                         messageTwo.author = client._id;
                                         messageTwo.receiver = deliveryGuy._id;
                                         messageTwo.body = `Hello, this is a short description about what to buy: ${data.item}`;
                                         messageTwo.save((err) => console.log(err));
-                                        chat.messages.push(messageTwo._id);
+                                        chat.messages = chat.messages.concat([messageTwo._id]);
                                     }
                                     return chat.save((err) => console.log(err)).then(function(){
                                         io.in(data.client.username).emit('REQUEST_ACCEPTED', {
@@ -656,7 +663,7 @@ exports = module.exports = function(io){
                                 }
                                 else if(!chat){
                                     const nChat = new Chat();
-                                    nChat.users.push(deliveryGuy._id, client._id);
+                                    nChat.users = nChat.users.concat([deliveryGuy._id, client._id]);
                                     nChat.save(function(err){
                                         if(err){
                                             console.log(err);
@@ -672,8 +679,8 @@ exports = module.exports = function(io){
                                     messageTwo.receiver = deliveryGuy;
                                     messageTwo.body = `Hello, this is a short description about what to buy: ${data.item}`;
                                     messageTwo.save();
-                                    nChat.messages.push(message._id);
-                                    nChat.messages.push(messageTwo._id);
+                                    nChat.messages = nChat.messages.concat([message._id]);
+                                    nChat.messages = nChat.messages.concat([messageTwo._id]);
                                     return nChat.save(function(err){console.log(err)}).then(function(){
                                         io.in(data.client.username).emit('REQUEST_ACCEPTED', {
                                             deliveryGuy: data.deliveryGuy,
@@ -796,7 +803,7 @@ exports = module.exports = function(io){
             message.body = data.body;
             message.save();
   
-            chat.messages.push(message._id);
+            chat.messages = chat.messages.concat([message._id]);
             return chat.save().then(function(){
                 let nameAlt = data.name.split('_')[2]+'_and_'+data.name.split('_')[0];
                 io.to(data.name).emit('RECEIVE_MESSAGE', {

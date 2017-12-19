@@ -11,6 +11,6 @@ let DeliveryJobSchema = new mongoose.Schema({
     item: String,
     transportation: String,
     deliveryGuyLocationName: String
-}, {timestamps: true});
+}, { usePushEach: true, timestamps: true});
 
 mongoose.model('DeliveryJob', DeliveryJobSchema);
