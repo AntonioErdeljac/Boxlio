@@ -44,7 +44,7 @@ class Map extends React.Component{
           }
       }, null, {enableHighAccuracy: true});
 
-    this.socket = io('https://a673bd70.ngrok.io');
+    this.socket = io('https://be2adc2a.ngrok.io');
   }
 	render(){
     
