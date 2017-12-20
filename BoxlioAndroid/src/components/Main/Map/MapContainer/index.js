@@ -293,10 +293,35 @@ class MapContainer extends React.Component{
                                     borderRadius: 3,
                                     justifyContent: 'center',
                                     alignItems: 'center',
-                                    marginRight: 140,
+                                    marginLeft: 140,
                                 }}>
                                 <Text numberOfLines={1} style={{fontSize: 10, color: '#fff', fontFamily: 'VarelaRound-Regular', padding: 10}}>
                                     {this.props.from}
+                                </Text>
+                            </View>
+                        </MapView.Marker.Animated> : null
+                    }
+
+
+
+                    {this.props.locationName && this.props.deliveryGuy ?
+                        <MapView.Marker.Animated
+                            coordinate={this.state.deliveryGuyCoordinate}
+
+                            key='delivery'
+                        >
+                            <View
+                                style={{
+                                    backgroundColor: '#F9C134',
+                                    height: 30,
+                                    width: 100,
+                                    borderRadius: 3,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    marginLeft: 140,
+                                }}>
+                                <Text numberOfLines={1} style={{fontSize: 10, color: '#fff', fontFamily: 'VarelaRound-Regular', padding: 10}}>
+                                    {this.props.locationName}
                                 </Text>
                             </View>
                         </MapView.Marker.Animated> : null

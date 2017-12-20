@@ -59,6 +59,10 @@ class Map extends React.Component{
     this.socket.on('REQUEST_ACCEPTED', (data) => {
         this.props.onRequestAccepted(data);
     })
+
+    this.socket.on('DELIVERY_GUY_CHANGE_LOCATION', (data) => {
+          this.props.onChangeDeliveryGuyLocation(data);
+    });
   }
 	render(){
 
@@ -144,7 +148,9 @@ const mapDispatchToProps = dispatch => ({
     onRequestAccepted: (data) =>
         dispatch({type: 'REQUEST_ACCEPTED', data}),
     onJoinSelfGroup: () =>
-        dispatch({type: 'JOIN_SELF_GROUP'})
+        dispatch({type: 'JOIN_SELF_GROUP'}),
+    onChangeDeliveryGuyLocation: data =>
+        dispatch({type: 'CHANGE_DELIVERY_GUY_LOCATION', data})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

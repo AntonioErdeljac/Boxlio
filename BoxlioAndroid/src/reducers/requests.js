@@ -23,6 +23,12 @@ export default (state={}, action) => {
                 requestAccepted: true,
                 deliveryGuy: action.data.deliveryGuy,
                 locationName: action.data.locationName
+            };
+        case 'CHANGE_DELIVERY_GUY_LOCATION':
+            return {
+                ...state,
+                deliveryGuy: action.data.deliveryGuy,
+                locationName: action.data.locationName
             }
     }
     return state;
