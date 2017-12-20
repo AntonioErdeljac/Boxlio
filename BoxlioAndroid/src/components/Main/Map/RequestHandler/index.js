@@ -26,7 +26,7 @@ class LoadingView extends React.Component{
     constructor(props){
         super(props);
 
-        this.socket = io('https://be2adc2a.ngrok.io');
+        this.socket = io('https://af3955f7.ngrok.io');
 
         this.state = {
             predictions: null
@@ -89,15 +89,22 @@ class LoadingView extends React.Component{
         }
         return (
             <Animatable.View animation="fadeInUp" style={styles.acceptedView}>
-                <Grid>
-                    <Row>
-                        <Col size={1} >
-                            <View style={styles.imageContainer}>
-                                <Image source={{uri: this.props.deliveryGuy.image}} style={styles.image}/>
-                            </View>
-                        </Col>
-                    </Row>
-                </Grid>
+                <CardItem>
+                    <View style={styles.imageContainer}>
+                        <Image borderRadius={65} source={{uri: this.props.deliveryGuy.image}} style={styles.image} />
+                    </View>
+                    <Grid>
+                        <Row>
+                    <Text style={{color: 'rgba(0,0,0,.5)', fontFamily: 'VarelaRound-Regular', marginLeft: 10}}>{this.props.deliveryGuy.firstName} {this.props.deliveryGuy.lastName}</Text>
+                        </Row>
+                        <Row>
+                            <Text style={{color: 'rgba(0,0,0,.3)', fontFamily: 'VarelaRound-Regular', marginLeft: 10, fontSize: 10}}>{this.props.deliveryGuy.firstName} {this.props.deliveryGuy.lastName}</Text>
+                        </Row>
+                    </Grid>
+                        <Right>
+                        <Icon name="envelope" />
+                    </Right>
+                </CardItem>
             </Animatable.View>
         )
     }
@@ -140,15 +147,17 @@ const styles = StyleSheet.create({
     },
     acceptedView: {
         zIndex: 1000000000000,
-        height: 50,
+        height: 100,
         width: Dimensions.get('window').width-30,
-        borderRadius: 50,
+        borderRadius: 3,
         elevation: 2,
         shadowOpacity: 0.1,
         shadowColor: '#000',
         position: 'absolute',
+        justifyContent: 'center',
+        alignContent: 'center',
         bottom:30,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
     },
     container: {
         position: 'absolute',
@@ -166,13 +175,6 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
     },
-    imageContainer: {
-        borderRadius: 100,
-        marginLeft: 10,
-        elevation:3,
-        height:50,
-        width:50
-    },
     image: {
         flex: 1,
         resizeMode: 'contain',
@@ -180,6 +182,12 @@ const styles = StyleSheet.create({
         width: 45,
         borderRadius: 100,
     },
+    imageContainer: {
+        height: 45,
+        width: 45,
+        borderRadius: 100,
+        overflow: 'hidden',
+    }
 });
 
 const mapStateToProps = state => ({

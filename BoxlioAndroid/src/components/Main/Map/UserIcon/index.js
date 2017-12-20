@@ -20,7 +20,7 @@ class UserIcon extends React.Component{
               <Grid>
                 <Col>
                   <View style={styles.imageContainer}>
-                  <Image source={{uri: this.props.currentUser.image}} style={styles.image} />
+                  <Image borderRadius={65} source={{uri: this.props.currentUser.image}} style={styles.image} />
                   </View>
                 </Col>
               </Grid>
@@ -42,13 +42,14 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
+      overflow: 'hidden'
   },
   image: {
     flex: 1,
     resizeMode: 'contain', 
     height: 65,
     width: 65,
-    borderRadius: 100,
+    borderRadius: 150,
   },
 	input: {
 		width: Dimensions.get('window').width-100,
