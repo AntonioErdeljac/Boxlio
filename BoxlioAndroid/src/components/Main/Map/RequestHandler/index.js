@@ -98,11 +98,13 @@ class LoadingView extends React.Component{
                     <Text style={{color: 'rgba(0,0,0,.5)', fontFamily: 'VarelaRound-Regular', marginLeft: 10}}>{this.props.deliveryGuy.firstName} {this.props.deliveryGuy.lastName}</Text>
                         </Row>
                         <Row>
-                            <Text style={{color: 'rgba(0,0,0,.3)', fontFamily: 'VarelaRound-Regular', marginLeft: 10, fontSize: 10}}>{this.props.deliveryGuy.firstName} {this.props.deliveryGuy.lastName}</Text>
+                            <Text numberOfLines={2} style={{color: 'rgba(0,0,0,.3)', fontFamily: 'VarelaRound-Regular', marginLeft: 10, fontSize: 10}}>{this.props.locationName}</Text>
                         </Row>
                     </Grid>
-                        <Right>
-                        <Icon name="envelope" />
+                    <Right>
+                        <TouchableOpacity style={{backgroundColor: '#2d89e5', borderRadius: 10, padding: 15}}>
+                            <Icon name="envelope" style={{color: '#fff'}} />
+                        </TouchableOpacity>
                     </Right>
                 </CardItem>
             </Animatable.View>

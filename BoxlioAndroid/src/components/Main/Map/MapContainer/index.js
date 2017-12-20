@@ -33,6 +33,14 @@ class MapContainer extends React.Component{
     }
     componentWillReceiveProps(nextProps){
 
+        if(nextProps.deliveryGuy){
+            this.state.deliveryGuyCoordinate.timing({
+                latitude: nextProps.deliveryGuy.geometry[0],
+                longitude: nextProps.deliveryGuy.geometry[1],
+                duration: 500
+            }).start();
+        }
+
         if(nextProps.currentUser && nextProps.positionSet !== this.props.positionSet){
             this.setState({region: {
                     latitude: nextProps.currentUser.geometry[0],
@@ -152,15 +160,18 @@ class MapContainer extends React.Component{
 
 
           this.state = {
-
+            deliveryGuyCoordinate: new MapView.AnimatedRegion({
+               latitude: this.props.deliveryGuy ? this.props.deliveryGuy.geometry[0] : null,
+               longitude: this.props.deliveryGuy ? this.props.deliveryGuy.geometry[1] : null
+            }),
             coordinate: new MapView.AnimatedRegion({
                 latitude: this.props.currentUser.geometry[0],
                 longitude: this.props.currentUser.geometry[1]
             }),
-              fromCoordinate: new MapView.AnimatedRegion({
+            fromCoordinate: new MapView.AnimatedRegion({
                   latitude: this.props.lat,
                   longitude: this.props.lng
-              }),
+            }),
             directionsCoords: this.props.directions,
               disableRequestComponents: false,
               to: null,
@@ -292,6 +303,27 @@ class MapContainer extends React.Component{
                     }
 
 
+
+                    {this.props.deliveryGuy ?
+                        <MapView.Marker.Animated
+                            coordinate={this.state.deliveryGuyCoordinate}
+                        >
+                            <View  style={{
+                                backgroundColor: 'rgba(0,0,0,.03)',
+                                height: 33,
+                                width: 33,
+                                borderRadius: 50,
+                                justifyContent: 'center',
+                                alignItems: 'center'}}>
+                                <View  style={{backgroundColor: '#fff', height: 30, width: 30, borderRadius: 50, justifyContent: 'center', alignItems: 'center'}}>
+                                    <View  style={{backgroundColor: '#F9C134', height: 20, width: 20, borderRadius: 50}}>
+
+                                    </View>
+                                </View>
+                            </View>
+                        </MapView.Marker.Animated>
+                        : null
+                    }
 
 
 
