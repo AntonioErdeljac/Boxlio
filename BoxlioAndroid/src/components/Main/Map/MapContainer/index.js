@@ -176,14 +176,14 @@ class MapContainer extends React.Component{
                 <UserIcon navigation={this.props.navigation} />
 
 
-                {this.state.disableRequestComponents && this.props.closeFromInput ? null : <SearchPlacesFrom  />}
-                  {this.props.placeFromChoosen && !this.props.closeToInput && !this.state.disableRequestComponents ? <SearchPlacesTo/> : null}
-                {this.state.disableRequestComponents ? null : <LocationChooser mapRef={this.refs.map} />}
-                {this.state.disableRequestComponents ? null : <LocationChooserTo />}
-                  {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen ? <TransportationType /> : null}
-                  {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null}
-                  {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage /> : null}
-                  {!this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null}
+                {!this.props.requestAccepted && this.state.disableRequestComponents && this.props.closeFromInput ? null : <SearchPlacesFrom  />}
+                  {!this.props.requestAccepted &&  this.props.placeFromChoosen && !this.props.closeToInput && !this.state.disableRequestComponents ? <SearchPlacesTo/> : null}
+                {!this.props.requestAccepted &&  this.state.disableRequestComponents ? null : <LocationChooser mapRef={this.refs.map} />}
+                {!this.props.requestAccepted &&  this.state.disableRequestComponents ? null : <LocationChooserTo />}
+                  {!this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen ? <TransportationType /> : null}
+                  {!this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null}
+                  {!this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage /> : null}
+                  {!this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null}
                   {this.props.requestSent ? <RequestHandler /> : null}
 
 

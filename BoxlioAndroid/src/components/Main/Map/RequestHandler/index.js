@@ -49,22 +49,57 @@ class LoadingView extends React.Component{
     }
 
     render(){
-
+        if(!this.props.requestAccepted) {
             return (
+
                 <Animatable.View animation="fadeInUp" style={styles.searchTo}>
                     {!this.props.requestAccepted ?
-                    <ActivityIndicator size={50} color="#1fcf7c" /> : null}
-                    {!this.props.requestAccepted ? <Text style={{color: 'rgba(0,0,0,.5)', fontFamily:'VarelaRound-Regular', marginTop: 10}}>Searching</Text>
+                        <ActivityIndicator size={50} color="#1fcf7c"/> : null}
+                    {!this.props.requestAccepted ? <Text style={{
+                            color: 'rgba(0,0,0,.5)',
+                            fontFamily: 'VarelaRound-Regular',
+                            marginTop: 10
+                        }}>Searching</Text>
                         :
                         <View style={styles.imageContainer}>
-                            <Image source={{uri: this.props.deliveryGuy.image}} style={styles.image} />
+                            <Image source={{uri: this.props.deliveryGuy.image}} style={styles.image}/>
+                            <Text style={{
+                                color: 'rgba(0,0,0,.5)',
+                                fontFamily: 'VarelaRound-Regular',
+                                marginTop: 10
+                            }}>{this.props.deliveryGuy.firstName} {this.props.deliveryGuy.lastName}</Text>
                         </View>
                     }
-                    <TouchableOpacity onPress={this.handleCancelRequest} style={{borderRadius: 30, marginTop:30,backgroundColor: '#E7475E',justifyContent:'center', alignItems:'center', height:43, width: 100}}>
-                        <Text style={{color: '#fff', fontFamily:'VarelaRound-Regular'}}>Cancel&nbsp;&nbsp;&nbsp;<Icon name="close" style={{color:'#fff'}}></Icon></Text>
+                    <TouchableOpacity onPress={this.handleCancelRequest} style={{
+                        borderRadius: 30,
+                        marginTop: 30,
+                        backgroundColor: '#E7475E',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: 43,
+                        width: 100
+                    }}>
+                        <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular'}}>
+                            Cancel&nbsp;&nbsp;&nbsp;
+                            <Icon
+                            name="close" style={{color: '#fff'}}></Icon></Text>
                     </TouchableOpacity>
                 </Animatable.View>
             );
+        }
+        return (
+            <Animatable.View animation="fadeInUp" style={styles.acceptedView}>
+                <Grid>
+                    <Row>
+                        <Col size={1} >
+                            <View style={styles.imageContainer}>
+                                <Image source={{uri: this.props.deliveryGuy.image}} style={styles.image}/>
+                            </View>
+                        </Col>
+                    </Row>
+                </Grid>
+            </Animatable.View>
+        )
     }
 }
 
@@ -103,6 +138,18 @@ const styles = StyleSheet.create({
         bottom:30,
         backgroundColor: '#fff'
     },
+    acceptedView: {
+        zIndex: 1000000000000,
+        height: 50,
+        width: Dimensions.get('window').width-30,
+        borderRadius: 50,
+        elevation: 2,
+        shadowOpacity: 0.1,
+        shadowColor: '#000',
+        position: 'absolute',
+        bottom:30,
+        backgroundColor: '#fff'
+    },
     container: {
         position: 'absolute',
         top: 0,
@@ -120,19 +167,17 @@ const styles = StyleSheet.create({
         bottom: 0,
     },
     imageContainer: {
-        borderRadius: 70,
-        height: 70,
-        width: 70,
-        backgroundColor: '#fff',
-        borderColor: '#fff',
-        justifyContent: 'center',
-        alignItems: 'center',
+        borderRadius: 100,
+        marginLeft: 10,
+        elevation:3,
+        height:50,
+        width:50
     },
     image: {
         flex: 1,
         resizeMode: 'contain',
-        height: 65,
-        width: 65,
+        height: 45,
+        width: 45,
         borderRadius: 100,
     },
 });
