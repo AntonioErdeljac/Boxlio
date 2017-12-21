@@ -26,7 +26,7 @@ class LoadingView extends React.Component{
     constructor(props){
         super(props);
 
-        this.socket = io('https://af3955f7.ngrok.io');
+        this.socket = io('https://6195edf6.ngrok.io');
 
         this.state = {
             predictions: null

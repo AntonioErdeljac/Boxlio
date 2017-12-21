@@ -17,13 +17,9 @@ class UserIcon extends React.Component{
 		return (
       <TouchableOpacity onPress={() => this.refs.user.bounceOut(300).then(() => this.props.navigation.navigate('options'))} style={styles.TouchableOpacityComponent}>
   			<Animatable.View  ref="user"  style={styles.searchTo}>
-              <Grid>
-                <Col>
                   <View style={styles.imageContainer}>
-                  <Image borderRadius={65} source={{uri: this.props.currentUser.image}} style={styles.image} />
+                    <Image source={{uri: this.props.currentUser.image}} style={styles.image} />
                   </View>
-                </Col>
-              </Grid>
          </Animatable.View>
        </TouchableOpacity>
 		);
@@ -35,9 +31,9 @@ class UserIcon extends React.Component{
 const styles = StyleSheet.create({
 
   imageContainer: {
-    borderRadius: 70,
-    height: 70,
-    width: 70,
+    borderRadius: 65,
+    height: 65,
+    width: 65,
     backgroundColor: '#fff',
     borderColor: '#fff',
     justifyContent: 'center',
@@ -46,10 +42,12 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    resizeMode: 'contain', 
+    resizeMode: 'contain',
+      borderRadius: 65,
     height: 65,
     width: 65,
-    borderRadius: 150,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 	input: {
 		width: Dimensions.get('window').width-100,

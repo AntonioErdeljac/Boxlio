@@ -42,7 +42,8 @@ class MapContainer extends React.Component{
         }
 
         if(nextProps.currentUser && nextProps.positionSet !== this.props.positionSet){
-            this.setState({region: {
+            this.setState({
+                region: {
                     latitude: nextProps.currentUser.geometry[0],
                     longitude: nextProps.currentUser.geometry[1],
                     latitudeDelta: 0.0922,
@@ -177,7 +178,13 @@ class MapContainer extends React.Component{
               to: null,
               from: null,
               showToInput: true,
-              showFromInput: true
+              showFromInput: true,
+              region: {
+                  latitude: this.props.currentUser.geometry[0],
+                  longitude: this.props.currentUser.geometry[1],
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+              }
         }
       }
 	render(){
