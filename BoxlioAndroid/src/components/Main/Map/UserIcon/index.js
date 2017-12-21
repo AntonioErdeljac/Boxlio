@@ -18,7 +18,7 @@ class UserIcon extends React.Component{
       <TouchableOpacity onPress={() => this.refs.user.bounceOut(300).then(() => this.props.navigation.navigate('options'))} style={styles.TouchableOpacityComponent}>
   			<Animatable.View  ref="user"  style={styles.searchTo}>
                   <View style={styles.imageContainer}>
-                    <Image source={{uri: this.props.currentUser.image}} style={styles.image} />
+                    <Image borderRadius={65} source={{uri: this.props.currentUser.image}} style={styles.image} />
                   </View>
          </Animatable.View>
        </TouchableOpacity>
@@ -38,7 +38,9 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      shadowColor: '#000',
+      elevation: 2
   },
   image: {
     flex: 1,
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     shadowColor: '#000',
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
     position: 'absolute'
   },
   container: {

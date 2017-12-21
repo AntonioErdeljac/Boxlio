@@ -63,6 +63,15 @@ class Map extends React.Component{
     this.socket.on('DELIVERY_GUY_CHANGE_LOCATION', (data) => {
           this.props.onChangeDeliveryGuyLocation(data);
     });
+
+    if(this.props.currentUser.activeDeliveryJob && !this.props.checkSet){
+      this.props.setActiveDeliveryJob(this.props.currentUser.activeDeliveryJob);
+      const data = {
+          locationName: this.props.currentUser.activeDeliveryJob.toName,
+          deliveryGuy: this.props.currentUser.activeDeliveryJob.deliveryGuy
+      };
+      this.props.onChangeDeliveryGuyLocation(data);
+    }
   }
 	render(){
 
@@ -150,7 +159,9 @@ const mapDispatchToProps = dispatch => ({
     onJoinSelfGroup: () =>
         dispatch({type: 'JOIN_SELF_GROUP'}),
     onChangeDeliveryGuyLocation: data =>
-        dispatch({type: 'CHANGE_DELIVERY_GUY_LOCATION', data})
+        dispatch({type: 'CHANGE_DELIVERY_GUY_LOCATION', data}),
+    setActiveDeliveryJob: job =>
+        dispatch({type: 'SET_ACTIVE_DELIVERY_JOB', job})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
