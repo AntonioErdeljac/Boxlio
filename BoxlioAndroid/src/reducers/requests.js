@@ -1,5 +1,17 @@
 export default (state={}, action) => {
     switch(action.type){
+        case 'SET_ACTIVE_DELIVERY_JOB':
+            return {
+                ...state,
+                deliveryGuy: Object.assign(action.job.deliveryGuy, action.job.deliveryGuy, {
+                    ...action.job.deliveryGuy,
+                    geometry: [action.job.deliveryGuy.geometry.coordinates[0], action.job.deliveryGuy.geometry.coordinates[1]]
+                }),
+                locationName: action.job.locationName,
+                requestAccepted: true,
+                requestSent: true,
+
+            };
         case 'LOGOUT':
             return {
                 ...state,

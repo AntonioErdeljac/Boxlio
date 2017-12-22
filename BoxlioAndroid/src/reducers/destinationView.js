@@ -1,5 +1,19 @@
 export default (state={placeToChoosen: true, transportation:null}, action) => {
 	switch(action.type){
+
+		case 'SET_ACTIVE_DELIVERY_JOB':
+            return {
+                ...state,
+				placeToChoosen: true,
+				placeFromChoosen: true,
+				from: action.job.fromName,
+				to: action.job.toName,
+				lat: action.job.fromLocation[0],
+				lng: action.job.fromLocation[1],
+                checkSet: true,
+				closeFromInput: true,
+				closeToInput: true
+            };
 		case 'SHOW_TO_INPUT':
 			return {
 				...state,
