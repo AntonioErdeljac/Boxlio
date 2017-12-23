@@ -98,7 +98,23 @@ class LoadingView extends React.Component{
                     <Text style={{color: 'rgba(0,0,0,.5)', fontFamily: 'VarelaRound-Regular', marginLeft: 10}}>{this.props.deliveryGuy.firstName} {this.props.deliveryGuy.lastName}</Text>
                         </Row>
                         <Row>
-                            <Text numberOfLines={2} style={{color: 'rgba(0,0,0,.3)', fontFamily: 'VarelaRound-Regular', marginLeft: 10, fontSize: 10}}>{this.props.locationName}</Text>
+                            <View  style={{
+                                backgroundColor: 'rgba(0,0,0,.03)',
+                                height: 15,
+                                width: 15,
+                                borderRadius: 50,
+                                marginLeft: 10,
+                                justifyContent: 'center',
+                                alignItems: 'center'}}>
+                                <View  style={{backgroundColor: '#fff', height: 12, width: 12, borderRadius: 50, justifyContent: 'center', alignItems: 'center'}}>
+                                    <View  style={{backgroundColor: '#F9C134', height: 10, width: 10, borderRadius: 50}}>
+
+                                    </View>
+                                </View>
+                            </View>
+                            <Text numberOfLines={2} style={{color: 'rgba(0,0,0,.3)', fontFamily: 'VarelaRound-Regular', marginLeft: 10, fontSize: 10}}>
+                                {this.props.locationName}
+                            </Text>
                         </Row>
                     </Grid>
                     <Right>

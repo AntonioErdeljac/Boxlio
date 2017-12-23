@@ -15,6 +15,8 @@ import SearchPlacesTo from "../SearchPlacesTo";
 import mapStyles from "../mapStyles";
 import LocationChooser from "../LocationChooser";
 import UserIcon from "../UserIcon";
+import MessageIcon from "../MessageIcon";
+import ExploreIcon from "../ExploreIcon";
 import {connect} from "react-redux";
 import SendRequestButton from "../SendRequestButton";
 import io from "socket.io-client";
@@ -210,7 +212,13 @@ class MapContainer extends React.Component{
 
 		return (
 		    <Container style={styles.container}>
-                <UserIcon navigation={this.props.navigation} />
+                <Grid>
+                    <Row>
+                        <ExploreIcon navigation={this.props.navigation} />
+                        <UserIcon navigation={this.props.navigation} />
+                        <MessageIcon navigation={this.props.navigation} />
+                    </Row>
+                </Grid>
 
 
                 {!this.props.requestAccepted && this.state.disableRequestComponents && this.props.closeFromInput ? null : <SearchPlacesFrom  />}

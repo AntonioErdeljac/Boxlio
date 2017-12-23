@@ -12,6 +12,7 @@ import {connect} from "react-redux";
 import MapContainer from "./MapContainer";
 import io from "socket.io-client";
 import {NavigatorActions} from "react-navigation";
+import agent from '../../../agent';
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 
@@ -21,56 +22,61 @@ class Map extends React.Component{
   }
   constructor(props){
     super(props);
+    if(this.props.currentUser){
 
-    this.watchId = navigator.geolocation.watchPosition(position => {
-        if(!this.props.placeFromChoosen){
-            this.socket.emit('SAVE_LOCATION', {
-                user: this.props.currentUser,
-                positionLat: position.coords.latitude,
-                positionLng: position.coords.longitude
-            });
-            this.props.onSetPosition(position);
-        }
-    }, null, {enableHighAccuracy: true});
 
-      navigator.geolocation.getCurrentPosition(position => {
-          if(!this.props.placeFromChoosen){
-              this.socket.emit('SAVE_LOCATION', {
-                  user: this.props.currentUser,
-                  positionLat: position.coords.latitude,
-                  positionLng: position.coords.longitude
+
+        this.socket = io('https://bc3837ab.ngrok.io');
+
+        this.watchId = navigator.geolocation.watchPosition(position => {
+            if(!this.props.placeFromChoosen && !this.props.currentUser.activeDeliveryJob){
+                this.socket.emit('SAVE_LOCATION', {
+                    user: this.props.currentUser,
+                    positionLat: position.coords.latitude,
+                    positionLng: position.coords.longitude
+                });
+                this.props.onSetPosition(position);
+            }
+        }, null, {enableHighAccuracy: true});
+
+          navigator.geolocation.getCurrentPosition(position => {
+              if(!this.props.placeFromChoosen && !this.props.currentUser.activeDeliveryJob){
+                  this.socket.emit('SAVE_LOCATION', {
+                      user: this.props.currentUser,
+                      positionLat: position.coords.latitude,
+                      positionLng: position.coords.longitude
+                  });
+                  this.props.onSetPosition(position);
+              }
+          }, null, {enableHighAccuracy: true});
+
+
+
+
+          if(!this.props.joinedSelfGroup){
+              this.props.onJoinSelfGroup();
+              this.socket.emit('JOIN_SELF_GROUP', {
+                  user: this.props.currentUser
               });
-              this.props.onSetPosition(position);
           }
-      }, null, {enableHighAccuracy: true});
 
-    this.socket = io('https://bc3837ab.ngrok.io');
+        this.socket.on('REQUEST_ACCEPTED', (data) => {
+            this.props.onRequestAccepted(data);
+        })
 
+        this.socket.on('DELIVERY_GUY_CHANGE_LOCATION', (data) => {
+              this.props.onChangeDeliveryGuyLocation(data);
+        });
 
-
-
-      if(!this.props.joinedSelfGroup){
-          this.props.onJoinSelfGroup();
-          this.socket.emit('JOIN_SELF_GROUP', {
-              user: this.props.currentUser
-          });
-      }
-
-    this.socket.on('REQUEST_ACCEPTED', (data) => {
-        this.props.onRequestAccepted(data);
-    })
-
-    this.socket.on('DELIVERY_GUY_CHANGE_LOCATION', (data) => {
+        if(this.props.currentUser.activeDeliveryJob && !this.props.checkSet){
+          this.props.setActiveDeliveryJob(this.props.currentUser.activeDeliveryJob);
+          const data = {
+              locationName: this.props.currentUser.activeDeliveryJob.toName,
+              deliveryGuy: this.props.currentUser.activeDeliveryJob.deliveryGuy,
+              toLocation: this.props.currentUser.activeDeliveryJob.toLocation
+          };
           this.props.onChangeDeliveryGuyLocation(data);
-    });
-
-    if(this.props.currentUser.activeDeliveryJob && !this.props.checkSet){
-      this.props.setActiveDeliveryJob(this.props.currentUser.activeDeliveryJob);
-      const data = {
-          locationName: this.props.currentUser.activeDeliveryJob.toName,
-          deliveryGuy: this.props.currentUser.activeDeliveryJob.deliveryGuy
-      };
-      this.props.onChangeDeliveryGuyLocation(data);
+        }
     }
   }
 	render(){
@@ -160,7 +166,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch({type: 'JOIN_SELF_GROUP'}),
     onChangeDeliveryGuyLocation: data =>
         dispatch({type: 'CHANGE_DELIVERY_GUY_LOCATION', data}),
-    setActiveDeliveryJob: job =>
+    setActiveDeliveryJob: (job) =>
         dispatch({type: 'SET_ACTIVE_DELIVERY_JOB', job})
 });
 

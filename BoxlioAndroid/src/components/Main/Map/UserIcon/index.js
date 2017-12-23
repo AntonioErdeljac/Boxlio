@@ -31,16 +31,16 @@ class UserIcon extends React.Component{
 const styles = StyleSheet.create({
 
   imageContainer: {
-    borderRadius: 65,
-    height: 65,
-    width: 65,
+    borderRadius: 70,
+    height: 70,
+    width: 70,
     backgroundColor: '#fff',
     borderColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
       overflow: 'hidden',
       shadowColor: '#000',
-      elevation: 2
+      elevation: 1
   },
   image: {
     flex: 1,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     height: 65,
     width: 65,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 	input: {
 		width: Dimensions.get('window').width-100,
@@ -68,12 +68,11 @@ const styles = StyleSheet.create({
 	},
   TouchableOpacityComponent:{
     zIndex: 1000,
-    height: 70 ,
-    width: 70,
-    borderRadius: 70,
+    height: 90 ,
+    width: 90,
+    borderRadius: 90,
     alignItems: 'center',
-    position: 'absolute',
-    top: 10
+      marginTop: 10,
   },
   searchTo: {
     zIndex: 1000,
@@ -83,9 +82,8 @@ const styles = StyleSheet.create({
     borderRadius: 70,
       elevation: 0,
     alignItems: 'center',
-    justifyContent: 'space-around',
     shadowColor: '#000',
-    backgroundColor: 'transparent',
+    backgroundColor: '#fff',
     position: 'absolute'
   },
   container: {
