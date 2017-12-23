@@ -28,6 +28,25 @@ class MapContainer extends React.Component{
                 disableRequestComponents: true
             })
         }
+
+        if(this.props.currentUser.activeDeliveryJob){
+            const mode = 'driving';
+            const origin = `${this.props.currentUser.geometry[0]}, ${this.props.currentUser.geometry[1]}`;
+            const destination = `${this.props.lat}, ${this.props.lng}`;
+            const APIKEY = 'AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
+            const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(responseJson => {
+                    if (responseJson.routes.length) {
+                        this.props.onSetDirections(this.decode(responseJson.routes[0].overview_polyline.points));
+                        this.setState({
+                            directionsCoords: this.decode(responseJson.routes[0].overview_polyline.points)
+                        })
+                    }
+                }).catch(e => {console.error(e)});
+        }
     }
     componentDidMount(){
     }

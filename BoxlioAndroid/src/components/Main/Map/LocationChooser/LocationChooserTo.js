@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import RNGooglePlaces from "react-native-google-places";
 import {Places} from 'google-places-web';
 Places.apiKey = 'AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
+import agent from "../../../../agent";
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 const CardItemAnimatable = Animatable.createAnimatableComponent(CardItem);
@@ -148,7 +149,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setTo: place =>
-        dispatch({type: 'SET_TO_SPECIAL', place})
+        dispatch({type: 'SET_TO_SPECIAL', place, payload: agent.Auth.update({geometry: [place.latitude, place.longitude]})})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LocationChooserTo);
