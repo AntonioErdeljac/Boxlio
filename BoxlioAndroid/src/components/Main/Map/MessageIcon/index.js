@@ -15,7 +15,7 @@ class MessageIcon extends React.Component{
     render(){
         if(this.props.currentUser){
             return (
-                <TouchableOpacity onPress={() => this.refs.user.bounceOut(300).then(() => this.props.navigation.navigate('options'))} style={styles.TouchableOpacityComponent}>
+                <TouchableOpacity onPress={() => this.refs.user.bounceOut(300).then(() => this.props.navigation.navigate('messages'))} style={styles.TouchableOpacityComponent}>
                     <Animatable.View  ref="user"  style={styles.searchTo}>
                         <View style={styles.imageContainer}>
                             <Icon name="envelope-o" style={{color: '#1fcf7c', fontSize: 17}}></Icon>
@@ -68,12 +68,11 @@ const styles = StyleSheet.create({
     },
     TouchableOpacityComponent:{
         zIndex: 1000,
-        height: 45 ,
-        width: 45,
-        borderRadius: 45,
+        height: 65 ,
+        width: 65,
+        borderRadius: 65,
         alignItems: 'center',
-        marginTop: 22,
-        elevation: 3
+        marginTop: 17,
     },
     searchTo: {
         zIndex: 1000,
@@ -81,7 +80,8 @@ const styles = StyleSheet.create({
         width: 45,
         borderColor: '#fff',
         borderRadius: 45,
-        elevation: 0,
+        elevation: 3,
+        marginTop: 5,
         alignItems: 'center',
         shadowColor: '#000',
         backgroundColor: '#fff',
