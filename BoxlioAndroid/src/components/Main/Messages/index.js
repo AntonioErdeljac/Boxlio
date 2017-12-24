@@ -61,8 +61,10 @@ class Messages extends React.Component{
                     <Content>
                         <Card style={{elevation: 0, borderColor: 'transparent'}}>
                             <CardItem>
-                                <Icon active name="ios-contact-outline" />
-                                <Grid>
+                                <View style={styles.imageContainer}>
+                                    <Image borderRadius={65} source={{uri: this.props.currentUser.image}} style={styles.image} />
+                                </View>
+                                <Grid style={{marginLeft: 13}}>
                                     <Row>
                                 <Text style={{fontFamily: 'VarelaRound-Regular', color: 'rgba(0,0,0,.8)'}}>Antonio Erdeljac</Text>
                                     </Row>
@@ -97,18 +99,17 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     imageContainer: {
-        height: 90,
-        width: 90,
-        borderRadius: 90,
-        elevation: 3,
-        shadowColor: '#000'
+        height: 45,
+        width: 45,
+        borderRadius: 100,
+        overflow: 'hidden',
     },
     image: {
         flex: 1,
         resizeMode: 'contain',
-        height: 90,
-        width: 90,
-        borderRadius: 90,
+        height: 45,
+        width: 45,
+        borderRadius: 100,
     },
     label: {
         color: 'rgba(0,0,0,.5)',

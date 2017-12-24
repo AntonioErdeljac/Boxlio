@@ -48,10 +48,14 @@ class Options extends React.Component{
 		return (
 			<ContainerAnimatable ref="options" animation="fadeInDown" style={styles.container}>
                 <TouchableOpacity onPress={this.goBack}>
-                    <CardItem>
-                        <Left>
-                            <Icon style={{color: 'rgba(0,0,0,.6)', fontSize: 30}} name="ios-arrow-round-back-outline" />
-                        </Left>
+                    <CardItem style={{justifyContent: 'center', alignItems: 'center'}}>
+
+                        <Icon name='ios-arrow-round-back-outline' style={{color: 'rgba(0,0,0,.6)', fontSize: 30}} />
+                        <Grid>
+                            <Row>
+                                <Text style={{color: 'rgba(0,0,0,.8)', fontFamily: 'VarelaRound-Regular', fontSize: 23,}}>Options</Text>
+                            </Row>
+                        </Grid>
                     </CardItem>
                 </TouchableOpacity>
                 <Content style={{marginTop: 30}}>
@@ -72,21 +76,7 @@ class Options extends React.Component{
                     </Grid>
                 </Content>
                 <Content>
-                    <Card>
-                        <CardItem>
-                            <Icon active name="ios-mail-outline" />
-                            <Text style={{fontFamily: 'VarelaRound-Regular'}}>Messages</Text>
-                            <Right>
-                                <Icon name="ios-arrow-forward-outline" />
-                            </Right>
-                        </CardItem>
-                        <CardItem>
-                            <Icon active name="ios-compass-outline" />
-                            <Text style={{fontFamily: 'VarelaRound-Regular'}}>Explore</Text>
-                            <Right>
-                                <Icon name="ios-arrow-forward-outline" />
-                            </Right>
-                        </CardItem>
+                    <Card style={{elevation: 0, borderColor: 'transparent'}}>
                         <CardItem>
                             <Icon active name="ios-options-outline" />
                             <Text style={{fontFamily: 'VarelaRound-Regular'}}>Settings</Text>
