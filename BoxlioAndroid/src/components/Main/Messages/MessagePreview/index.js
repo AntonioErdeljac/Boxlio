@@ -16,71 +16,78 @@ import {
     ActivityIndicator,
     Switch,
     Dimensions,
-    AsyncStorage} from "react-native";
+    AsyncStorage} from "react-native"
 import {Grid, Row, Col} from "react-native-easy-grid";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import {Actions} from "react-native-router-flux";
-import MessagePreview from './MessagePreview';
-import agent from "../../../agent";
+import agent from "../../../../agent";
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 const FormAnimated = Animatable.createAnimatableComponent(Form);
 const ActivityIndicatorAnimated = Animatable.createAnimatableComponent(ActivityIndicator);
 
-
-class Messages extends React.Component{
-
+class MessagePreview extends React.Component{
     componentWillMount(){
-        this.props.onLoad(agent.Clients.all())
+        const name = this.props.currentUser.username+'_and_'+this.props.client.username;
+
+        let myHeaders = new Headers();
+        myHeaders.append("Authorization", `Token ${this.props.currentUser.token}`);
+
+        fetch(`https://373fc370.ngrok.io/api/chatrooms/${name}/lastmessage`, {headers: myHeaders})
+            .then(results => {
+                return results.json()
+            }).then(data => handleData(data))
+
+        const handleData = data => {
+            function timeformat(date) {
+                let h = date.getHours();
+                let m = date.getMinutes();
+                let x = h >= 12 ? 'pm' : 'am';
+                h = h % 12;
+                h = h ? h : 12;
+                m = m < 10 ? '0'+m: m;
+                let mytime = h + ':' + m + ' ' + x;
+                return mytime;
+            }
+            const date = new Date(data.message.createdAt);
+            let finalDate = timeformat(date);
+            this.setState({
+                lastMessage: data.message.body,
+                lastMessageDate: finalDate
+            })
+        }
     }
 
     constructor(props){
         super(props);
 
-        this.goBack = () => {
-            this.refs.options.fadeOutDown(300).then(() => {
-                this.props.navigation.navigate('main')
-            })
-        };
-
-        this.handleLogout = () => {
-            this.props.onClickLogout();
-            this.props.navigation.navigate('logout')
-        };
+        this.state = {
+            lastMessage: null,
+            lastMessageDate: null
+        }
     }
 
     render(){
-        if(this.props.currentUser){
-            return (
-                <ContainerAnimatable ref="options" animation="fadeInDown" style={styles.container}>
-                    <TouchableOpacity onPress={this.goBack}>
-                        <CardItem style={{justifyContent: 'center', alignItems: 'center'}}>
-
-                            <Icon name='ios-arrow-round-back-outline' style={{color: 'rgba(0,0,0,.6)', fontSize: 30}} />
-                            <Grid>
-                                <Row>
-                                    <Text style={{color: 'rgba(0,0,0,.8)', fontFamily: 'VarelaRound-Regular', fontSize: 23,}}>Messages</Text>
-                                </Row>
-                            </Grid>
-                        </CardItem>
-                    </TouchableOpacity>
-                    
-                    {this.props.clients ?
-                        <Content>
-                            <Card style={{elevation: 0, borderColor: 'transparent'}}>
-                                {this.props.clients.map(client => {
-                                    return (
-                                        <MessagePreview client={client} key={client._id} />
-                                    )
-                                })}
-                            </Card>
-                        </Content>
-                     : null}
-                </ContainerAnimatable>
-            );
-        }
-        return null;
+        const {client} = this.props;
+        return (
+            <CardItem key={client._id}>
+                <View style={styles.imageContainer}>
+                    <Image borderRadius={65} source={{uri: client.image}} style={styles.image} />
+                </View>
+                <Grid style={{marginLeft: 13}}>
+                    <Row>
+                        <Text style={{fontFamily: 'VarelaRound-Regular', color: 'rgba(0,0,0,.8)'}}>{client.firstName} {client.lastName}</Text>
+                    </Row>
+                    <Row>
+                        <Text numberOfLines={1} style={{fontFamily: 'VarelaRound-Regular', color: 'rgba(0,0,0,.4)'}}>{this.state.lastMessage}</Text>
+                    </Row>
+                </Grid>
+                <Right>
+                    <Text style={{fontFamily: 'VarelaRound-Regular', color: 'rgba(0,0,0,.2)'}}>{this.state.lastMessageDate}</Text>
+                </Right>
+            </CardItem>
+        )
     }
 }
 
@@ -222,12 +229,11 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
     currentUser: state.common.currentUser,
     ...state.messages
-})
-
+});
 
 const mapDispatchToProps = dispatch => ({
-    onLoad: payload =>
-        dispatch({type: 'MESSAGES_PAGE_LOADED', payload})
-})
+    onLoad: name =>
+        dispatch({type: 'MESSAGE_PREVIEW_PAGE_LOADED', payload: agent.Clients.clientMessage(name)})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Messages);
+export default connect(mapStateToProps, mapDispatchToProps)(MessagePreview);

@@ -10,7 +10,8 @@ MessageSchema.methods.toJSON = function(){
     return {
         author: this.author.toProfileJSONFor(),
         receiver: this.receiver.toProfileJSONFor(),
-        body: this.body
+        body: this.body,
+        createdAt: this.createdAt
     };
 };
 

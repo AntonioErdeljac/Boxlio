@@ -88,4 +88,15 @@ router.get('/:name/messages', auth.required, function(req,res,next){
     }).catch(next);
 });
 
+router.get('/:name/lastmessage', auth.required, function(req,res,next){
+    User.findById(req.payload.id).then(function(user){
+        if(user.id.toString() === req.chat.users[0].id.toString() || req.payload.id.toString() === req.chat.users[1].id.toString()){
+            return res.json({
+                message: req.chat.messages[req.chat.messages.length-1]
+            })
+        }
+        return res.sendStatus(403);
+    }).catch(next);
+});
+
 module.exports = router;

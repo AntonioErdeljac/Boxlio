@@ -3,7 +3,7 @@ import superagentPromise from "superagent-promise";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = 'https://bc3837ab.ngrok.io/api';
+const API_ROOT = 'https://373fc370.ngrok.io/api';
 
 const getBody = res => res.body;
 
@@ -27,7 +27,9 @@ const Auth = {
 
 const Clients = {
     all: () =>
-        requests.get(`/clients`)
+        requests.get(`/clients`),
+	clientMessage: name =>
+		requests.get(`/${name}/lastmessage`)
 };
 
 let token = null;

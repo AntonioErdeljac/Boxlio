@@ -26,7 +26,7 @@ class Map extends React.Component{
 
 
 
-        this.socket = io('https://bc3837ab.ngrok.io');
+        this.socket = io('https://373fc370.ngrok.io');
 
         this.watchId = navigator.geolocation.watchPosition(position => {
             if(!this.props.placeFromChoosen && !this.props.currentUser.activeDeliveryJob){
