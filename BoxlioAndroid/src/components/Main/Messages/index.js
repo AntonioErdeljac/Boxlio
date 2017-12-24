@@ -21,6 +21,7 @@ import {Grid, Row, Col} from "react-native-easy-grid";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import {Actions} from "react-native-router-flux";
+import agent from "../../../agent";
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 const FormAnimated = Animatable.createAnimatableComponent(Form);
@@ -28,6 +29,11 @@ const ActivityIndicatorAnimated = Animatable.createAnimatableComponent(ActivityI
 
 
 class Messages extends React.Component{
+
+    componentWillMount(){
+        this.props.onLoad(agent.Clients.all())
+    }
+
     constructor(props){
         super(props);
 
@@ -58,26 +64,32 @@ class Messages extends React.Component{
                             </Grid>
                         </CardItem>
                     </TouchableOpacity>
-                    <Content>
-                        <Card style={{elevation: 0, borderColor: 'transparent'}}>
-                            <CardItem>
-                                <View style={styles.imageContainer}>
-                                    <Image borderRadius={65} source={{uri: this.props.currentUser.image}} style={styles.image} />
-                                </View>
-                                <Grid style={{marginLeft: 13}}>
-                                    <Row>
-                                <Text style={{fontFamily: 'VarelaRound-Regular', color: 'rgba(0,0,0,.8)'}}>Antonio Erdeljac</Text>
-                                    </Row>
-                                    <Row>
-                                        <Text style={{fontFamily: 'VarelaRound-Regular', color: 'rgba(0,0,0,.3)'}}>Hej jesi li...</Text>
-                                    </Row>
-                                </Grid>
-                                <Right>
-                                    <Text style={{fontFamily: 'VarelaRound-Regular', color: 'rgba(0,0,0,.3)'}}>12:33</Text>
-                                </Right>
-                            </CardItem>
-                        </Card>
-                    </Content>
+                    {this.props.clients ?
+                        <Content>
+                            <Card style={{elevation: 0, borderColor: 'transparent'}}>
+                                {this.props.clients.map(client => {
+                                    return (
+                                        <CardItem key={client._id}>
+                                            <View style={styles.imageContainer}>
+                                                <Image borderRadius={65} source={{uri: client.image}} style={styles.image} />
+                                            </View>
+                                            <Grid style={{marginLeft: 13}}>
+                                                <Row>
+                                            <Text style={{fontFamily: 'VarelaRound-Regular', color: 'rgba(0,0,0,.8)'}}>{client.firstName} {client.lastName}</Text>
+                                                </Row>
+                                                <Row>
+                                                    <Text style={{fontFamily: 'VarelaRound-Regular', color: 'rgba(0,0,0,.4)'}}>Hej jesi li...</Text>
+                                                </Row>
+                                            </Grid>
+                                            <Right>
+                                                <Text style={{fontFamily: 'VarelaRound-Regular', color: 'rgba(0,0,0,.2)'}}>12:33</Text>
+                                            </Right>
+                                        </CardItem>
+                                    )
+                                })}
+                            </Card>
+                        </Content>
+                     : null}
                 </ContainerAnimatable>
             );
         }
@@ -221,13 +233,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    currentUser: state.common.currentUser
+    currentUser: state.common.currentUser,
+    ...state.messages
 })
 
 
 const mapDispatchToProps = dispatch => ({
-    onClickLogout: () =>
-        dispatch({type: 'LOGOUT'})
+    onLoad: payload =>
+        dispatch({type: 'MESSAGES_PAGE_LOADED', payload})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Messages);

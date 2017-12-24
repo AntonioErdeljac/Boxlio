@@ -25,6 +25,11 @@ const Auth = {
 		requests.put('/user', {user})
 };
 
+const Clients = {
+    all: () =>
+        requests.get(`/clients`)
+};
+
 let token = null;
 let tokenPlugin = req => {
 	if(token){
@@ -34,5 +39,6 @@ let tokenPlugin = req => {
 
 export default {
 	Auth,
+	Clients,
 	setToken: _token => {token = _token}
 }

@@ -6,13 +6,15 @@ import common from "./reducers/common";
 import destinationView from "./reducers/destinationView";
 import navigator from "./reducers/navigator";
 import requests from "./reducers/requests";
+import messages from "./reducers/messages";
 
 const reducer = combineReducers({
 	auth,
 	common,
 	navigator,
 	destinationView,
-    requests
+    requests,
+	messages
 });
 
 const store = createStore(reducer, applyMiddleware(promiseMiddleware, localStorageMiddleware));
