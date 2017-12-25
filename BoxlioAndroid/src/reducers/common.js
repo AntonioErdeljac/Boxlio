@@ -1,5 +1,18 @@
 export default (state={}, action) => {
 	switch(action.type){
+		case 'REMOVE_ALERT_MESSAGE':
+			return {
+				...state,
+				currentUser: action.payload ? action.payload.user : state.currentUser
+			};
+        case 'ALERT_MESSAGE':
+            return {
+                ...state,
+                currentUser: Object.assign({}, {}, {
+                    ...state.currentUser,
+                    alertMessage: true
+                })
+            };
 		case 'APP_LOADED':
 			return {
 				...state,

@@ -7,7 +7,7 @@ export default (state={}, action) => {
                     ...action.job.deliveryGuy,
                     geometry: [action.job.deliveryGuy.geometry.coordinates[0], action.job.deliveryGuy.geometry.coordinates[1]]
                 }),
-                locationName: action.job.locationName,
+                locationName: action.job.deliveryGuyLocationName,
                 requestAccepted: true,
                 requestSent: true,
 

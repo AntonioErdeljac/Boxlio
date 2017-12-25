@@ -68,6 +68,10 @@ class Map extends React.Component{
               this.props.onChangeDeliveryGuyLocation(data);
         });
 
+        this.socket.on('RECEIVE_MESSAGE', (data) => {
+            this.props.onAlertMessage(data);
+        })
+
         if(this.props.currentUser.activeDeliveryJob && !this.props.checkSet){
           this.props.setActiveDeliveryJob(this.props.currentUser.activeDeliveryJob);
           const data = {
@@ -167,7 +171,9 @@ const mapDispatchToProps = dispatch => ({
     onChangeDeliveryGuyLocation: data =>
         dispatch({type: 'CHANGE_DELIVERY_GUY_LOCATION', data}),
     setActiveDeliveryJob: (job) =>
-        dispatch({type: 'SET_ACTIVE_DELIVERY_JOB', job})
+        dispatch({type: 'SET_ACTIVE_DELIVERY_JOB', job}),
+    onAlertMessage: data =>
+        dispatch({type: 'ALERT_MESSAGE', data})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

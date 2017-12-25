@@ -34,6 +34,8 @@ class Messages extends React.Component{
 
     componentWillMount(){
         this.props.onLoad(agent.Clients.all())
+
+        this.props.onRemoveAlertMessages(agent.Auth.update({alertMessage: false}));
     }
 
     constructor(props){
@@ -251,7 +253,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onLoad: payload =>
-        dispatch({type: 'MESSAGES_PAGE_LOADED', payload})
+        dispatch({type: 'MESSAGES_PAGE_LOADED', payload}),
+    onRemoveAlertMessages: payload =>
+        dispatch({type: 'REMOVE_ALERT_MESSAGE', payload})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Messages);

@@ -23,6 +23,7 @@ import {connect} from "react-redux";
 import {Actions} from "react-native-router-flux";
 import MessagePreview from './MessagePreview';
 import agent from "../../../agent";
+import io from "socket.io-client";
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 const FormAnimated = Animatable.createAnimatableComponent(Form);
@@ -38,11 +39,35 @@ class Chat extends React.Component{
         ]))
     }
 
+    componentWillUnmount(){
+        let name = this.props.currentUser.deliveryMode ? this.props.currentUser.username+'_and_'+this.props.navigation.state.params.client.username : this.props.navigation.state.params.client.username+'_and_'+this.props.currentUser.username;
+        this.socket.emit('LEAVE_CHATROOM', {
+            name: name
+        })
+    }
+
+    constructor(props){
+        super(props);
+
+
+        this.socket = io('https://373fc370.ngrok.io')
+
+        let name = this.props.currentUser.deliveryMode ? this.props.currentUser.username+'_and_'+this.props.navigation.state.params.client.username : this.props.navigation.state.params.client.username+'_and_'+this.props.currentUser.username;
+        this.socket.emit('JOIN_CHATROOM', {
+            name: name
+        })
+
+
+        this.socket.on('RECEIVE_MESSAGE', (data) => {
+            this.props.onAddMessage(data);
+        })
+    }
+
     render(){
         if(this.props.currentUser){
             return (
                 <ContainerAnimatable ref="options" animation="fadeInDown" style={styles.container}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('messages')}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('messages')} style={{elevation: 18}}>
                         <CardItem style={{justifyContent: 'center', alignItems: 'center'}}>
 
                             <Icon name='ios-arrow-round-back-outline' style={{color: 'rgba(0,0,0,.6)', fontSize: 30}} />
@@ -61,17 +86,65 @@ class Chat extends React.Component{
                         {(this.props.messages || []).map(message => {
                             return (
                                 <Grid key={Math.random()}>
-                                    <Row>
-                                        <View style={message.author.username !== this.props.currentUser.username ? {backgroundColor: '#1fcf7c', margin: 10, borderRadius: 10, padding: 10} : {backgroundColor: 'rgba(0,0,0,.07)', margin: 10, borderRadius: 10, padding: 10}} >
-                                            <Text style={message.author.username !== this.props.currentUser.username ? {fontFamily: 'VarelaRound-Regular', color: '#fff'} : {fontFamily: 'VarelaRound-Regular', color: 'rgba(0,0,0,.5)'}}>{message.body}</Text>
-                                        </View>
-                                    </Row>
+                                    {message.author.username !== this.props.currentUser.username ?
+                                        <Left>
+                                            <Row>
+                                                <View
+                                                    style={message.author.username !== this.props.currentUser.username ? {
+                                                        backgroundColor: 'rgba(0,0,0,.07)',
+                                                        margin: 10,
+                                                        borderRadius: 10,
+                                                        padding: 10
+                                                    } : {
+                                                        backgroundColor: '#1fcf7c',
+                                                        margin: 10,
+                                                        borderRadius: 10,
+                                                        padding: 10
+                                                    }}>
+                                                    <Text
+                                                        style={message.author.username !== this.props.currentUser.username ? {
+                                                            fontFamily: 'VarelaRound-Regular',
+                                                            color: 'rgba(0,0,0,.5)'
+                                                        } : {
+                                                            fontFamily: 'VarelaRound-Regular',
+                                                            color: '#fff'
+                                                        }}>{message.body}</Text>
+                                                </View>
+                                            </Row>
+                                        </Left>
+                                        :
+                                        <Right>
+                                            <Row>
+                                                <View
+                                                    style={message.author.username !== this.props.currentUser.username ? {
+                                                        backgroundColor: 'rgba(0,0,0,.07)',
+                                                        margin: 10,
+                                                        borderRadius: 10,
+                                                        padding: 10
+                                                    } : {
+                                                        backgroundColor: '#1fcf7c',
+                                                        margin: 10,
+                                                        borderRadius: 10,
+                                                        padding: 10
+                                                    }}>
+                                                    <Text
+                                                        style={message.author.username !== this.props.currentUser.username ? {
+                                                            fontFamily: 'VarelaRound-Regular',
+                                                            color: 'rgba(0,0,0,.5)'
+                                                        } : {
+                                                            fontFamily: 'VarelaRound-Regular',
+                                                            color: '#fff'
+                                                        }}>{message.body}</Text>
+                                                </View>
+                                            </Row>
+                                        </Right>
+                                    }
                                 </Grid>
                             )
                         })}
                     </ScrollView>
                     </Container>
-                    <CardItem style={{position: 'absolute', bottom: 10, borderTopColor: 'rgba(0,0,0,.1)', borderTopWidth: 1}}>
+                    <CardItem style={{position: 'absolute', bottom: 0, elevation: 10}}>
                         <Grid>
                             <Col size={4}>
                         <TextInput
@@ -249,7 +322,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onLoad: payload =>
-        dispatch({type: 'CHAT_PAGE_LOADED', payload})
+        dispatch({type: 'CHAT_PAGE_LOADED', payload}),
+    onAddMessage: data =>
+        dispatch({type: 'ADD_MESSAGE', data})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

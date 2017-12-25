@@ -17,8 +17,8 @@ class MessageIcon extends React.Component{
             return (
                 <TouchableOpacity onPress={() => this.refs.user.bounceOut(300).then(() => this.props.navigation.navigate('messages'))} style={styles.TouchableOpacityComponent}>
                     <Animatable.View  ref="user"  style={styles.searchTo}>
-                        <View style={styles.imageContainer}>
-                            <Icon name="envelope-o" style={{color: '#1fcf7c', fontSize: 17}}></Icon>
+                        <View style={this.props.currentUser.alertMessage ? styles.imageContainerAlt : styles.imageContainer}>
+                            <Icon name="envelope-o" style={this.props.currentUser.alertMessage ? {color: '#fff', fontSize: 17} : {color: '#1fcf7c', fontSize: 17}}></Icon>
                         </View>
                     </Animatable.View>
                 </TouchableOpacity>
@@ -35,6 +35,18 @@ const styles = StyleSheet.create({
         height: 45,
         width: 45,
         backgroundColor: '#fff',
+        borderColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        overflow: 'hidden',
+        shadowColor: '#000',
+        elevation: 0
+    },
+    imageContainerAlt: {
+        borderRadius: 45,
+        height: 45,
+        width: 45,
+        backgroundColor: '#1fcf7c',
         borderColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
@@ -85,6 +97,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         shadowColor: '#000',
         backgroundColor: '#fff',
+        position: 'absolute'
+    },
+    searchToAlternative: {
+        zIndex: 1000,
+        height: 45 ,
+        width: 45,
+        borderColor: '#1fcf7c',
+        borderRadius: 45,
+        elevation: 3,
+        marginTop: 5,
+        alignItems: 'center',
+        shadowColor: '#000',
+        backgroundColor: '#1fcf7c',
         position: 'absolute'
     },
     container: {

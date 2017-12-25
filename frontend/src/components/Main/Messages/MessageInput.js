@@ -9,11 +9,11 @@ class MessageInput extends React.Component{
     constructor(props){
         super(props);
 
-        this.socket = io('localhost:8000')
+        this.socket = io('localhost:8000');
         this.state = {
             author: this.props.currentUser,
             body: ''
-        }
+        };
         const author = this.props.currentUser;
 
         this.setBody = ev => this.setState({body: ev.target.value});
