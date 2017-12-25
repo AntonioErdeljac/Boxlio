@@ -80,6 +80,7 @@ class Messages extends React.Component{
                             onChangeText={(text) => this.setState({search: text})}
                             value={this.state.search}
                             style={styles.input}
+                            underlineColorAndroid='rgba(0,0,0,0)'
                             placeholderTextColor="gray"
                             placeholder="Search clients"/>
                     </CardItem>

@@ -32,6 +32,15 @@ const Clients = {
 		requests.get(`/${name}/lastmessage`)
 };
 
+const Chat = {
+    byName: name =>
+        requests.get(`/chatrooms/${name}`),
+    messagesByName: name =>
+        requests.get(`/chatrooms/${name}/messages`),
+    all: () =>
+        requests.get(`/chatrooms`)
+};
+
 let token = null;
 let tokenPlugin = req => {
 	if(token){
@@ -42,5 +51,6 @@ let tokenPlugin = req => {
 export default {
 	Auth,
 	Clients,
+	Chat,
 	setToken: _token => {token = _token}
 }

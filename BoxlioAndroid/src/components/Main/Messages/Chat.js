@@ -30,6 +30,13 @@ const ActivityIndicatorAnimated = Animatable.createAnimatableComponent(ActivityI
 
 
 class Chat extends React.Component{
+    componentWillMount(){
+        let name = this.props.currentUser.deliveryMode ? this.props.currentUser.username+'_and_'+this.props.navigation.state.params.client.username : this.props.navigation.state.params.client.username+'_and_'+this.props.currentUser.username;
+        this.props.onLoad(Promise.all([
+            agent.Chat.byName(name),
+            agent.Chat.messagesByName(name)
+        ]))
+    }
 
     render(){
         if(this.props.currentUser){
@@ -46,7 +53,33 @@ class Chat extends React.Component{
                             </Grid>
                         </CardItem>
                     </TouchableOpacity>
+                    <Container>
+                    <ScrollView
+                        ref="scrollView"
+                        onContentSizeChange={(width,height) => this.refs.scrollView.scrollTo({y:height})}
+                        style={{margin: 10, marginBottom: 100,}}>
+                        {(this.props.messages || []).map(message => {
+                            return (
+                                <Grid key={Math.random()}>
+                                    <Row>
+                                        <View style={message.author.username !== this.props.currentUser.username ? {backgroundColor: '#1fcf7c', margin: 10, borderRadius: 10, padding: 10} : {backgroundColor: 'rgba(0,0,0,.07)', margin: 10, borderRadius: 10, padding: 10}} >
+                                            <Text style={message.author.username !== this.props.currentUser.username ? {fontFamily: 'VarelaRound-Regular', color: '#fff'} : {fontFamily: 'VarelaRound-Regular', color: 'rgba(0,0,0,.5)'}}>{message.body}</Text>
+                                        </View>
+                                    </Row>
+                                </Grid>
+                            )
+                        })}
+                    </ScrollView>
+                    </Container>
+                    <CardItem style={{position: 'absolute', bottom: 10, borderTopColor: 'rgba(0,0,0,.1)', borderTopWidth: 1}}>
+                        <TextInput
+                            underlineColorAndroid='rgba(0,0,0,0)'
+                            style={styles.input}
+                            placeholderTextColor="gray"
+                            placeholder="Write a message"/>
 
+                        <Icon name='ios-paper-plane-outline' style={{color: 'rgba(0,0,0,.6)', fontSize: 30}} />
+                    </CardItem>
                 </ContainerAnimatable>
             );
         }
@@ -55,6 +88,16 @@ class Chat extends React.Component{
 }
 
 const styles = StyleSheet.create({
+
+    input: {
+        width: Dimensions.get('window').width-70,
+        marginRight: 10,
+        backgroundColor: 'transparent',
+        fontSize: 14,
+        fontFamily: 'VarelaRound-Regular',
+        color: 'rgba(0,0,0,.5)',
+
+    },
     username: {
         justifyContent: 'center',
         fontFamily: 'VarelaRound-Regular',
@@ -68,16 +111,16 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     imageContainer: {
-        height: 45,
-        width: 45,
+        height: 25,
+        width: 25,
         borderRadius: 100,
         overflow: 'hidden',
     },
     image: {
         flex: 1,
         resizeMode: 'contain',
-        height: 45,
-        width: 45,
+        height: 25,
+        width: 25,
         borderRadius: 100,
     },
     label: {
@@ -191,13 +234,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     currentUser: state.common.currentUser,
-    ...state.messages
+    ...state.messages,
+    ...state.chat
 })
 
 
 const mapDispatchToProps = dispatch => ({
     onLoad: payload =>
-        dispatch({type: 'MESSAGES_PAGE_LOADED', payload})
-})
+        dispatch({type: 'CHAT_PAGE_LOADED', payload})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

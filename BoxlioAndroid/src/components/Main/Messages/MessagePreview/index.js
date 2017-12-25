@@ -72,7 +72,7 @@ class MessagePreview extends React.Component{
         const {client} = this.props;
         return (
 
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('chat', {client: this.props.client})}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('chat', {client: this.props.client})} style={{justifyContent: 'center', alignItems: 'center'}}>
             <CardItem key={client._id}>
                 <View style={styles.imageContainer}>
                     <Image borderRadius={65} source={{uri: client.image}} style={styles.image} />
@@ -89,7 +89,7 @@ class MessagePreview extends React.Component{
                     <Text style={{fontFamily: 'VarelaRound-Regular', color: 'rgba(0,0,0,.2)'}}>{this.state.lastMessageDate}</Text>
                 </Right>
             </CardItem>
-
+            <View style={{width: Dimensions.get('window').width-30, height: 1, backgroundColor: 'rgba(0,0,0,.08)', justifyContent: 'space-around', alignItems: 'center'}}></View>
             </TouchableOpacity>
         )
     }
