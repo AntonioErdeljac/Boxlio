@@ -72,13 +72,20 @@ class Chat extends React.Component{
                     </ScrollView>
                     </Container>
                     <CardItem style={{position: 'absolute', bottom: 10, borderTopColor: 'rgba(0,0,0,.1)', borderTopWidth: 1}}>
+                        <Grid>
+                            <Col size={4}>
                         <TextInput
                             underlineColorAndroid='rgba(0,0,0,0)'
                             style={styles.input}
                             placeholderTextColor="gray"
                             placeholder="Write a message"/>
-
-                        <Icon name='ios-paper-plane-outline' style={{color: 'rgba(0,0,0,.6)', fontSize: 30}} />
+                            </Col>
+                            <Right>
+                                <TouchableOpacity style={{borderRadius: 10, backgroundColor: '#1fcf7c', height: 30, width: 30, alignItems: 'center', justifyContent: 'center'}}>
+                                    <Icon name='ios-paper-plane-outline' style={{color: '#fff', fontSize: 20, alignItems: 'center', justifyContent: 'space-around'}} />
+                                </TouchableOpacity>
+                            </Right>
+                        </Grid>
                     </CardItem>
                 </ContainerAnimatable>
             );
@@ -91,7 +98,8 @@ const styles = StyleSheet.create({
 
     input: {
         width: Dimensions.get('window').width-70,
-        marginRight: 10,
+        height: 40,
+        marginRight: 30,
         backgroundColor: 'transparent',
         fontSize: 14,
         fontFamily: 'VarelaRound-Regular',
