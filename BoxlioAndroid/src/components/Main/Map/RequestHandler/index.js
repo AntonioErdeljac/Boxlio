@@ -118,7 +118,7 @@ class LoadingView extends React.Component{
                         </Row>
                     </Grid>
                     <Right>
-                        <TouchableOpacity style={{backgroundColor: '#2d89e5', borderRadius: 10, padding: 15}}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('chat', {client: this.props.deliveryGuy})} style={{backgroundColor: '#2d89e5', borderRadius: 10, padding: 15}}>
                             <Icon name="envelope" style={{color: '#fff'}} />
                         </TouchableOpacity>
                     </Right>

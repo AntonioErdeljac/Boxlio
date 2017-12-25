@@ -16,8 +16,7 @@ import {
     ActivityIndicator,
     Switch,
     Dimensions,
-    AsyncStorage, Keyboard
-} from "react-native";
+    AsyncStorage} from "react-native";
 import {Grid, Row, Col} from "react-native-easy-grid";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
@@ -30,65 +29,24 @@ const FormAnimated = Animatable.createAnimatableComponent(Form);
 const ActivityIndicatorAnimated = Animatable.createAnimatableComponent(ActivityIndicator);
 
 
-class Messages extends React.Component{
-
-    componentWillMount(){
-        this.props.onLoad(agent.Clients.all())
-    }
-
-    constructor(props){
-        super(props);
-
-        this.goBack = () => {
-            this.refs.options.fadeOutDown(300).then(() => {
-                this.props.navigation.navigate('main')
-            })
-        };
-
-        this.handleLogout = () => {
-            this.props.onClickLogout();
-            this.props.navigation.navigate('logout')
-        };
-
-        this.state = {
-            search: ''
-        }
-    }
+class Chat extends React.Component{
 
     render(){
-        if(this.props.currentUser && this.props.clients){
-            let filteredClients = this.props.clients.filter(client => client.firstName.toLowerCase().indexOf(this.state.search.toLowerCase().split(' ').join('')) !== -1 || client.lastName.toLowerCase().indexOf(this.state.search.toLowerCase().split(' ').join('')) !== -1)
+        if(this.props.currentUser){
             return (
                 <ContainerAnimatable ref="options" animation="fadeInDown" style={styles.container}>
-                    <TouchableOpacity onPress={this.goBack}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('messages')}>
                         <CardItem style={{justifyContent: 'center', alignItems: 'center'}}>
 
                             <Icon name='ios-arrow-round-back-outline' style={{color: 'rgba(0,0,0,.6)', fontSize: 30}} />
                             <Grid>
                                 <Row>
-                                    <Text style={{color: 'rgba(0,0,0,.8)', fontFamily: 'VarelaRound-Regular', fontSize: 23,}}>Messages</Text>
+                                    <Text style={{color: 'rgba(0,0,0,.8)', fontFamily: 'VarelaRound-Regular', fontSize: 23,}}>{this.props.navigation.state.params.client.firstName} {this.props.navigation.state.params.client.lastName}</Text>
                                 </Row>
                             </Grid>
                         </CardItem>
                     </TouchableOpacity>
-                    <CardItem>
-                        <Icon name='ios-search-outline' style={{color: 'rgba(0,0,0,.6)', fontSize: 30}} />
-                        <TextInput
-                            onChangeText={(text) => this.setState({search: text})}
-                            value={this.state.search}
-                            style={styles.input}
-                            placeholderTextColor="gray"
-                            placeholder="Search clients"/>
-                    </CardItem>
-                        <Content>
-                            <Card style={{elevation: 0, borderColor: 'transparent'}}>
-                                {filteredClients.map(client => {
-                                    return (
-                                        <MessagePreview navigation={this.props.navigation} client={client} key={client._id} />
-                                    )
-                                })}
-                            </Card>
-                        </Content>
+
                 </ContainerAnimatable>
             );
         }
@@ -97,14 +55,6 @@ class Messages extends React.Component{
 }
 
 const styles = StyleSheet.create({
-    input: {
-        width: Dimensions.get('window').width-100,
-        backgroundColor: 'transparent',
-        fontSize: 14,
-        fontFamily: 'VarelaRound-Regular',
-        color: 'rgba(0,0,0,.5)',
-
-    },
     username: {
         justifyContent: 'center',
         fontFamily: 'VarelaRound-Regular',
@@ -250,4 +200,4 @@ const mapDispatchToProps = dispatch => ({
         dispatch({type: 'MESSAGES_PAGE_LOADED', payload})
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Messages);
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);
