@@ -57,7 +57,10 @@ class Messages extends React.Component{
 
     render(){
         if(this.props.currentUser && this.props.clients){
-            let filteredClients = this.props.clients.filter(client => client.firstName.toLowerCase().indexOf(this.state.search.toLowerCase().split(' ').join('')) !== -1 || client.lastName.toLowerCase().indexOf(this.state.search.toLowerCase().split(' ').join('')) !== -1)
+            let filteredClients = this.props.clients.filter(client => {
+                let string = client.firstName.toLowerCase()+''+client.lastName.toLowerCase();
+                return string.indexOf(this.state.search.toLowerCase().split(' ').join('')) !== -1
+            })
             return (
                 <ContainerAnimatable ref="options" animation="fadeInDown" style={styles.container}>
                     <TouchableOpacity onPress={this.goBack}>
