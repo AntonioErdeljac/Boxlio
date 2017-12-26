@@ -18,6 +18,15 @@ export default (state={}, action) => {
                 requestSent: false,
                 reanimateComponents: true
             };
+        case 'RECEIVE_CANCEL_FROM_DELIVERY_GUY':
+            return {
+                ...state,
+                requestSent: false,
+                deliveryGuy: null,
+                locationName: null,
+                requestAccepted: false,
+                reanimateComponents: true
+            };
         case 'CANCEL_SEND_REQUEST':
             return {
                 ...state,

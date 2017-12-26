@@ -659,6 +659,12 @@ exports = module.exports = function(io){
                                         io.in(data.deliveryGuy.username).emit('SUCCESS_REQUEST_ACCEPTED', {
                                             client: data.client
                                         })
+                                        io.in(data.client.username).emit('RECEIVE_MESSAGE', {
+                                            message: message
+                                        })
+                                        io.in(data.deliveryGuy.username).emit('RECEIVE_MESSAGE', {
+                                            message: messageTwo
+                                        })
                                     })
                                 }
                                 else if(!chat){
@@ -688,6 +694,12 @@ exports = module.exports = function(io){
                                         });
                                         io.in(data.deliveryGuy.username).emit('SUCCESS_REQUEST_ACCEPTED', {
                                             client: data.client
+                                        })
+                                        io.in(data.client.username).emit('RECEIVE_MESSAGE', {
+                                            message: message
+                                        })
+                                        io.in(data.deliveryGuy.username).emit('RECEIVE_MESSAGE', {
+                                            message: messageTwo
                                         })
                                     })
                                 }

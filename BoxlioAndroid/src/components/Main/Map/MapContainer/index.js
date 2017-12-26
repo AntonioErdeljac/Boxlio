@@ -91,6 +91,12 @@ class MapContainer extends React.Component{
             })
         }
 
+        if(nextProps.requestCanceled){
+            this.setState({
+                directionsCoords: null
+            })
+        }
+
         if(nextProps.to){
             this.setState({
                 to: nextProps.to
