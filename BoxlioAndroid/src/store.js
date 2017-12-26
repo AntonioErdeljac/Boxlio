@@ -8,9 +8,11 @@ import navigator from "./reducers/navigator";
 import requests from "./reducers/requests";
 import messages from "./reducers/messages";
 import chat from "./reducers/chat";
+import explore from "./reducers/explore";
 
 const reducer = combineReducers({
 	auth,
+	explore,
 	common,
 	navigator,
 	destinationView,

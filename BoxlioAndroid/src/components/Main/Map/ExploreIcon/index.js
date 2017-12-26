@@ -15,7 +15,7 @@ class ExploreIcon extends React.Component{
     render(){
         if(this.props.currentUser){
             return (
-                <TouchableOpacity  onPress={() => this.refs.user.bounceOut(300).then(() => this.props.navigation.navigate('options'))} style={styles.TouchableOpacityComponent}>
+                <TouchableOpacity  onPress={() => this.refs.user.bounceOut(300).then(() => this.props.navigation.navigate('explore'))} style={styles.TouchableOpacityComponent}>
                     <Animatable.View  ref="user" style={styles.searchTo}>
                         <View style={styles.imageContainer}>
                             <Icon name="compass" style={{color: '#1fcf7c', fontSize: 17}}></Icon>
