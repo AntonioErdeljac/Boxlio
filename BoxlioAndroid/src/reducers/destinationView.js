@@ -3,13 +3,11 @@ export default (state={placeToChoosen: true, transportation:null}, action) => {
 		case "RECEIVE_CANCEL_FROM_DELIVERY_GUY":
 			return {
 				...state,
-				placeToChoosen: false,
 				placeFromChoosen: false,
 				from: null,
 				lat: null,
 				lng: null,
 				closeFromInput: false,
-				closeToInput: false,
 				requestCanceled: true
 			};
 		case 'SET_ACTIVE_DELIVERY_JOB':
