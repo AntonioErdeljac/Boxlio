@@ -437,16 +437,31 @@ exports = module.exports = function(io){
                 {type: 'Point', coordinates: [client.geometry.coordinates[0], client.geometry.coordinates[1]]},
                 {maxDistance: 50000, spherical: true}
             ).then(function(users){
-                let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode === true && user.obj.available === true );
-                let user = filteredUsers[Math.floor(Math.random()*filteredUsers.length)];
-                console.log(user, 'ovo trayimo');
-                if(user){
-                    if(user.obj.deliveryMode) {
-                        console.log('sve je u redu')
-                        if(data.transportation !== ''){
-                            console.log('sve je u redu')
-                            if(user.obj.transportation === data.transportation && user.obj.isDelivering === false && user.obj.isOrdering === false){
-                                console.log('saljem korisniku', user.obj.username);
+                if(data.transportation !== ''){
+                    let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode === true && user.obj.available === true && user.obj.transportation === data.transportation);
+                    let user = filteredUsers[Math.floor(Math.random()*filteredUsers.length)];
+                    console.log(user, 'ovo trayimo');
+                    if(user){
+                        if(user.obj.deliveryMode) {
+                            console.log(data.transportation, 'koja vrsta')
+                            if(data.transportation !== ''){
+                                console.log(user.obj.transportation, data.transportation)
+                                if(user.obj.transportation === data.transportation && user.obj.isDelivering === false && user.obj.isOrdering === false){
+                                    console.log('saljem korisniku', user.obj.username);
+                                    io.in(user.obj.username).emit('REQUEST_DRIVER_CLIENT', {
+                                        client: client.toProfileJSONFor(),
+                                        from: data.from,
+                                        to: data.to,
+                                        price: data.price,
+                                        item: data.item,
+                                        lat: data.lat,
+                                        lng: data.lng,
+                                        clientLat: data.clientLat,
+                                        clientLng: data.clientLng
+                                    });
+                                }
+                            } else if(user.obj.isDelivering === false && user.obj.isOrdering === false) {
+                                console.log('saljem korisniku2', user.obj.username);
                                 io.in(user.obj.username).emit('REQUEST_DRIVER_CLIENT', {
                                     client: client.toProfileJSONFor(),
                                     from: data.from,
@@ -459,19 +474,45 @@ exports = module.exports = function(io){
                                     clientLng: data.clientLng
                                 });
                             }
-                        } else if(user.obj.isDelivering === false && user.obj.isOrdering === false) {
-                            console.log('saljem korisniku2', user.obj.username);
-                            io.in(user.obj.username).emit('REQUEST_DRIVER_CLIENT', {
-                                client: client.toProfileJSONFor(),
-                                from: data.from,
-                                to: data.to,
-                                price: data.price,
-                                item: data.item,
-                                lat: data.lat,
-                                lng: data.lng,
-                                clientLat: data.clientLat,
-                                clientLng: data.clientLng
-                            });
+                        }
+                    }
+                } else {
+                    let filteredUsers = users.filter(user => user.obj.username !== data.user.username && user.obj.deliveryMode === true && user.obj.available === true);
+                    let user = filteredUsers[Math.floor(Math.random()*filteredUsers.length)];
+                    console.log(user, 'ovo trayimo');
+                    if(user){
+                        if(user.obj.deliveryMode) {
+                            console.log(data.transportation, 'koja vrsta')
+                            if(data.transportation !== ''){
+                                console.log(user.obj.transportation, data.transportation)
+                                if(user.obj.transportation === data.transportation && user.obj.isDelivering === false && user.obj.isOrdering === false){
+                                    console.log('saljem korisniku', user.obj.username);
+                                    io.in(user.obj.username).emit('REQUEST_DRIVER_CLIENT', {
+                                        client: client.toProfileJSONFor(),
+                                        from: data.from,
+                                        to: data.to,
+                                        price: data.price,
+                                        item: data.item,
+                                        lat: data.lat,
+                                        lng: data.lng,
+                                        clientLat: data.clientLat,
+                                        clientLng: data.clientLng
+                                    });
+                                }
+                            } else if(user.obj.isDelivering === false && user.obj.isOrdering === false) {
+                                console.log('saljem korisniku2', user.obj.username);
+                                io.in(user.obj.username).emit('REQUEST_DRIVER_CLIENT', {
+                                    client: client.toProfileJSONFor(),
+                                    from: data.from,
+                                    to: data.to,
+                                    price: data.price,
+                                    item: data.item,
+                                    lat: data.lat,
+                                    lng: data.lng,
+                                    clientLat: data.clientLat,
+                                    clientLng: data.clientLng
+                                });
+                            }
                         }
                     }
                 }

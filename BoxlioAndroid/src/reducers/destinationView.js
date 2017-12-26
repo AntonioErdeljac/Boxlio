@@ -1,4 +1,4 @@
-export default (state={placeToChoosen: true, transportation:null}, action) => {
+export default (state={placeToChoosen: true, transportation:null, requestCanceled: null}, action) => {
 	switch(action.type){
 		case "RECEIVE_CANCEL_FROM_DELIVERY_GUY":
 			return {
@@ -8,7 +8,6 @@ export default (state={placeToChoosen: true, transportation:null}, action) => {
 				lat: null,
 				lng: null,
 				closeFromInput: false,
-				requestCanceled: true
 			};
 		case 'SET_ACTIVE_DELIVERY_JOB':
             return {
