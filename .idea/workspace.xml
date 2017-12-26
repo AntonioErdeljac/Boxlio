@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="87ab1eb2-a1ae-4ba8-bc58-ca9d268dce01" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/MessageIcon/index.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/MessageIcon/index.js" />
-      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/index.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/index.js" />
       <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/Chat.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/Chat.js" />
-      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/index.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/index.js" />
-      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/reducers/chat.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/reducers/chat.js" />
-      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/reducers/common.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/reducers/common.js" />
-      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/reducers/requests.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/reducers/requests.js" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Main/Messages/MessageInput.js" afterPath="$PROJECT_DIR$/frontend/src/components/Main/Messages/MessageInput.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -94,8 +86,8 @@
       <file leaf-file-name="Chat.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/Chat.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="597">
-              <caret line="42" column="241" lean-forward="false" selection-start-line="42" selection-start-column="241" selection-end-line="42" selection-end-column="241" />
+            <state relative-caret-position="293">
+              <caret line="74" column="63" lean-forward="true" selection-start-line="74" selection-start-column="63" selection-end-line="74" selection-end-column="63" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -118,8 +110,8 @@
       <file leaf-file-name="MessageInput.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/Main/Messages/MessageInput.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="15" column="10" lean-forward="true" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
+            <state relative-caret-position="477">
+              <caret line="47" column="34" lean-forward="false" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="34" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -576,12 +568,12 @@
       <workItem from="1513772903382" duration="8006000" />
       <workItem from="1513870272766" duration="6517000" />
       <workItem from="1514039228912" duration="12014000" />
-      <workItem from="1514118879769" duration="31983000" />
+      <workItem from="1514118879769" duration="33624000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177441000" />
+    <option name="totallyTimeSpent" value="179082000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1018,26 +1010,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Main/Messages/MessageInput.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="15" column="10" lean-forward="true" selection-start-line="15" selection-start-column="10" selection-end-line="15" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Main/Messages/Chat.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/Main/Messages/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -1059,10 +1031,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/Main/Messages/Chat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/Main/Messages/MessageInput.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="47" column="34" lean-forward="false" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/Chat.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="597">
-          <caret line="42" column="241" lean-forward="false" selection-start-line="42" selection-start-column="241" selection-end-line="42" selection-end-column="241" />
+        <state relative-caret-position="293">
+          <caret line="74" column="63" lean-forward="true" selection-start-line="74" selection-start-column="63" selection-end-line="74" selection-end-column="63" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

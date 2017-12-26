@@ -49,18 +49,36 @@ class Chat extends React.Component{
     constructor(props){
         super(props);
 
+        this.state = {
+            message: ''
+        };
+
 
         this.socket = io('https://373fc370.ngrok.io')
 
         let name = this.props.currentUser.deliveryMode ? this.props.currentUser.username+'_and_'+this.props.navigation.state.params.client.username : this.props.navigation.state.params.client.username+'_and_'+this.props.currentUser.username;
         this.socket.emit('JOIN_CHATROOM', {
             name: name
-        })
+        });
 
 
         this.socket.on('RECEIVE_MESSAGE', (data) => {
             this.props.onAddMessage(data);
         })
+
+        this.handleSendMessage = () => {
+            let name = this.props.currentUser.deliveryMode ? this.props.currentUser.username+'_and_'+this.props.navigation.state.params.client.username : this.props.navigation.state.params.client.username+'_and_'+this.props.currentUser.username;
+            if(this.state.message.length > 0){
+
+                this.socket.emit('SEND_MESSAGE',{
+                    author: this.props.currentUser,
+                    receiver: this.props.navigation.state.params.client.username,
+                    body: this.state.message,
+                    name: name
+                });
+            }
+            this.setState({message: ''})
+        }
     }
 
     render(){
@@ -147,15 +165,17 @@ class Chat extends React.Component{
                     <CardItem style={{position: 'absolute', bottom: 0, elevation: 10}}>
                         <Grid>
                             <Col size={4}>
-                        <TextInput
-                            underlineColorAndroid='rgba(0,0,0,0)'
-                            style={styles.input}
-                            placeholderTextColor="gray"
-                            placeholder="Write a message"/>
+                                <TextInput
+                                    onChangeText = {(text) => this.setState({message: text})}
+                                    value={this.state.message}
+                                    underlineColorAndroid='rgba(0,0,0,0)'
+                                    style={styles.input}
+                                    placeholderTextColor="gray"
+                                    placeholder="Write a message"/>
                             </Col>
                             <Right>
-                                <TouchableOpacity style={{borderRadius: 10, backgroundColor: '#1fcf7c', height: 30, width: 30, alignItems: 'center', justifyContent: 'center'}}>
-                                    <Icon name='ios-paper-plane-outline' style={{color: '#fff', fontSize: 20, alignItems: 'center', justifyContent: 'space-around'}} />
+                                <TouchableOpacity onPress={this.handleSendMessage} style={{borderRadius: 10, backgroundColor: '#fff', height: 30, width: 30, alignItems: 'center', justifyContent: 'center'}}>
+                                    <Icon name='ios-paper-plane-outline' style={{color: '#1fcf7c', fontSize: 30, alignItems: 'center', justifyContent: 'space-around'}} />
                                 </TouchableOpacity>
                             </Right>
                         </Grid>
