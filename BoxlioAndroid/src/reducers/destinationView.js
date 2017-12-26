@@ -1,5 +1,15 @@
 export default (state={placeToChoosen: true, transportation:null, requestCanceled: null}, action) => {
 	switch(action.type){
+		case 'CANCEL_ACTIVE_REQUEST':
+			return {
+				...state,
+                placeFromChoosen: false,
+                from: null,
+                lat: null,
+                lng: null,
+                closeFromInput: false,
+                requestCanceled: true
+			};
 		case "RECEIVE_CANCEL_FROM_DELIVERY_GUY":
 			return {
 				...state,
@@ -8,6 +18,7 @@ export default (state={placeToChoosen: true, transportation:null, requestCancele
 				lat: null,
 				lng: null,
 				closeFromInput: false,
+				requestCanceled: true
 			};
 		case 'SET_ACTIVE_DELIVERY_JOB':
             return {
@@ -92,21 +103,7 @@ export default (state={placeToChoosen: true, transportation:null, requestCancele
 					placeToChoosen: false
 				};
 		case 'LOGOUT':
-				return {
-					...state,
-                    placeToChoosen: true,
-					to: null,
-					from: null,
-					initialSet: false,
-					placeChoosen: false,
-					placeFromChoosen: false,
-					hasTyped: false,
-					lat: null,
-					lng: null,
-					directions: null,
-					closeFromInput: false,
-					closeToInput: false
-				}
+				return {}
 	}
 	return state;
 }

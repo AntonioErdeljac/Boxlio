@@ -23,9 +23,14 @@ export default (state={showOptions: false}, action) => {
 
             };
         case 'LOGOUT':
+            return {};
+        case 'CANCEL_ACTIVE_REQUEST':
             return {
                 ...state,
                 requestSent: false,
+                deliveryGuy: null,
+                locationName: null,
+                requestAccepted: false,
                 reanimateComponents: true
             };
         case 'RECEIVE_CANCEL_FROM_DELIVERY_GUY':
@@ -42,7 +47,7 @@ export default (state={showOptions: false}, action) => {
                 ...state,
                 requestSent: false,
                 reanimateComponents: true,
-                requestAccepted: false
+                requestAccepted: false,
             };
         case 'SEND_REQUEST':
             return {

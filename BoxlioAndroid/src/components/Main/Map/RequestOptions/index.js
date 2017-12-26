@@ -161,7 +161,7 @@ const mapDispatchToProps = dispatch => ({
     setFrom: place =>
         dispatch({type: 'SET_FROM', place}),
     onCancelRequest: () =>
-        dispatch({type: 'CANCEL_SEND_REQUEST'}),
+        dispatch({type: 'CANCEL_ACTIVE_REQUEST'}),
     onCloseOptions: () =>
         dispatch({type: 'CLOSE_OPTIONS'})
 });

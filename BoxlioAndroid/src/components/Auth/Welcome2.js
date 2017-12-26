@@ -77,7 +77,6 @@ class Welcome2 extends Component<{}> {
 
     render() {
         const {email, password} = this.props;
-        if(this.props.appLoaded){
         return (
                 <Container style={styles.container}>
                     <GridAnimated ref="all" animation="fadeInRight">
@@ -132,8 +131,6 @@ class Welcome2 extends Component<{}> {
                     </GridAnimated>
                 </Container>
         );
-        }
-        return null;
     }
 }
 
