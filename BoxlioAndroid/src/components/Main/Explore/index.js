@@ -88,11 +88,16 @@ class Explore extends React.Component{
                     </CardItem>
                     <Content>
                         <Card style={{elevation: 0, borderColor: 'transparent', alignItems: 'center', justifyContent: 'center'}}>
-                            {filteredClients.map(client => {
-                                return (
-                                    <ClientCard navigation={this.props.navigation} key={client.obj._id} client={client} />
-                                )
-                            })}
+                            {filteredClients.length === 0 ?
+                                <Text style={styles.username}>There are no new clients near you.</Text>
+                                :
+                                filteredClients.map(client => {
+                                    return (
+                                        <ClientCard navigation={this.props.navigation} key={client.obj._id}
+                                                    client={client}/>
+                                    )
+                                })
+                            }
                         </Card>
                     </Content>
                 </ContainerAnimatable>
