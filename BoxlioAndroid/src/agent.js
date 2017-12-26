@@ -25,6 +25,11 @@ const Auth = {
 		requests.put('/user', {user})
 };
 
+const Profile = {
+    add: (client) =>
+        requests.post(`/profiles/${client.username}/client`),
+};
+
 const Clients = {
     all: () =>
         requests.get(`/clients`),
@@ -58,5 +63,6 @@ export default {
 	Clients,
 	Chat,
     Explore,
+	Profile,
 	setToken: _token => {token = _token}
 }

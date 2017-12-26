@@ -5,6 +5,16 @@ export default (state={}, action) => {
                 ...state,
                 clients: action.payload ? action.payload.nearDeliveryUsers : []
             };
+        case 'ADD_FRIEND':
+            return {
+                ...state,
+              sendRedirect: action.payload.profile ? true : null
+            };
+        case 'RESET_REDIRECT':
+            return {
+                ...state,
+                sendRedirect: null
+            }
     }
     return state;
 }

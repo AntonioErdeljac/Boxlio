@@ -1,6 +1,7 @@
 import React from "react";
 import {Container, Content} from "native-base";
-import {  Header, Form, Item, Input , Button, H1, H3, Label, Icon, Card, CardItem, Right, Left, Body, Title} from 'native-base';
+import {  Header, Form, Item, Input , Button, H1, H3, Label, Card, CardItem, Right, Left, Body, Title} from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
     Platform,
     StyleSheet,
@@ -19,10 +20,20 @@ import {
     AsyncStorage, Keyboard
 } from "react-native";
 import {Grid, Row, Col} from "react-native-easy-grid";
+import agent from "../../../agent";
 import * as Animatable from "react-native-animatable";
-
+import {connect} from "react-redux";
+const ButtonAnimatable = Animatable.createAnimatableComponent(TouchableOpacity);
 
 class ClientCard extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.handleAddFriend = (client) => {
+            this.props.onAddFriend(agent.Profile.add(client))
+            this.props.navigation.navigate('messages')
+        }
+    }
     render(){
         return (
             <Card style={{borderRadius: 10, elevation:1, width: Dimensions.get('window').width - 50}}>
@@ -42,10 +53,14 @@ class ClientCard extends React.Component{
                         <Row>
                             <View style={{height: 1, marginTop: 10, marginBottom: 10,width:Dimensions.get('window').width-150, backgroundColor: 'rgba(0,0,0,.06)'}}></View>
                         </Row>
+                        <Row style={{marginTop: 10, marginBottom: 10}}>
+                            <Icon name="dot-circle-o" style={{color: '#1fcf7c', fontSize: 16}}/>
+                            <Text style={styles.distanceText}>{Math.floor(this.props.client.dis)} meters away</Text>
+                        </Row>
                         <Row>
-                            <Button style={{backgroundColor: '#1fcf7c', padding: 10, borderRadius: 10}}>
+                            <ButtonAnimatable ref="addbutton" animation="bounceIn" onPress={() => this.handleAddFriend(this.props.client.obj)} style={{backgroundColor: '#1fcf7c', padding: 10, borderRadius: 10}}>
                                 <Text style={styles.buttonText}>Add friend</Text>
-                            </Button>
+                            </ButtonAnimatable>
                         </Row>
                     </Grid>
                 </CardItem>
@@ -69,6 +84,14 @@ const styles = StyleSheet.create({
         fontSize: 13,
         color: 'rgba(0,0,0,.3)',
         marginTop: 10
+    },
+    distanceText: {
+        justifyContent: 'center',
+        fontFamily: 'VarelaRound-Regular',
+        fontSize: 13,
+        color: 'rgba(0,0,0,.5)',
+        marginBottom: 10,
+        marginLeft: 15,
     },
     buttonText: {
         justifyContent: 'center',
@@ -200,4 +223,12 @@ const styles = StyleSheet.create({
 
 });
 
-export default ClientCard;
+const mapDispatchToProps = dispatch => ({
+    onAddFriend: payload =>
+        dispatch({type: 'ADD_FRIEND', payload}),
+    onResetRedirect: () =>
+        dispatch({type: 'RESET_REDIRECT'})
+});
+
+
+export default connect(null, mapDispatchToProps)(ClientCard);

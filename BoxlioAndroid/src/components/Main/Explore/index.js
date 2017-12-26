@@ -90,7 +90,7 @@ class Explore extends React.Component{
                         <Card style={{elevation: 0, borderColor: 'transparent', alignItems: 'center', justifyContent: 'center'}}>
                             {filteredClients.map(client => {
                                 return (
-                                    <ClientCard key={client.obj._id} client={client} />
+                                    <ClientCard navigation={this.props.navigation} key={client.obj._id} client={client} />
                                 )
                             })}
                         </Card>
