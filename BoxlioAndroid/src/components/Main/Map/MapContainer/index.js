@@ -19,6 +19,7 @@ import MessageIcon from "../MessageIcon";
 import ExploreIcon from "../ExploreIcon";
 import {connect} from "react-redux";
 import SendRequestButton from "../SendRequestButton";
+import RequestOptions from "../RequestOptions";
 import io from "socket.io-client";
 const MapViewAnimatable = Animatable.createAnimatableComponent(MapView);
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
@@ -236,6 +237,7 @@ class MapContainer extends React.Component{
                   {!this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage /> : null}
                   {!this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null}
                   {this.props.requestSent ? <RequestHandler navigation={this.props.navigation}/> : null}
+                  {this.props.requestAccepted && this.props.showOptions ? <RequestOptions navigation={this.props.navigation}></RequestOptions> : null}
 
 
 

@@ -1,5 +1,15 @@
-export default (state={}, action) => {
+export default (state={showOptions: false}, action) => {
     switch(action.type){
+        case 'CLOSE_OPTIONS':
+            return {
+                ...state,
+                showOptions: false
+            }
+        case 'SHOW_OPTIONS':
+            return {
+                ...state,
+                showOptions: true
+            };
         case 'SET_ACTIVE_DELIVERY_JOB':
             return {
                 ...state,
@@ -31,7 +41,8 @@ export default (state={}, action) => {
             return {
                 ...state,
                 requestSent: false,
-                reanimateComponents: true
+                reanimateComponents: true,
+                requestAccepted: false
             };
         case 'SEND_REQUEST':
             return {

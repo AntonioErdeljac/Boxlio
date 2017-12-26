@@ -32,6 +32,14 @@ class LoadingView extends React.Component{
             predictions: null
         };
 
+        this.handleShowOptions = () => {
+            this.props.onShowOptions()
+        };
+
+        this.handleCloseOptions = () => {
+            this.props.onCloseOptions()
+        }
+
 
         this.handleCancelRequest = ev => {
             ev.preventDefault();
@@ -118,9 +126,18 @@ class LoadingView extends React.Component{
                         </Row>
                     </Grid>
                     <Right>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('chat', {client: this.props.deliveryGuy})} style={{backgroundColor: '#2d89e5', borderRadius: 10, padding: 15}}>
-                            <Icon name="envelope" style={{color: '#fff'}} />
-                        </TouchableOpacity>
+                        {this.props.showOptions ?
+                            <TouchableOpacity onPress={() => this.handleCloseOptions()}
+                                              style={{backgroundColor: '#E7475E', borderRadius: 10, padding: 15}}>
+                                <Icon name="close" style={{color: '#fff'}}/>
+                            </TouchableOpacity>
+
+                            :
+                            <TouchableOpacity onPress={() => this.handleShowOptions()}
+                                              style={{backgroundColor: '#2d89e5', borderRadius: 10, padding: 15}}>
+                                <Icon name="bars" style={{color: '#fff'}}/>
+                            </TouchableOpacity>
+                        }
                     </Right>
                 </CardItem>
             </Animatable.View>
@@ -218,7 +235,11 @@ const mapDispatchToProps = dispatch => ({
     setFrom: place =>
         dispatch({type: 'SET_FROM', place}),
     onCancelRequest: () =>
-        dispatch({type: 'CANCEL_SEND_REQUEST'})
+        dispatch({type: 'CANCEL_SEND_REQUEST'}),
+    onShowOptions: () =>
+        dispatch({type: 'SHOW_OPTIONS'}),
+    onCloseOptions: () =>
+        dispatch({type: 'CLOSE_OPTIONS'})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoadingView);
