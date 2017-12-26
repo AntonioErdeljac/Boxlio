@@ -74,9 +74,6 @@ class MessagePreview extends React.Component{
 
             <TouchableOpacity onPress={() => this.props.navigation.navigate('chat', {client: this.props.client})} style={{justifyContent: 'center', alignItems: 'center'}}>
             <CardItem key={client._id}>
-                <View style={styles.imageContainer}>
-                    <Image borderRadius={65} source={{uri: client.image}} style={styles.image} />
-                </View>
                 <Grid style={{marginLeft: 13}}>
                     <Row>
                         <Text style={{fontFamily: 'VarelaRound-Regular', color: 'rgba(0,0,0,.8)'}}>{client.firstName} {client.lastName}</Text>

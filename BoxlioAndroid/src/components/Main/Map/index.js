@@ -74,7 +74,6 @@ class Map extends React.Component{
         });
 
         this.socket.on('RECEIVE_MESSAGE', (data) => {
-            console.error('test')
             this.props.onAlertMessage(data);
         })
 

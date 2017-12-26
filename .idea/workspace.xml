@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="87ab1eb2-a1ae-4ba8-bc58-ca9d268dce01" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Explore/index.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Explore/index.js" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/index.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/index.js" />
+      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/MessagePreview/index.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/MessagePreview/index.js" />
+      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/index.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -16,12 +19,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="84" column="46" lean-forward="true" selection-start-line="84" selection-start-column="46" selection-end-line="84" selection-end-column="46" />
-              <folding />
+            <state relative-caret-position="468">
+              <caret line="90" column="32" lean-forward="false" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/MessagePreview/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="188">
+              <caret line="49" column="27" lean-forward="false" selection-start-line="49" selection-start-column="27" selection-end-line="49" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+                <marker date="1514316387548" expanded="true" signature="2537:3211" ph="..." />
+                <marker date="1514316387548" expanded="false" signature="2567:2580" ph="..." />
+                <marker date="1514316387548" expanded="true" signature="2585:3007" ph="..." />
+                <marker date="1514316387548" expanded="true" signature="2611:2781" ph="..." />
+                <marker date="1514316387548" expanded="false" signature="2649:2662" ph="..." />
+                <marker date="1514316387548" expanded="true" signature="2807:2983" ph="..." />
+                <marker date="1514316387548" expanded="false" signature="2863:2876" ph="..." />
+                <marker date="1514316387548" expanded="true" signature="3031:3187" ph="..." />
+                <marker date="1514316387548" expanded="false" signature="3065:3078" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -46,11 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Explore/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="55" column="22" lean-forward="true" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+            <state relative-caret-position="338">
+              <caret line="65" column="20" lean-forward="true" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="20" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -104,18 +130,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/RequestHandler/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="25" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+            <state relative-caret-position="569">
+              <caret line="75" column="53" lean-forward="false" selection-start-line="75" selection-start-column="53" selection-end-line="75" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -227,18 +243,15 @@
         <option value="$PROJECT_DIR$/Backend/models/Message.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/CHa.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/RequestHandler/index.js" />
-        <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/MessagePreview/index.js" />
         <option value="$PROJECT_DIR$/frontend/src/components/Main/Messages/MessageInput.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/reducers/chat.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/MessageIcon/index.js" />
-        <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/index.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/reducers/common.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/Chat.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/reducers/requests.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/MapContainer/index.js" />
         <option value="$PROJECT_DIR$/Backend/socketHandlers/index.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/android/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/index.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/reducers/destinationView.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/LoggedInRouter.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/ExploreIcon/index.js" />
@@ -247,6 +260,9 @@
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/reducers/explore.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Explore/ClientCard.js" />
         <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Explore/index.js" />
+        <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/index.js" />
+        <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/MessagePreview/index.js" />
+        <option value="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/index.js" />
       </list>
     </option>
   </component>
@@ -384,6 +400,16 @@
               <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="Main" type="462c0819:PsiDirectoryNode" />
               <item name="Messages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Boxlio" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Boxlio" type="462c0819:PsiDirectoryNode" />
+              <item name="BoxlioAndroid" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="Messages" type="462c0819:PsiDirectoryNode" />
+              <item name="MessagePreview" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Boxlio" type="b2602c69:ProjectViewProjectNode" />
@@ -575,12 +601,12 @@
       <workItem from="1513772903382" duration="8006000" />
       <workItem from="1513870272766" duration="6517000" />
       <workItem from="1514039228912" duration="12014000" />
-      <workItem from="1514118879769" duration="45451000" />
+      <workItem from="1514118879769" duration="46446000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="190909000" />
+    <option name="totallyTimeSpent" value="191904000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -613,7 +639,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="10" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -745,28 +771,6 @@
           <caret line="50" column="16" lean-forward="true" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
           <folding>
             <element signature="e#0#26#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/MessagePreview/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="91" column="74" lean-forward="true" selection-start-line="91" selection-start-column="74" selection-end-line="91" selection-end-column="74" />
-          <folding>
-            <element signature="e#0#26#0" expanded="false" />
-            <marker date="1514209809986" expanded="true" signature="2537:3386" ph="..." />
-            <marker date="1514209809986" expanded="false" signature="2567:2590" ph="..." />
-            <marker date="1514209809986" expanded="true" signature="2590:2712" ph="..." />
-            <marker date="1514209809986" expanded="false" signature="2672:2686" ph="..." />
-            <marker date="1514209809986" expanded="false" signature="2742:2755" ph="..." />
-            <marker date="1514209809986" expanded="true" signature="2760:3182" ph="..." />
-            <marker date="1514209809986" expanded="true" signature="2786:2956" ph="..." />
-            <marker date="1514209809986" expanded="false" signature="2824:2837" ph="..." />
-            <marker date="1514209809986" expanded="true" signature="2982:3158" ph="..." />
-            <marker date="1514209809986" expanded="false" signature="3038:3051" ph="..." />
-            <marker date="1514209809986" expanded="true" signature="3206:3362" ph="..." />
-            <marker date="1514209809986" expanded="false" signature="3240:3253" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1010,22 +1014,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="84" column="46" lean-forward="true" selection-start-line="84" selection-start-column="46" selection-end-line="84" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/Chat.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2">
@@ -1081,8 +1069,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Explore/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="55" column="22" lean-forward="true" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
+        <state relative-caret-position="338">
+          <caret line="65" column="20" lean-forward="true" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="75" column="53" lean-forward="false" selection-start-line="75" selection-start-column="53" selection-end-line="75" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/MessagePreview/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="49" column="27" lean-forward="false" selection-start-line="49" selection-start-column="27" selection-end-line="49" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <marker date="1514316387548" expanded="true" signature="2537:3211" ph="..." />
+            <marker date="1514316387548" expanded="false" signature="2567:2580" ph="..." />
+            <marker date="1514316387548" expanded="true" signature="2585:3007" ph="..." />
+            <marker date="1514316387548" expanded="true" signature="2611:2781" ph="..." />
+            <marker date="1514316387548" expanded="false" signature="2649:2662" ph="..." />
+            <marker date="1514316387548" expanded="true" signature="2807:2983" ph="..." />
+            <marker date="1514316387548" expanded="false" signature="2863:2876" ph="..." />
+            <marker date="1514316387548" expanded="true" signature="3031:3187" ph="..." />
+            <marker date="1514316387548" expanded="false" signature="3065:3078" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Messages/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="90" column="32" lean-forward="false" selection-start-line="90" selection-start-column="32" selection-end-line="90" selection-end-column="32" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
