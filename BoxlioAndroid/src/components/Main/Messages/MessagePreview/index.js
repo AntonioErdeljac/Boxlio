@@ -22,6 +22,7 @@ import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import {Actions} from "react-native-router-flux";
 import agent from "../../../../agent";
+import * as constants from "../../../../constants/routes";
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 const FormAnimated = Animatable.createAnimatableComponent(Form);
@@ -34,7 +35,7 @@ class MessagePreview extends React.Component{
         let myHeaders = new Headers();
         myHeaders.append("Authorization", `Token ${this.props.currentUser.token}`);
 
-        fetch(`https://373fc370.ngrok.io/api/chatrooms/${name}/lastmessage`, {headers: myHeaders})
+        fetch(`${constants.API_ROOT}/api/chatrooms/${name}/lastmessage`, {headers: myHeaders})
             .then(results => {
                 return results.json()
             }).then(data => handleData(data))

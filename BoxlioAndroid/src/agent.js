@@ -1,9 +1,10 @@
 import _superagent from "superagent";
 import superagentPromise from "superagent-promise";
+import * as constants from "./constants/routes";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
-const API_ROOT = 'https://373fc370.ngrok.io/api';
+const API_ROOT = `${constants.API_ROOT}/api`;
 
 const getBody = res => res.body;
 

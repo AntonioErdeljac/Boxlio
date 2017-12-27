@@ -24,6 +24,7 @@ import {Actions} from "react-native-router-flux";
 import MessagePreview from './MessagePreview';
 import agent from "../../../agent";
 import io from "socket.io-client";
+import * as constants from "../../../constants/routes";
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 const FormAnimated = Animatable.createAnimatableComponent(Form);
@@ -54,7 +55,7 @@ class Chat extends React.Component{
         };
 
 
-        this.socket = io('https://373fc370.ngrok.io')
+        this.socket = io(constants.API_ROOT);
 
         let name = this.props.currentUser.deliveryMode ? this.props.currentUser.username+'_and_'+this.props.navigation.state.params.client.username : this.props.navigation.state.params.client.username+'_and_'+this.props.currentUser.username;
         this.socket.emit('JOIN_CHATROOM', {

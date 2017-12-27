@@ -10,6 +10,8 @@ import RNGooglePlaces from "react-native-google-places";
 import {Places} from 'google-places-web';
 import agent from "../../../../agent";
 import io from "socket.io-client";
+import * as constants from "../../../../constants/routes";
+
 
 Places.apiKey = 'AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
 
@@ -28,7 +30,7 @@ class RequestOptions extends React.Component{
 
 
 
-        this.socket = io('https://373fc370.ngrok.io');
+        this.socket = io(constants.API_ROOT);
 
 
         this.handleCancelRequest = ev => {

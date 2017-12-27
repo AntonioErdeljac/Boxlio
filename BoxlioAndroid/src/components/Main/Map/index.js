@@ -13,6 +13,7 @@ import MapContainer from "./MapContainer";
 import io from "socket.io-client";
 import {NavigatorActions} from "react-navigation";
 import agent from '../../../agent';
+import * as constants from "../../../constants/routes";
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 
@@ -26,7 +27,7 @@ class Map extends React.Component{
 
 
 
-        this.socket = io('https://373fc370.ngrok.io');
+        this.socket = io(constants.API_ROOT);
 
         this.watchId = navigator.geolocation.watchPosition(position => {
             if(!this.props.placeFromChoosen && !this.props.currentUser.activeDeliveryJob){
