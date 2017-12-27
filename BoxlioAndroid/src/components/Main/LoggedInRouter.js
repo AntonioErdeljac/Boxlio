@@ -5,6 +5,7 @@ import Options from "./Options";
 import Messages from "./Messages";
 import Explore from "./Explore";
 import Chat from "./Messages/Chat";
+import Settings from "./Settings";
 import MapComponent from "./Map";
 import {DrawerNavigator} from "react-navigation";
 import {connect} from "react-redux";
@@ -16,6 +17,7 @@ const LoggedInRouter = DrawerNavigator({
 	options: {screen: Options, drawerLockMode: 'locked-closed'},
 	messages: {screen: Messages, drawerLockMode: 'locked-closed'},
 	explore: {screen: Explore, drawerLockMode: 'locked-closed'},
+	settings: {screen: Settings, drawerLockMode: 'locked-closed'},
 	chat: {
 		screen: Chat,
 		drawerLockMode: 'locked-closed'

@@ -1,6 +1,6 @@
 import React from "react";
 import {Container, Content} from "native-base";
-import {  Header, Form, Item, Input , Button, H1, H3, Label, Icon,} from 'native-base';
+import {  Header, Form, Item, Input , Button, H1, H3, Label, Icon, CardItem, Card} from 'native-base';
 import {
     Platform,
     StyleSheet,
@@ -30,6 +30,10 @@ const ActivityIndicatorAnimated = Animatable.createAnimatableComponent(ActivityI
 class Settings extends React.Component{
 	constructor(props){
 		super(props);
+
+		this.goBack = () => {
+		    this.props.navigation.navigate('options')
+        };
 
 		this.state={
 			username: '',
@@ -95,16 +99,20 @@ class Settings extends React.Component{
 
 	render(){
 		return (
-			<Content style={{backgroundColor: '#fff'}}>
-				<ScrollView>
+			<Container style={{backgroundColor: '#fff'}}>
+                <TouchableOpacity onPress={this.goBack}>
+                    <CardItem style={{justifyContent: 'center', alignItems: 'center'}}>
+
+                        <Icon name='ios-arrow-round-back-outline' style={{color: 'rgba(0,0,0,.6)', fontSize: 30}} />
+                        <Grid>
+                            <Row>
+                                <Text style={{color: 'rgba(0,0,0,.8)', fontFamily: 'VarelaRound-Regular', fontSize: 23,}}>Account Settings</Text>
+                            </Row>
+                        </Grid>
+                    </CardItem>
+                </TouchableOpacity>
+				<Content>
                     <GridAnimated  style={{paddingBottom: 100, alignItems: 'center', justifyContent: 'space-around'}}   animation="fadeInUp">
-                        <Row>
-                            <Col>
-	                            <View style={{justifyContent: 'space-around'}}>
-	                                <Animatable.Text ref="text" style={styles.headerText}>Account Settings</Animatable.Text>
-	                            </View>
-                            </Col>
-                        </Row>
                         <Row>
                         	<Col>
                         		<View style={{justifyContent: 'space-around', marginRight: 15}}>
@@ -199,16 +207,13 @@ class Settings extends React.Component{
                                             <TouchableOpacity onPress={this.submitForm} style={this.props.isLoading ? styles.loginButtonDisabled : styles.loginButton}>
                                             <Text style={styles.loginButtonText}>Save</Text>
                                             </TouchableOpacity>
-                                            <TouchableOpacity onPress={() => this.props.onClickLogout()} style={this.props.isLoading ? styles.loginButtonDisabled : styles.logoutButton}>
-                                            <Text style={styles.logoutButtonText}>Logout</Text>
-                                            </TouchableOpacity>
                                     </FormAnimated>
                                     </View>
                                 </Col>
                         </Row>
                     </GridAnimated>
-                </ScrollView>
                 </Content>
+                </Container>
 		);
 	}
 }

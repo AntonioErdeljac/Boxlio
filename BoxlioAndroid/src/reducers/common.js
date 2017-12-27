@@ -1,5 +1,10 @@
 export default (state={}, action) => {
 	switch(action.type){
+		case 'CHANGE_DELIVERY_MODE':
+			return {
+				...state,
+				currentUser: action.payload ? action.payload.user : state.currentUser
+			};
 		case 'REMOVE_ALERT_MESSAGE':
 			return {
 				...state,

@@ -49,7 +49,7 @@ class RequestOptions extends React.Component{
 
     render(){
         return (
-            <Animatable.View animation="fadeInUp" duration={200} style={styles.acceptedView}>
+            <Animatable.View animation="fadeInUp"  style={styles.acceptedView}>
                 <Grid style={{
                     justifyContent: 'center',
                     alignContent: 'center',backgroundColor: 'transparent'}}>

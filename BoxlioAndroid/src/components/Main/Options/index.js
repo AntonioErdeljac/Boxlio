@@ -21,6 +21,7 @@ import {Grid, Row, Col} from "react-native-easy-grid";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import {Actions} from "react-native-router-flux";
+import agent from "../../../agent";
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 const FormAnimated = Animatable.createAnimatableComponent(Form);
@@ -35,6 +36,15 @@ class Options extends React.Component{
             this.refs.options.fadeOutDown(300).then(() => {
                 this.props.navigation.navigate('main')
             })
+        }
+
+        this.changeDeliveryMode = ev => {
+            this.setState({deliveryMode: !this.state.deliveryMode});
+            this.props.onChangeDeliveryMode(agent.Auth.update({deliveryMode: !this.state.deliveryMode}))
+        }
+
+        this.state = {
+            deliveryMode: this.props.currentUser.deliveryMode
         }
 
         this.handleLogout = () => {
@@ -73,17 +83,29 @@ class Options extends React.Component{
                                 <H3 style={styles.username}>@{this.props.currentUser.username}</H3>
                             </Col>
                          </Row>
+                        <Row style={{borderTopColor: 'rgba(0,0,0,.08)', borderTopWidth: 1, margin: 30, paddingTop: 30}}>
+                            <Col style={{alignItems: 'center'}}>
+                                <H3 style={styles.label}>Delivery Mode</H3>
+                                <Switch
+                                    onValueChange={this.changeDeliveryMode}
+                                    value={this.state.deliveryMode}
+                                />
+                            </Col>
+                        </Row>
+
                     </Grid>
-                </Content>
-                <Content>
                     <Card style={{elevation: 0, borderColor: 'transparent'}}>
-                        <CardItem>
-                            <Icon active name="ios-options-outline" />
-                            <Text style={{fontFamily: 'VarelaRound-Regular'}}>Settings</Text>
-                            <Right>
-                                <Icon name="ios-arrow-forward-outline" />
-                            </Right>
-                        </CardItem>
+
+
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('settings')}>
+                            <CardItem>
+                                <Icon active name="ios-options-outline" />
+                                <Text style={{fontFamily: 'VarelaRound-Regular'}}>Settings</Text>
+                                <Right>
+                                    <Icon name="ios-arrow-forward-outline" />
+                                </Right>
+                            </CardItem>
+                        </TouchableOpacity>
 
                             <TouchableOpacity onPress={this.handleLogout}>
                         <CardItem>
@@ -132,9 +154,10 @@ const styles = StyleSheet.create({
         borderRadius: 90,
   },
 	label: {
-		color: 'rgba(0,0,0,.5)',
+		color: 'rgba(0,0,0,.6)',
 		fontFamily: 'VarelaRound-Regular',
-		marginLeft: 10
+		fontSize: 17,
+        marginBottom: 10
 	},
     container: {
         backgroundColor: '#fff',
@@ -247,7 +270,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onClickLogout: () =>
-        dispatch({type: 'LOGOUT'})
+        dispatch({type: 'LOGOUT'}),
+    onChangeDeliveryMode: (payload) =>
+        dispatch({type: 'CHANGE_DELIVERY_MODE', payload})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Options);
