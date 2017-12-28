@@ -23,6 +23,7 @@ import RequestOptions from "../RequestOptions";
 import io from "socket.io-client";
 const MapViewAnimatable = Animatable.createAnimatableComponent(MapView);
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
+import DeliveryModeView from "../DeliveryModeView";
 
 class MapContainer extends React.Component{
     componentWillMount(){
@@ -228,16 +229,21 @@ class MapContainer extends React.Component{
                 </Grid>
 
 
-                {!this.props.requestAccepted && this.state.disableRequestComponents && this.props.closeFromInput ? null : <SearchPlacesFrom  />}
-                  {!this.props.requestAccepted &&  this.props.placeFromChoosen && !this.props.closeToInput && !this.state.disableRequestComponents ? <SearchPlacesTo/> : null}
-                {!this.props.requestAccepted &&  this.state.disableRequestComponents ? null : <LocationChooser mapRef={this.refs.map} />}
-                {!this.props.requestAccepted &&  this.state.disableRequestComponents ? null : <LocationChooserTo />}
-                  {!this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen ? <TransportationType /> : null}
-                  {!this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null}
-                  {!this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage /> : null}
-                  {!this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null}
-                  {this.props.requestSent ? <RequestHandler navigation={this.props.navigation}/> : null}
-                  {this.props.requestAccepted && this.props.showOptions ? <RequestOptions navigation={this.props.navigation}></RequestOptions> : null}
+                {this.props.currentUser.deliveryMode || !this.props.requestAccepted && this.state.disableRequestComponents && this.props.closeFromInput ? null : <SearchPlacesFrom  />}
+                  {!this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  this.props.placeFromChoosen && !this.props.closeToInput && !this.state.disableRequestComponents ? <SearchPlacesTo/> : null}
+                {this.props.currentUser.deliveryMode || !this.props.requestAccepted &&  this.state.disableRequestComponents ? null : <LocationChooser mapRef={this.refs.map} />}
+                {this.props.currentUser.deliveryMode || !this.props.requestAccepted &&  this.state.disableRequestComponents ? null : <LocationChooserTo />}
+                  {!this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen ? <TransportationType /> : null}
+                  {!this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null}
+                  {!this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage /> : null}
+                  {!this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null}
+                  {!this.props.currentUser.deliveryMode && this.props.requestSent ? <RequestHandler navigation={this.props.navigation}/> : null}
+                  {!this.props.currentUser.deliveryMode && this.props.requestAccepted && this.props.showOptions ? <RequestOptions navigation={this.props.navigation}></RequestOptions> : null}
+
+
+                {this.props.currentUser.deliveryMode ? <DeliveryModeView /> : null}
+
+
 
 
 
