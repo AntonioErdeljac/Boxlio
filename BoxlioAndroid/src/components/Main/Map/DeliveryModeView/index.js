@@ -86,7 +86,7 @@ class DeliveryModeView extends React.Component{
                                 <Text style={{color: 'rgba(0,0,0,.5)', fontFamily: 'VarelaRound-Regular', fontSize: 16, marginLeft: 10}}>{this.props.currentUser.ratings}</Text>
                             </CardItem>
                         <CardItem>
-                            <Icon active name="truck" style={styles.iconTo}/>
+                            <Icon active name="money" style={styles.iconTo}/>
                             <Text style={{color: 'rgba(0,0,0,.5)', fontFamily: 'VarelaRound-Regular', fontSize: 16, marginLeft: 10}}>{this.props.currentUser.earnedMoney}</Text>
                         </CardItem>
                         <CardItem style={{justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
