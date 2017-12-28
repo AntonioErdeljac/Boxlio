@@ -7,6 +7,7 @@ import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import RNGooglePlaces from "react-native-google-places";
 import {Places} from 'google-places-web';
+import agent from "../../../../agent";
 import Icon from 'react-native-vector-icons/FontAwesome';
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 const CardItemAnimatable = Animatable.createAnimatableComponent(CardItem);
@@ -45,7 +46,7 @@ class DeliveryModeView extends React.Component{
         };
 
         this.handleChangeTravelMode = field => ev => {
-            this.props.onChangeTravelMode(field);
+            agent.Auth.update({transportation: field});
             this.setState({transportation: field});
         };
     }
