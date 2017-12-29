@@ -1,10 +1,15 @@
 export default (state={showOptions: false}, action) => {
     switch(action.type){
+        case 'SET_COMPLETE_CHOICE':
+            return {
+                ...state,
+                completeChoice: true
+            };
         case 'CLOSE_OPTIONS':
             return {
                 ...state,
                 showOptions: false
-            }
+            };
         case 'SHOW_OPTIONS':
             return {
                 ...state,

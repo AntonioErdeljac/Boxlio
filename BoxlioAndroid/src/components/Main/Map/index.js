@@ -63,12 +63,12 @@ class Map extends React.Component{
 
         this.socket.on('RECEIVE_CANCEL_DELIVERY_JOB_DELIVERY_GUY', data => {
             this.props.receiveCancelFromDeliveryGuy(data);
-        })
+        });
 
         this.socket.on('REQUEST_ACCEPTED', (data) => {
             Vibration.vibrate(1000)
             this.props.onRequestAccepted(data);
-        })
+        });
 
         this.socket.on('DELIVERY_GUY_CHANGE_LOCATION', (data) => {
               this.props.onChangeDeliveryGuyLocation(data);
@@ -76,7 +76,11 @@ class Map extends React.Component{
 
         this.socket.on('RECEIVE_MESSAGE', (data) => {
             this.props.onAlertMessage(data);
-        })
+        });
+
+        this.socket.on('RECEIVE_COMPLETE_DELIVERY', data => {
+            this.props.onSetCompleteChoice(data);
+        });
 
         if(this.props.currentUser.activeDeliveryJob && !this.props.checkSet){
           this.props.setActiveDeliveryJob(this.props.currentUser.activeDeliveryJob);
@@ -181,7 +185,9 @@ const mapDispatchToProps = dispatch => ({
     onAlertMessage: data =>
         dispatch({type: 'ALERT_MESSAGE', data}),
     receiveCancelFromDeliveryGuy: data =>
-        dispatch({type: 'RECEIVE_CANCEL_FROM_DELIVERY_GUY', data})
+        dispatch({type: 'RECEIVE_CANCEL_FROM_DELIVERY_GUY', data}),
+    onSetCompleteChoice: data =>
+        dispatch({type: 'SET_COMPLETE_CHOICE', data})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
