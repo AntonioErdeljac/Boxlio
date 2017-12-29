@@ -1,5 +1,14 @@
 export default (state={placeToChoosen: true, transportation:null, requestCanceled: null}, action) => {
 	switch(action.type){
+		case 'CONFIRM_COMPLETE_DELIVERY':
+			return {
+				...state,
+                placeFromChoosen: false,
+                from: null,
+                lat: null,
+                lng: null,
+                closeFromInput: false,
+			};
 		case 'CANCEL_ACTIVE_REQUEST':
 			return {
 				...state,

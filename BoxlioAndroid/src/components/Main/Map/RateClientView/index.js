@@ -31,11 +31,25 @@ class RateClientView extends React.Component{
             this.setState({rating: rating});
         };
 
+        this.socket = io(constants.API_ROOT);
+
+
+        this.handleSendRating = () => {
+            this.socket.emit('CONFIRM_COMPLETED_DELIVERY', {
+                deliveryGuy: this.props.deliveryGuy,
+                client: this.props.currentUser,
+                rating: this.state.rating
+            });
+            this.props.onCompleteDelivery();
+        };
+
         this.state = {
             rating: 0
-        }
+        };
 
     }
+
+
 
     render(){
         return (
@@ -69,7 +83,7 @@ class RateClientView extends React.Component{
                                 </TouchableOpacity>
                             </Row>
                             <Row style={{justifyContent: 'center', alignItems: 'center'}}>
-                                <TouchableOpacity style={{backgroundColor: '#1fcf7c', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginRight: 10}}>
+                                <TouchableOpacity onPress={this.handleSendRating} style={{backgroundColor: '#1fcf7c', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginRight: 10}}>
                                     <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular', fontSize: 13}}><Icon name="check" style={{color: '#fff'}} />&nbsp;&nbsp;&nbsp;Confirm</Text>
                                 </TouchableOpacity>
                             </Row>
@@ -169,7 +183,9 @@ const mapDispatchToProps = dispatch => ({
     onShowOptions: () =>
         dispatch({type: 'SHOW_OPTIONS'}),
     onCloseOptions: () =>
-        dispatch({type: 'CLOSE_OPTIONS'})
+        dispatch({type: 'CLOSE_OPTIONS'}),
+    onCompleteDelivery: () =>
+        dispatch({ type: 'CONFIRM_COMPLETE_DELIVERY'})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RateClientView);

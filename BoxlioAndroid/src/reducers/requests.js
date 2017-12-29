@@ -1,5 +1,15 @@
 export default (state={showOptions: false}, action) => {
     switch(action.type){
+        case 'CONFIRM_COMPLETE_DELIVERY':
+            return {
+                ...state,
+                requestSent: false,
+                deliveryGuy: null,
+                locationName: null,
+                requestAccepted: false,
+                reanimateComponents: true,
+                completeChoice: false,
+            };
         case 'SET_COMPLETE_CHOICE':
             return {
                 ...state,
@@ -36,7 +46,8 @@ export default (state={showOptions: false}, action) => {
                 deliveryGuy: null,
                 locationName: null,
                 requestAccepted: false,
-                reanimateComponents: true
+                reanimateComponents: true,
+                completeChoice: false
             };
         case 'RECEIVE_CANCEL_FROM_DELIVERY_GUY':
             return {
@@ -45,7 +56,8 @@ export default (state={showOptions: false}, action) => {
                 deliveryGuy: null,
                 locationName: null,
                 requestAccepted: false,
-                reanimateComponents: true
+                reanimateComponents: true,
+                completeChoice: false
             };
         case 'CANCEL_SEND_REQUEST':
             return {
