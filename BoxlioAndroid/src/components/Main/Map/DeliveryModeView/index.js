@@ -1,17 +1,18 @@
-import React from "react";
-import {Container} from "native-base";
-import { Header, Content, Footer, FooterTab, Button, Card, CardItem, Body, Text, Right, Left, H1  } from 'native-base';
-import {Grid, Col, Row} from "react-native-easy-grid";
-import {StyleSheet, Dimensions, View, TextInput, TouchableOpacity, Keyboard} from "react-native";
 import * as Animatable from "react-native-animatable";
-import {connect} from "react-redux";
-import RNGooglePlaces from "react-native-google-places";
-import {Places} from 'google-places-web';
-import agent from "../../../../agent";
 import Icon from 'react-native-vector-icons/FontAwesome';
-const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
-const CardItemAnimatable = Animatable.createAnimatableComponent(CardItem);
+import RNGooglePlaces from "react-native-google-places";
+import React from "react";
+import agent from "../../../../agent";
+import { Header, Content, Footer, FooterTab, Button, Card, CardItem, Body, Text, Right, Left, H1  } from 'native-base';
+import {Container} from "native-base";
+import {Grid, Col, Row} from "react-native-easy-grid";
+import {Places} from 'google-places-web';
+import {StyleSheet, Dimensions, View, TextInput, TouchableOpacity, Keyboard} from "react-native";
+import {connect} from "react-redux";
+
 const CardAnimatable = Animatable.createAnimatableComponent(Card);
+const CardItemAnimatable = Animatable.createAnimatableComponent(CardItem);
+const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 
 
 
@@ -49,6 +50,10 @@ class DeliveryModeView extends React.Component{
             agent.Auth.update({transportation: field});
             this.setState({transportation: field});
         };
+
+        this.handleChangeAvailability = () => {
+            this.props.onChangeAvailability(agent.Auth.update({available: !this.props.currentUser.available}));
+        }
     }
 
     render(){
@@ -91,12 +96,29 @@ class DeliveryModeView extends React.Component{
                             <Text style={{color: 'rgba(0,0,0,.5)', fontFamily: 'VarelaRound-Regular', fontSize: 16, marginLeft: 10}}>{this.props.currentUser.earnedMoney}</Text>
                         </CardItem>
                         <CardItem style={{justifyContent: 'center', alignItems: 'center', marginTop: 30}}>
-                            <TouchableOpacity onPress={this.handleCancelRequest} style={{backgroundColor: '#E7475E', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginLeft: 10}}>
+                        {this.props.currentUser.available ?
+                            <TouchableOpacity onPress={this.handleChangeAvailability} style={{backgroundColor: '#E7475E', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginLeft: 10}}>
                                 <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular', fontSize: 13}}>Go Offline</Text>
                             </TouchableOpacity>
+                            :
+                            <TouchableOpacity onPress={this.handleChangeAvailability} style={{backgroundColor: '#1fcf7c', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginLeft: 10}}>
+                                <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular', fontSize: 13}}>Go Online</Text>
+                            </TouchableOpacity>
+                        }
                         </CardItem>
                         <CardItem style={{borderRadius: 30}}>
-                            <Text style={{color: 'rgba(0,0,0,.5)', marginTop: 10, fontFamily: 'VarelaRound-Regular', fontSize: 10}}>You are <Text style={{color: '#1fcf7c', marginTop: 10, fontFamily: 'VarelaRound-Regular', fontSize: 10}}>online</Text>. You will receive delivery requests.</Text>
+                            <Text style={{color: 'rgba(0,0,0,.5)', marginTop: 10, fontFamily: 'VarelaRound-Regular', fontSize: 10}}>
+                                You are
+                                    {this.props.currentUser.available ?
+                                    <Text style={{color: '#1fcf7c', marginTop: 10, fontFamily: 'VarelaRound-Regular', fontSize: 10}}>
+                                        &nbsp;online
+                                    </Text>
+                                    :
+                                    <Text style={{color: '#E7475E', marginTop: 10, fontFamily: 'VarelaRound-Regular', fontSize: 10}}>
+                                        &nbsp;offline
+                                    </Text>
+                                    }
+                                . You will receive delivery requests.</Text>
                         </CardItem>
                     </Card>
                 </Content>
@@ -169,7 +191,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     onSetTo: data =>
-        dispatch({type: 'SET_TO', data})
+        dispatch({type: 'SET_TO', data}),
+    onChangeAvailability: payload =>
+        dispatch({type: 'CHANGE_AVAILABILITY', payload})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeliveryModeView);

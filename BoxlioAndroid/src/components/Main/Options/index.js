@@ -23,9 +23,9 @@ import {
     Dimensions,
     AsyncStorage} from "react-native";
 
+const ActivityIndicatorAnimated = Animatable.createAnimatableComponent(ActivityIndicator);
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 const FormAnimated = Animatable.createAnimatableComponent(Form);
-const ActivityIndicatorAnimated = Animatable.createAnimatableComponent(ActivityIndicator);
 
 
 class Options extends React.Component{
