@@ -29,8 +29,13 @@ class RateClientView extends React.Component{
 
         this.handleChangeTravelMode = (x) => console.log(x);
 
+        this.handleChangeRating = (rating) => ev =>  {
+            this.setState({rating: rating});
+        };
+
         this.state = {
-            transportation: ''
+            transportation: '',
+            rating: 0
         }
 
     }
@@ -47,20 +52,28 @@ class RateClientView extends React.Component{
                             marginTop: 10
                         }}>{this.props.deliveryGuy.firstName} {this.props.deliveryGuy.lastName}</Text>
                         <View style={{backgroundColor: 'rgba(0,0,0,.08)', height: 1, width: 100, marginTop: 10, marginBottom: 10}}></View>
-                        <Grid style={{padding: 20}}>
-                            <Row style={{justifyContent: 'space-between'}}>
-                                <TouchableOpacity onPress={this.handleChangeTravelMode('walking')}>
-                                    <Icon name="star" style={this.state.transportation !== 'walking' && this.state.transportation !== 'all' ? {fontSize: 20, color:'rgba(0,0,0,.3)'} : {fontSize: 20, color:'#1fcf7c'}}></Icon>
+                        <Grid style={{justifyContent: 'center', alignItems: 'center'}}>
+                            <Row style={{justifyContent: 'center', alignItems: 'center'}}>
+                                <TouchableOpacity onPress={this.handleChangeRating(1)}>
+                                    <Icon name="star" style={this.state.rating >= 1 ? {fontSize: 20, color:'#1fcf7c', margin: 10} : {fontSize: 20, margin: 10, color: 'rgba(0,0,0,.2)'}}></Icon>
                                 </TouchableOpacity>
 
-                                <TouchableOpacity onPress={this.handleChangeTravelMode('car')}>
-                                    <Icon name="star" style={this.state.transportation !== 'car' && this.state.transportation !== 'all' ? {fontSize: 20, color:'rgba(0,0,0,.3)'} : {fontSize: 20, color:'#1fcf7c'}}></Icon>
+                                <TouchableOpacity onPress={this.handleChangeRating(2)}>
+                                    <Icon name="star" style={this.state.rating >= 2 ? {fontSize: 20, color:'#1fcf7c', margin: 10} : {fontSize: 20, margin: 10, color: 'rgba(0,0,0,.2)'}}></Icon>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={this.handleChangeTravelMode('bicycle')}>
-                                    <Icon name="star" style={this.state.transportation !== 'bicycle' && this.state.transportation !== 'all' ? {fontSize: 20, color:'rgba(0,0,0,.3)'} : {fontSize: 20, color:'#1fcf7c'}}></Icon>
+                                <TouchableOpacity onPress={this.handleChangeRating(3)}>
+                                    <Icon name="star" style={this.state.rating >= 3 ? {fontSize: 20, color:'#1fcf7c', margin: 10} : {fontSize: 20, margin: 10, color: 'rgba(0,0,0,.2)'}}></Icon>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={this.handleChangeTravelMode('transit')}>
-                                    <Icon name="star" style={this.state.transportation !== 'transit' && this.state.transportation !== 'all' ? {fontSize: 20, color:'rgba(0,0,0,.3)'} : {fontSize: 20, color:'#1fcf7c'}}></Icon>
+                                <TouchableOpacity onPress={this.handleChangeRating(4)}>
+                                    <Icon name="star" style={this.state.rating >= 4 ? {fontSize: 20, color:'#1fcf7c', margin: 10} : {fontSize: 20, margin: 10, color: 'rgba(0,0,0,.2)'}}></Icon>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={this.handleChangeRating(5)}>
+                                    <Icon name="star" style={this.state.rating >= 5 ? {fontSize: 20, color:'#1fcf7c', margin: 10} : {fontSize: 20, margin: 10, color: 'rgba(0,0,0,.2)'}}></Icon>
+                                </TouchableOpacity>
+                            </Row>
+                            <Row style={{justifyContent: 'center', alignItems: 'center'}}>
+                                <TouchableOpacity style={{backgroundColor: '#1fcf7c', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginRight: 10}}>
+                                    <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular', fontSize: 13}}><Icon name="check" style={{color: '#fff'}} />&nbsp;&nbsp;&nbsp;Confirm</Text>
                                 </TouchableOpacity>
                             </Row>
                         </Grid>
@@ -95,7 +108,7 @@ const styles = StyleSheet.create({
         height: 250 ,
         width: Dimensions.get('window').width-30,
         borderRadius: 3,
-        padding: 30,
+        padding: 20,
         elevation: 2,
         shadowOpacity: 0.1,
         alignItems: 'center',
