@@ -80,11 +80,6 @@ class RateClientView extends React.Component{
 }
 
 const styles = StyleSheet.create({
-    card:{
-        width: Dimensions.get('window').width-50,
-        alignItems: 'flex-start',
-        elevation: 0
-    },
     input: {
         width: Dimensions.get('window').width-100,
         marginRight: 30,
