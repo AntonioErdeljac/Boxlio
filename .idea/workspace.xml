@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="87ab1eb2-a1ae-4ba8-bc58-ca9d268dce01" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/RateClientView/index.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/RateClientView/index.js" />
-      <change beforePath="$PROJECT_DIR$/BoxlioAndroid/src/constants/routes.js" afterPath="$PROJECT_DIR$/BoxlioAndroid/src/constants/routes.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -55,8 +53,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/RateClientView/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="505">
-              <caret line="70" column="180" lean-forward="false" selection-start-line="70" selection-start-column="180" selection-end-line="70" selection-end-column="180" />
+            <state relative-caret-position="287">
+              <caret line="27" column="21" lean-forward="false" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -577,12 +575,12 @@
       <workItem from="1514407991296" duration="1360000" />
       <workItem from="1514472959669" duration="3673000" />
       <workItem from="1514508576708" duration="2116000" />
-      <workItem from="1514569864199" duration="1271000" />
+      <workItem from="1514569864199" duration="1356000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="207714000" />
+    <option name="totallyTimeSpent" value="207799000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1015,8 +1013,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/BoxlioAndroid/src/components/Main/Map/RateClientView/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="505">
-          <caret line="70" column="180" lean-forward="false" selection-start-line="70" selection-start-column="180" selection-end-line="70" selection-end-column="180" />
+        <state relative-caret-position="287">
+          <caret line="27" column="21" lean-forward="false" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

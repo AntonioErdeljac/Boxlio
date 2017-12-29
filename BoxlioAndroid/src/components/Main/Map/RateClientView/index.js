@@ -27,14 +27,11 @@ class RateClientView extends React.Component{
     constructor(props){
         super(props);
 
-        this.handleChangeTravelMode = (x) => console.log(x);
-
         this.handleChangeRating = (rating) => ev =>  {
             this.setState({rating: rating});
         };
 
         this.state = {
-            transportation: '',
             rating: 0
         }
 
