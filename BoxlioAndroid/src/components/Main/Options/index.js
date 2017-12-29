@@ -1,6 +1,11 @@
+import * as Animatable from "react-native-animatable";
 import React from "react";
+import agent from "../../../agent";
+import {Header, Form, Item, Input , Button, H1, H3, Label, Icon, Card, CardItem, Right, Left} from 'native-base';
+import {Actions} from "react-native-router-flux";
 import {Container, Content} from "native-base";
-import {  Header, Form, Item, Input , Button, H1, H3, Label, Icon, Card, CardItem, Right, Left} from 'native-base';
+import {Grid, Row, Col} from "react-native-easy-grid";
+import {connect} from "react-redux";
 import {
     Platform,
     StyleSheet,
@@ -17,11 +22,6 @@ import {
     Switch,
     Dimensions,
     AsyncStorage} from "react-native";
-import {Grid, Row, Col} from "react-native-easy-grid";
-import * as Animatable from "react-native-animatable";
-import {connect} from "react-redux";
-import {Actions} from "react-native-router-flux";
-import agent from "../../../agent";
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 const FormAnimated = Animatable.createAnimatableComponent(Form);
@@ -83,21 +83,24 @@ class Options extends React.Component{
                                 <H3 style={styles.username}>@{this.props.currentUser.username}</H3>
                             </Col>
                          </Row>
-                        <Row style={{borderTopColor: 'rgba(0,0,0,.08)', borderTopWidth: 1, margin: 30, paddingTop: 30}}>
-                            <Col style={{alignItems: 'center'}}>
-                                <H3 style={styles.label}>Delivery Mode</H3>
-                                <Switch
-                                    onValueChange={this.changeDeliveryMode}
-                                    value={this.state.deliveryMode}
-                                />
-                            </Col>
-                        </Row>
+                         {this.props.requestSent || this.props.requestAccepted || this.props.activeDeliveryJob ?
+                         null :
+                            <Row style={{borderTopColor: 'rgba(0,0,0,.08)', borderTopWidth: 1, margin: 30, paddingTop: 30}}>
+                                <Col style={{alignItems: 'center'}}>
+                                    <H3 style={styles.label}>Delivery Mode</H3>
+                                    <Switch
+                                        onValueChange={this.changeDeliveryMode}
+                                        value={this.state.deliveryMode}
+                                    />
+                                </Col>
+                            </Row>
+                         }
 
                     </Grid>
                     <Card style={{elevation: 0, borderColor: 'transparent'}}>
 
 
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('settings')}>
+                        <TouchableOpacity disabled={this.props.requestSent || this.props.requestAccepted || this.props.activeDeliveryJob} onPress={() => this.props.navigation.navigate('settings')}>
                             <CardItem>
                                 <Icon active name="ios-options-outline" />
                                 <Text style={{fontFamily: 'VarelaRound-Regular'}}>Settings</Text>
@@ -115,7 +118,7 @@ class Options extends React.Component{
                                     <Icon style={{color: '#E7475E'}} name="ios-arrow-forward-outline" />
                                 </Right>
                         </CardItem>
-                        
+
                             </TouchableOpacity>
                     </Card>
                 </Content>
@@ -140,7 +143,7 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     imageContainer: {
-        height: 90, 
+        height: 90,
         width: 90,
         borderRadius: 90,
         elevation: 3,
@@ -149,7 +152,7 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         resizeMode: 'contain',
-        height: 90, 
+        height: 90,
         width: 90,
         borderRadius: 90,
   },
@@ -264,7 +267,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-    currentUser: state.common.currentUser
+    currentUser: state.common.currentUser,
+    ...state.requests,
+    ...state.destinationView,
 })
 
 
