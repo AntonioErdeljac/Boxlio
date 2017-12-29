@@ -18,6 +18,7 @@ const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 const CardItemAnimatable = Animatable.createAnimatableComponent(CardItem);
 const CardAnimatable = Animatable.createAnimatableComponent(Card);
 const IconAnimatable = Animatable.createAnimatableComponent(Icon);
+const TouchableOpacityAnimatable = Animatable.createAnimatableComponent(TouchableOpacity);
 
 
 
@@ -83,9 +84,13 @@ class RateClientView extends React.Component{
                                 </TouchableOpacity>
                             </Row>
                             <Row style={{justifyContent: 'center', alignItems: 'center'}}>
-                                <TouchableOpacity onPress={this.handleSendRating} style={{backgroundColor: '#1fcf7c', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginRight: 10}}>
+                                {this.state.rating > 0 ?
+                                <TouchableOpacityAnimatable animation="bounceIn" disabled={this.state.rating < 1} onPress={this.handleSendRating} style={{backgroundColor: '#1fcf7c', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginRight: 10}}>
                                     <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular', fontSize: 13}}><Icon name="check" style={{color: '#fff'}} />&nbsp;&nbsp;&nbsp;Confirm</Text>
-                                </TouchableOpacity>
+                                </TouchableOpacityAnimatable>
+                                    :
+                                <Text style={{color: 'rgba(0,0,0,.4)', fontFamily: 'VarelaRound-Regular', fontSize: 13}}>Please rate to continue</Text>
+                                }
                             </Row>
                         </Grid>
             </Animatable.View>
