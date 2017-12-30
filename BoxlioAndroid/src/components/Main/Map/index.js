@@ -38,7 +38,7 @@ class Map extends React.Component{
                 });
                 this.props.onSetPosition(position);
             }
-        }, null, {enableHighAccuracy: true});
+        }, null, {enableHighAccuracy: false});
 
           navigator.geolocation.getCurrentPosition(position => {
               if(!this.props.placeFromChoosen && !this.props.currentUser.activeDeliveryJob){
@@ -49,7 +49,7 @@ class Map extends React.Component{
                   });
                   this.props.onSetPosition(position);
               }
-          }, null, {enableHighAccuracy: true});
+          }, null, {enableHighAccuracy: false});
 
 
 
@@ -80,6 +80,11 @@ class Map extends React.Component{
 
         this.socket.on('RECEIVE_COMPLETE_DELIVERY', data => {
             this.props.onSetCompleteChoice(data);
+        });
+
+        this.socket.on('REQUEST_DRIVER_CLIENT',  (data) => {
+            this.props.onSetReceivedRequest(data);
+
         });
 
         if(this.props.currentUser.activeDeliveryJob && !this.props.checkSet){
@@ -113,15 +118,15 @@ class Map extends React.Component{
             transportation: this.props.transportation === 'all' ? '' : this.props.transportation
         });
     };
-    
+
 
 
 
 		return (
 			<ContainerAnimatable ref="map-component" animation="fadeInUp" style={styles.container}>
-      
+
         <MapContainer {...this.props.destinationView} positionSet={this.props.positionSet} handleSendRequest={handleSendRequest} focusedOnInput={this.props.focusedOnInput} navigation={this.props.navigation} currentUser={this.props.currentUser} />
-      
+
 			</ContainerAnimatable>
 		);
   }
@@ -151,7 +156,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     justifyContent: 'flex-end',
-    alignItems: 'center', 
+    alignItems: 'center',
   },
   map: {
     position: 'absolute',
@@ -187,8 +192,9 @@ const mapDispatchToProps = dispatch => ({
     receiveCancelFromDeliveryGuy: data =>
         dispatch({type: 'RECEIVE_CANCEL_FROM_DELIVERY_GUY', data}),
     onSetCompleteChoice: data =>
-        dispatch({type: 'SET_COMPLETE_CHOICE', data})
+        dispatch({type: 'SET_COMPLETE_CHOICE', data}),
+    onSetReceivedRequest: data =>
+        dispatch({type: 'SET_RECEIVED_REQUEST', data})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
-

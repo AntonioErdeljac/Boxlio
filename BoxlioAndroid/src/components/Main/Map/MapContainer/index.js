@@ -25,6 +25,7 @@ import io from "socket.io-client";
 const MapViewAnimatable = Animatable.createAnimatableComponent(MapView);
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 import DeliveryModeView from "../DeliveryModeView";
+import ReceiveRequestHandler from "../ReceiveRequestHandler";
 
 class MapContainer extends React.Component{
     componentWillMount(){
@@ -244,6 +245,8 @@ class MapContainer extends React.Component{
 
                 {this.props.currentUser.deliveryMode ? <DeliveryModeView /> : null}
 
+                <ReceiveRequestHandler />
+
 
 
 
@@ -435,7 +438,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     justifyContent: 'flex-end',
-    alignItems: 'center', 
+    alignItems: 'center',
   },
   map: {
     position: 'absolute',
@@ -699,4 +702,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapContainer);
-

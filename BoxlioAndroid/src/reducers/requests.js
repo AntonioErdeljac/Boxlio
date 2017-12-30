@@ -1,5 +1,10 @@
 export default (state={showOptions: false}, action) => {
     switch(action.type){
+        case 'SET_RECEIVED_REQUEST':
+            return {
+                ...state,
+                receivedRequest: true
+            };
         case 'CONFIRM_COMPLETE_DELIVERY':
             return {
                 ...state,

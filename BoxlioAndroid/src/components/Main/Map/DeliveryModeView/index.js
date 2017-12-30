@@ -9,6 +9,8 @@ import {Grid, Col, Row} from "react-native-easy-grid";
 import {Places} from 'google-places-web';
 import {StyleSheet, Dimensions, View, TextInput, TouchableOpacity, Keyboard} from "react-native";
 import {connect} from "react-redux";
+import * as constants from "../../../../constants/routes";
+import io from "socket.io-client";
 
 const CardAnimatable = Animatable.createAnimatableComponent(Card);
 const CardItemAnimatable = Animatable.createAnimatableComponent(CardItem);
@@ -54,6 +56,7 @@ class DeliveryModeView extends React.Component{
         this.handleChangeAvailability = () => {
             this.props.onChangeAvailability(agent.Auth.update({available: !this.props.currentUser.available}));
         }
+
     }
 
     render(){
