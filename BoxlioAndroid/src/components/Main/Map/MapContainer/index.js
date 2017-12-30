@@ -245,8 +245,6 @@ class MapContainer extends React.Component{
 
                 {this.props.currentUser.deliveryMode ? <DeliveryModeView /> : null}
 
-                <ReceiveRequestHandler />
-
 
 
 
