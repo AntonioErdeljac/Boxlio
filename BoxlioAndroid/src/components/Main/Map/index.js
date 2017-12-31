@@ -194,7 +194,7 @@ const mapDispatchToProps = dispatch => ({
     onSetCompleteChoice: data =>
         dispatch({type: 'SET_COMPLETE_CHOICE', data}),
     onSetReceivedRequest: data =>
-        dispatch({type: 'SET_RECEIVED_REQUEST', data})
+        dispatch({type: 'SET_REQUEST', data})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

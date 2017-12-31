@@ -66,6 +66,35 @@ class MapContainer extends React.Component{
             }).start();
         }
 
+        if(nextProps.clientLat && nextProps.clientLng && nextProps.lat && nextProps.lng && nextProps.locationName !== this.props.locationName){
+
+            this.setState({
+                deliveryGuyCoordinate: {
+                    latitude: nextProps.clientLat,
+                longitude: nextProps.clientLng,
+                }
+            })
+
+            const mode = 'driving';
+            const origin = `${nextProps.lat}, ${nextProps.lng}`;
+            const destination = `${nextProps.clientLat}, ${nextProps.clientLng}`;
+            const APIKEY = 'AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
+            const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(responseJson => {
+                    if (responseJson.routes.length) {
+                        this.props.onSetDirections(this.decode(responseJson.routes[0].overview_polyline.points));
+                        this.setState({
+                            directionsCoords: this.decode(responseJson.routes[0].overview_polyline.points)
+                        })
+                    }
+                }).catch(e => {console.error(e)});
+        }
+
+
+
         if(nextProps.currentUser && nextProps.positionSet !== this.props.positionSet){
             this.setState({
                 region: {
@@ -95,7 +124,7 @@ class MapContainer extends React.Component{
             })
         }
 
-        if(!nextProps.placeFromChoosen){
+        if(!nextProps.placeFromChoosen && !nextProps.gotRequest){
             this.setState({
                 directionsCoords: null
             })
@@ -107,7 +136,7 @@ class MapContainer extends React.Component{
             })
         }
 
-        if(nextProps.currentUser.geometry[0] !== this.props.currentUser.geometry[0] && nextProps.currentUser.geometry[1] !== this.props.currentUser.geometry[1] && this.props.currentUser.geometry[1] && this.props.currentUser.geometry[0]){
+        if(nextProps.currentUser.geometry[0] !== this.props.currentUser.geometry[0] && nextProps.currentUser.geometry[1] !== this.props.currentUser.geometry[1] && this.props.currentUser.geometry[1] && this.props.currentUser.geometry[0] && !nextProps.gotRequest){
             this.state.coordinate.timing({
                 latitude: nextProps.currentUser.geometry[0],
                 longitude: nextProps.currentUser.geometry[1],
@@ -130,6 +159,14 @@ class MapContainer extends React.Component{
                         })
                     }
                 }).catch(e => {console.error(e)});
+        }
+
+        if(nextProps.lat && nextProps.lng && nextProps.gotRequest && nextProps.from !== this.props.from){
+            this.state.fromCoordinate.timing({
+                latitude: nextProps.lat,
+                longitude: nextProps.lng,
+                duration: 0
+            }).start();
         }
 
         if(nextProps.lat && nextProps.lng && nextProps.placeFromChoosen && nextProps.from !== this.props.from){
@@ -193,7 +230,7 @@ class MapContainer extends React.Component{
 
           this.state = {
             deliveryGuyCoordinate: new MapView.AnimatedRegion({
-               latitude: this.props.deliveryGuy ? this.props.deliveryGuy.geometry[0] : null,
+               latitude: this.props.deliveryGuy  ? this.props.deliveryGuy.geometry[0] : null,
                longitude: this.props.deliveryGuy ? this.props.deliveryGuy.geometry[1] : null
             }),
             coordinate: new MapView.AnimatedRegion({
@@ -243,7 +280,9 @@ class MapContainer extends React.Component{
                   {!this.props.completeChoice && !this.props.currentUser.deliveryMode && this.props.requestAccepted && this.props.showOptions ? <RequestOptions navigation={this.props.navigation}></RequestOptions> : null}
                   {this.props.completeChoice ? <RateClientView navigation={this.props.navigation} /> : null}
 
-                {this.props.currentUser.deliveryMode ? <DeliveryModeView /> : null}
+                {this.props.currentUser.deliveryMode && !this.props.gotRequest ? <DeliveryModeView /> : null}
+
+                {this.props.gotRequest ? <ReceiveRequestHandler /> : null }
 
 
 
@@ -325,7 +364,7 @@ class MapContainer extends React.Component{
                         </View>
                         </View>
                     </MapView.Marker.Animated> : null
-                }
+                    }
 
 
                     {this.props.lat && this.props.lng && this.props.from ?
@@ -354,7 +393,7 @@ class MapContainer extends React.Component{
 
 
 
-                    {this.props.locationName && this.props.deliveryGuy ?
+                    {this.props.locationName && this.props.deliveryGuy || this.props.client && this.props.locationName ?
                         <MapView.Marker.Animated
                             coordinate={this.state.deliveryGuyCoordinate}
 
@@ -379,7 +418,7 @@ class MapContainer extends React.Component{
 
 
 
-                    {this.props.deliveryGuy ?
+                    {this.props.deliveryGuy || this.props.client ?
                         <MapView.Marker.Animated
                             coordinate={this.state.deliveryGuyCoordinate}
                         >
@@ -392,7 +431,6 @@ class MapContainer extends React.Component{
                                 alignItems: 'center'}}>
                                 <View  style={{backgroundColor: '#fff', height: 30, width: 30, borderRadius: 50, justifyContent: 'center', alignItems: 'center'}}>
                                     <View  style={{backgroundColor: '#F9C134', height: 20, width: 20, borderRadius: 50}}>
-
                                     </View>
                                 </View>
                             </View>
@@ -407,7 +445,7 @@ class MapContainer extends React.Component{
                         coordinates={[
                             ...this.state.directionsCoords
                         ]}
-                        strokeWidth={4} strokeColor="#1fcf7c"/> : null }
+                        strokeWidth={4} strokeColor={this.props.gotRequest ? '#F9C134' : '#1fcf7c'}/> : null }
                 </MapView>
             </Container>
 		);

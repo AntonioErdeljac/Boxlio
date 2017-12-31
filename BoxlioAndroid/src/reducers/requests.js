@@ -1,9 +1,14 @@
 export default (state={showOptions: false}, action) => {
     switch(action.type){
-        case 'SET_RECEIVED_REQUEST':
+        case 'SET_REQUEST':
             return {
                 ...state,
-                receivedRequest: true
+                receivedRequest: true,
+                gotRequest: true,
+                client: action.data.client,
+                locationName: action.data.to,
+                price: action.data.price,
+                item: action.data.item
             };
         case 'CONFIRM_COMPLETE_DELIVERY':
             return {
