@@ -1,5 +1,18 @@
 export default (state={placeToChoosen: true, transportation:null, requestCanceled: null}, action) => {
 	switch(action.type){
+		case 'DECLINE_REQUEST':
+            return {
+                ...state,
+                placeFromChoosen: false,
+                from: null,
+                lat: null,
+                lng: null,
+                closeFromInput: false,
+				requestCanceled: true,
+				clientLat: null,
+				clientLng: null,
+				requestReceived: false,
+            }
 		case 'SET_REQUEST':
 			return {
 				...state,

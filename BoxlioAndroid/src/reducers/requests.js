@@ -1,5 +1,21 @@
 export default (state={showOptions: false}, action) => {
     switch(action.type){
+        case 'DECLINE_REQUEST':
+            return {
+                ...state,
+                requestSent: false,
+                deliveryGuy: null,
+                locationName: null,
+                requestAccepted: false,
+                reanimateComponents: true,
+                completeChoice: false,
+                client: null,
+                locaitonName: null,
+                item: null,
+                price: null,
+                gotRequest: null,
+                receivedRequest: null
+            }
         case 'SET_REQUEST':
             return {
                 ...state,

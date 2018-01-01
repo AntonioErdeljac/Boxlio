@@ -6,11 +6,30 @@ import {Grid, Col, Row} from "react-native-easy-grid";
 import {StyleSheet, Dimensions, View, TextInput, Keyboard, TouchableOpacity, Image} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
+import io from "socket.io-client";
+import * as constants from "../../../../constants/routes";
+import agent from "../../../../agent";
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 
 
 class ReceiveRequestHandler extends React.Component{
+    constructor(props){
+        super(props);
+
+        this.socket = io(constants.API_ROOT);
+
+        this.handleDeclineRequest = ev => {
+            if(this.props.acceptedRequest){
+                this.socket.emit('CANCEL_DELIVERY_JOB_DELIVERY_GUY', {
+                    client: this.props.client,
+                    deliveryGuy: this.props.currentUser
+                })
+                this.props.onDeclineRequest(agent.Auth.update({isOrdering: false, isDelivering: false, activeDeliveryJob: null}))
+            }
+            this.props.onDeclineRequest(agent.Auth.update({isOrdering: false, isDelivering: false, activeDeliveryJob: null}));
+        }
+    }
 	render(){
         const {client} = this.props;
 		return (
@@ -50,7 +69,7 @@ class ReceiveRequestHandler extends React.Component{
                     </Col>
                     <Col style={{
                         marginBottom: 10,}}>
-                        <TouchableOpacity style={{backgroundColor: '#E7475E', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginLeft: 10}}>
+                        <TouchableOpacity onPress={this.handleDeclineRequest} style={{backgroundColor: '#E7475E', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginLeft: 10}}>
                             <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular', fontSize: 13}}><Icon name="close" style={{color: '#fff'}} />&nbsp;&nbsp;&nbsp;Decline</Text>
                         </TouchableOpacity>
                     </Col>
@@ -143,7 +162,9 @@ const mapDispatchToProps = dispatch => ({
     onSetTo: data =>
         dispatch({type: 'SET_TO', data}),
     setToName: text =>
-        dispatch({type: 'SET_TO_NAME', text})
+        dispatch({type: 'SET_TO_NAME', text}),
+    onDeclineRequest: payload =>
+        dispatch({type: 'DECLINE_REQUEST', payload})
 });
 
 const mapStateToProps = state => ({
@@ -152,5 +173,6 @@ const mapStateToProps = state => ({
   ...state.requests,
     requestSent: state.requests.requestSent
 });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReceiveRequestHandler);

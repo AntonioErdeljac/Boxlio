@@ -15,7 +15,7 @@ class RequestView extends React.Component{
     }
 
     componentDidMount(){
-        
+
     }
 
     constructor(props){
@@ -42,8 +42,8 @@ class RequestView extends React.Component{
                 })
                 this.props.onDeclineRequest(agent.Auth.update({isOrdering: false, isDelivering: false, activeDeliveryJob: null}))
             }
-            this.props.onDeclineRequest(agent.Auth.update({isOrdering: false, isDelivering: false, activeDeliveryJob: null}))
-;        };
+            this.props.onDeclineRequest(agent.Auth.update({isOrdering: false, isDelivering: false, activeDeliveryJob: null}));
+        };
 
         this.handleAcceptRequest = ev => {
             ev.preventDefault();
@@ -242,12 +242,12 @@ class RequestView extends React.Component{
                                             <button className="orderbtn btn btn-primary form-control mb-3"
                                                     onClick={this.handleCompleteDelivery}
                                                     style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
-                                                <i className="fa fa-check"></i> Mark as delivered 
+                                                <i className="fa fa-check"></i> Mark as delivered
                                             </button>
                                         </div>
                                     </div>
-                        </div> : null} 
-                        {this.props.sentCompleteChoice ? 
+                        </div> : null}
+                        {this.props.sentCompleteChoice ?
                             <div className="mt-3 text-center" style={{marginTop: '100px'}}>
                             <i className="fa fa-circle-o-notch fa-spin fa-3x my-2" style={{color: '#1fcf7c'}}></i>
                             <p className="text-muted">Waiting for the client to confirm.</p>
@@ -289,4 +289,3 @@ const mapDispatchToProps = dispatch => ({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestView);
-
