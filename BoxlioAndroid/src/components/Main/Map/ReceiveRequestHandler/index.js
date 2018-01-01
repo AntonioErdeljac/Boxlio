@@ -29,6 +29,23 @@ class ReceiveRequestHandler extends React.Component{
             }
             this.props.onDeclineRequest(agent.Auth.update({isOrdering: false, isDelivering: false, activeDeliveryJob: null}));
         }
+
+        this.handleAcceptRequest = ev => {
+            ev.preventDefault();
+            this.socket.emit('ACCEPT_REQUEST', {
+                client: this.props.client,
+                deliveryGuy: this.props.currentUser,
+                locationName: this.props.locationName,
+                deliveryGuyLocationName: this.props.to,
+                fromName: this.props.from,
+                price: this.props.price,
+                item: this.props.item,
+                lat: this.props.lat,
+                lng: this.props.lng
+
+            });
+            this.props.onAcceptRequest(this.props.client);
+        };
     }
 	render(){
         const {client} = this.props;
@@ -63,7 +80,7 @@ class ReceiveRequestHandler extends React.Component{
 
                     <Col style={{
                         marginBottom: 10,}}>
-                        <TouchableOpacity style={{backgroundColor: '#1fcf7c', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginRight: 10}}>
+                        <TouchableOpacity onPress={this.handleAcceptRequest} style={{backgroundColor: '#1fcf7c', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginRight: 10}}>
                             <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular', fontSize: 13}}><Icon name="check" style={{color: '#fff'}} />&nbsp;&nbsp;&nbsp;Accept</Text>
                         </TouchableOpacity>
                     </Col>
@@ -164,7 +181,9 @@ const mapDispatchToProps = dispatch => ({
     setToName: text =>
         dispatch({type: 'SET_TO_NAME', text}),
     onDeclineRequest: payload =>
-        dispatch({type: 'DECLINE_REQUEST', payload})
+        dispatch({type: 'DECLINE_REQUEST', payload}),
+    onAcceptRequest: client =>
+        dispatch({type: 'ACCEPT_REQUEST', client})
 });
 
 const mapStateToProps = state => ({

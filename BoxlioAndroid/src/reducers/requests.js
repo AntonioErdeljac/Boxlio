@@ -1,5 +1,10 @@
 export default (state={showOptions: false}, action) => {
     switch(action.type){
+        case 'ACCEPT_REQUEST':
+            return {
+                ...state,
+                acceptedRequest: true
+            }
         case 'DECLINE_REQUEST':
             return {
                 ...state,
