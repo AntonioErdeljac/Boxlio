@@ -88,13 +88,17 @@ class Map extends React.Component{
         });
 
         if(this.props.currentUser.activeDeliveryJob && !this.props.checkSet){
-          this.props.setActiveDeliveryJob(this.props.currentUser.activeDeliveryJob);
-          const data = {
-              locationName: this.props.currentUser.activeDeliveryJob.toName,
-              deliveryGuy: this.props.currentUser.activeDeliveryJob.deliveryGuy,
-              toLocation: this.props.currentUser.activeDeliveryJob.toLocation
-          };
-          this.props.onChangeDeliveryGuyLocation(data);
+            if(this.props.currentUser.username !== this.props.currentUser.activeDeliveryJob.deliveryGuy.username){
+                this.props.setActiveDeliveryJob(this.props.currentUser.activeDeliveryJob);
+                const data = {
+                    locationName: this.props.currentUser.activeDeliveryJob.toName,
+                    deliveryGuy: this.props.currentUser.activeDeliveryJob.deliveryGuy,
+                    toLocation: this.props.currentUser.activeDeliveryJob.toLocation
+                };
+                this.props.onChangeDeliveryGuyLocation(data);
+            } else if (this.props.currentUser.username === this.props.currentUser.activeDeliveryJob.deliveryGuy.username){
+                this.props.setActiveDeliveryJobDeliveryGuy(this.props.currentUser.activeDeliveryJob);
+            }
         }
     }
   }
@@ -187,6 +191,8 @@ const mapDispatchToProps = dispatch => ({
         dispatch({type: 'CHANGE_DELIVERY_GUY_LOCATION', data}),
     setActiveDeliveryJob: (job) =>
         dispatch({type: 'SET_ACTIVE_DELIVERY_JOB', job}),
+    setActiveDeliveryJobDeliveryGuy: job =>
+        dispatch({type: 'SET_ACTIVE_DELIVERY_JOB_DELIVERY_GUY', job}),
     onAlertMessage: data =>
         dispatch({type: 'ALERT_MESSAGE', data}),
     receiveCancelFromDeliveryGuy: data =>

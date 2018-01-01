@@ -12,7 +12,18 @@ export default (state={placeToChoosen: true, transportation:null, requestCancele
 				clientLat: null,
 				clientLng: null,
 				requestReceived: false,
-            }
+			};
+		case 'SET_ACTIVE_DELIVERY_JOB_DELIVERY_GUY':
+			return {
+				...state,
+                lat: action.job.fromLocation[0],
+                lng: action.job.fromLocation[1],
+				clientLat: action.job.toLocation[0],
+				to: action.job.deliveryGuyLocationName,
+                clientLng: action.job.toLocation[1],
+				requestReceived: true,
+                from: action.job.fromName,
+			};
 		case 'SET_REQUEST':
 			return {
 				...state,
@@ -64,7 +75,7 @@ export default (state={placeToChoosen: true, transportation:null, requestCancele
                 checkSet: true,
 				closeFromInput: true,
 				closeToInput: true
-            };
+			};
 		case 'SHOW_TO_INPUT':
 			return {
 				...state,

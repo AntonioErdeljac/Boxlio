@@ -21,6 +21,16 @@ export default (state={showOptions: false}, action) => {
                 gotRequest: null,
                 receivedRequest: null
             }
+        case 'SET_ACTIVE_DELIVERY_JOB_DELIVERY_GUY':
+            return {
+                ...state,
+                receivedRequest: true,
+                gotRequest: true,
+                client: action.job.client,
+                locationName: action.job.toName,
+                price: action.job.price,
+                item: action.job.item
+            };
         case 'SET_REQUEST':
             return {
                 ...state,

@@ -44,9 +44,28 @@ class MapContainer extends React.Component{
             })
         }
 
-        if(this.props.currentUser.activeDeliveryJob){
+        if(this.props.currentUser.activeDeliveryJob && !this.props.gotRequest){
             const mode = 'driving';
             const origin = `${this.props.currentUser.geometry[0]}, ${this.props.currentUser.geometry[1]}`;
+            const destination = `${this.props.lat}, ${this.props.lng}`;
+            const APIKEY = 'AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
+            const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(responseJson => {
+                    if (responseJson.routes.length) {
+                        this.props.onSetDirections(this.decode(responseJson.routes[0].overview_polyline.points));
+                        this.setState({
+                            directionsCoords: this.decode(responseJson.routes[0].overview_polyline.points)
+                        })
+                    }
+                }).catch(e => {console.error(e)});
+        }
+
+        if(this.props.currentUser.activeDeliveryJob && this.props.gotRequest){
+            const mode = 'driving';
+            const origin = `${this.props.clientLat}, ${this.props.clientLng}`;
             const destination = `${this.props.lat}, ${this.props.lng}`;
             const APIKEY = 'AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
             const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${APIKEY}&mode=${mode}`;
@@ -145,7 +164,7 @@ class MapContainer extends React.Component{
             })
         }
 
-        if(nextProps.currentUser.geometry[0] !== this.props.currentUser.geometry[0] && nextProps.currentUser.geometry[1] !== this.props.currentUser.geometry[1] && this.props.currentUser.geometry[1] && this.props.currentUser.geometry[0] && !nextProps.gotRequest){
+        if(nextProps.currentUser.geometry[0] !== this.props.currentUser.geometry[0] && nextProps.currentUser.geometry[1] !== this.props.currentUser.geometry[1] && this.props.currentUser.geometry[1] && this.props.currentUser.geometry[0]){
             this.state.coordinate.timing({
                 latitude: nextProps.currentUser.geometry[0],
                 longitude: nextProps.currentUser.geometry[1],
@@ -178,7 +197,7 @@ class MapContainer extends React.Component{
             }).start();
         }
 
-        if(nextProps.lat && nextProps.lng && nextProps.placeFromChoosen && nextProps.from !== this.props.from){
+        if(nextProps.lat && nextProps.lng && nextProps.placeFromChoosen && nextProps.from !== this.props.from && !nextProps.gotRequest){
             this.state.fromCoordinate.timing({
                 latitude: nextProps.lat,
                 longitude: nextProps.lng,
@@ -277,21 +296,19 @@ class MapContainer extends React.Component{
                 </Grid>
 
 
-                {this.props.currentUser.deliveryMode || !this.props.requestAccepted && this.state.disableRequestComponents && this.props.closeFromInput ? null : <SearchPlacesFrom  />}
-                  {!this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  this.props.placeFromChoosen && !this.props.closeToInput && !this.state.disableRequestComponents ? <SearchPlacesTo/> : null}
-                {this.props.currentUser.deliveryMode || !this.props.requestAccepted &&  this.state.disableRequestComponents ? null : <LocationChooser mapRef={this.refs.map} />}
-                {this.props.currentUser.deliveryMode || !this.props.requestAccepted &&  this.state.disableRequestComponents ? null : <LocationChooserTo />}
-                  {!this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen ? <TransportationType /> : null}
-                  {!this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null}
-                  {!this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage /> : null}
-                  {!this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null}
-                  {!this.props.completeChoice && !this.props.currentUser.deliveryMode && this.props.requestSent ? <RequestHandler navigation={this.props.navigation}/> : null}
-                  {!this.props.completeChoice && !this.props.currentUser.deliveryMode && this.props.requestAccepted && this.props.showOptions ? <RequestOptions navigation={this.props.navigation}></RequestOptions> : null}
-                  {this.props.completeChoice ? <RateClientView navigation={this.props.navigation} /> : null}
-
-                {this.props.currentUser.deliveryMode && !this.props.gotRequest ? <DeliveryModeView /> : null}
-
-                {this.props.gotRequest ? <ReceiveRequestHandler /> : null }
+                { this.props.currentUser.deliveryMode || !this.props.requestAccepted && this.state.disableRequestComponents && this.props.closeFromInput ? null : <SearchPlacesFrom  /> }
+                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  this.props.placeFromChoosen && !this.props.closeToInput && !this.state.disableRequestComponents ? <SearchPlacesTo/> : null }
+                { this.props.currentUser.deliveryMode || !this.props.requestAccepted &&  this.state.disableRequestComponents ? null : <LocationChooser mapRef={this.refs.map} />}
+                { this.props.currentUser.deliveryMode || !this.props.requestAccepted &&  this.state.disableRequestComponents ? null : <LocationChooserTo />}
+                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen ? <TransportationType /> : null }
+                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null }
+                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage /> : null }
+                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null }
+                { !this.props.completeChoice && !this.props.currentUser.deliveryMode && this.props.requestSent ? <RequestHandler navigation={this.props.navigation}/> : null }
+                { !this.props.completeChoice && !this.props.currentUser.deliveryMode && this.props.requestAccepted && this.props.showOptions ? <RequestOptions navigation={this.props.navigation}></RequestOptions> : null }
+                { this.props.completeChoice ? <RateClientView navigation={this.props.navigation} /> : null }
+                { this.props.currentUser.deliveryMode && !this.props.gotRequest && !this.props.currentUser.activeDeliveryJob ? <DeliveryModeView /> : null }
+                { this.props.gotRequest && !this.props.currentUser.activeDeliveryJob ? <ReceiveRequestHandler /> : null }
 
 
 
