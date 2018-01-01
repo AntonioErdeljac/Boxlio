@@ -83,7 +83,7 @@ class Options extends React.Component{
                                 <H3 style={styles.username}>@{this.props.currentUser.username}</H3>
                             </Col>
                          </Row>
-                         {this.props.requestSent || this.props.requestAccepted || this.props.activeDeliveryJob ?
+                         {this.props.requestSent || this.props.requestAccepted || this.props.activeDeliveryJob || this.props.gotRequest ?
                          null :
                             <Row style={{borderTopColor: 'rgba(0,0,0,.08)', borderTopWidth: 1, margin: 30, paddingTop: 30}}>
                                 <Col style={{alignItems: 'center'}}>
@@ -100,7 +100,7 @@ class Options extends React.Component{
                     <Card style={{elevation: 0, borderColor: 'transparent'}}>
 
 
-                        <TouchableOpacity disabled={this.props.requestSent || this.props.requestAccepted || this.props.activeDeliveryJob} onPress={() => this.props.navigation.navigate('settings')}>
+                        <TouchableOpacity disabled={this.props.requestSent || this.props.gotRequest || this.props.requestAccepted || this.props.activeDeliveryJob} onPress={() => this.props.navigation.navigate('settings')}>
                             <CardItem>
                                 <Icon active name="ios-options-outline" />
                                 <Text style={{fontFamily: 'VarelaRound-Regular'}}>Settings</Text>

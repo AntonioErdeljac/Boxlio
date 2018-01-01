@@ -35,6 +35,15 @@ class MapContainer extends React.Component{
             })
         }
 
+        if(this.props.clientLat && this.props.clientLng) {
+            this.setState({
+                deliveryGuyCoordinate: {
+                    latitude: this.props.clientLat,
+                    longitude: this.props.clientLng,
+                }
+            })
+        }
+
         if(this.props.currentUser.activeDeliveryJob){
             const mode = 'driving';
             const origin = `${this.props.currentUser.geometry[0]}, ${this.props.currentUser.geometry[1]}`;
@@ -71,7 +80,7 @@ class MapContainer extends React.Component{
             this.setState({
                 deliveryGuyCoordinate: {
                     latitude: nextProps.clientLat,
-                longitude: nextProps.clientLng,
+                    longitude: nextProps.clientLng,
                 }
             })
 
