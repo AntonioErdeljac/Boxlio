@@ -120,8 +120,10 @@ export default (state={showOptions: false}, action) => {
                 locationName: action.data.locationName
             };
         case 'CHANGE_DELIVERY_GUY_LOCATION':
+        console.error(action.data.deliveryGuy);
             return {
                 ...state,
+                receivedUpdate: true,
                 deliveryGuy: action.data.deliveryGuy,
                 locationName: action.data.locationName
             }

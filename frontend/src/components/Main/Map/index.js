@@ -134,7 +134,6 @@ const MyMapComponent = compose(
             }
         },
         componentWillReceiveProps(nextProps) {
-            console.log(nextProps, 'NEXT PROPS');
             const DirectionsService = new window.google.maps.DirectionsService();
 
             if(nextProps.currentUser.transportation){
@@ -142,7 +141,7 @@ const MyMapComponent = compose(
                     transportation: nextProps.currentUser.transportation
                 });
             }
-            
+
 
             if(nextProps.requestAccepted === false || nextProps.deliveryGuy === null){
                 this.setState({
@@ -152,7 +151,8 @@ const MyMapComponent = compose(
                 })
             }
 
-            if(nextProps.currentUse && !nextProps.requestSent|| nextProps.lat && nextProps.lng && nextProps.placeChoosen ){
+            if(nextProps.currentUser && !nextProps.requestSent && nextProps.currentUser.geometry[0] !== this.props.currentUser.geometry[0] && nextProps.currentUser.geometry[1] !== this.props.currentUser.geometry[1] || nextProps.lat && nextProps.lng && nextProps.placeChoosen && nextProps.lat !== this.props.lat && nextProps.lng !== this.props.lng){
+                console.log(1);
                 DirectionsService.route({
                     origin: new window.google.maps.LatLng(nextProps.currentUser.geometry[0], nextProps.currentUser.geometry[1]),
                     destination: new window.google.maps.LatLng(nextProps.lat, nextProps.lng),
@@ -170,7 +170,8 @@ const MyMapComponent = compose(
 
 
 
-            if(nextProps.deliveryGuy && nextProps.locationName && nextProps.requestAccepted){
+            if(nextProps.deliveryGuy && nextProps.locationName && nextProps.requestAccepted && nextProps.deliveryGuy.geometry[0] !== this.props.deliveryGuy.geometry[0] && nextProps.deliveryGuy.geometry[1] == this.props.deliveryGuy.geometry[1]){
+                console.log(2);
                 DirectionsService.route({
                     origin: new window.google.maps.LatLng(nextProps.deliveryGuy.geometry[0], nextProps.deliveryGuy.geometry[1]),
                     destination: new window.google.maps.LatLng(this.props.lat, this.props.lng),
@@ -187,7 +188,8 @@ const MyMapComponent = compose(
             }
 
 
-            if(nextProps.lat && nextProps.lng) {
+            if(nextProps.lat && nextProps.lng && nextProps.lat !== this.props.lat && nextProps.lng !== this.props.lng) {
+                console.log(3);
                 if(nextProps.deliveryGuy){
                     DirectionsService.route({
                         origin: new window.google.maps.LatLng(nextProps.deliveryGuy.geometry[0], nextProps.deliveryGuy.geometry[1]),
@@ -217,7 +219,8 @@ const MyMapComponent = compose(
                     }
                 });
             }
-            if(nextProps.currentUser.deliveryMode && nextProps.clientLat && nextProps.clientLng && nextProps.lat && nextProps.lng) {
+            if(nextProps.currentUser.deliveryMode && nextProps.clientLat && nextProps.clientLng && nextProps.lat && nextProps.lng && nextProps.lat !== this.props.lat && nextProps.lng !== this.props.lng) {
+                console.log(4);
                 DirectionsService.route({
                     origin: new window.google.maps.LatLng(nextProps.lat, nextProps.lng),
                     destination: new window.google.maps.LatLng(nextProps.clientLat, nextProps.clientLng),
@@ -262,7 +265,7 @@ const MyMapComponent = compose(
         <OverlayView position={{lat: props.currentUser ? props.currentUser.geometry[0] : 45, lng: props.currentUser ? props.currentUser.geometry[1] : 15}}
                      mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
                      getPixelPositionOffset={getPixelPositionOffset}>
-                     
+
             <div>
 
             {1 === 0 ?<span><img src="images/map-marker.png" height="90" className="map-marker-user"/>
@@ -283,18 +286,6 @@ const MyMapComponent = compose(
             }}
             position={{ lat: 45.3430556, lng: 14.4091667}} onClick={props.onMarkerClick}  />
         : null}
-        {props.directionsToClient ? <DirectionsRenderer options={{polylineOptions: {
-            strokeColor: "#F9C134",
-            strokeOpacity: 0.7,
-            strokeWeight: 7
-        }, suppressMarkers: true}} directions={props.directionsToClient} /> : null}
-
-
-        {props.directions3 ? <DirectionsRenderer options={{polylineOptions: {
-            strokeColor: "#F9C134",
-            strokeOpacity: 0.7,
-            strokeWeight: 7
-        }, suppressMarkers: true}} directions={props.directions3} /> : null}
 
         {props.directions ? <DirectionsRenderer options={{polylineOptions: {
             strokeColor: "#1fcf7c",
@@ -304,17 +295,6 @@ const MyMapComponent = compose(
 
 
         {props.directionsToClient ?  <OverlayView position={{lat: props.directionsToClient.request.destination.location.lat(), lng: props.directionsToClient.request.destination.location.lng()}}
-                                          mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-                                          getPixelPositionOffset={getPixelPositionOffset}>
-            <div>
-
-                <div className="up"></div>
-                <div className="user-marker-outside-client-location">
-                    <div className="user-marker-inside-client-location"></div>
-                </div>
-            </div>
-        </OverlayView> : null}
-        {props.directions3 ?  <OverlayView position={{lat: props.directions3.request.origin.location.lat(), lng: props.directions3.request.origin.location.lng()}}
                                           mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
                                           getPixelPositionOffset={getPixelPositionOffset}>
             <div>

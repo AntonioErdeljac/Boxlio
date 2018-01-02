@@ -86,12 +86,14 @@ class MapContainer extends React.Component{
     }
     componentWillReceiveProps(nextProps){
 
-        if(nextProps.deliveryGuy){
-            this.state.deliveryGuyCoordinate.timing({
-                latitude: nextProps.deliveryGuy.geometry[0],
-                longitude: nextProps.deliveryGuy.geometry[1],
-                duration: 500
-            }).start();
+        if(nextProps.deliveryGuy && nextProps.receivedUpdate){
+            console.error(nextProps.deliveryGuy.geometry);
+            this.setState({
+                deliveryGuyCoordinate: {
+                    latitude: nextProps.deliveryGuy.geometry[0],
+                    longitude: nextProps.deliveryGuy.geometry[1],
+                }
+            })
         }
 
         if(nextProps.clientLat && nextProps.clientLng && nextProps.lat && nextProps.lng && nextProps.locationName !== this.props.locationName){

@@ -14,11 +14,10 @@ import * as actions from "../../constants/actions";
 
 
 class Main extends React.Component{
+    constructor(props){
+        super(props);
 
-    render(){
-
-        if(this.props.currentUser){
-            console.log(this.props.currentUser, 'Provjeravam active job');
+        console.log(this.props.currentUser, 'Provjeravam active job');
             if(this.props.currentUser.activeDeliveryJob && !this.props.checkSet){
                 console.log(this.props.currentUser.activeDeliveryJob, 'JOB');
                 this.props.setActiveDeliveryJob(this.props.currentUser.activeDeliveryJob);
@@ -100,7 +99,7 @@ class Main extends React.Component{
                 socket.on('REQUEST_DRIVER_CLIENT',  (data) => {
                         console.log('be my driver');
                         setRequest(data);
-                    
+
                 });
 
                 const onRequestAccepted = data => {
@@ -114,11 +113,11 @@ class Main extends React.Component{
                 });
 
 
-            
+
 
             socket.on('RECEIVE_CANCEL_DELIVERY_JOB_CLIENT', data => {
                 this.props.receiveCancelFromClient(data);
-            })          
+            })
 
 
             socket.emit('NEAR_DRIVERS', {
@@ -134,7 +133,7 @@ class Main extends React.Component{
             })
 
             const changeLocationName = data => {
-                
+
             };
             console.log(this.props, 'OVO SU PROPSI');
 
@@ -210,6 +209,7 @@ class Main extends React.Component{
             let id, target, options;
 
             function success(pos) {
+                console.log('KOLKO CESTO SE OVO PONAVLJA')
                 handleChangePosition(pos);
             }
 
@@ -217,18 +217,20 @@ class Main extends React.Component{
                 console.warn('ERROR(' + err.code + '): ' + err.message);
             }
 
-            options = {
-                enableHighAccuracy: true, maximumAge: 1
-            };
-
 
             if(this.props.currentUser.deliveryMode){
-                let id = navigator.geolocation.watchPosition(success, error ,options);
+                this.id = navigator.geolocation.watchPosition(success);
             }
 
             if(!this.props.currentUser.deliveryMode){
-                navigator.geolocation.clearWatch(id);
+                navigator.geolocation.clearWatch(this.id);
             }
+    }
+
+    render(){
+
+        if(this.props.currentUser){
+
 
             if(!this.props.currentUser.deliveryMode){
 
@@ -295,4 +297,4 @@ const mapDispatchToProps = dispatch => ({
         dispatch({type: 'ALERT_MESSAGE'})
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main)); 
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
