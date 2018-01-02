@@ -86,8 +86,7 @@ class MapContainer extends React.Component{
     }
     componentWillReceiveProps(nextProps){
 
-        if(nextProps.deliveryGuy && nextProps.receivedUpdate){
-            console.error(nextProps.deliveryGuy.geometry);
+        if(nextProps.deliveryGuy && nextProps.receivedUpdate && nextProps.deliveryGuy.geometry[0]){
             this.setState({
                 deliveryGuyCoordinate: {
                     latitude: nextProps.deliveryGuy.geometry[0],

@@ -177,17 +177,19 @@ class Main extends React.Component{
             const handleChangePosition = pos => {
                 let lat = pos.coords.latitude;
                 let lng = pos.coords.longitude;
-                const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&key=AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
-                fetch(url)
-                    .then(function(response) {
-                        if (response.status >= 400) {
-                            throw new Error("Bad response from server");
-                        }
-                        return response.json();
-                    })
-                    .then(function(data) {
-                        changePosition(pos, data.results[0]);
-                    });
+                if(lat !== this.props.currentUser.geometry[0] && lng !== this.props.currentUser.geometry[1]){
+                    const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&key=AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
+                    fetch(url)
+                        .then(function(response) {
+                            if (response.status >= 400) {
+                                throw new Error("Bad response from server");
+                            }
+                            return response.json();
+                        })
+                        .then(function(data) {
+                            changePosition(pos, data.results[0]);
+                        });
+                }
             };
 
             const changePosition = (pos, data) => {
