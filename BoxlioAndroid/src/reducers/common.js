@@ -1,5 +1,21 @@
 export default (state={}, action) => {
 	switch(action.type){
+		case 'SUCCESS_COMPLETE_DELIVERY':
+			return {
+				...state,
+                currentUser: Object.assign(state.currentUser, state.currentUser, {
+                    ...state.currentUser,
+                    earnedMoney: action.data.currentUser.earnedMoney,
+                    deliveredItems: action.data.currentUser.deliveredItems,
+					ratings: action.data.currentUser.ratings,
+					activeDeliveryJob: null
+                })
+			};
+		case'DECLINE_REQUEST':
+			return {
+				...state,
+				currentUser: action.payload ? action.payload.user : state.currentUser
+			};
 		case 'CHANGE_AVAILABILITY':
 			return {
 				...state,

@@ -61,6 +61,11 @@ class Map extends React.Component{
               });
           }
 
+
+        this.socket.on('SUCCESS_COMPLETE_DELIVERY', data => {
+            this.props.onSuccessCompleteDelivery(data);
+        })
+
         this.socket.on('RECEIVE_CANCEL_DELIVERY_JOB_DELIVERY_GUY', data => {
             this.props.receiveCancelFromDeliveryGuy(data);
         });
@@ -200,7 +205,9 @@ const mapDispatchToProps = dispatch => ({
     onSetCompleteChoice: data =>
         dispatch({type: 'SET_COMPLETE_CHOICE', data}),
     onSetReceivedRequest: data =>
-        dispatch({type: 'SET_REQUEST', data})
+        dispatch({type: 'SET_REQUEST', data}),
+    onSuccessCompleteDelivery: data =>
+        dispatch({type: 'SUCCESS_COMPLETE_DELIVERY', data})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

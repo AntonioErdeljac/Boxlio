@@ -31,7 +31,7 @@ class DestinationView extends React.Component{
         this.handleChangeTravelMode = field => ev => {
             if(!this.props.requestSent){
                 this.props.onChangeTravelMode(field);
-                this.setState({transportation: field}); 
+                this.setState({transportation: field});
             }
         };
 
@@ -48,7 +48,7 @@ class DestinationView extends React.Component{
                     client: this.props.currentUser
                 });
             this.props.onCancelRequest(agent.Auth.update({isRequesting: false, isOrdering: false, isDelivering: false, activeDeliveryJob: null}));
-            
+
         };
 
         this.handleSendRequest = ev => {
@@ -117,7 +117,7 @@ class DestinationView extends React.Component{
         tags.splice(i, 1);
         this.setState({tags: tags});
     }
- 
+
     handleAddition(tag) {
         let tags = this.state.tags;
         tags.push({
@@ -126,15 +126,15 @@ class DestinationView extends React.Component{
         });
         this.setState({tags: tags});
     }
- 
+
     handleDrag(tag, currPos, newPos) {
         let tags = this.state.tags;
- 
-        // mutate array 
+
+        // mutate array
         tags.splice(currPos, 1);
         tags.splice(newPos, 0, tag);
- 
-        // re-render 
+
+        // re-render
         this.setState({ tags: tags });
     }
 
@@ -177,20 +177,13 @@ class DestinationView extends React.Component{
 
 
             return (
-                <ReactCSSTransitionGroup
-                    transitionAppear={true}
-                    transitionAppearTimeout={600}
-                    transitionEnterTimeout={600}
-                    transitionLeaveTimeout={200}
-                    transitionName={'SlideIn'}
-                >
                 <nav className="Absolute-Center float-modal-destination">
                     <div className="container">
                         {this.props.requestAccepted ? null :
                             <div>
-                                {this.props.toPrivateDeliveryGuy ? 
+                                {this.props.toPrivateDeliveryGuy ?
                                     <div className="text-muted">
-                                        Private request for 
+                                        Private request for
                                         <b>
                                             <span style={{textTransform: 'capitalize'}}>{this.props.toPrivateDeliveryGuy.firstName}</span>
                                             <span style={{textTransform: 'capitalize'}}>{this.props.toPrivateDeliveryGuy.lastName}</span>
@@ -200,7 +193,7 @@ class DestinationView extends React.Component{
                                     :
                                     <div className="text-muted">Delivery</div>
                                 }
-                                
+
                                 <div className="row my-3">
                                     <div className="col-2 mt-2" style={{marginTop: '70px'}}>
                                         <i className="fa fa-dot-circle-o " style={{color: '#1fcf7c'}} />
@@ -229,11 +222,11 @@ class DestinationView extends React.Component{
                                 <div className="col my-2" style={{marginTop: '70px'}}>
                                         <i className="fa fa-bicycle " onClick={this.handleChangeTravelMode('bicycle')}  style={this.state.transportation === 'bicycle' || this.state.transportation === '' ? {color: '#1fcf7c', fontSize: '30px', cursor: 'pointer'} : {color: 'rgba(0,0,0,.3)', fontSize: '30px', cursor: 'pointer'}} />
                                 </div>
-                                
+
                                 <div className="col my-2" style={{marginTop: '70px'}}>
                                         <i className="fa fa-bus " onClick={this.handleChangeTravelMode('transit')}  style={this.state.transportation === 'transit' || this.state.transportation === '' ? {color: '#1fcf7c', fontSize: '30px', cursor: 'pointer'} : {color: 'rgba(0,0,0,.3)', fontSize: '30px', cursor: 'pointer'}} />
                                 </div>
-                                
+
                                 <div className="col my-2" style={{marginTop: '70px'}}>
                                         <i className="fa fa-check " onClick={this.handleChangeTravelMode('')}  style={this.state.transportation === '' ? {color: '#1fcf7c', fontSize: '30px', cursor: 'pointer'} : {color: 'rgba(0,0,0,.3)', fontSize: '30px', cursor: 'pointer'}} />
                                 </div>
@@ -249,7 +242,7 @@ class DestinationView extends React.Component{
                                             <input disabled={this.props.requestSent} type="number"
                                                    className="form-control form-control-lg destinationInput"
                                                    style={{fontSize: '30px'}} value={this.state.price}
-                                                   min="1" 
+                                                   min="1"
                                                    step="1"
                                                    onChange={setPrice} name="price" placeholder="Delivery guy's profit"/>
                                             <span className="input-group-addon">HRK</span>
@@ -270,30 +263,30 @@ class DestinationView extends React.Component{
                                                     style={{fontSize: '9px'}}
                                                    rows="1"
                                                    className="form-control form-control-lg shortMessageInput"
-                                                   name="price" 
+                                                   name="price"
                                                    placeholder="Describe what to buy" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         }
-                        { this.props.requestSent && !this.props.requestAccepted ? 
+                        { this.props.requestSent && !this.props.requestAccepted ?
                             <div className="mt-3 text-center" style={{marginTop: '100px'}}>
                                 <i className="fa fa-circle-o-notch fa-spin fa-3x my-2" style={{color: '#1fcf7c'}} />
                                 <p className="text-muted">Waiting for a delivery person to accept.</p>
                                 <button className="orderbtn btn btn-primary form-control" onClick={this.handleCancelRequest} style={{backgroundColor: '#E7475E', borderStyle: 'none'}}><i className="fa fa-close"></i> Cancel</button>
-                            </div> 
+                            </div>
                             : !this.props.requestAccepted ?
-                            !this.props.privateRequest ? 
+                            !this.props.privateRequest ?
                         <button className="orderbtn btn btn-primary form-control" disabled={!this.state.price || this.state.price < 0 || !this.props.to || !this.props.from || !this.state.item ? true : false || !this.props.placeChoosen || !this.props.placeChoosenFrom} onClick={this.handleSendRequest} style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
                         <i className="fa fa-search mx-2" />
                             Find a delivery person
                         </button> : <button className="orderbtn btn btn-primary form-control" disabled={!this.state.price || !this.props.to || !this.props.from || !this.state.item ? true : false || !this.props.placeChoosen || !this.props.placeChoosenFrom} onClick={this.handleSendPrivateRequest} style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
                         <i className="fa fa-location-arrow mx-2" />
                              Send to {this.props.toPrivateDeliveryGuy.firstName}
-                        </button> 
+                        </button>
                                 :
-                                !this.props.completeChoice ? 
+                                !this.props.completeChoice ?
                                 <div>
                                     <div style={{color: 'rgba(0,0,0,.6)'}}><h6>Accepted by <b><span style={{textTransform: 'capitalize'}}>{this.props.deliveryGuy.firstName}</span> <span style={{textTransform: 'capitalize'}}>{this.props.deliveryGuy.lastName}</span></b><img src={this.props.deliveryGuy.image} className="ml-3 mr-2"  height="40" style={{borderRadius: '50%', boxShadow: '0 0 10px 0 rgba(0,0,0,.3)'}} alt=""/></h6>
                                     </div>
@@ -330,7 +323,7 @@ class DestinationView extends React.Component{
                                         </div>
                                     </div>
                                     <div>
-                                        
+
                                     <Link to={`/@${this.props.deliveryGuy.username}`} className="mb-3 orderbtn btn btn-primary form-control"
                                             style={{backgroundColor: '#2d89e5', borderStyle: 'none'}}>
                                         <i className="fa fa-user"></i> See Profile
@@ -342,7 +335,7 @@ class DestinationView extends React.Component{
                                         </button>
                                     </div>
                                 </div>
-                                : 
+                                :
                                 <div className="text-center">
                                 <div style={{color: 'rgba(0,0,0,.6)'}} className="text-center"><h6><img src={this.props.deliveryGuy.image} className="ml-3 mr-2"  height="40" style={{borderRadius: '50%', boxShadow: '0 0 10px 0 rgba(0,0,0,.3)'}} alt=""/><span style={{textTransform: 'capitalize'}}>{this.props.deliveryGuy.firstName}</span> <span style={{textTransform: 'capitalize'}}>{this.props.deliveryGuy.lastName}</span></h6>
                                 </div>
@@ -404,7 +397,6 @@ class DestinationView extends React.Component{
                         }
                         </div>
                 </nav>
-                </ReactCSSTransitionGroup>
             )
         }
         return null;
@@ -436,5 +428,3 @@ const mapDispatchToProps = dispatch => ({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(DestinationView);
-
-

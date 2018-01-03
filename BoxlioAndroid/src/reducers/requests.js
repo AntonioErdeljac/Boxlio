@@ -1,5 +1,28 @@
 export default (state={showOptions: false}, action) => {
     switch(action.type){
+        case 'SUCCESS_COMPLETE_DELIVERY':
+            return {
+                ...state,
+                acceptedRequest: false,
+                requestSent: false,
+                deliveryGuy: null,
+                locationName: null,
+                requestAccepted: false,
+                reanimateComponents: true,
+                completeChoice: false,
+                client: null,
+                locaitonName: null,
+                item: null,
+                price: null,
+                gotRequest: null,
+                receivedRequest: null,
+                sentCompleteRequest: false
+            };
+        case 'SEND_COMPLETE_REQUEST':
+            return {
+                ...state,
+                sentCompleteRequest: true,
+            }
         case 'ACCEPT_REQUEST':
             return {
                 ...state,
@@ -8,6 +31,8 @@ export default (state={showOptions: false}, action) => {
         case 'DECLINE_REQUEST':
             return {
                 ...state,
+                sentCompleteRequest: false,
+                acceptedRequest: false,
                 requestSent: false,
                 deliveryGuy: null,
                 locationName: null,

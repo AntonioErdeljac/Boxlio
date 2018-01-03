@@ -3,7 +3,7 @@ import {Container} from "native-base";
 import { Header, Content, Footer, FooterTab, Button, Card, CardItem, Body, Text, Right } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Grid, Col, Row} from "react-native-easy-grid";
-import {StyleSheet, Dimensions, View, TextInput, Keyboard, TouchableOpacity, Image} from "react-native";
+import {StyleSheet, Dimensions, View, TextInput, Keyboard, TouchableOpacity, Image, ActivityIndicator} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
 import io from "socket.io-client";
@@ -18,6 +18,14 @@ class ReceiveRequestHandler extends React.Component{
         super(props);
 
         this.socket = io(constants.API_ROOT);
+
+        this.handleCompleteDelivery = ev => {
+            ev.preventDefault();
+            this.socket.emit('COMEPLETE_DELIVERY', {
+                client: this.props.client
+            });
+            this.props.setSentCompleteChoice();
+        }
 
         this.handleDeclineRequest = ev => {
             if(this.props.acceptedRequest){
@@ -48,7 +56,7 @@ class ReceiveRequestHandler extends React.Component{
         };
     }
 	render(){
-        const { client, acceptedRequest, currentUser } = this.props;
+        const { client, acceptedRequest, currentUser, sentCompleteRequest } = this.props;
 
         if (!acceptedRequest && !currentUser.activeDeliveryJob) {
             return (
@@ -98,38 +106,55 @@ class ReceiveRequestHandler extends React.Component{
         } else {
             return (
                 <ContainerAnimatable animation="bounceIn" delay={300} style={styles.searchToAccepted}>
-                        <Card style={{elevation: 0, borderColor: 'transparent'}}>
-                            <CardItem style={styles.titleCard}>
-                                <View style={styles.imageContainer}>
-                                    <Image borderRadius={65} source={{uri: this.props.currentUser.image}} style={styles.image} />
-                                </View>
-                                <Text style={styles.titleText}>{client.firstName} {client.lastName}'s request</Text>
-                            </CardItem>
-                            <CardItem>
-                                <Icon active name="dot-circle-o" style={styles.iconTo} />
-                                <Text style={styles.locationText}>{this.props.from}</Text>
-                            </CardItem>
-                            <CardItem>
-                                    <Icon style={{color: '#E7475E'}} active name="dot-circle-o" style={styles.iconFrom} />
-                                    <Text style={styles.locationText}>{this.props.locationName}</Text>
-                            </CardItem>
-                            <Grid style={{
-                                justifyContent: 'center',
-                                alignContent: 'center',backgroundColor: 'transparent', padding: 10, marginTop: 10}}>
-                                <Col size={3} style={{
-                                    marginBottom: 10,}}>
-                                    <TouchableOpacity onPress={this.handleAcceptRequest} style={{backgroundColor: '#1fcf7c', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginRight: 10}}>
-                                        <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular', fontSize: 13}}><Icon name="check" style={{color: '#fff'}} />&nbsp;&nbsp;&nbsp;Mark as delivered</Text>
-                                    </TouchableOpacity>
-                                </Col>
-                                <Col style={{
-                                    marginBottom: 10,}}>
-                                    <TouchableOpacity onPress={this.handleDeclineRequest} style={{backgroundColor: '#E7475E', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginLeft: 10}}>
-                                        <Text><Icon name="close" style={{color: '#fff', fontSize: 15}} /></Text>
-                                    </TouchableOpacity>
-                                </Col>
-                        </Grid>
-                    </Card>
+                        {!sentCompleteRequest ?
+                            <Card style={{elevation: 0, borderColor: 'transparent'}}>
+                                <CardItem style={styles.titleCard}>
+                                    <View style={styles.imageContainer}>
+                                        <Image borderRadius={65} source={{uri: this.props.currentUser.image}} style={styles.image} />
+                                    </View>
+                                    <Text style={styles.titleText}>{client.firstName} {client.lastName}'s request</Text>
+                                </CardItem>
+                                <CardItem>
+                                    <Icon active name="dot-circle-o" style={styles.iconTo} />
+                                    <Text style={styles.locationText}>{this.props.from}</Text>
+                                </CardItem>
+                                <CardItem>
+                                        <Icon style={{color: '#E7475E'}} active name="dot-circle-o" style={styles.iconFrom} />
+                                        <Text style={styles.locationText}>{this.props.locationName}</Text>
+                                </CardItem>
+                                <Grid style={{
+                                    justifyContent: 'center',
+                                    alignContent: 'center',backgroundColor: 'transparent', padding: 10, marginTop: 10}}>
+                                    <Col size={3} style={{
+                                        marginBottom: 10,}}>
+                                        <TouchableOpacity onPress={this.handleCompleteDelivery} style={{backgroundColor: '#1fcf7c', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginRight: 10}}>
+                                            <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular', fontSize: 13}}><Icon name="check" style={{color: '#fff'}} />&nbsp;&nbsp;&nbsp;Mark as delivered</Text>
+                                        </TouchableOpacity>
+                                    </Col>
+                                    <Col style={{
+                                        marginBottom: 10,}}>
+                                        <TouchableOpacity onPress={this.handleDeclineRequest} style={{backgroundColor: '#E7475E', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginLeft: 10}}>
+                                            <Text><Icon name="close" style={{color: '#fff', fontSize: 15}} /></Text>
+                                        </TouchableOpacity>
+                                    </Col>
+                                </Grid>
+                            </Card>
+                        :
+                            <Card style={{elevation: 0, borderColor: 'transparent'}}>
+                                <CardItem style={styles.titleCard}>
+                                    <View style={styles.imageContainer}>
+                                        <Image borderRadius={65} source={{uri: this.props.currentUser.image}} style={styles.image} />
+                                    </View>
+                                    <Text style={styles.titleText}>{client.firstName} {client.lastName}'s request</Text>
+                                </CardItem>
+                                <CardItem style={{justifyContent: 'center', alignItems: 'center'}}>
+                                    <ActivityIndicator size={50} color="#1fcf7c"/>
+                                </CardItem>
+                                <CardItem style={{justifyContent: 'center', alignItems: 'center'}}>
+                                <Text style={styles.locationText}>Waiting for client to confirm.</Text>
+                                </CardItem>
+                            </Card>
+                        }
                 </ContainerAnimatable>
             )
         }
@@ -234,14 +259,15 @@ const mapDispatchToProps = dispatch => ({
     onDeclineRequest: payload =>
         dispatch({type: 'DECLINE_REQUEST', payload}),
     onAcceptRequest: client =>
-        dispatch({type: 'ACCEPT_REQUEST', client})
+        dispatch({type: 'ACCEPT_REQUEST', client}),
+    setSentCompleteChoice: () =>
+        dispatch({type: 'SEND_COMPLETE_REQUEST'})
 });
 
 const mapStateToProps = state => ({
   ...state.common,
   ...state.destinationView,
   ...state.requests,
-    requestSent: state.requests.requestSent
 });
 
 
