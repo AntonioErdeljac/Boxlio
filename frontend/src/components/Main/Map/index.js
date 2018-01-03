@@ -217,7 +217,7 @@ const MyMapComponent = compose(
                     }
                 });
             }
-            if(nextProps.currentUser.deliveryMode && nextProps.clientLat && nextProps.clientLng && nextProps.lat && nextProps.lng && nextProps.lat !== this.props.lat || nextProps.lng !== this.props.lng || nextProps.clientLat !== this.props.clientLat && nextProps.clientLng !== this.props.clientLng) {
+            if(nextProps.currentUser.deliveryMode && nextProps.clientLat && nextProps.clientLng && nextProps.lat && nextProps.lng) {
                 DirectionsService.route({
                     origin: new window.google.maps.LatLng(nextProps.lat, nextProps.lng),
                     destination: new window.google.maps.LatLng(nextProps.clientLat, nextProps.clientLng),

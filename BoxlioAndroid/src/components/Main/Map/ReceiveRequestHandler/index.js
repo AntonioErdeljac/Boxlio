@@ -48,52 +48,92 @@ class ReceiveRequestHandler extends React.Component{
         };
     }
 	render(){
-        const {client} = this.props;
-		return (
-			<ContainerAnimatable animation="bounceIn" delay={300} style={styles.searchTo}>
-                <Card style={{elevation: 0, borderColor: 'transparent'}}>
-                    <CardItem style={styles.titleCard}>
-                        <View style={styles.imageContainer}>
-                            <Image borderRadius={65} source={{uri: this.props.currentUser.image}} style={styles.image} />
-                        </View>
-                        <Text style={styles.titleText}>{client.firstName} {client.lastName}'s request</Text>
-                    </CardItem>
-                    <CardItem>
-                        <Icon active name="dot-circle-o" style={styles.iconTo} />
-                        <Text style={styles.locationText}>{this.props.from}</Text>
-                    </CardItem>
-                    <CardItem>
-                            <Icon style={{color: '#E7475E'}} active name="dot-circle-o" style={styles.iconFrom} />
-                            <Text style={styles.locationText}>{this.props.locationName}</Text>
-                    </CardItem>
-                    <CardItem>
-                            <Icon style={{color: '#1fcf7c'}} active name="money" style={styles.iconRest} />
-                            <Text style={styles.locationText}>{this.props.price}</Text>
-                    </CardItem>
-                    <CardItem>
-                            <Icon style={{color: '#1fcf7c'}} active name="shopping-basket" style={styles.iconRest} />
-                            <Text style={styles.locationText}>{this.props.item}</Text>
-                    </CardItem>
-                    <Grid style={{
-                    justifyContent: 'center',
-                    alignContent: 'center',backgroundColor: 'transparent', padding: 10, marginTop: 10}}>
+        const { client, acceptedRequest, currentUser } = this.props;
 
-                    <Col style={{
-                        marginBottom: 10,}}>
-                        <TouchableOpacity onPress={this.handleAcceptRequest} style={{backgroundColor: '#1fcf7c', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginRight: 10}}>
-                            <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular', fontSize: 13}}><Icon name="check" style={{color: '#fff'}} />&nbsp;&nbsp;&nbsp;Accept</Text>
-                        </TouchableOpacity>
-                    </Col>
-                    <Col style={{
-                        marginBottom: 10,}}>
-                        <TouchableOpacity onPress={this.handleDeclineRequest} style={{backgroundColor: '#E7475E', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginLeft: 10}}>
-                            <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular', fontSize: 13}}><Icon name="close" style={{color: '#fff'}} />&nbsp;&nbsp;&nbsp;Decline</Text>
-                        </TouchableOpacity>
-                    </Col>
-                </Grid>
-            </Card>
-            </ContainerAnimatable>
-		);
+        if (!acceptedRequest && !currentUser.activeDeliveryJob) {
+            return (
+                <ContainerAnimatable animation="bounceIn" delay={300} style={styles.searchTo}>
+                    <Card style={{elevation: 0, borderColor: 'transparent'}}>
+                        <CardItem style={styles.titleCard}>
+                            <View style={styles.imageContainer}>
+                                <Image borderRadius={65} source={{uri: this.props.currentUser.image}} style={styles.image} />
+                            </View>
+                            <Text style={styles.titleText}>{client.firstName} {client.lastName}'s request</Text>
+                        </CardItem>
+                        <CardItem>
+                            <Icon active name="dot-circle-o" style={styles.iconTo} />
+                            <Text style={styles.locationText}>{this.props.from}</Text>
+                        </CardItem>
+                        <CardItem>
+                                <Icon style={{color: '#E7475E'}} active name="dot-circle-o" style={styles.iconFrom} />
+                                <Text style={styles.locationText}>{this.props.locationName}</Text>
+                        </CardItem>
+                        <CardItem>
+                                <Icon style={{color: '#1fcf7c'}} active name="money" style={styles.iconRest} />
+                                <Text style={styles.locationText}>{this.props.price}</Text>
+                        </CardItem>
+                        <CardItem>
+                                <Icon style={{color: '#1fcf7c'}} active name="shopping-basket" style={styles.iconRest} />
+                                <Text style={styles.locationText}>{this.props.item}</Text>
+                        </CardItem>
+                        <Grid style={{
+                        justifyContent: 'center',
+                        alignContent: 'center',backgroundColor: 'transparent', padding: 10, marginTop: 10}}>
+                            <Col style={{
+                                marginBottom: 10,}}>
+                                <TouchableOpacity onPress={this.handleAcceptRequest} style={{backgroundColor: '#1fcf7c', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginRight: 10}}>
+                                    <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular', fontSize: 13}}><Icon name="check" style={{color: '#fff'}} />&nbsp;&nbsp;&nbsp;Accept</Text>
+                                </TouchableOpacity>
+                            </Col>
+                            <Col style={{
+                                marginBottom: 10,}}>
+                                <TouchableOpacity onPress={this.handleDeclineRequest} style={{backgroundColor: '#E7475E', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginLeft: 10}}>
+                                    <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular', fontSize: 13}}><Icon name="close" style={{color: '#fff'}} />&nbsp;&nbsp;&nbsp;Decline</Text>
+                                </TouchableOpacity>
+                            </Col>
+                        </Grid>
+                    </Card>
+                </ContainerAnimatable>
+            );
+        } else {
+            return (
+                <ContainerAnimatable animation="bounceIn" delay={300} style={styles.searchToAccepted}>
+                        <Card style={{elevation: 0, borderColor: 'transparent'}}>
+                            <CardItem style={styles.titleCard}>
+                                <View style={styles.imageContainer}>
+                                    <Image borderRadius={65} source={{uri: this.props.currentUser.image}} style={styles.image} />
+                                </View>
+                                <Text style={styles.titleText}>{client.firstName} {client.lastName}'s request</Text>
+                            </CardItem>
+                            <CardItem>
+                                <Icon active name="dot-circle-o" style={styles.iconTo} />
+                                <Text style={styles.locationText}>{this.props.from}</Text>
+                            </CardItem>
+                            <CardItem>
+                                    <Icon style={{color: '#E7475E'}} active name="dot-circle-o" style={styles.iconFrom} />
+                                    <Text style={styles.locationText}>{this.props.locationName}</Text>
+                            </CardItem>
+                            <Grid style={{
+                                justifyContent: 'center',
+                                alignContent: 'center',backgroundColor: 'transparent', padding: 10, marginTop: 10}}>
+                                <Col size={3} style={{
+                                    marginBottom: 10,}}>
+                                    <TouchableOpacity onPress={this.handleAcceptRequest} style={{backgroundColor: '#1fcf7c', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginRight: 10}}>
+                                        <Text style={{color: '#fff', fontFamily: 'VarelaRound-Regular', fontSize: 13}}><Icon name="check" style={{color: '#fff'}} />&nbsp;&nbsp;&nbsp;Mark as delivered</Text>
+                                    </TouchableOpacity>
+                                </Col>
+                                <Col style={{
+                                    marginBottom: 10,}}>
+                                    <TouchableOpacity onPress={this.handleDeclineRequest} style={{backgroundColor: '#E7475E', borderRadius: 10, padding: 15, justifyContent: 'center', alignItems: 'center', marginLeft: 10}}>
+                                        <Text><Icon name="close" style={{color: '#fff', fontSize: 15}} /></Text>
+                                    </TouchableOpacity>
+                                </Col>
+                        </Grid>
+                    </Card>
+                </ContainerAnimatable>
+            )
+        }
+        return null;
     }
 }
 
@@ -131,48 +171,59 @@ const styles = StyleSheet.create({
 	},
 	iconFrom:{
 		color: '#F9C134',
-	},
-  searchTo: {
-      zIndex: 1000,
-      height: 320 ,
-      width: Dimensions.get('window').width-30,
-      elevation: 1,
-      shadowOpacity: 0.1,
-      shadowColor: '#000',
-      position: 'absolute',
-      bottom: 30,
-      backgroundColor: '#fff'
-  },
-  container: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  map: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-  image: {
-      flex: 1,
-      resizeMode: 'contain',
-      height: 37,
-      width: 37,
-      borderRadius: 100,
-  },
-  imageContainer: {
-      height: 37,
-      width: 37,
-      borderRadius: 100,
-      overflow: 'hidden',
-      elevation: 1,
-  }
+    },
+    searchToAccepted: {
+        zIndex: 1000,
+        height: 240 ,
+        width: Dimensions.get('window').width-30,
+        elevation: 1,
+        shadowOpacity: 0.1,
+        shadowColor: '#000',
+        position: 'absolute',
+        bottom: 30,
+        backgroundColor: '#fff'
+    },
+    searchTo: {
+        zIndex: 1000,
+        height: 320 ,
+        width: Dimensions.get('window').width-30,
+        elevation: 1,
+        shadowOpacity: 0.1,
+        shadowColor: '#000',
+        position: 'absolute',
+        bottom: 30,
+        backgroundColor: '#fff'
+    },
+    container: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+    },
+    map: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    },
+    image: {
+        flex: 1,
+        resizeMode: 'contain',
+        height: 37,
+        width: 37,
+        borderRadius: 100,
+    },
+    imageContainer: {
+        height: 37,
+        width: 37,
+        borderRadius: 100,
+        overflow: 'hidden',
+        elevation: 1,
+    }
 });
 
 const mapDispatchToProps = dispatch => ({

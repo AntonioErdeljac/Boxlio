@@ -86,7 +86,7 @@ class MapContainer extends React.Component{
     }
     componentWillReceiveProps(nextProps){
 
-        if(nextProps.deliveryGuy && nextProps.receivedUpdate && nextProps.deliveryGuy.geometry[0]){
+        if(nextProps.deliveryGuy && nextProps.receivedUpdate && nextProps.deliveryGuy.geometry[0] && nextProps.deliveryGuy.geometry[0] !== this.props.currentUser.geometry[0] && nextProps.deliveryGuy.geometry[1] !== this.props.deliveryGuy.geometry[1]){
             this.setState({
                 deliveryGuyCoordinate: {
                     latitude: nextProps.deliveryGuy.geometry[0],
@@ -96,7 +96,6 @@ class MapContainer extends React.Component{
         }
 
         if(nextProps.clientLat && nextProps.clientLng && nextProps.lat && nextProps.lng && nextProps.locationName !== this.props.locationName){
-
             this.setState({
                 deliveryGuyCoordinate: {
                     latitude: nextProps.clientLat,
@@ -147,7 +146,7 @@ class MapContainer extends React.Component{
             }).start();
         }
 
-        if(nextProps.from){
+        if(nextProps.from && nextProps.from !== this.props.from){
             this.setState({
                 from: nextProps.from
             })
@@ -159,7 +158,7 @@ class MapContainer extends React.Component{
             })
         }
 
-        if(nextProps.to){
+        if(nextProps.to && nextProps.to !== this.props.to){
             this.setState({
                 to: nextProps.to
             })
@@ -231,7 +230,7 @@ class MapContainer extends React.Component{
             }, 310)
         }
 
-        if(nextProps.lat && nextProps.lng){
+        if(nextProps.lat && nextProps.lng && nextProps.lat !== this.props.lat && nextProps.lng !== this.props.lng){
             this.refs.map.fitToElements(true);
         }
     }
@@ -309,7 +308,7 @@ class MapContainer extends React.Component{
                 { !this.props.completeChoice && !this.props.currentUser.deliveryMode && this.props.requestAccepted && this.props.showOptions ? <RequestOptions navigation={this.props.navigation}></RequestOptions> : null }
                 { this.props.completeChoice ? <RateClientView navigation={this.props.navigation} /> : null }
                 { this.props.currentUser.deliveryMode && !this.props.gotRequest && !this.props.currentUser.activeDeliveryJob ? <DeliveryModeView /> : null }
-                { this.props.gotRequest && !this.props.currentUser.activeDeliveryJob ? <ReceiveRequestHandler /> : null }
+                { this.props.gotRequest || this.props.acceptedRequest ? <ReceiveRequestHandler /> : null }
 
 
 
