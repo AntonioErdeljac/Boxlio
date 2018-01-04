@@ -252,7 +252,7 @@ class DestinationView extends React.Component{
                                 <hr/>
                                 <div className="row my-3">
                                     <div className="col-2">
-                                        <i className="fa fa-envelope-o"
+                                        <i className="fa fa-shopping-basket"
                                            style={{color: '#1fcf7c', fontSize: '30px', marginTop: '3px'}} />
                                     </div>
                                     <div className="col-10">

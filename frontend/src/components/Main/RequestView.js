@@ -176,7 +176,7 @@ class RequestView extends React.Component{
                         <hr style={{color: 'rgba(0,0,0,.05)'}}/>
                         <div className="text-muted">Requirements</div>
                         <div className="row my-3">
-                            <div className="col-1">
+                            <div className="col-2">
                                 <i className="fa fa-usd" style={{color: '#1fcf7c', fontSize: '30px'}}></i>
                             </div>
                             <div className="col-10">
@@ -188,7 +188,7 @@ class RequestView extends React.Component{
                         </div>
                         <hr/>
                         <div className="row my-3">
-                            <div className="col-1">
+                            <div className="col-2">
                                 <i className="fa fa-envelope-o" style={{color: '#1fcf7c', fontSize: '30px'}}></i>
                             </div>
                             <div className="col-10">
