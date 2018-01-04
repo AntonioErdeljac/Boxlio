@@ -138,17 +138,17 @@ class Form extends React.Component{
                                 <span className="slider round"></span>
                             </label>
                         </fieldset>
-                    
+
                     </div>
                     }
                     <fieldset className="form-group col-12">
-                        <button type="submit" disabled={this.props.gotRequest || this.props.requestSent} className="btn btn-lg login-button form-control">Save</button>
+                        <button type="submit" disabled={this.props.gotRequest || this.props.requestSent} className="btn btn-lg login-button">Save</button>
                     </fieldset>
                 </div>
                 </fieldset>
             </form>
         );
-    
+
     }
 }
 
@@ -164,7 +164,7 @@ class Settings  extends React.Component{
     }
     render(){
         return (
-            
+
                     <div style={{height: '100%', width: '100%', backgroundColor: '#fff', overflow:'auto'}}>
                         <div className="container-fluid" >
                             <div className="row">

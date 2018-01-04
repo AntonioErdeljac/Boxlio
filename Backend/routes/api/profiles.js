@@ -49,7 +49,7 @@ router.post('/:username/opinion', auth.required, function(req,res,next){
             opinion.text = req.body.opinion.text;
             opinion.author = user;
             opinion.save();
-            req.profile.opinions.push(opinion);
+            req.profile.opinions = req.profile.opinions.concat([opinion]);
             req.profile.save().then(function(){
                 return res.json({
                     opinion: opinion.toJSONFor(user)
@@ -81,14 +81,16 @@ router.post('/:username/client', auth.required, function(req,res,next){
             Chat.findOne({users: {$all: [user, req.profile]}}).then(function(chat){
                 if(!chat){
                     let newChat = new Chat();
-                    newChat.users.push(user, req.profile);
+                    //newChat.users.push(user, req.profile);
+                    newChat.users = newChat.users.concat([user, req.profile]);
                     newChat.save();
                     let message = new Message();
                     message.author = user;
                     message.receiver = req.profile;
                     message.body = `Hi ${req.profile.firstName}! I found you on explore feed as a nearby client, I hope we can make contact.`
                     message.save();
-                    newChat.messages.push(message);
+                    //newChat.messages.push(message);
+                    newChat.messages = newChat.messages.concat([message]);
                     newChat.save().then(function(){
                         return res.json({
                             profile: req.profile.toProfileJSONFor(user)

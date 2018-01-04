@@ -234,7 +234,7 @@ class DestinationView extends React.Component{
                                 <hr style={{color: 'rgba(0,0,0,.05)'}}/>
                                 <div className="text-muted">Options</div>
                                 <div className="row my-3">
-                                    <div className="col-1">
+                                    <div className="col-2">
                                         <i className="fa fa-money" style={{color: '#1fcf7c', fontSize: '30px', marginTop: '3px'}} />
                                     </div>
                                     <div className="col-10">
@@ -251,11 +251,11 @@ class DestinationView extends React.Component{
                                 </div>
                                 <hr/>
                                 <div className="row my-3">
-                                    <div className="col-1">
+                                    <div className="col-2">
                                         <i className="fa fa-envelope-o"
                                            style={{color: '#1fcf7c', fontSize: '30px', marginTop: '3px'}} />
                                     </div>
-                                    <div className="col-11">
+                                    <div className="col-10">
                                         <div className="input-group">
                                             <input disabled={this.props.requestSent}
                                                     value={this.state.item}
