@@ -16,7 +16,8 @@ export default (state={showOptions: false}, action) => {
                 price: null,
                 gotRequest: null,
                 receivedRequest: null,
-                sentCompleteRequest: false
+                sentCompleteRequest: false,
+                completedDelivery: true
             };
         case 'SEND_COMPLETE_REQUEST':
             return {
@@ -54,11 +55,13 @@ export default (state={showOptions: false}, action) => {
                 client: action.job.client,
                 locationName: action.job.toName,
                 price: action.job.price,
-                item: action.job.item
+                item: action.job.item,
+                completedDelivery: false
             };
         case 'SET_REQUEST':
             return {
                 ...state,
+                completedDelivery: false,
                 receivedRequest: true,
                 gotRequest: true,
                 client: action.data.client,
@@ -113,7 +116,8 @@ export default (state={showOptions: false}, action) => {
                 locationName: null,
                 requestAccepted: false,
                 reanimateComponents: true,
-                completeChoice: false
+                completeChoice: false,
+                completedDelivery: false
             };
         case 'RECEIVE_CANCEL_FROM_DELIVERY_GUY':
             return {

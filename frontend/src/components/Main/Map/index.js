@@ -134,8 +134,15 @@ const MyMapComponent = compose(
             }
         },
         componentWillReceiveProps(nextProps) {
-            console.log(nextProps, 'NEXT PROPS');
             const DirectionsService = new window.google.maps.DirectionsService();
+
+            if(nextProps.completedDelivery && nextProps.completedDelivery !== this.props.completedDelivery) {
+                this.setState({
+                    directions: null,
+                    directions3: null,
+                    directionsToClient: null
+                });
+            }
 
             if(nextProps.currentUser.transportation){
                 this.setState({
@@ -152,7 +159,7 @@ const MyMapComponent = compose(
                 })
             }
 
-            if(nextProps.currentUse && !nextProps.requestSent|| nextProps.lat && nextProps.lng && nextProps.placeChoosen){
+            if(nextProps.currentUser && !nextProps.requestSent|| nextProps.lat && nextProps.lng && nextProps.placeChoosen){
                 DirectionsService.route({
                     origin: new window.google.maps.LatLng(nextProps.currentUser.geometry[0], nextProps.currentUser.geometry[1]),
                     destination: new window.google.maps.LatLng(nextProps.lat, nextProps.lng),
