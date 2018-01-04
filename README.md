@@ -41,6 +41,14 @@ npm install --save
 npm run dev
 ```
 
+Installing the android app
+
+```
+cd Boxlio/BoxlioAndroid
+react-native run-android
+npm start
+```
+
 Route to localhost:3000 in your browser, and create an account.
 
 ## Built With
