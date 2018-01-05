@@ -17,7 +17,7 @@ import * as constants from "../../../constants/routes";
 
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 
-class Map extends React.Component{
+class Map extends React.PureComponent{
 
   componentWillMount(){
   }

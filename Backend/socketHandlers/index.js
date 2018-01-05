@@ -17,7 +17,7 @@ exports = module.exports = function(io){
 
 
 
-    
+
     socket.removeAllListeners();
 
 
@@ -150,7 +150,7 @@ exports = module.exports = function(io){
                     if(user.obj.deliveryMode){
                         return {profile: user.obj.toProfileJSONFor(), distance: user.dis};
                     }
-  
+
                 });
                 io.emit('NEAR_DRIVERS', {
                     profiles: drivers
@@ -208,7 +208,7 @@ exports = module.exports = function(io){
 
     socket.on('CONFIRM_COMPLETED_DELIVERY', function(data){
         User.findOne({username: data.deliveryGuy.username})
-            .populate('activeDeliveryJob')    
+            .populate('activeDeliveryJob')
             .then(function(deliveryGuy){
             User.findOne({username: data.client.username}).then(function(client){
                 deliveryGuy.isDelivering = false;
@@ -269,7 +269,7 @@ exports = module.exports = function(io){
 
     socket.on('DECLINE_COMPLETED_DELIVERY', data => {
         User.findOne({username: data.deliveryGuy.username})
-        .populate('activeDeliveryJob')    
+        .populate('activeDeliveryJob')
         .then(function(deliveryGuy){
             User.findOne({username: data.client.username}).then(function(client){
                 deliveryGuy.isDelivering = false;
@@ -428,7 +428,7 @@ exports = module.exports = function(io){
 
 
 
-  
+
     socket.on('REQUEST_DRIVER', function(data){
         User.findOne({username: data.user.username}).then(function(client){
             client.isRequesting = true;
@@ -539,14 +539,14 @@ exports = module.exports = function(io){
 
 
 
-  
+
     socket.on('SAVE_LOCATION', function(data){
         User.findOne({username: data.user.username}).then(function(user){
             user.geometry.coordinates = [data.positionLat, data.positionLng];
             user.save();
         })
     });
-  
+
 
 
 
@@ -580,7 +580,7 @@ exports = module.exports = function(io){
                         if(!users[i].obj.deliveryMode){
                           count++;
                         }
-  
+
                 }
                 socket.emit('RECEIVE_NEAR_CLIENTS',  {
                     clientCount: count
@@ -588,7 +588,7 @@ exports = module.exports = function(io){
             })
         })
     });
-  
+
 
 
 
@@ -772,9 +772,12 @@ exports = module.exports = function(io){
 
 
     socket.on('UPDATE_DELIVERY_GUY_LOCATION', function(data){
+        console.log('DelIER GUY LOCATION SHOULD BE UPDATED', data.deliveryGuy)
         User.findOne({username: data.client.username}).then(function(client){
             User.findOne({username: data.deliveryGuy.username}).then(function(deliveryGuy){
                 if(client.isOrdering && deliveryGuy.isDelivering){
+                    deliveryGuy.geometry = {coordinates: [data.deliveryGuy.geometry[0], data.deliveryGuy.geometry[1]], type: 'point'}
+                    deliveryGuy.save((err) => console.log(err));
 
                   io.in(data.client.username).emit('DELIVERY_GUY_CHANGE_LOCATION', {
                       deliveryGuy: data.deliveryGuy,
@@ -848,14 +851,14 @@ exports = module.exports = function(io){
 
             receiver.alertMessage = true;
             receiver.save();
-  
+
             Chat.findOne({users: {$all: [receiver, author]}}).then(function(chat){
             let message = new Message();
             message.author = author;
             message.receiver = receiver;
             message.body = data.body;
             message.save();
-  
+
             chat.messages = chat.messages.concat([message._id]);
             return chat.save().then(function(){
                 let nameAlt = data.name.split('_')[2]+'_and_'+data.name.split('_')[0];
@@ -869,7 +872,7 @@ exports = module.exports = function(io){
                     message: message
                 })
             })
-  
+
           })
         })
     });

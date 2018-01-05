@@ -18,7 +18,7 @@ import NotFoundView from "./Main/NotFoundView";
 
 
 class App extends React.Component{
-    
+
     componentWillReceiveProps(nextProps){
         if(nextProps.redirectTo){
             this.props.history.push(nextProps.redirectTo);
@@ -35,7 +35,7 @@ class App extends React.Component{
     }
 
     render(){
-        if(this.props.currentUser){
+        if(this.props.currentUser && this.props.appLoaded){
             return (
                 <div>
                     <NavigationBar currentUser={this.props.currentUser} />
@@ -86,7 +86,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch({type: actions.REDIRECT}),
     onLoad: (payload, token) =>
         dispatch({type: actions.APP_LOADED, payload, token})
-    
+
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

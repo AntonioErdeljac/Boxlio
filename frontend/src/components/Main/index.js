@@ -34,6 +34,7 @@ class Main extends React.Component{
 
             navigator.geolocation.getCurrentPosition(position => {
                 if(!this.props.currentUser.isOrdering && !this.props.currentUser.isDelivering && !this.props.positionSet){
+                    console.log(position.coords.latitude);
                 socket.emit('SAVE_LOCATION', {
                     user: this.props.currentUser,
                     positionLat: position.coords.latitude,
@@ -41,6 +42,7 @@ class Main extends React.Component{
                 });
                 this.props.onSetPosition(position);
                 } else if(!this.props.positionSet){
+                    console.log(this.props.currentUser.geometry, 'ovo trazim?');
                     socket.emit('SAVE_LOCATION', {
                         user: this.props.currentUser,
                         positionLat: this.props.currentUser.geometry[0],
@@ -55,6 +57,13 @@ class Main extends React.Component{
                     };
 
                     this.props.onSetPosition(position2);
+                }
+                if(this.props.client){
+                    socket.emit('UPDATE_DELIVERY_GUY_LOCATION', {
+                        client: this.props.client,
+                        deliveryGuy: this.props.currentUser,
+                        locationName: this.props.to
+                    });
                 }
             });
 
@@ -198,9 +207,14 @@ class Main extends React.Component{
                     const currentUser = this.props.currentUser;
                     console.log(data, 'OVO TRAZIM');
                     this.props.onChangePosition(pos, data);
+                    console.log(pos, 'OVOV IT TREBAAA');
+                    let currentUser2 = {
+                        ...this.props.currentUser,
+                        geometry: [pos.coords.latitude, pos.coords.longitude]
+                    }
                     socket.emit('UPDATE_DELIVERY_GUY_LOCATION', {
                         client: client,
-                        deliveryGuy: currentUser,
+                        deliveryGuy: currentUser2,
                         locationName: data.formatted_address
                     });
 
@@ -211,7 +225,7 @@ class Main extends React.Component{
             let id, target, options;
 
             function success(pos) {
-                console.log('KOLKO CESTO SE OVO PONAVLJA')
+                console.log('KOLKO CESTO SE OVO PONAVLJA', pos)
                 handleChangePosition(pos);
             }
 
