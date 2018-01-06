@@ -18,7 +18,7 @@ class App extends Component<{}> {
             }
             this.props.onLoad(token ? agent.Auth.current() : null, token);
         })
-        
+
     }
 
     render() {

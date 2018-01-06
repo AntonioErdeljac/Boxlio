@@ -16,6 +16,7 @@
 		"react-native-google-places": "^2.4.2",
 		"react-native-google-places-web": "0.0.5",
 		"react-native-maps": "^0.18.3",
+		"react-native-permissions": "^1.0.6",
 		"react-native-router-flux": "^4.0.0-beta.24",
 		"react-native-smart-splash-screen": "^2.3.5",
 		"react-navigation": "^1.0.0-beta.21",
