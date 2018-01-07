@@ -140,7 +140,7 @@ class DestinationView extends React.Component{
 
     render(){
 
-        if(this.props.positionSet && this.props.currentUser){
+        if(this.props.currentUser){
             const { tags, suggestions } = this.state;
 
             const setForm = data => {
