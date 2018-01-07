@@ -19,7 +19,7 @@ const SearchPlaces = compose(
             const refs = {};
 
             const saveTo = places => {
-                this.props.onSaveTo(places, 
+                this.props.onSaveTo(places,
                     agent.Auth.update({geometry: [places[0].geometry.location.lat(),places[0].geometry.location.lng()]}));
             };
 
@@ -34,7 +34,9 @@ const SearchPlaces = compose(
                 },
                 onPlacesChanged: () => {
                     const places = refs.searchBox.getPlaces();
-                    saveTo(places);
+                    if(places.length !== 0){
+                        saveTo(places);
+                    }
                 },
                 changeTo: ev => {
                     ev.preventDefault();

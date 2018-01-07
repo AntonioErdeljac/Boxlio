@@ -32,7 +32,9 @@ const SearchPlaces = compose(
                 },
                 onPlacesChanged: () => {
                     const places = refs.searchBox.getPlaces();
-                    saveFrom(places);
+                    if(places.length !== 0){
+                        saveFrom(places);
+                    }
                 },
                 changeFrom: ev => {
                     ev.preventDefault();
