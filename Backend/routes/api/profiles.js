@@ -29,6 +29,17 @@ router.param('username', function(req,res,next, username){
     }).catch(next);
 });
 
+router.param('opinion', function(req,res,next, opinionID){
+    Opinion.findById(opinionID)
+    .then(function(opinion){
+        if(!opinion){return res.sendStatus(404)}
+
+        req.opinion = opinion;
+
+        return next();
+    }).catch(next);
+})
+
 router.get('/:username/opinions', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
         return res.json({
@@ -52,8 +63,18 @@ router.post('/:username/opinion', auth.required, function(req,res,next){
             req.profile.opinions = req.profile.opinions.concat([opinion]);
             req.profile.save().then(function(){
                 return res.json({
-                    opinion: opinion.toJSONFor(user)
+                    opinion: opinion
                 });
+            })
+    }).catch(next);
+});
+
+router.delete('/:username/opinions/:opinion', auth.required, function(req,res,next){
+    User.findById(req.payload.id).then(function(user){
+        if(!user){return res.sendStatus(402)}
+        return req.opinion.remove()
+            .then(() => {
+                res.sendStatus(200);
             })
     }).catch(next);
 });

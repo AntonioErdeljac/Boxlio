@@ -1,6 +1,11 @@
 import React from "react";
+import agent from "../../../agent";
+import {connect} from "react-redux";
 
 const Opinion = props => {
+	const handleDeleteOpinion = ev => {
+		props.onDeleteOpinion(agent.Profiles.deleteOpinion(props.opinion, props.profile), props.opinion);
+	}
 	return (
 		<div className=" col-12 my-3">
 			<div className="card" style={{borderStyle: 'none', borderRadius: '10px', boxShadow: '0 0 20px 0 rgba(0,0,0,.1)'}}>
@@ -14,10 +19,17 @@ const Opinion = props => {
 				</div>
 				<div className="card-footer text-muted" style={{fontSize: '13px', borderStyle: 'none'}}>
 					{new Date(props.opinion.createdAt).toDateString()}
+					{props.opinion.author.username === props.currentUser.username &&
+					<i className="fa fa-trash float-right" onClick={handleDeleteOpinion} /> }
 				</div>
 			</div>
-		</div>	
+		</div>
 	);
 }
 
-export default Opinion;
+const mapDispatchToProps = dispatch => ({
+	onDeleteOpinion: (payload, opinionLocal) =>
+		dispatch({type: 'DELETE_OPINION', payload, opinionLocal})
+});
+
+export default connect(null, mapDispatchToProps)(Opinion);

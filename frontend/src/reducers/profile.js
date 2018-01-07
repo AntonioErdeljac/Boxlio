@@ -2,6 +2,11 @@ import * as actions from "../constants/actions";
 
 export default (state={}, action) => {
     switch(action.type){
+        case 'DELETE_OPINION':
+            return {
+                ...state,
+                opinions: state.opinions.filter(opinion => opinion._id !== action.opinionLocal._id)
+            }
         case actions.PROFILE_PAGE_LOADED:
             return {
                 ...state,

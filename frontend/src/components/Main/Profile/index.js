@@ -25,7 +25,7 @@ class Profile extends React.Component{
 
 	componentWillReceiveProps(nextProps){
 		if(nextProps.match.params.username !== this.props.match.params.username){
-			
+
 		this.props.onLoad(
 			Promise.all([
 				agent.Profiles.byName(nextProps.match.params.username),

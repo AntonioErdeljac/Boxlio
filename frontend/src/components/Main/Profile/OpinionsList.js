@@ -24,7 +24,7 @@ const OpinionsList = props => {
 			</div>
 		</div>
 	);
-	
+
 }
 
 export default OpinionsList;

@@ -14,7 +14,9 @@ const requests = {
     post: (url, body) =>
         superagent.post(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
     put: (url, body) =>
-        superagent.put(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody)
+        superagent.put(`${API_ROOT}${url}`, body).use(tokenPlugin).then(responseBody),
+    del: url =>
+        superagent.del(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
 };
 
 const Auth = {
@@ -38,7 +40,9 @@ const Profiles = {
     postOpinion: (opinion) =>
         requests.post(`${routes.profiles}${opinion.profile.username}${routes.opinion}`, {opinion}),
     getOpinions: username =>
-        requests.get(`${routes.profiles}${username}${routes.opinions}`)
+        requests.get(`${routes.profiles}${username}${routes.opinions}`),
+    deleteOpinion: (opinion, profile) =>
+        requests.del(`${routes.profiles}${profile.username}${routes.opinions}/${opinion._id}`)
 };
 
 const Chat = {

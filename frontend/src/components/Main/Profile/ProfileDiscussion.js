@@ -15,15 +15,15 @@ const ProfileDiscussion = props => {
 
                         </div>
                     </div>
-                    <hr />  
+                    <hr />
                     <div className="row">
                         <div className="col">
-                            <OpinionsList opinions={props.opinions} profile={props.profile} />  
-                        </div> 
+                            <OpinionsList opinions={props.opinions} currentUser={props.currentUser} profile={props.profile} />
+                        </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     );
 }
