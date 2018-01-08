@@ -9,6 +9,7 @@ let fs = require('fs'),
     passport = require('passport'),
     errorhandler = require('errorhandler'),
     mongoose = require('mongoose');
+    fileUpload = require('express-fileupload');
 
 let isProduction = process.env.NODE_ENV === 'production';
 
@@ -19,9 +20,10 @@ app.use(cors());
 app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(fileUpload());
 
 app.use(require('method-override')());
-app.use(express.static(__dirname + '/public'));
+app.use('/static', express.static(__dirname + '/static'));
 
 app.use(session({ secret: 'boxlio', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false  }));
 
@@ -78,5 +80,3 @@ let server = app.listen( process.env.PORT || 8000, function(){
 
 let io = require('socket.io')(server, {pingTimeout: 30000});
 let socketHandlers = require('./socketHandlers')(io);
-
-

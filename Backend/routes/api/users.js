@@ -75,6 +75,33 @@ router.post('/users/login', function(req,res,next){
     })(req,res,next)
 });
 
+router.post('/user/upload', auth.required, function(req,res,next) {
+    User.findById(req.payload.id).then(user => {
+        if(!user){return res.sendStatus(402)}
+
+        if(req.files) {
+
+        let sampleFile = req.files.file;
+
+        sampleFile.mv(`static/images/${user._id}${sampleFile.name}`, function(err) {
+        if (err){
+            console.log(err);
+        } else {
+            user.image = `http://localhost:8000/static/images/${user._id}${sampleFile.name}`;
+            user.save().then(() => {
+                return res.json({user});
+            })
+        }});
+    } else {
+        user.image = `https://i.imgur.com/cDYfZwV.png`;
+        user.save().then(() => {
+            return res.json({user});
+        })
+    }
+
+    }).catch(next);
+})
+
 
 router.get('/user', auth.required, function(req,res,next){
     User.findById(req.payload.id)
@@ -138,9 +165,6 @@ router.put('/user', auth.required, function(req,res,next){
             user.about = req.body.user.about;
         }
 
-        if(typeof req.body.user.image !== 'undefined'){
-            user.image = req.body.user.image;
-        }
         if(typeof req.body.user.password !== 'undefined'){
             user.setPassword(req.body.user.password);
         }
@@ -172,14 +196,16 @@ router.put('/user', auth.required, function(req,res,next){
         if(typeof req.body.user.available !== 'undefined'){
             user.available = req.body.user.available
         }
-        
+
         if(typeof req.body.user.isRequesting !== 'undefined'){
             user.isRequesting = req.body.user.isRequesting
         }
-        
+
         if(typeof req.body.user.alertMessage !== 'undefined'){
             user.alertMessage = req.body.user.alertMessage
         }
+
+        console.log(req, 'OVO MI TREBA');
 
         return user.save().then(function(){
             return res.json({
