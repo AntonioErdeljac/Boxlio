@@ -26,8 +26,8 @@ const Auth = {
         requests.post(`${routes.users}`, {user: {firstName, lastName, username, email, password, location, type}}),
     current: () =>
         requests.get(`${routes.user}`),
-    update: user =>
-        requests.put(`${routes.user}`, {user})
+    update: (user) =>
+        requests.put(`${routes.user}`, {user}),
 };
 
 const Profiles = {

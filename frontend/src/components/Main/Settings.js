@@ -33,6 +33,10 @@ class Form extends React.Component{
         this.changeFirstName = this.updateState('firstName');
         this.changeLastName = this.updateState('lastName');
 
+        this.changeImage2 = ev => {
+            this.setState({image: this.fileUpload.files[0]});
+        };
+
         this.changeDeliveryMode = ev => {
 
             this.setState({
@@ -49,6 +53,7 @@ class Form extends React.Component{
         this.submitForm = ev => {
             ev.preventDefault();
 
+
             const user = Object.assign({}, this.state);
 
             if(!user.password){
@@ -59,18 +64,35 @@ class Form extends React.Component{
                 this.handleRemoveFromTo();
             }
 
-            if(!user.image){
-                user.image = 'https://i.imgur.com/cDYfZwV.png';
-            }
 
-            this.props.onSubmitForm(user);
+                delete user.image;
+
+
+            Promise.resolve(this.props.onSubmitForm(user)).then(() => {
+                let data = new FormData();
+                let myHeaders = new Headers({
+                    "Authorization": `Token ${this.props.currentUser.token}`
+                });
+
+                data.append('file', this.fileUpload.files[0])
+
+                fetch('http://localhost:8000/api/user/upload', {
+                    method: 'POST',
+                    body: data,
+                    headers: myHeaders
+                }).then(response => {
+                    response.json().then(body => {
+                        console.log(this.props);
+                        this.props.onSeperateSetProfileImage(body);
+                    })
+                })
+            })
         }
     }
 
     componentWillMount(){
         if(this.props.currentUser){
             Object.assign(this.state, {
-                image: this.props.currentUser.image === 'https://i.imgur.com/cDYfZwV.png' ? '' : this.props.currentUser.image,
                 username: this.props.currentUser.username,
                 email: this.props.currentUser.email,
                 about: this.props.currentUser.about,
@@ -83,7 +105,6 @@ class Form extends React.Component{
 
     componentWillReceiveProps(nextProps){
         this.setState(Object.assign({}, this.state, {
-            image: nextProps.currentUser.image === 'https://i.imgur.com/cDYfZwV.png' ? '' : nextProps.currentUser.image,
             username: nextProps.currentUser.username,
             about: nextProps.currentUser.about,
             email: nextProps.currentUser.email,
@@ -121,7 +142,13 @@ class Form extends React.Component{
                     </fieldset>
                     <fieldset className="form-group col-md-4">
                     <p className="text-muted text-left">Profile Image</p>
-                        <input type="text" placeholder="URL to profile image" value={this.state.image} disabled={this.props.gotRequest || this.props.requestSent} onChange={this.changeImage} className="form-control settings-input"/>
+                        <input
+                            ref={(ref) => this.fileUpload = ref}
+                            type="file"
+                            placeholder="Upload"
+                            disabled={this.props.gotRequest || this.props.requestSent}
+                            onChange={this.changeImage2}
+                            className="form-control settings-input"/>
                     </fieldset>
                     <fieldset className="form-group col-md-4">
                     <p className="text-muted text-left">Password</p>
@@ -170,12 +197,12 @@ class Settings  extends React.Component{
                             <div className="row">
                                 <div style={{height: '100vh', paddingTop: '100px' }} className="col-6 offset-3">
                                     <div className="text-center">
-                                        <img src={this.props.currentUser.image} className="my-3" height="70" style={{borderRadius: '50%', boxShadow: '0 0 5px 0 rgba(0,0,0,.2)'}} />
+                                        <img src={this.props.currentUser.image} className="my-3" height="70" widht="70" style={{borderRadius: '50%', boxShadow: '0 0 5px 0 rgba(0,0,0,.2)'}} />
                                         <h4>{this.props.currentUser.firstName} {this.props.currentUser.lastName}</h4>
                                         <hr />
                                         <Errors errors={this.props.errors}/>
 
-                                        <Form requestSent={this.props.requestSent} gotRequest={this.props.gotRequest} onRemoveFromTo={this.props.onRemoveFromTo} onSubmitForm={this.props.onSubmitForm} currentUser={this.props.currentUser}/>
+                                        <Form onSeperateSetProfileImage={this.props.onSeperateSetProfileImage} requestSent={this.props.requestSent} gotRequest={this.props.gotRequest} onRemoveFromTo={this.props.onRemoveFromTo} onSubmitForm={this.props.onSubmitForm} currentUser={this.props.currentUser}/>
 
                                     </div>
                                 </div>
@@ -193,10 +220,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    onSubmitForm: user =>
+    onSubmitForm: (user) =>
         dispatch({type: actions.SETTINGS_SAVED, payload: agent.Auth.update(user)}),
     onRemoveFromTo: () =>
-        dispatch({type: actions.REMOVE_FROM_TO})
+        dispatch({type: actions.REMOVE_FROM_TO}),
+    onSeperateSetProfileImage: (user) =>
+        dispatch({type: 'SAVE_IMAGE', payload: user})
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Settings));

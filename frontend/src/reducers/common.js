@@ -1,8 +1,8 @@
 import * as actions from "../constants/actions";
 
 const initialState = {
-    isLoading: true, 
-    joinedSelfGroup: false, 
+    isLoading: true,
+    joinedSelfGroup: false,
     positionSet: false
 };
 
@@ -87,6 +87,14 @@ export default (state=initialState, action) => {
                 joinSelfGroup: false,
                 positionSet: false
             };
+        case 'SAVE_IMAGE':
+            return {
+                ...state,
+                currentUser: {
+                    ...state.currentUser,
+                    image: action.payload.user.image
+                }
+            }
         case actions.SETTINGS_SAVED:
             return {
                 ...state,
