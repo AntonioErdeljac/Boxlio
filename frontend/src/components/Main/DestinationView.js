@@ -183,9 +183,9 @@ class DestinationView extends React.Component{
                             <div>
                                 {this.props.toPrivateDeliveryGuy ?
                                     <div className="text-muted">
-                                        Private request for
+                                        Private request for&nbsp;
                                         <b>
-                                            <span style={{textTransform: 'capitalize'}}>{this.props.toPrivateDeliveryGuy.firstName}</span>
+                                            <span style={{textTransform: 'capitalize'}}>{this.props.toPrivateDeliveryGuy.firstName}</span>&nbsp;
                                             <span style={{textTransform: 'capitalize'}}>{this.props.toPrivateDeliveryGuy.lastName}</span>
                                         </b>
                                         <img src={this.props.toPrivateDeliveryGuy.image} className="ml-3 mr-2"  height="40" style={{borderRadius: '50%', boxShadow: '0 0 10px 0 rgba(0,0,0,.3)'}} alt=""/>
