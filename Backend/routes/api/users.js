@@ -80,25 +80,17 @@ router.post('/user/upload', auth.required, function(req,res,next) {
         if(!user){return res.sendStatus(402)}
 
         if(req.files) {
-
-        let sampleFile = req.files.file;
-
-        sampleFile.mv(`static/images/${user._id}${sampleFile.name}`, function(err) {
-        if (err){
-            console.log(err);
-        } else {
-            user.image = `http://localhost:8000/static/images/${user._id}${sampleFile.name}`;
-            user.save().then(() => {
-                return res.json({user});
-            })
-        }});
-    } else {
-        user.image = `https://i.imgur.com/cDYfZwV.png`;
-        user.save().then(() => {
-            return res.json({user});
-        })
-    }
-
+            let sampleFile = req.files.file;
+            sampleFile.mv(`static/images/${user._id}${sampleFile.name}`, function(err) {
+            if (err){
+                console.log(err);
+            } else {
+                user.image = `http://localhost:8000/static/images/${user._id}${sampleFile.name}`;
+                user.save().then(() => {
+                    return res.json({user});
+                })
+            }});
+        }
     }).catch(next);
 })
 
