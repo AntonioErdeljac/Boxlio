@@ -197,7 +197,7 @@ class Settings  extends React.Component{
                             <div className="row">
                                 <div style={{height: '100vh', paddingTop: '100px' }} className="col-6 offset-3">
                                     <div className="text-center">
-                                        <img src={this.props.currentUser.image} className="my-3" height="70" widht="70" style={{borderRadius: '50%', boxShadow: '0 0 5px 0 rgba(0,0,0,.2)'}} />
+                                        <img src={this.props.currentUser.image} className="my-3" height="70" width="70" style={{borderRadius: '50%', boxShadow: '0 0 5px 0 rgba(0,0,0,.2)'}} />
                                         <h4>{this.props.currentUser.firstName} {this.props.currentUser.lastName}</h4>
                                         <hr />
                                         <Errors errors={this.props.errors}/>
