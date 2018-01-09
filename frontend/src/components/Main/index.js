@@ -202,7 +202,7 @@ class Main extends React.Component{
             };
 
             const changePosition = (pos, data) => {
-                if(this.props.acceptedRequest){
+                if(this.props.acceptedRequest || this.props.currentUser.deliveryMode){
                     const client = this.props.client;
                     const currentUser = this.props.currentUser;
                     console.log(data, 'OVO TRAZIM');
@@ -212,11 +212,13 @@ class Main extends React.Component{
                         ...this.props.currentUser,
                         geometry: [pos.coords.latitude, pos.coords.longitude]
                     }
-                    socket.emit('UPDATE_DELIVERY_GUY_LOCATION', {
-                        client: client,
-                        deliveryGuy: currentUser2,
-                        locationName: data.formatted_address
-                    });
+                    if(this.props.acceptedRequest) {
+                        socket.emit('UPDATE_DELIVERY_GUY_LOCATION', {
+                            client: client,
+                            deliveryGuy: currentUser2,
+                            locationName: data.formatted_address
+                        });
+                    }
 
                 }
             };
