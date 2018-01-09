@@ -47,21 +47,22 @@ const SearchPlaces = compose(
     }),
     withScriptjs
 )(props =>
-    <div data-standalone-searchbox="">
+    <div data-standalone-searchbox="" className="input-group">
         <StandaloneSearchBox
             ref={props.onSearchBoxMounted}
             bounds={[45, 15]}
             onPlacesChanged={props.onPlacesChanged}
         >
-            <input
-                type="text"
-                disabled={props.requestSent}
-                placeholder="Deliver to where?"
-                value={props.to}
-                onChange={props.changeTo}
-                className="form-control form-control-lg destinationInput"
-            />
+                <input
+                    type="text"
+                    disabled={props.requestSent}
+                    placeholder="Deliver to where?"
+                    value={props.to}
+                    onChange={props.changeTo}
+                    className="form-control form-control-lg destinationInput"
+                />
         </StandaloneSearchBox>
+        <span class="input-group-addon" id="basic-addon2"><button onClick={props.onLocate} className="btn" style={{backgroundColor: '#1fcf7c', color: '#fff'}}><i className="fa fa-map-marker" /></button></span>
     </div>
 );
 

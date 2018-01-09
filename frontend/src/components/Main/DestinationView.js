@@ -14,6 +14,58 @@ class DestinationView extends React.Component{
     constructor(props){
         super(props);
 
+        this.socket = io('localhost:8000');
+
+        this.onLocate = ev => {
+            navigator.geolocation.getCurrentPosition(position => {
+                if(!this.props.currentUser.isOrdering && !this.props.currentUser.isDelivering){
+                    console.log(position.coords.latitude);
+                this.socket.emit('SAVE_LOCATION', {
+                    user: this.props.currentUser,
+                    positionLat: position.coords.latitude,
+                    positionLng: position.coords.longitude,
+                });
+                this.props.onSetPosition(position);
+                const lat = this.props.currentUser.geometry[0];
+                const lng = this.props.currentUser.geometry[1];
+                const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&key=AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
+                fetch(url)
+                    .then((response) => {
+                        if (response.status >= 400) {
+                            throw new Error("Bad response from server");
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        this.props.onSetFrom(data);
+                    });
+                } else if(!this.props.positionSet){
+                    console.log(this.props.currentUser.geometry, 'ovo trazim?');
+                    this.socket.emit('SAVE_LOCATION', {
+                        user: this.props.currentUser,
+                        positionLat: this.props.currentUser.geometry[0],
+                        positionLng: this.props.currentUser.geometry[1]
+                    });
+
+                    let position2 = {
+                        coords: {
+                            latitude: this.props.currentUser.geometry[0],
+                            longitude: this.props.currentUser.geometry[1]
+                        }
+                    };
+
+                    this.props.onSetPosition(position2);
+                }
+                if(this.props.client){
+                    this.socket.emit('UPDATE_DELIVERY_GUY_LOCATION', {
+                        client: this.props.client,
+                        deliveryGuy: this.props.currentUser,
+                        locationName: this.props.to
+                    });
+                }
+            });
+        }
+
         this.setTo = (to) => {
             this.setState({to: to});
         };
@@ -38,8 +90,6 @@ class DestinationView extends React.Component{
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
-
-        this.socket = io('localhost:8000');
 
         this.handleCancelRequest = ev => {
             ev.preventDefault();
@@ -203,8 +253,8 @@ class DestinationView extends React.Component{
                                         <br/>
                                         <i className="fa fa-dot-circle-o " style={{color: '#59ABE3'}} />
                                     </div>
-                                    <div className="col-8">
-                                        <SearchPlacesTo/>
+                                    <div className="col-10">
+                                        <SearchPlacesTo onLocate={this.onLocate}/>
                                         <hr/>
                                         <SearchPlaces/>
                                     </div>
@@ -422,7 +472,9 @@ const mapDispatchToProps = dispatch => ({
     onChangeTravelMode: field =>
         dispatch({type: actions.CHANGE_TRAVEL_MODE, field}),
     confirmCompletedDelivery: () =>
-        dispatch({type: actions.CONFIRM_COMPLETED_DELIVERY})
+        dispatch({type: actions.CONFIRM_COMPLETED_DELIVERY}),
+    onSetPosition: position =>
+        dispatch({type: actions.SET_POSITION, position}),
 });
 
 

@@ -159,12 +159,13 @@ export default (state=initialState, action) => {
                 })
             };
         case actions.SET_POSITION:
+            console.log(action);
             return {
                 ...state,
-                currentUser: Object.assign(state.currentUser, state.currentUser, {
+                currentUser: {
                     ...state.currentUser,
                     geometry: [action.position.coords.latitude, action.position.coords.longitude]
-                }),
+                },
                 positionSet: true
             };
         case actions.SET_TO_SPECIAL:

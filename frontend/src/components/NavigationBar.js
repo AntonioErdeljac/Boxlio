@@ -84,7 +84,7 @@ const LoggedInTabs = props => {
                     </Link>
                 </li>
                 <li className="nav-item mx-3">
-                    <Link to="/messages" style={{textDecoration: 'none', color: 'rgba(0,0,0,.7)'}} className={props.history.location.pathname === '/messages' || props.history.location.pathname.split('/')[1] === 'messages' ? "nav-button-active" : 'nav-button'}>
+                    <Link to="/messages" style={{textDecoration: 'none', color: 'rgba(0,0,0,1)'}} className={props.history.location.pathname === '/messages' || props.history.location.pathname.split('/')[1] === 'messages' ? "nav-button-active" : 'nav-button'}>
                         {props.alertMessage || props.currentUser.alertMessage ? <i className="fa fa-circle mr-3" style={{fontSize: '10px',bottom:'10px',position:'relative', color: '#1fcf7c'}}/> : null} {props.alertMessage || props.currentUser.alertMessage ? <i className="fa fa-envelope"></i> : <i className="fa fa-envelope-o"></i>} &nbsp;Messages
                     </Link>
                 </li>

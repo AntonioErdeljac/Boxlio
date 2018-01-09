@@ -98,10 +98,11 @@ div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
     background-color:#fff!important;
     border-radius: 10px;
     transition: .5s;
+    color: rgba(0,0,0,.6) !important;
 }
 
 .nav-item{
-    color: rgba(0,0,0,.5) !important;
+    color: rgba(0,0,0,.6) !important;
 }
 
 .settings-input{
@@ -754,7 +755,7 @@ input:checked + .slider:before {
     border-style: none !important;
     border-radius: 0px !important;
     border-color: #1fcf7c !important;
-    color: rgba(0,0,0,.3) !important;
+    color: rgba(0,0,0,.6) !important;
     transition: .2s;
 }
 
