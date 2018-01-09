@@ -1,6 +1,6 @@
 # Boxlio
 
-A new way to deliver.
+*A new way to deliver.
 
 ## Getting Started
 
@@ -48,7 +48,7 @@ react-native run-android
 npm start
 ```
 
-Route to localhost:3000 in your browser, and create an account.
+Route to [localhost:3000](http://localhost:3000/) in your browser, and create an account.
 
 ## Built With
 
