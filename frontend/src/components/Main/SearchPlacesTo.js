@@ -62,11 +62,12 @@ const SearchPlaces = compose(
                     className="form-control form-control-lg destinationInput"
                 />
         </StandaloneSearchBox>
-        <span class="input-group-addon" id="basic-addon2"><button onClick={props.onLocate} className="btn" style={{backgroundColor: '#1fcf7c', color: '#fff'}}><i className="fa fa-map-marker" /></button></span>
+        <span class="input-group-addon" id="basic-addon2"><button disabled={props.currentUser.isOrdering || props.currentUser.isDelivering || props.currentUser.activeDeliveryJob || props.requestSent} onClick={props.onLocate} className="btn" style={{backgroundColor: '#1fcf7c', color: '#fff'}}><i className="fa fa-map-marker" /></button></span>
     </div>
 );
 
 const mapStateToProps = state => ({
+    ...state.common,
     to: state.destinationView.to,
     ...state.destinationView,
     requestSent: state.requests.requestSent
