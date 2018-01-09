@@ -178,7 +178,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch({type: actions.DECLINE_REQUEST}),
     onSetClientCount: data =>
         dispatch({type: actions.SET_CLIENT_COUNT, data}),
-    onChangeTransportation: field => 
+    onChangeTransportation: field =>
         dispatch({type: actions.CHANGE_TRANSPORTATION, field}),
     onChangeAvailable: (payload) =>
         dispatch({type: actions.CHANGE_AVAILABLE, payload})
@@ -187,5 +187,3 @@ const mapDispatchToProps = dispatch => ({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeliveryUserInterface);
-
-
