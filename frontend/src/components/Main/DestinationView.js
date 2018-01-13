@@ -4,11 +4,10 @@ import {connect} from "react-redux";
 import io from "socket.io-client";
 import SearchPlaces from "./SearchPlaces";
 import SearchPlacesTo from "./SearchPlacesTo";
-import Autocomplete from "react-select";
+import Select from 'react-select';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import * as actions from "../../constants/actions";
 import agent from "../../agent";
-import {WithContext as ReactTags} from "react-tag-input";
 
 
 class DestinationView extends React.Component{
@@ -78,7 +77,8 @@ class DestinationView extends React.Component{
             item: '',
             transportation: '',
             rating: 0,
-            tags: []
+            tags: [],
+            value: ''
         };
 
         this.handleChangeTravelMode = field => ev => {
@@ -189,6 +189,11 @@ class DestinationView extends React.Component{
         this.setState({ tags: tags });
     }
 
+    handleChange = (selectedOption) => {
+        this.setState({ selectedOption });
+        console.log(`Selected: ${selectedOption.label}`);
+      }
+
     render(){
 
         if(this.props.currentUser){
@@ -226,6 +231,8 @@ class DestinationView extends React.Component{
                 this.setState({item: ev.target.value})
             };
 
+            const { selectedOption } = this.state;
+            const value = selectedOption && selectedOption.value;
 
             return (
                 <nav className="Absolute-Center float-modal-destination">
@@ -308,14 +315,15 @@ class DestinationView extends React.Component{
                                     </div>
                                     <div className="col-10">
                                         <div className="input-group">
-                                            <input disabled={this.props.requestSent}
-                                                    value={this.state.item}
-                                                    onChange={ev => this.setState({item: ev.target.value})}
-                                                    style={{fontSize: '9px'}}
-                                                   rows="1"
-                                                   className="form-control form-control-lg shortMessageInput"
-                                                   name="price"
-                                                   placeholder="Describe what to buy" />
+                                        <Select
+                                            name="form-field-name"
+                                            value={value}
+                                            onChange={this.handleChange}
+                                            options={[
+                                            { value: 'one', label: 'One' },
+                                            { value: 'two', label: 'Two' },
+                                            ]}
+                                        />
                                         </div>
                                     </div>
                                 </div>
