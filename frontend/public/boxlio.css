@@ -818,17 +818,8 @@ input:checked + .slider:before {
 .Select {
     position: relative;
     width: 100%;
+    max-width: 100%;
     z-index: 99999999999999999;
-  }
-  .Select input::-webkit-contacts-auto-fill-button,
-  .Select input::-webkit-credentials-auto-fill-button {
-    display: none !important;
-  }
-  .Select input::-ms-clear {
-    display: none !important;
-  }
-  .Select input::-ms-reveal {
-    display: none !important;
   }
   .Select,
   .Select div,
@@ -875,7 +866,7 @@ input:checked + .slider:before {
     background: #fff;
   }
   .Select.has-value.is-clearable.Select--single > .Select-control .Select-value {
-    padding-right: 42px;
+
   }
   .Select.has-value.Select--single > .Select-control .Select-value .Select-value-label,
   .Select.has-value.is-pseudo-focused.Select--single > .Select-control .Select-value .Select-value-label {

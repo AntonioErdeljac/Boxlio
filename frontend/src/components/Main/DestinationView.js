@@ -315,15 +315,14 @@ class DestinationView extends React.Component{
                                     </div>
                                     <div className="col-10">
                                         <div className="input-group">
-                                        <Select
-                                            name="form-field-name"
-                                            value={value}
-                                            onChange={this.handleChange}
-                                            options={[
-                                            { value: 'one', label: 'One' },
-                                            { value: 'two', label: 'Two' },
-                                            ]}
-                                        />
+                                            <input disabled={this.props.requestSent}
+                                                    value={this.state.item}
+                                                    onChange={ev => this.setState({item: ev.target.value})}
+                                                    style={{fontSize: '9px'}}
+                                                    rows="1"
+                                                    className="form-control form-control-lg shortMessageInput"
+                                                    name="price"
+                                                    placeholder="Describe what to buy" />
                                         </div>
                                     </div>
                                 </div>
