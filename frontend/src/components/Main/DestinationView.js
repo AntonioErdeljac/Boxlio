@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import io from "socket.io-client";
 import SearchPlaces from "./SearchPlaces";
 import SearchPlacesTo from "./SearchPlacesTo";
-import Select from 'react-select';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import * as actions from "../../constants/actions";
 import agent from "../../agent";
