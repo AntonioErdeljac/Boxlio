@@ -8,7 +8,6 @@ class ClientList extends React.Component{
         render(){
             if(this.props.clients){
             return (
-                
                 <div className="text-center col-3 users-list" style={{marginTop: '2%', paddingTop: '3%', overflow: 'auto'}}>
                     {this.props.clients.map(client => {
                         if(client.username === this.props.match.params.username){
