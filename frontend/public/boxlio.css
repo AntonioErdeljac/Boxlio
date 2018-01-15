@@ -770,6 +770,11 @@ input:checked + .slider:before {
     pointer-events: none;
 }
 
+.amount-item::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    font-size: 13px !important;
+}
+
 .search-items-input {
     border-style: none !important;
     border-bottom-style: solid !important;
