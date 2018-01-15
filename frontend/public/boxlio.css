@@ -770,6 +770,15 @@ input:checked + .slider:before {
     pointer-events: none;
 }
 
+.search-items-input {
+    border-style: none !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #1fcf7c !important;
+    border-radius: 0px !important;
+    font-size: 20px !important;
+    outline: none !important;
+}
+
 .search-users{
     border-radius: 0px !important;
     border-style: none !important;

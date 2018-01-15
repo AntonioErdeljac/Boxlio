@@ -35,7 +35,9 @@ class Catalog extends React.Component{
 			<div style={{height: '100%', width: '100%', backgroundColor: '#fff'}}>
 				<div className="container" style={{paddingTop: '7%'}}>
 					<h2>Catalog</h2>
-                    <input className="form-control" value={this.state.searchQuery} onChange={this.handleSearchQuery} placeholder="Search items" />
+                    <div>
+                        <input className="form-control form-control-lg" value={this.state.searchQuery} onChange={this.handleSearchQuery} placeholder="Search items" />
+                    </div>
                     <CatalogItems results={this.props.results} handleSearchQuery={this.handleSearchQuery} searchQuery={this.state.searchQuery} />
 				</div>
 			</div>

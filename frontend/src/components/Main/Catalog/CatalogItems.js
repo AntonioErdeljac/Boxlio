@@ -12,7 +12,7 @@ const CatalogItems = (props) => {
 		if(props.results.length === 0){
 			return(
 				<div>
-			<h5 className="text-muted my-3">Couldn't find anything, <span style={{color: '#1fcf7c'}}>near you</span>, <br/> try a different search!</h5>
+			<h5 className="text-muted my-3">Couldn't find anything, try a different search!</h5>
 				</div>
 		)
 		}
