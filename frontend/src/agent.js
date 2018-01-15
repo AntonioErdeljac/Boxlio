@@ -11,7 +11,7 @@ const responseBody = res => res.body;
 
 const requests = {
     getTesco: url =>
-        superagent.get(`${url}`).set('Ocp-Apim-Subscription-Key', '2888ade9e3d24fdfb07f564ef1317f49').then(responseBody),
+        superagent.get(`${url}`).set('Ocp-Apim-Subscription-Key', helpers.TESCO_TOKEN).then(responseBody),
     get: url =>
         superagent.get(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
     post: (url, body) =>
@@ -35,7 +35,7 @@ const Auth = {
 
 const Catalog = {
     loadInitial: () =>
-        requests.getTesco(`${helpers.TESCO_API}?query=nutella&offset=0&limit=10`),
+        requests.getTesco(`${helpers.TESCO_API}?query=coca&offset=0&limit=10`),
     search: query =>
         requests.getTesco(`${helpers.TESCO_API}?query=${query}&offset=0&limit=10`),
 }
