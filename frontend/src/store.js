@@ -14,10 +14,12 @@ import deliveryUserInterface from "./reducers/deliveryUserInterface";
 import explore from "./reducers/explore";
 import clientList from "./reducers/clientList";
 import profile from "./reducers/profile";
+import catalog from "./reducers/catalog";
 import notifications from "./reducers/notifications";
 
 const reducer = combineReducers({
     auth,
+    catalog,
     common,
     navbar,
     settings,

@@ -93,6 +93,11 @@ const LoggedInTabs = props => {
                         <i className="fa fa-compass"></i>&nbsp;Explore
                     </Link>
                 </li>
+                <li className="nav-item mx-3">
+                    <Link to="/catalog" style={{textDecoration: 'none', color: 'rgba(0,0,0,.7)'}} className={props.history.location.pathname === '/catalog' ? "nav-button-active" : 'nav-button'}>
+                        <i className="fa fa-shopping-cart"></i>&nbsp;Catalog
+                    </Link>
+                </li>
             </ul>
         );
     }

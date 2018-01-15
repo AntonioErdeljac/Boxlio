@@ -7,6 +7,7 @@ import Login from "./Login";
 import Settings from "./Main/Settings";
 import Messages from "./Main/Messages";
 import Explore from "./Main/Explore";
+import Catalog from "./Main/Catalog";
 import agent from "../agent";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import io from "socket.io-client";
@@ -48,6 +49,7 @@ class App extends React.Component{
                             <Route path="/messages/:username" exact component={Messages} />
                             <Route path="/settings" exact  component={Settings} />
                             <Route path="/explore" exact component={Explore} />
+                            <Route path="/catalog" exact component={Catalog} />
                             <Route path="/@:username" exact component={Profile} />
                             <Route path="/" exact component={Main} />
                             <Route component={NotFoundView} />

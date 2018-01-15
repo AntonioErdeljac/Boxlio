@@ -1,6 +1,7 @@
 import _superagent from "superagent";
 import superagentPromise from "superagent-promise";
 import * as routes from "./constants/routes";
+import * as helpers from "./constants/helpers";
 
 const superagent = superagentPromise(_superagent, global.Promise);
 
@@ -9,6 +10,8 @@ const API_ROOT = routes.API_ROOT;
 const responseBody = res => res.body;
 
 const requests = {
+    getTesco: url =>
+        superagent.get(`${url}`).set('Ocp-Apim-Subscription-Key', '2888ade9e3d24fdfb07f564ef1317f49').then(responseBody),
     get: url =>
         superagent.get(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
     post: (url, body) =>
@@ -29,6 +32,11 @@ const Auth = {
     update: (user) =>
         requests.put(`${routes.user}`, {user}),
 };
+
+const Catalog = {
+    loadInitial: () =>
+        requests.getTesco(`${helpers.TESCO_API}?query=nutella&offset=0&limit=10`)
+}
 
 const Profiles = {
     all: () =>
@@ -74,6 +82,7 @@ export default {
     Auth,
     Profiles,
     Chat,
+    Catalog,
     Clients,
     Explore,
     setToken: _token => {token = _token}

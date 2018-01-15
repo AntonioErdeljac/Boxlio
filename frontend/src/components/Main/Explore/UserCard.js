@@ -6,7 +6,7 @@ const UserCard = (props) => {
 		<div className="col-4 my-3">
 				<div className="card" style={{borderStyle: 'solid', borderRadius: '10px', borderColor: 'rgba(0,0,0,0.1)', boxShadow: '0 0 20px 0 rgba(0,0,0,.1)'}}>
 					<div className="card-body text-center">
-						<img src={props.currentUser.image} height="50" style={{borderRadius:'50%', boxShadow: '0 0 20px 0 rgba(0,0,0,.1)'}} />
+						<img src={props.user.obj.image} height="50" style={{borderRadius:'50%', boxShadow: '0 0 20px 0 rgba(0,0,0,.1)'}} />
 						<h6 className="mt-3">{props.user.obj.firstName} {props.user.obj.lastName}</h6>
 						<p className="text-muted">@{props.user.obj.username}</p>
 						<hr />
