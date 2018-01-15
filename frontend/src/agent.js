@@ -35,7 +35,9 @@ const Auth = {
 
 const Catalog = {
     loadInitial: () =>
-        requests.getTesco(`${helpers.TESCO_API}?query=nutella&offset=0&limit=10`)
+        requests.getTesco(`${helpers.TESCO_API}?query=nutella&offset=0&limit=10`),
+    search: query =>
+        requests.getTesco(`${helpers.TESCO_API}?query=${query}&offset=0&limit=10`),
 }
 
 const Profiles = {
