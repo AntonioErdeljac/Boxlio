@@ -2,17 +2,15 @@ import React from "react";
 import {withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import agent from "../../../agent";
-import Message from "./Message";
 import ClientList from "./ClientList";
 import Chat from "./Chat";
-import ActiveClient from "./ActiveClient";
 import io from "socket.io-client";
 import * as actions from "../../../constants/actions";
 
 class Messages  extends React.Component{
     componentWillMount(){
         if(this.props.match.params.username){
-            let name = this.props.currentUser.deliveryMode ? this.props.currentUser.username+'_and_'+this.props.match.params.username : this.props.match.params.username+'_and_'+this.props.currentUser.username;            
+            let name = this.props.currentUser.deliveryMode ? this.props.currentUser.username+'_and_'+this.props.match.params.username : this.props.match.params.username+'_and_'+this.props.currentUser.username;
                 this.props.onLoad(
                     Promise.all([
                     agent.Profiles.byName(this.props.match.params.username),
@@ -45,13 +43,12 @@ class Messages  extends React.Component{
 
     componentWillUnmount(){
         this.props.onUnload()
-        let name = this.props.currentUser.deliveryMode ? this.props.currentUser.username+'_and_'+this.props.match.params.username : this.props.match.params.username+'_and_'+this.props.currentUser.username;                            
         this.socket.disconnect();
     }
 
     render(){
         this.socket = io('localhost:8000');
-        let name = this.props.currentUser.deliveryMode ? this.props.currentUser.username+'_and_'+this.props.match.params.username : this.props.match.params.username+'_and_'+this.props.currentUser.username;                    
+        let name = this.props.currentUser.deliveryMode ? this.props.currentUser.username+'_and_'+this.props.match.params.username : this.props.match.params.username+'_and_'+this.props.currentUser.username;
             return (
                 <div style={{height: '100%', width: '100%', backgroundColor: '#fff'}}>
                     <div className="container-fluid">
@@ -65,8 +62,8 @@ class Messages  extends React.Component{
                     </div>
             );
         }
-    
-    
+
+
 }
 const mapStateToProps = state => ({
     currentUser: state.common.currentUser,
@@ -85,4 +82,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Messages));
-

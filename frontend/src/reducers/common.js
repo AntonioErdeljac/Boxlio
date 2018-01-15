@@ -159,7 +159,6 @@ export default (state=initialState, action) => {
                 })
             };
         case actions.SET_POSITION:
-            console.log(action);
             return {
                 ...state,
                 currentUser: {

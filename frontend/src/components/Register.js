@@ -2,9 +2,6 @@ import React from "react";
 import {connect} from "react-redux";
 import agent from "../agent";
 import Errors from "./Errors";
-import onClickOutside from "react-onclickoutside";
-import {Link} from "react-router-dom";
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import * as actions from "../constants/actions";
 
 class Register extends React.Component{
@@ -60,7 +57,7 @@ class Register extends React.Component{
                         <h4><i className="fa fa-circle-o mx-3" />Get cheap deliveries</h4>
                     </div>
                     <div className="row my-3">
-                        <h4><i className="fa fa-circle-o mx-3" />Earn money delivering</h4>                    
+                        <h4><i className="fa fa-circle-o mx-3" />Earn money delivering</h4>
                     </div>
                     <p style={{position: 'absolute', bottom:'0px'}}>Photo by Morgan McDonald on Unsplash</p>
                     </div>

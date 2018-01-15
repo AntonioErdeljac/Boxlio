@@ -1,5 +1,4 @@
 import React from "react"
-import jQuery from 'jquery';
 import onClickOutside from "react-onclickoutside";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";

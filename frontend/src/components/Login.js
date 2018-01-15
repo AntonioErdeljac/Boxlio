@@ -1,7 +1,6 @@
 import React from "react";
 import onClickOutside from 'react-onclickoutside';
 import {connect} from "react-redux";
-import {Redirect} from "react-router-dom";
 import agent from "../agent";
 import Errors from "./Errors";
 import {Link} from "react-router-dom";

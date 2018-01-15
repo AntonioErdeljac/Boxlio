@@ -12,8 +12,8 @@ const UserCard = (props) => {
 						<hr />
 						<div className="row">
 							<div className="col-8 offset-2">
-								<div class="input-group">
-									<span class="input-group-addon" id="basic-addon1"><i className="fa fa-dot-circle-o " style={{color: '#1fcf7c'}}></i></span>
+								<div className="input-group">
+									<span className="input-group-addon" id="basic-addon1"><i className="fa fa-dot-circle-o " style={{color: '#1fcf7c'}}></i></span>
 									<input
 										type="text"
 										placeholder="Loading..."
@@ -27,8 +27,8 @@ const UserCard = (props) => {
 
 						<div className="row">
 							<div className="col-8 offset-2">
-								<div class="input-group">
-									<span class="input-group-addon" id="basic-addon1"><i className="fa fa-star" style={{color: '#1fcf7c'}}></i></span>
+								<div className="input-group">
+									<span className="input-group-addon" id="basic-addon1"><i className="fa fa-star" style={{color: '#1fcf7c'}}></i></span>
 									<input
 										type="text"
 										placeholder="Loading..."

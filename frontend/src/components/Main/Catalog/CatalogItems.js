@@ -21,7 +21,7 @@ const CatalogItems = (props) => {
 			<div>
 				<div className="row">
 					{props.results.map(item => {
-						return <CatalogCard item={item} />
+						return <CatalogCard key={item.id} item={item} />
 						})
 					}
 				</div>

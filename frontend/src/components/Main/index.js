@@ -1,15 +1,9 @@
 import React from "react";
 import MapView from "./Map/index";
-import DestinationView from "./DestinationView";
-import {Link, Switch, Route, withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import io from "socket.io-client";
 import store from "../../store";
 import {connect} from "react-redux";
-import DeliveryView from "./DeliveryView";
-import DeliveryUserInterface from "./DeliveryUserInterface";
-import RequestView from "./RequestView";
-import Messages from "./Messages";
-import Settings from "./Settings";
 import * as actions from "../../constants/actions";
 
 
@@ -17,9 +11,7 @@ class Main extends React.Component{
     constructor(props){
         super(props);
 
-        console.log(this.props.currentUser, 'Provjeravam active job');
             if(this.props.currentUser.activeDeliveryJob && !this.props.checkSet){
-                console.log(this.props.currentUser.activeDeliveryJob, 'JOB');
                 this.props.setActiveDeliveryJob(this.props.currentUser.activeDeliveryJob);
                 const data = {
                     locationName: this.props.currentUser.activeDeliveryJob.toName,
@@ -28,13 +20,10 @@ class Main extends React.Component{
                 this.props.onChangeLocationName(data);
             }
 
-            console.log(this.props.currentUser, 'OVDJE POCINJEMO');
             const socket = io('localhost:8000');
-            const user = this.props.currentUser;
 
             navigator.geolocation.getCurrentPosition(position => {
                 if(!this.props.currentUser.isOrdering && !this.props.currentUser.isDelivering && !this.props.positionSet){
-                    console.log(position.coords.latitude);
                 socket.emit('SAVE_LOCATION', {
                     user: this.props.currentUser,
                     positionLat: position.coords.latitude,
@@ -42,7 +31,6 @@ class Main extends React.Component{
                 });
                 this.props.onSetPosition(position);
                 } else if(!this.props.positionSet){
-                    console.log(this.props.currentUser.geometry, 'ovo trazim?');
                     socket.emit('SAVE_LOCATION', {
                         user: this.props.currentUser,
                         positionLat: this.props.currentUser.geometry[0],
@@ -89,9 +77,6 @@ class Main extends React.Component{
             }
 
 
-            console.log('PROVJERA KLIJENTA', this.props.client)
-
-
             const client = this.props.client;
             const setRequest = data => {
                 if(!client) {
@@ -104,22 +89,20 @@ class Main extends React.Component{
                 this.props.onSuccessCompleteDelivery(data);
             })
 
-            const acceptedRequest = this.props.acceptedRequest;
-                socket.on('REQUEST_DRIVER_CLIENT',  (data) => {
-                        console.log('be my driver');
-                        setRequest(data);
+            socket.on('REQUEST_DRIVER_CLIENT',  (data) => {
+                    setRequest(data);
 
-                });
+            });
 
-                const onRequestAccepted = data => {
+            const onRequestAccepted = data => {
 
-                    this.props.onRequestAccepted(data);
-                };
+                this.props.onRequestAccepted(data);
+            };
 
 
-                socket.on('REQUEST_ACCEPTED', (data) => {
-                    onRequestAccepted(data);
-                });
+            socket.on('REQUEST_ACCEPTED', (data) => {
+                onRequestAccepted(data);
+            });
 
 
 
@@ -139,17 +122,11 @@ class Main extends React.Component{
 
             socket.on('RECEIVE_MESSAGE', (data) => {
                 this.props.onAlertMessage();
-            })
-
-            const changeLocationName = data => {
-
-            };
-            console.log(this.props, 'OVO SU PROPSI');
+            });
 
 
 
             socket.on('FAILURE_REQUEST_ACCEPTED', data => {
-                console.log('failed');
                 this.props.onSetFailureAccepted(data);
             });
 
@@ -157,9 +134,7 @@ class Main extends React.Component{
 
 
             socket.on('DELIVERY_GUY_CHANGE_LOCATION', (data) => {
-                console.log('dobivam lokaciju')
                 if(1){
-                    console.log(data, 'OVO MU TREBA ZA PROMJENU')
                     this.props.onChangeLocationName(data);
                 }
             });
@@ -204,10 +179,7 @@ class Main extends React.Component{
             const changePosition = (pos, data) => {
                 if(this.props.acceptedRequest || this.props.currentUser.deliveryMode){
                     const client = this.props.client;
-                    const currentUser = this.props.currentUser;
-                    console.log(data, 'OVO TRAZIM');
                     this.props.onChangePosition(pos, data);
-                    console.log(pos, 'OVOV IT TREBAAA');
                     let currentUser2 = {
                         ...this.props.currentUser,
                         geometry: [pos.coords.latitude, pos.coords.longitude]
@@ -223,16 +195,8 @@ class Main extends React.Component{
                 }
             };
 
-
-            let id, target, options;
-
             function success(pos) {
-                console.log('KOLKO CESTO SE OVO PONAVLJA', pos)
                 handleChangePosition(pos);
-            }
-
-            function error(err) {
-                console.warn('ERROR(' + err.code + '): ' + err.message);
             }
 
 

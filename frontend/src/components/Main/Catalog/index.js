@@ -2,8 +2,6 @@ import React from "react";
 import {connect} from "react-redux";
 import agent from "../../../agent";
 import CatalogItems from "./CatalogItems";
-import * as actions from "../../../constants/actions";
-import * as helpers from '../../../constants/helpers';
 
 class Catalog extends React.Component{
 	constructor(props){

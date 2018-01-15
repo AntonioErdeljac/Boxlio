@@ -1,5 +1,4 @@
 import CurrentUserDropdown from "./CurrentUserDropdown";
-import NotificationDropdown from "./NotificationDropdown";
 import React from 'react';
 import {connect} from "react-redux";
 import {Link, withRouter} from "react-router-dom";
@@ -47,11 +46,11 @@ const LoggedIn = props => {
     if(props.currentUser){
         return (
             <ul className="nav navbar-nav ml-auto">
-                <li className="nav-item" style={{marginTop: '13px', textTransform:"capitalize"}} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li className="nav-item" style={{marginTop: '13px', textTransform:"capitalize"}} data-toggle="dropdown" aria-haspopup="true" >
                     <span style={{textTransform: 'capitalize'}}>{props.currentUser.firstName}</span> <i className="fa fa-caret-down"></i>
                 </li>
                 <li className="nav-item dropdown ml-3" id="userimg">
-                    <img src={props.currentUser.image}  alt="" height="50" width="50" style={{borderRadius: '50%', boxShadow: '0 0 1px rgba(0,0,0,.1)'}}  className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"/>
+                    <img src={props.currentUser.image}  alt="" height="50" width="50" style={{borderRadius: '50%', boxShadow: '0 0 1px rgba(0,0,0,.1)'}}  className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"/>
                     <CurrentUserDropdown currentUser={props.currentUser}/>
                 </li>
             </ul>

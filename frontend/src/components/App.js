@@ -9,12 +9,9 @@ import Messages from "./Main/Messages";
 import Explore from "./Main/Explore";
 import Catalog from "./Main/Catalog";
 import agent from "../agent";
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import io from "socket.io-client";
 import Register from "./Register";
 import Profile from "./Main/Profile";
 import * as actions from "../constants/actions";
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import NotFoundView from "./Main/NotFoundView";
 
 

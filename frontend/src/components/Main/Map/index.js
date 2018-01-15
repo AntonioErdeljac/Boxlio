@@ -79,7 +79,6 @@ const MyMapComponent = compose(
                             directions3: result,
                         });
                     } else {
-                        console.error(`error fetching directions ${result}`);
                     }
                 });
             }
@@ -95,7 +94,6 @@ const MyMapComponent = compose(
                             directions: result,
                         });
                     } else {
-                        console.error(`error fetching directions ${result}`);
                     }
                 });
             }
@@ -111,7 +109,6 @@ const MyMapComponent = compose(
                             directions: result,
                         });
                     } else {
-                        console.error(`error fetching directions ${result}`);
                     }
                 });
             }
@@ -128,7 +125,6 @@ const MyMapComponent = compose(
                             directionsToClient: result,
                         });
                     } else {
-                        console.error(`error fetching directions ${result}`);
                     }
                 });
             }
@@ -170,7 +166,6 @@ const MyMapComponent = compose(
                             directions: result,
                         });
                     } else {
-                        console.error(`error fetching directions ${result}`);
                     }
                 });
             }
@@ -188,7 +183,6 @@ const MyMapComponent = compose(
                             directions3: result,
                         });
                     } else {
-                        console.error(`error fetching directions ${result}`);
                     }
                 });
             }
@@ -206,7 +200,6 @@ const MyMapComponent = compose(
                                 directions3: result,
                             });
                         } else {
-                            console.error(`error fetching directions ${result}`);
                         }
                     });
                 }
@@ -220,7 +213,6 @@ const MyMapComponent = compose(
                             directions: result,
                         });
                     } else {
-                        console.error(`error fetching directions ${result}`);
                     }
                 });
             }
@@ -235,7 +227,6 @@ const MyMapComponent = compose(
                             directionsToClient: result,
                         });
                     } else {
-                        console.error(`error fetching directions ${result}`);
                     }
                 });
             }
