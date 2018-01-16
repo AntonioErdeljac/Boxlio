@@ -46,7 +46,7 @@ const LoggedIn = props => {
     if(props.currentUser){
         return (
             <ul className="nav navbar-nav ml-auto">
-                <li className="nav-item" style={{marginTop: '13px', textTransform:"capitalize"}} data-toggle="dropdown" aria-haspopup="true" >
+                <li className="nav-item" style={{marginTop: '15px', textTransform:"capitalize"}} data-toggle="dropdown" aria-haspopup="true" >
                     <span style={{textTransform: 'capitalize'}}>{props.currentUser.firstName}</span> <i className="fa fa-caret-down"></i>
                 </li>
                 <li className="nav-item dropdown ml-3" id="userimg">

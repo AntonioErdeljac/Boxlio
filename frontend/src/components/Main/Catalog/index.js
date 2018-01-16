@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import agent from "../../../agent";
 import CatalogItems from "./CatalogItems";
+import BasketItems from "./BasketItems";
 
 class Catalog extends React.Component{
 	constructor(props){
@@ -32,12 +33,21 @@ class Catalog extends React.Component{
 		return (
 			<div style={{height: '100%', width: '100%', backgroundColor: '#fff'}}>
 				<div className="container" style={{paddingTop: '7%'}}>
-					<h2>Catalog</h2>
-                    <div>
-                        <input className="form-control form-control-lg" value={this.state.searchQuery} onChange={this.handleSearchQuery} placeholder="Search items" />
+					<h1>Catalog</h1>
+                    <hr />
+                    <div className="row">
+                        <div className="col-8">
+                            <div>
+                                <input className="form-control form-control-lg" value={this.state.searchQuery} onChange={this.handleSearchQuery} placeholder="Search items" />
+                            </div>
+                            <CatalogItems results={this.props.results} handleSearchQuery={this.handleSearchQuery} searchQuery={this.state.searchQuery} />
+                        </div>
+                        <div className="col">
+                            <h3 className="text-center">Your basket</h3>
+                            <BasketItems items={this.props.basket} />
+                        </div>
                     </div>
-                    <CatalogItems results={this.props.results} handleSearchQuery={this.handleSearchQuery} searchQuery={this.state.searchQuery} />
-				</div>
+                </div>
 			</div>
 		);
 	}

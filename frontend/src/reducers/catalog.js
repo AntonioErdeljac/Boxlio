@@ -1,5 +1,11 @@
 export default (state={}, action) => {
     switch(action.type) {
+        case 'ADD_ITEM_TO_BASKET':
+        console.log(state.basket);
+            return {
+                ...state,
+                basket: (state.basket || []).concat([action.item])
+            }
         case 'CATALOG_PAGE_LOADED':
             return {
                 ...state,
