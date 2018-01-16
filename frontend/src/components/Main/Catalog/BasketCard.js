@@ -16,11 +16,12 @@ class BasketCard extends React.Component{
 					<div className="card-body text-center">
 						<img src={this.props.item.image} height="100" width="100" style={{borderRadius:'30px', boxShadow: '0 0 20px 0 rgba(0,0,0,.1)'}} />
 						<h6 className="mt-3">{this.props.item.name}</h6>
+                        <span style={{color: '#1fcf7c'}}>x{this.props.item.amount}</span>
 						<hr />
 						<div className="row my-3">
 							<div className="col-12">
 								<button className="orderbtn btn btn-primary form-control"
-										onClick={() => this.props.removeFromBasket(this.props.item.id)}
+										onClick={() => this.props.removeFromBasket(this.props.item.uniqueID)}
 										style={{backgroundColor: '#E7475E', borderStyle: 'none'}}>
 									Remove from basket
 								</button>

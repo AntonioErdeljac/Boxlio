@@ -4,7 +4,7 @@ export default (state={}, action) => {
         console.log(state.basket);
             return {
                 ...state,
-                basket: (state.basket || []).concat([action.item])
+                basket: (state.basket || []).concat([{...action.item, amount: action.amount, uniqueID: action.uniqueID}])
             }
         case 'CATALOG_PAGE_LOADED':
             return {
@@ -14,7 +14,7 @@ export default (state={}, action) => {
         case 'REMOVE_ITEM_FROM_BASKET':
             return {
                 ...state,
-                basket: state.basket.filter(item => item.id !== action.id),
+                basket: state.basket.filter(item => item.uniqueID !== action.id),
             };
         case 'SEARCH_CATALOG_ITEMS':
         console.log(action);

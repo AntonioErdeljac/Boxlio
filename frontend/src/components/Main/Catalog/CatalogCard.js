@@ -20,7 +20,7 @@ class CatalogCard extends React.Component{
 						<div className="row my-3">
 							<div className="col-8">
 								<button className="orderbtn btn btn-primary form-control"
-										onClick={() => this.props.addToBasket(this.props.item)}
+										onClick={() => this.props.addToBasket(this.props.item, this.state.amount, Math.random())}
 										style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}>
 									Add to basket
 								</button>
@@ -37,8 +37,8 @@ class CatalogCard extends React.Component{
 }
 
 const mapDispatchToProps = dispatch => ({
-	addToBasket: item =>
-		dispatch({type: 'ADD_ITEM_TO_BASKET', item}),
+	addToBasket: (item, amount, uniqueID) =>
+		dispatch({type: 'ADD_ITEM_TO_BASKET', item, amount, uniqueID}),
 });
 
 export default connect(null, mapDispatchToProps)(CatalogCard);
