@@ -20,7 +20,7 @@ class BasketCard extends React.Component{
 						<div className="row my-3">
 							<div className="col-12">
 								<button className="orderbtn btn btn-primary form-control"
-										onClick={() => this.props.addToBasket(this.props.item)}
+										onClick={() => this.props.removeFromBasket(this.props.item.id)}
 										style={{backgroundColor: '#E7475E', borderStyle: 'none'}}>
 									Remove from basket
 								</button>
@@ -34,8 +34,8 @@ class BasketCard extends React.Component{
 }
 
 const mapDispatchToProps = dispatch => ({
-	addToBasket: item =>
-		dispatch({type: 'ADD_ITEM_TO_BASKET', item}),
+	removeFromBasket: id =>
+		dispatch({type: 'REMOVE_ITEM_FROM_BASKET', id}),
 });
 
 export default connect(null, mapDispatchToProps)(BasketCard);

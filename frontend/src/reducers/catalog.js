@@ -11,6 +11,11 @@ export default (state={}, action) => {
                 ...state,
                 results: action.payload.uk ? action.payload.uk.ghs.products.results : [],
             };
+        case 'REMOVE_ITEM_FROM_BASKET':
+            return {
+                ...state,
+                basket: state.basket.filter(item => item.id !== action.id),
+            };
         case 'SEARCH_CATALOG_ITEMS':
         console.log(action);
             return {
