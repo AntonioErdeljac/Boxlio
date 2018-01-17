@@ -73,7 +73,7 @@ class DestinationView extends React.Component{
             from: '',
             to: '',
             price: '',
-            item: '',
+            item: this.props.basket ? this.props.basket.length : [{test: 'test'}],
             transportation: '',
             rating: 0,
             tags: [],
@@ -105,6 +105,14 @@ class DestinationView extends React.Component{
             ev.preventDefault();
             console.log(this.props.to, 'JELI OVO TOCNO');
 
+            const item = this.props.basket.map(i => {
+                return `${i.name} x${i.amount}`
+            });
+
+            const finalItem = item.join();
+
+            console.log(finalItem);
+
             this.socket.emit('REQUEST_DRIVER', {
                 user: this.props.currentUser,
                 from: this.props.from,
@@ -114,7 +122,7 @@ class DestinationView extends React.Component{
                 clientLat: this.props.currentUser.geometry[0],
                 clientLng: this.props.currentUser.geometry[1],
                 price: this.state.price,
-                item: this.state.item,
+                item: finalItem,
                 transportation: this.state.transportation
             });
 
@@ -314,14 +322,17 @@ class DestinationView extends React.Component{
                                     </div>
                                     <div className="col-10">
                                         <div className="input-group">
+                                        {this.props.basket && this.props.basket.length > 0 ?
                                             <input disabled={this.props.requestSent}
-                                                    value={this.state.item}
-                                                    onChange={ev => this.setState({item: ev.target.value})}
+                                                    value={this.props.basket.length + ' items'}
                                                     style={{fontSize: '9px'}}
                                                     rows="1"
                                                     className="form-control form-control-lg shortMessageInput"
                                                     name="price"
                                                     placeholder="Describe what to buy" />
+                                            :
+                                            <Link to="/catalog" className="btn btn-primary form-control text-center" style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}><i className="fa fa-shopping-cart fa-2x mx-3"></i> Open Catalog</Link>
+                                        }
                                         </div>
                                     </div>
                                 </div>
@@ -465,6 +476,7 @@ const mapStateToProps = state => ({
     currentUser: state.common.currentUser,
     positionSet: state.common.positionSet,
     requestSent: state.requests.requestSent,
+    ...state.catalog,
     ...state.destinationView,
     ...state.requests
 });
