@@ -103,7 +103,6 @@ class DestinationView extends React.Component{
 
         this.handleSendRequest = ev => {
             ev.preventDefault();
-            console.log(this.props.to, 'JELI OVO TOCNO');
 
             const item = this.props.basket.map(i => {
                 return `${i.name} x${i.amount}`
@@ -316,13 +315,15 @@ class DestinationView extends React.Component{
                                 </div>
                                 <hr/>
                                 <div className="row my-3">
+
+                                {this.props.basket && this.props.basket.length > 0 ?
+                                <div className="row my-3 mx-2">
                                     <div className="col-2">
                                         <i className="fa fa-shopping-basket"
                                            style={{color: '#1fcf7c', fontSize: '30px', marginTop: '3px'}} />
                                     </div>
                                     <div className="col-10">
                                         <div className="input-group">
-                                        {this.props.basket && this.props.basket.length > 0 ?
                                             <input disabled={this.props.requestSent}
                                                     value={this.props.basket.length + ' items'}
                                                     style={{fontSize: '9px'}}
@@ -330,11 +331,15 @@ class DestinationView extends React.Component{
                                                     className="form-control form-control-lg shortMessageInput"
                                                     name="price"
                                                     placeholder="Describe what to buy" />
-                                            :
-                                            <Link to="/catalog" className="btn btn-primary form-control text-center" style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}><i className="fa fa-shopping-cart fa-2x mx-3"></i> Open Catalog</Link>
-                                        }
+
                                         </div>
                                     </div>
+                                </div>
+                                     :
+                                     <div className="col-12">
+                                            <Link to="/catalog" className="btn btn-primary form-control text-center" style={{backgroundColor: '#1fcf7c', borderStyle: 'none'}}><i className="fa fa-shopping-cart  mx-3"></i> Open Catalog</Link>
+                                            </div>
+                                        }
                                 </div>
                             </div>
                         }
