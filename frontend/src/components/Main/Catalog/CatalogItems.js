@@ -4,7 +4,7 @@ import CatalogCard from "./CatalogCard";
 const CatalogItems = (props) => {
 		if(!props.results){
 			return(
-				<div className="col-6 offset-5">
+				<div className="col-6 offset-5 my-3">
 					<div className="actionLoad"></div>
 				</div>
 			)
