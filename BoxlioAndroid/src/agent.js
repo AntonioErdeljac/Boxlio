@@ -9,6 +9,8 @@ const API_ROOT = `${constants.API_ROOT}/api`;
 const getBody = res => res.body;
 
 const requests = {
+	getCatalog: url =>
+		superagent.get(`${url}`).set('Ocp-Apim-Subscription-Key', constants.TESCO_TOKEN).then(getBody),
 	get: url =>
 		superagent.get(`${API_ROOT}${url}`).use(tokenPlugin).then(getBody),
 	post: (url, body) =>
@@ -38,6 +40,13 @@ const Clients = {
 		requests.get(`/${name}/lastmessage`)
 };
 
+const Catalog = {
+	loadInitial: () =>
+        requests.getCatalog(`${constants.TESCO_API}?query=coca&offset=0&limit=10`),
+    search: query =>
+        requests.getCatalog(`${constants.TESCO_API}?query=${query}&offset=0&limit=10`),
+}
+
 const Chat = {
     byName: name =>
         requests.get(`/chatrooms/${name}`),
@@ -65,5 +74,6 @@ export default {
 	Chat,
     Explore,
 	Profile,
+	Catalog,
 	setToken: _token => {token = _token}
 }

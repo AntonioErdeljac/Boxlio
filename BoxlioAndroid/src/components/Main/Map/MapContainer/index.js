@@ -15,6 +15,7 @@ import SearchPlacesTo from "../SearchPlacesTo";
 import mapStyles from "../mapStyles";
 import LocationChooser from "../LocationChooser";
 import RateClientView from "../RateClientView";
+import Catalog from '../Catalog';
 import UserIcon from "../UserIcon";
 import MessageIcon from "../MessageIcon";
 import ExploreIcon from "../ExploreIcon";
@@ -303,6 +304,7 @@ class MapContainer extends React.Component{
                 { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen ? <TransportationType /> : null }
                 { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null }
                 { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage /> : null }
+                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <Catalog /> : null }
                 { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null }
                 { !this.props.completeChoice && !this.props.currentUser.deliveryMode && this.props.requestSent ? <RequestHandler navigation={this.props.navigation}/> : null }
                 { !this.props.completeChoice && !this.props.currentUser.deliveryMode && this.props.requestAccepted && this.props.showOptions ? <RequestOptions navigation={this.props.navigation}></RequestOptions> : null }

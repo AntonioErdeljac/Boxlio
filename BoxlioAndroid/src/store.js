@@ -9,6 +9,7 @@ import requests from "./reducers/requests";
 import messages from "./reducers/messages";
 import chat from "./reducers/chat";
 import explore from "./reducers/explore";
+import catalog from './reducers/catalog';
 
 const reducer = combineReducers({
 	auth,
@@ -18,7 +19,8 @@ const reducer = combineReducers({
 	destinationView,
     requests,
 	messages,
-	chat
+	chat,
+	catalog,
 });
 
 const store = createStore(reducer, applyMiddleware(promiseMiddleware, localStorageMiddleware));

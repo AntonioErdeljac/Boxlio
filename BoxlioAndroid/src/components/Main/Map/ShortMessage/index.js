@@ -6,6 +6,7 @@ import {Grid, Col, Row} from "react-native-easy-grid";
 import {StyleSheet, Dimensions, View, TextInput, Keyboard} from "react-native";
 import * as Animatable from "react-native-animatable";
 import {connect} from "react-redux";
+import agent from '../../../../agent';
 
 
 class ShortMessage extends React.Component{
@@ -21,7 +22,18 @@ class ShortMessage extends React.Component{
         this.handleSetItem = text => {
             this.props.onSetItem(text);
         }
+
+        this.handleSearchQuery = this.handleSearchQuery.bind(this);
     }
+
+    handleSearchQuery(text) {
+        this.setState({
+            searchQuery: text
+        }, () => {
+            this.props.onLoadByQuery(agent.Catalog.search(this.state.searchQuery));
+        })
+    }
+
     render(){
         if(this.props.currentUser){
             return (
@@ -36,8 +48,7 @@ class ShortMessage extends React.Component{
                                 <TextInput
                                     onSubmitEditing={Keyboard.dismiss}
                                     style={styles.input}
-                                    value={this.props.item}
-                                    onChangeText={(text) => this.handleSetItem(text)}
+                                    onChangeText={(text) => this.handleSearchQuery(text)}
                                     underlineColorAndroid='rgba(0,0,0,0)'
                                     placeholderTextColor="rgba(0,0,0,.3)"
                                     placeholder="What to buy?"/>
@@ -106,6 +117,8 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = dispatch => ({
     onSetItem: text =>
         dispatch({type: 'SET_ITEM', text}),
+    onLoadByQuery: payload =>
+        dispatch({type: 'SEARCH_CATALOG_ITEMS', payload}),
 });
 
 const mapStateToProps = state => ({
