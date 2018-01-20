@@ -1,10 +1,10 @@
 import React from "react";
 import {Container, Content} from "native-base";
-import {  Header, Form, Item, Input , Button, H1, H3, Label, Icon, Card, CardItem, Right, Left, Body, Title} from 'native-base';
+import FAIcon from 'react-native-vector-icons/FontAwesome';
+import {  Text, Header, Form, Item, Input , Button, H1, H3, Icon, Label, Card, CardItem, Right, Left, Body, Title} from 'native-base';
 import {
     Platform,
     StyleSheet,
-    Text,
     View,
     Image,
     ImageBackground,
@@ -31,25 +31,27 @@ const FormAnimated = Animatable.createAnimatableComponent(Form);
 const ActivityIndicatorAnimated = Animatable.createAnimatableComponent(ActivityIndicator);
 
 
-class Catalog extends React.Component{
-
-    componentWillMount(){
-        this.props.onLoad(agent.Catalog.loadInitial())
-    }
+class ItemPreview extends React.Component{
 
     constructor(props){
         super(props);
 
         this.goBack = this.goBack.bind(this);
         this.handleSearchQuery = this.handleSearchQuery.bind(this);
+        this.handleAddToBasket = this.handleAddToBasket.bind(this);
 
         this.state = {
             search: ''
         }
     }
 
+    handleAddToBasket() {
+        this.props.addToBasket(this.props.navigation.state.params.item, 1, Math.random())
+        this.props.navigation.navigate('catalog');
+    }
+
     goBack() {
-        this.props.navigation.navigate('main');
+        this.props.navigation.navigate('catalog');
     };
 
     handleSearchQuery(text) {
@@ -74,31 +76,29 @@ class Catalog extends React.Component{
                         </Grid>
                     </CardItem>
                 </TouchableOpacity>
-                <CardItem>
-                    <Icon name='ios-search-outline' style={{color: 'rgba(0,0,0,.6)', fontSize: 30}} />
-                    <TextInput
-                        onChangeText={(text) => this.handleSearchQuery(text)}
-                        value={this.state.search}
-                        style={styles.input}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholderTextColor="gray"
-                        placeholder="Search items"/>
-                </CardItem>
                     <Content>
                         <Card>
-                        {(this.props.results || []).map(item => {
-                            return (
-                                <TouchableOpacity key={item.id} onPress={() => this.props.navigation.navigate('catalogItem', { item })}>
-                                    <CardItem>
-                                        <Icon style={{color: '#1fcf7c'}} active name="ios-basket-outline" />
-                                        <Text numberOfLines={1} style={{fontFamily: 'VarelaRound-Regular', width: Dimensions.get('window').width-100 }}>{item.name}</Text>
-                                        <Right>
-                                            <Icon style={{color: '#1fcf7c'}} name="ios-arrow-forward-outline" />
-                                        </Right>
-                                    </CardItem>
-                                </TouchableOpacity>
-                            )
-                        })}
+                        <CardItem>
+                            <Left>
+                                <Body>
+                                <Text>{this.props.navigation.state.params.item.name}</Text>
+                                <Text note>{this.props.navigation.state.params.item.price}$</Text>
+                                </Body>
+                            </Left>
+                            </CardItem>
+                            <CardItem cardBody>
+                                <Image source={{uri: this.props.navigation.state.params.item.image}} style={styles.image}/>
+                            </CardItem>
+                            <CardItem style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <TouchableOpacity onPress={this.handleAddToBasket} style={styles.button}>
+                                <Grid>
+                                    <Row>
+                                        <FAIcon name="shopping-basket" style={{color: '#fff', marginRight: 10, fontSize: 14}} />
+                                        <Text style={styles.textButton}>Add to basket</Text>
+                                    </Row>
+                                </Grid>
+                            </TouchableOpacity>
+                            </CardItem>
                         </Card>
                     </Content>
             </ContainerAnimatable>
@@ -107,6 +107,20 @@ class Catalog extends React.Component{
 }
 
 const styles = StyleSheet.create({
+    textButton: {
+        color: '#fff',
+        fontFamily: 'VarelaRound-Regular',
+        fontSize: 13,
+    },
+    button: {
+        padding: 13,
+        height: 45,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#1fcf7c',
+        width: Dimensions.get('window').width-100,
+    },
     input: {
         width: Dimensions.get('window').width-100,
         backgroundColor: 'transparent',
@@ -136,9 +150,9 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         resizeMode: 'contain',
-        height: 45,
-        width: 45,
-        borderRadius: 100,
+        height: 105,
+        width: 105,
+        borderRadius: 10,
     },
     label: {
         color: 'rgba(0,0,0,.5)',
@@ -200,13 +214,14 @@ const styles = StyleSheet.create({
     loginButton: {
         borderColor: 'transparent',
         backgroundColor: '#1fcf7c',
-        marginTop: 10,
-        marginLeft: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: Dimensions.get('window').width-100,
+        height: 50,
         shadowColor: 'rgba(255,255,255,1)',
         elevation: 3,
         shadowOffset: {height: 10, width: 10},
         shadowOpacity: 0.3,
-        padding: 10,
         borderRadius: 6,
     },
     logoutButton: {
@@ -256,10 +271,8 @@ const mapStateToProps = state => ({
 
 
 const mapDispatchToProps = dispatch => ({
-    onLoad: payload =>
-        dispatch({type: 'CATALOG_PAGE_LOADED', payload}),
-    onLoadByQuery: payload =>
-            dispatch({type: 'SEARCH_CATALOG_ITEMS', payload}),
+    addToBasket: (item, amount, uniqueID) =>
+        dispatch({type: 'ADD_ITEM_TO_BASKET', item, amount, uniqueID}),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Catalog);
+export default connect(mapStateToProps, mapDispatchToProps)(ItemPreview);
