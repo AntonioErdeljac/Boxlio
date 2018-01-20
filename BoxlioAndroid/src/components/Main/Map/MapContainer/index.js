@@ -27,7 +27,7 @@ const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 import DeliveryModeView from "../DeliveryModeView";
 import ReceiveRequestHandler from "../ReceiveRequestHandler";
 
-class MapContainer extends React.Component{
+class MapContainer extends React.PureComponent{
     componentWillMount(){
         if(this.props.requestSent){
             this.setState({
@@ -270,17 +270,17 @@ class MapContainer extends React.Component{
                   longitude: this.props.lng
             }),
             directionsCoords: this.props.directions,
-              disableRequestComponents: false,
-              to: null,
-              from: null,
-              showToInput: true,
-              showFromInput: true,
-              region: {
-                  latitude: this.props.currentUser.geometry[0],
-                  longitude: this.props.currentUser.geometry[1],
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
-              }
+            disableRequestComponents: false,
+            to: null,
+            from: null,
+            showToInput: true,
+            showFromInput: true,
+            region: {
+                latitude: this.props.currentUser.geometry[0],
+                longitude: this.props.currentUser.geometry[1],
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+            }
         }
       }
 	render(){
@@ -317,7 +317,7 @@ class MapContainer extends React.Component{
                 <MapView
                     provider={null}
                     customMapStyle={mapStyle}
-                    region={this.state.region}
+                    initialRegion={this.state.region}
                     ref="map"
                     showCompass={false}
                     style={styles.map}>

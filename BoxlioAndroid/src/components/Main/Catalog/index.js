@@ -34,15 +34,14 @@ const ActivityIndicatorAnimated = Animatable.createAnimatableComponent(ActivityI
 class Messages extends React.Component{
 
     componentWillMount(){
-        this.props.onLoad(agent.Clients.all())
-
-        this.props.onRemoveAlertMessages(agent.Auth.update({alertMessage: false}));
+        this.props.onLoad(agent.Catalog.loadInitial())
     }
 
     constructor(props){
         super(props);
 
         this.goBack = this.goBack.bind(this);
+        this.handleSearchQuery = this.handleSearchQuery.bind(this);
 
         this.state = {
             search: ''
@@ -51,6 +50,14 @@ class Messages extends React.Component{
 
     goBack() {
         this.props.navigation.navigate('main');
+    };
+
+    handleSearchQuery(text) {
+        this.setState({
+            search: text
+        }, () => {
+            this.props.onLoadByQuery(agent.Catalog.search(this.state.search));
+        })
     };
 
     render(){
@@ -70,7 +77,7 @@ class Messages extends React.Component{
                 <CardItem>
                     <Icon name='ios-search-outline' style={{color: 'rgba(0,0,0,.6)', fontSize: 30}} />
                     <TextInput
-                        onChangeText={(text) => this.setState({search: text})}
+                        onChangeText={(text) => this.handleSearchQuery(text)}
                         value={this.state.search}
                         style={styles.input}
                         underlineColorAndroid='rgba(0,0,0,0)'
@@ -78,8 +85,18 @@ class Messages extends React.Component{
                         placeholder="Search items"/>
                 </CardItem>
                     <Content>
-                        <Card style={{elevation: 0, borderColor: 'transparent'}}>
-
+                        <Card>
+                        {(this.props.results || []).map(item => {
+                            return (
+                                <CardItem key={item.id}>
+                                <Icon style={{color: '#1fcf7c'}} active name="ios-basket-outline" />
+                                <Text numberOfLines={1} style={{fontFamily: 'VarelaRound-Regular', width: Dimensions.get('window').width-100 }}>{item.name}</Text>
+                                <Right>
+                                    <Icon style={{color: '#1fcf7c'}} name="ios-arrow-forward-outline" />
+                                </Right>
+                            </CardItem>
+                            )
+                        })}
                         </Card>
                     </Content>
             </ContainerAnimatable>
@@ -232,15 +249,15 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
     currentUser: state.common.currentUser,
-    ...state.messages
-})
+    ...state.catalog,
+});
 
 
 const mapDispatchToProps = dispatch => ({
     onLoad: payload =>
-        dispatch({type: 'MESSAGES_PAGE_LOADED', payload}),
-    onRemoveAlertMessages: payload =>
-        dispatch({type: 'REMOVE_ALERT_MESSAGE', payload})
-})
+        dispatch({type: 'CATALOG_PAGE_LOADED', payload}),
+    onLoadByQuery: payload =>
+            dispatch({type: 'SEARCH_CATALOG_ITEMS', payload}),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Messages);
