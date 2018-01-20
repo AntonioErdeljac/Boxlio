@@ -1,68 +1,44 @@
 import React from "react";
-import {Container} from "native-base";
-import { Header, Content, Footer, FooterTab, Button, Card, CardItem, Body, Text,  } from 'native-base';
+import { Container, Text } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Grid, Col, Row} from "react-native-easy-grid";
-import {StyleSheet, Dimensions, View, TextInput, Keyboard} from "react-native";
+import { StyleSheet, Dimensions, View, TouchableOpacity } from "react-native";
 import * as Animatable from "react-native-animatable";
-import {connect} from "react-redux";
-import agent from '../../../../agent';
-
 
 class ShortMessage extends React.Component{
-
-    componentWillReceiveProps(nextProps){
-        if(nextProps.requestSent){
-            //this.refs.shortmessage.fadeOutDown(300);
-        }
-    }
-    constructor(props){
-        super(props);
-
-        this.handleSetItem = text => {
-            this.props.onSetItem(text);
-        }
-
-        this.handleSearchQuery = this.handleSearchQuery.bind(this);
-    }
-
-    handleSearchQuery(text) {
-        this.setState({
-            searchQuery: text
-        }, () => {
-            this.props.onLoadByQuery(agent.Catalog.search(this.state.searchQuery));
-        })
-    }
-
     render(){
-        if(this.props.currentUser){
-            return (
-                <Animatable.View animation="fadeInUp" ref="shortmessage" style={styles.searchTo}>
-                    <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
-                        <Col>
-                            <Icon theme={{iconFamily: 'FontAwesome'}} style={styles.iconTo} name="shopping-basket" />
-                        </Col>
-                        <Col size={3}>
-                            <View style={{justifyContent: 'space-around', alignItems: 'center'}}>
-
-                                <TextInput
-                                    onSubmitEditing={Keyboard.dismiss}
-                                    style={styles.input}
-                                    onChangeText={(text) => this.handleSearchQuery(text)}
-                                    underlineColorAndroid='rgba(0,0,0,0)'
-                                    placeholderTextColor="rgba(0,0,0,.3)"
-                                    placeholder="What to buy?"/>
-                            </View>
-                        </Col>
-                    </Grid>
-                </Animatable.View>
-            );
-        }
-        return null;
+        return (
+            <Animatable.View animation="fadeInUp" ref="shortmessage" style={styles.searchTo}>
+                <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('catalog')} style={styles.button}>
+                        <Grid>
+                            <Row>
+                                <Icon name="shopping-basket" style={{color: '#fff', marginRight: 10}} />
+                                <Text style={styles.textButton}>Open Catalog</Text>
+                            </Row>
+                        </Grid>
+                    </TouchableOpacity>
+                </Grid>
+            </Animatable.View>
+        );
     }
 }
 
 const styles = StyleSheet.create({
+    textButton: {
+        color: '#fff',
+        fontFamily: 'VarelaRound-Regular',
+        fontSize: 13,
+    },
+    button: {
+        padding: 13,
+        height: 43,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#1fcf7c',
+        width: Dimensions.get('window').width-100,
+    },
     input: {
         width: Dimensions.get('window').width-100,
         marginRight: 30,
@@ -81,20 +57,19 @@ const styles = StyleSheet.create({
     searchTo: {
         zIndex: 1000,
         height: 45,
-        width: Dimensions.get('window').width-30,
+        width: Dimensions.get('window').width-10,
         padding: 25,
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
         borderBottomRightRadius: 3,
         borderBottomLeftRadius: 3,
-        elevation: 1,
+        elevation: 0,
         shadowOpacity: 0.1,
         alignItems: 'center',
         justifyContent: 'space-around',
-        shadowColor: '#000',
         position: 'absolute',
-        top: 200,
-        backgroundColor: '#fff'
+        top: 210,
+        backgroundColor: 'transparent'
     },
     container: {
         position: 'absolute',
@@ -114,17 +89,5 @@ const styles = StyleSheet.create({
     },
 });
 
-const mapDispatchToProps = dispatch => ({
-    onSetItem: text =>
-        dispatch({type: 'SET_ITEM', text}),
-    onLoadByQuery: payload =>
-        dispatch({type: 'SEARCH_CATALOG_ITEMS', payload}),
-});
 
-const mapStateToProps = state => ({
-    ...state.common,
-    ...state.destinationView,
-    requestSent: state.requests.requestSent
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ShortMessage);
+export default ShortMessage;

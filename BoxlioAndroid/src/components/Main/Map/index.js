@@ -18,15 +18,9 @@ import * as constants from "../../../constants/routes";
 const ContainerAnimatable = Animatable.createAnimatableComponent(Container);
 
 class Map extends React.PureComponent{
-
-  componentWillMount(){
-  }
-  constructor(props){
+    constructor(props){
     super(props);
     if(this.props.currentUser){
-
-
-
         this.socket = io(constants.API_ROOT);
 
         this.watchId = navigator.geolocation.watchPosition(position => {
@@ -40,73 +34,74 @@ class Map extends React.PureComponent{
             }
         }, null, {enableHighAccuracy: false});
 
-          navigator.geolocation.getCurrentPosition(position => {
-              if(!this.props.placeFromChoosen && !this.props.currentUser.activeDeliveryJob){
-                  this.socket.emit('SAVE_LOCATION', {
-                      user: this.props.currentUser,
-                      positionLat: position.coords.latitude,
-                      positionLng: position.coords.longitude
-                  });
-                  this.props.onSetPosition(position);
-              }
-          }, null, {enableHighAccuracy: false});
+            navigator.geolocation.getCurrentPosition(position => {
+                if(!this.props.placeFromChoosen && !this.props.currentUser.activeDeliveryJob){
+                    this.socket.emit('SAVE_LOCATION', {
+                        user: this.props.currentUser,
+                        positionLat: position.coords.latitude,
+                        positionLng: position.coords.longitude
+                    });
+                    this.props.onSetPosition(position);
+                }
+            }, null, {enableHighAccuracy: false});
 
 
 
 
-          if(!this.props.joinedSelfGroup){
-              this.props.onJoinSelfGroup();
-              this.socket.emit('JOIN_SELF_GROUP', {
-                  user: this.props.currentUser
-              });
-          }
+            if(!this.props.joinedSelfGroup){
+                this.props.onJoinSelfGroup();
+                this.socket.emit('JOIN_SELF_GROUP', {
+                    user: this.props.currentUser
+                });
+            }
 
 
-        this.socket.on('SUCCESS_COMPLETE_DELIVERY', data => {
-            this.props.onSuccessCompleteDelivery(data);
-        })
+            this.socket.on('SUCCESS_COMPLETE_DELIVERY', data => {
+                this.props.onSuccessCompleteDelivery(data);
+            })
 
-        this.socket.on('RECEIVE_CANCEL_DELIVERY_JOB_DELIVERY_GUY', data => {
-            this.props.receiveCancelFromDeliveryGuy(data);
-        });
+            this.socket.on('RECEIVE_CANCEL_DELIVERY_JOB_DELIVERY_GUY', data => {
+                this.props.receiveCancelFromDeliveryGuy(data);
+            });
 
-        this.socket.on('REQUEST_ACCEPTED', (data) => {
-            Vibration.vibrate(1000)
-            this.props.onRequestAccepted(data);
-        });
+            this.socket.on('REQUEST_ACCEPTED', (data) => {
+                Vibration.vibrate(1000)
+                this.props.onRequestAccepted(data);
+            });
 
-        this.socket.on('DELIVERY_GUY_CHANGE_LOCATION', (data) => {
-              this.props.onChangeDeliveryGuyLocation(data);
-        });
+            this.socket.on('DELIVERY_GUY_CHANGE_LOCATION', (data) => {
+                    this.props.onChangeDeliveryGuyLocation(data);
+            });
 
-        this.socket.on('RECEIVE_MESSAGE', (data) => {
-            this.props.onAlertMessage(data);
-        });
+            this.socket.on('RECEIVE_MESSAGE', (data) => {
+                this.props.onAlertMessage(data);
+            });
 
-        this.socket.on('RECEIVE_COMPLETE_DELIVERY', data => {
-            this.props.onSetCompleteChoice(data);
-        });
+            this.socket.on('RECEIVE_COMPLETE_DELIVERY', data => {
+                this.props.onSetCompleteChoice(data);
+            });
 
-        this.socket.on('REQUEST_DRIVER_CLIENT',  (data) => {
-            this.props.onSetReceivedRequest(data);
+            this.socket.on('REQUEST_DRIVER_CLIENT',  (data) => {
+                this.props.onSetReceivedRequest(data);
 
-        });
+            });
 
-        if(this.props.currentUser.activeDeliveryJob && !this.props.checkSet){
-            if(this.props.currentUser.username !== this.props.currentUser.activeDeliveryJob.deliveryGuy.username){
-                this.props.setActiveDeliveryJob(this.props.currentUser.activeDeliveryJob);
-                const data = {
-                    locationName: this.props.currentUser.activeDeliveryJob.toName,
-                    deliveryGuy: this.props.currentUser.activeDeliveryJob.deliveryGuy,
-                    toLocation: this.props.currentUser.activeDeliveryJob.toLocation
-                };
-                this.props.onChangeDeliveryGuyLocation(data);
-            } else if (this.props.currentUser.username === this.props.currentUser.activeDeliveryJob.deliveryGuy.username){
-                this.props.setActiveDeliveryJobDeliveryGuy(this.props.currentUser.activeDeliveryJob);
+            if(this.props.currentUser.activeDeliveryJob && !this.props.checkSet){
+                if(this.props.currentUser.username !== this.props.currentUser.activeDeliveryJob.deliveryGuy.username){
+                    this.props.setActiveDeliveryJob(this.props.currentUser.activeDeliveryJob);
+                    const data = {
+                        locationName: this.props.currentUser.activeDeliveryJob.toName,
+                        deliveryGuy: this.props.currentUser.activeDeliveryJob.deliveryGuy,
+                        toLocation: this.props.currentUser.activeDeliveryJob.toLocation
+                    };
+                    this.props.onChangeDeliveryGuyLocation(data);
+                } else if (this.props.currentUser.username === this.props.currentUser.activeDeliveryJob.deliveryGuy.username){
+                    this.props.setActiveDeliveryJobDeliveryGuy(this.props.currentUser.activeDeliveryJob);
+                }
             }
         }
     }
-  }
+
 	render(){
 
     if(this.props.currentUser){
@@ -128,16 +123,17 @@ class Map extends React.PureComponent{
         });
     };
 
-
-
-
-		return (
-			<ContainerAnimatable ref="map-component" animation="fadeInUp" style={styles.container}>
-
-        <MapContainer {...this.props.destinationView} positionSet={this.props.positionSet} handleSendRequest={handleSendRequest} focusedOnInput={this.props.focusedOnInput} navigation={this.props.navigation} currentUser={this.props.currentUser} />
-
-			</ContainerAnimatable>
-		);
+    return (
+        <ContainerAnimatable ref="map-component" animation="fadeInUp" style={styles.container}>
+            <MapContainer
+                {...this.props.destinationView}
+                positionSet={this.props.positionSet}
+                handleSendRequest={handleSendRequest}
+                focusedOnInput={this.props.focusedOnInput}
+                navigation={this.props.navigation}
+                currentUser={this.props.currentUser} />
+        </ContainerAnimatable>
+    );
   }
   return null;
 	}

@@ -5,6 +5,7 @@ import Options from "./Options";
 import Messages from "./Messages";
 import Explore from "./Explore";
 import Chat from "./Messages/Chat";
+import Catalog from './Catalog';
 import Settings from "./Settings";
 import MapComponent from "./Map";
 import {DrawerNavigator} from "react-navigation";
@@ -18,6 +19,7 @@ const LoggedInRouter = DrawerNavigator({
 	messages: {screen: Messages, drawerLockMode: 'locked-closed'},
 	explore: {screen: Explore, drawerLockMode: 'locked-closed'},
 	settings: {screen: Settings, drawerLockMode: 'locked-closed'},
+	catalog: {screen: Catalog, drawerLockMode: 'locked-closed'},
 	chat: {
 		screen: Chat,
 		drawerLockMode: 'locked-closed'
@@ -34,4 +36,3 @@ const LoggedInRouter = DrawerNavigator({
 
 
 export default LoggedInRouter;
-
