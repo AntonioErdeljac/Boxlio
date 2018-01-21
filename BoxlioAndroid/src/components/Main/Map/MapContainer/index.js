@@ -230,7 +230,7 @@ class MapContainer extends React.PureComponent{
             }, 310)
         }
 
-        if(nextProps.lat && nextProps.lng && nextProps.lat !== nextProps.transportation){
+        if(nextProps.lat && nextProps.lng && !nextProps.transportation){
             this.refs.map.fitToElements(true);
         }
     }
