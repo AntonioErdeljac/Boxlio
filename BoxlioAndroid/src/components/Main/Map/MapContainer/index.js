@@ -18,6 +18,7 @@ import RateClientView from "../RateClientView";
 import UserIcon from "../UserIcon";
 import MessageIcon from "../MessageIcon";
 import ExploreIcon from "../ExploreIcon";
+import BasketPreview from '../BasketPreview';
 import {connect} from "react-redux";
 import SendRequestButton from "../SendRequestButton";
 import RequestOptions from "../RequestOptions";
@@ -239,35 +240,35 @@ class MapContainer extends React.PureComponent{
 
         this.handleShowToInput = () => {
             if(!this.props.requestSent){
-            this.props.onShowToInput()
-            this.setState({showToInput: true})
+                this.props.onShowToInput();
+                this.setState({showToInput: true});
             }
         }
 
-          this.handleShowFromInput = () => {
+        this.handleShowFromInput = () => {
             if(!this.props.requestSent){
-              this.props.onShowFromInput()
-              this.setState({showFromInput: true})
+                this.props.onShowFromInput();
+                this.setState({showFromInput: true});
             }
-          }
+        }
 
         this.mapRef = null;
 
         this.decode = function(t,e){for(var n,o,u=0,l=0,r=0,d= [],h=0,i=0,a=null,c=Math.pow(10,e||5);u<t.length;){a=null,h=0,i=0;do a=t.charCodeAt(u++)-63,i|=(31&a)<<h,h+=5;while(a>=32);n=1&i?~(i>>1):i>>1,h=i=0;do a=t.charCodeAt(u++)-63,i|=(31&a)<<h,h+=5;while(a>=32);o=1&i?~(i>>1):i>>1,l+=n,r+=o,d.push([l/c,r/c])}return d=d.map(function(t){return{latitude:t[0],longitude:t[1]}})}
 
 
-          this.state = {
+        this.state = {
             deliveryGuyCoordinate: new MapView.AnimatedRegion({
-               latitude: this.props.deliveryGuy  ? this.props.deliveryGuy.geometry[0] : null,
-               longitude: this.props.deliveryGuy ? this.props.deliveryGuy.geometry[1] : null
+                latitude: this.props.deliveryGuy  ? this.props.deliveryGuy.geometry[0] : null,
+                longitude: this.props.deliveryGuy ? this.props.deliveryGuy.geometry[1] : null
             }),
             coordinate: new MapView.AnimatedRegion({
                 latitude: this.props.currentUser.geometry[0],
                 longitude: this.props.currentUser.geometry[1]
             }),
             fromCoordinate: new MapView.AnimatedRegion({
-                  latitude: this.props.lat,
-                  longitude: this.props.lng
+                    latitude: this.props.lat,
+                    longitude: this.props.lng
             }),
             directionsCoords: this.props.directions,
             disableRequestComponents: false,
@@ -302,8 +303,9 @@ class MapContainer extends React.PureComponent{
                 { this.props.currentUser.deliveryMode || !this.props.requestAccepted &&  this.state.disableRequestComponents ? null : <LocationChooserTo />}
                 { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen ? <TransportationType /> : null }
                 { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null }
-                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price ? <ShortMessage navigation={this.props.navigation} /> : null }
-                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.item ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null }
+                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && !this.props.basket ? <ShortMessage navigation={this.props.navigation} /> : null }
+                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.basket ? <BasketPreview /> : null }
+                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.basket ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null }
                 { !this.props.completeChoice && !this.props.currentUser.deliveryMode && this.props.requestSent ? <RequestHandler navigation={this.props.navigation}/> : null }
                 { !this.props.completeChoice && !this.props.currentUser.deliveryMode && this.props.requestAccepted && this.props.showOptions ? <RequestOptions navigation={this.props.navigation}></RequestOptions> : null }
                 { this.props.completeChoice ? <RateClientView navigation={this.props.navigation} /> : null }
@@ -751,7 +753,8 @@ const mapStyle =  [
 
 const mapStateToProps = state => ({
     ...state.destinationView,
-    ...state.requests
+    ...state.requests,
+    ...state.catalog,
 });
 
 const mapDispatchToProps = dispatch => ({

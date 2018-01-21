@@ -109,6 +109,12 @@ class Map extends React.PureComponent{
     const handleSendRequest = ev => {
         this.props.onSendRequest();
 
+        const item = this.props.basket.map(i => {
+            return `${i.name} x${i.amount}`
+        });
+
+        const finalItem = item.join();
+
         this.socket.emit('REQUEST_DRIVER', {
             user: this.props.currentUser,
             from: this.props.from,
@@ -118,7 +124,7 @@ class Map extends React.PureComponent{
             clientLat: this.props.currentUser.geometry[0],
             clientLng: this.props.currentUser.geometry[1],
             price: this.props.price,
-            item: this.props.item,
+            item: finalItem,
             transportation: this.props.transportation === 'all' ? '' : this.props.transportation
         });
     };
@@ -174,6 +180,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   currentUser: state.common.currentUser,
+  ...state.catalog,
     positionSet: state.common.positionSet,
     joinedSelfGroup: state.common.joinedSelfGroup,
     ...state.destinationView
