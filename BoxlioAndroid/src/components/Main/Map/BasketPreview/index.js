@@ -26,11 +26,11 @@ class BasketPreview extends React.Component{
                         </Col>
                         <Col size={3}>
                             <View style={{justifyContent: 'space-around', alignItems: 'center'}}>
-
                                 <TextInput
                                     onSubmitEditing={Keyboard.dismiss}
                                     style={styles.input}
-                                    value={this.props.basket.length + ' Items'}
+                                    editable={false}
+                                    value={`${this.props.basket.length} ${this.props.basket.length > 1 ? 'Items' : 'Item'}`}
                                     underlineColorAndroid='rgba(0,0,0,0)'
                                     placeholderTextColor="rgba(0,0,0,.3)"
                                     placeholder="What to buy?"/>
