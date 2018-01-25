@@ -18,6 +18,7 @@ import RateClientView from "../RateClientView";
 import UserIcon from "../UserIcon";
 import MessageIcon from "../MessageIcon";
 import ExploreIcon from "../ExploreIcon";
+import BasketButton from '../BasketButton';
 import BasketPreview from '../BasketPreview';
 import {connect} from "react-redux";
 import SendRequestButton from "../SendRequestButton";
@@ -303,9 +304,10 @@ class MapContainer extends React.PureComponent{
                 { this.props.currentUser.deliveryMode || !this.props.requestAccepted &&  this.state.disableRequestComponents ? null : <LocationChooserTo />}
                 { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen ? <TransportationType /> : null }
                 { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null ? <DeliveryGuyProfit /> : null }
-                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && !this.props.basket ? <ShortMessage navigation={this.props.navigation} /> : null }
-                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.basket ? <BasketPreview navigation={this.props.navigation} /> : null }
-                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.basket ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null }
+                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && !this.props.basket || this.props.basket && this.props.basket.length === 0 ? <ShortMessage navigation={this.props.navigation} /> : null }
+                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.basket && this.props.basket.length > 0 ? <BasketPreview navigation={this.props.navigation} /> : null }
+                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.basket && this.props.basket.length > 0 ? <BasketButton navigation={this.props.navigation}/> : null }
+                { !this.props.currentUser.deliveryMode && !this.props.requestAccepted &&  !this.state.disableRequestComponents && this.props.placeFromChoosen && this.props.placeToChoosen && this.props.transportation !== '' && this.props.transportation !== null && this.props.price && this.props.basket && this.props.basket.length > 0 ? <SendRequestButton handleSendRequest={this.props.handleSendRequest}/> : null }
                 { !this.props.completeChoice && !this.props.currentUser.deliveryMode && this.props.requestSent ? <RequestHandler navigation={this.props.navigation}/> : null }
                 { !this.props.completeChoice && !this.props.currentUser.deliveryMode && this.props.requestAccepted && this.props.showOptions ? <RequestOptions navigation={this.props.navigation}></RequestOptions> : null }
                 { this.props.completeChoice ? <RateClientView navigation={this.props.navigation} /> : null }

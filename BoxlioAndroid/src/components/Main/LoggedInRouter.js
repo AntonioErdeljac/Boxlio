@@ -6,6 +6,7 @@ import Messages from "./Messages";
 import Explore from "./Explore";
 import Chat from "./Messages/Chat";
 import Catalog from './Catalog';
+import Basket from './Basket';
 import ItemPreview from './Catalog/ItemPreview';
 import Settings from "./Settings";
 import MapComponent from "./Map";
@@ -22,6 +23,7 @@ const LoggedInRouter = DrawerNavigator({
 	settings: {screen: Settings, drawerLockMode: 'locked-closed'},
 	catalog: {screen: Catalog, drawerLockMode: 'locked-closed'},
 	catalogItem: {screen: ItemPreview, drawerLockMode: 'lock-closed'},
+	basket: {screen: Basket, drawerLockMode: 'lock-closed'},
 	chat: {
 		screen: Chat,
 		drawerLockMode: 'locked-closed'
