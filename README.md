@@ -34,7 +34,7 @@ npm start
 Installing the backend
 
 ```
-cd Boxlio/Backend
+cd Boxlio/backend
 npm install --save
 npm install -g nodemon
 npm run dev
