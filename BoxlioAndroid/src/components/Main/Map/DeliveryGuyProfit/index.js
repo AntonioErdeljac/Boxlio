@@ -30,31 +30,28 @@ class DeliveryGuyProfit extends React.Component{
         }
     }
     render(){
-        if(this.props.currentUser){
-            return (
-                <Animatable.View animation="fadeInUp" ref="deliveryguyprofit" style={styles.searchTo}>
-                    <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
-                        <Col>
-                            <Icon theme={{iconFamily: 'FontAwesome'}} style={styles.iconTo} name="money" />
-                        </Col>
-                        <Col size={3}>
-                            <View style={{justifyContent: 'space-around', alignItems: 'center'}}>
-                                <TextInput
-                                    keyboardType = 'numeric'
-                                    value={this.props.price}
-                                    onChangeText={(text) => this.handleSetProfit(text)}
-                                    style={styles.input}
-                                    placeholderTextColor="rgba(0,0,0,.3)"
-                                    type="number"
-                                    onSubmitEditing={Keyboard.dismiss}
-                                    placeholder="Delivery guy's profit"/>
-                            </View>
-                        </Col>
-                    </Grid>
-                </Animatable.View>
-            );
-        }
-        return null;
+        return (
+            <Animatable.View animation="fadeInUp" ref="deliveryguyprofit" style={styles.searchTo}>
+                <Grid style={{justifyContent: 'space-around', alignItems: 'center'}}>
+                    <Col>
+                        <Icon theme={{iconFamily: 'FontAwesome'}} style={styles.iconTo} name="money" />
+                    </Col>
+                    <Col size={3}>
+                        <View style={{justifyContent: 'space-around', alignItems: 'center'}}>
+                            <TextInput
+                                keyboardType = 'numeric'
+                                value={this.props.profit}
+                                onChangeText={(text) => this.handleSetProfit(text)}
+                                style={styles.input}
+                                placeholderTextColor="rgba(0,0,0,.3)"
+                                type="number"
+                                onSubmitEditing={Keyboard.dismiss}
+                                placeholder="Delivery guy's profit"/>
+                        </View>
+                    </Col>
+                </Grid>
+            </Animatable.View>
+        );
     }
 }
 

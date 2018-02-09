@@ -106,16 +106,16 @@ export default (state={placeToChoosen: true, transportation:null, requestCancele
 				...state,
 				item: action.text
 			};
-		case 'SET_PROFIT':
-			return {
-				...state,
-				price: action.amount
-			};
 		case 'CHANGE_TRAVEL_MODE':
 				return {
 					...state,
 					transportation: action.field
 				};
+		case 'SET_PROFIT':
+			return {
+				...state,
+				profit: action.amount
+			};
 		case 'SET_TO':
 			return {
 				...state,

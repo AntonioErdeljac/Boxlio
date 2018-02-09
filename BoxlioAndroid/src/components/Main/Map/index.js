@@ -123,7 +123,7 @@ class Map extends React.PureComponent{
             lng: this.props.lng,
             clientLat: this.props.currentUser.geometry[0],
             clientLng: this.props.currentUser.geometry[1],
-            price: this.props.price,
+            price: this.props.profit,
             item: finalItem,
             transportation: this.props.transportation === 'all' ? '' : this.props.transportation
         });

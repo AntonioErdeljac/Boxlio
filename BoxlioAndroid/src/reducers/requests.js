@@ -46,7 +46,7 @@ export default (state={showOptions: false}, action) => {
                 price: null,
                 gotRequest: null,
                 receivedRequest: null
-            }
+            };
         case 'SET_ACTIVE_DELIVERY_JOB_DELIVERY_GUY':
             return {
                 ...state,
