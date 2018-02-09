@@ -6,13 +6,13 @@ let auth = require('../auth');
 
 
 
-
+//param za pronalazanje chatroomova preko name
 
 
 router.param('name', function(req,res,next,name){
     let name1 = name.split('_')[0];
     let name2 = name.split('_')[2];
-    Promise.all([   
+    Promise.all([
         User.findOne({username: name1}),
         User.findOne({username: name2})
     ]).then(function(result){
@@ -45,9 +45,10 @@ router.param('name', function(req,res,next,name){
         }).catch(next);
 
     })
-    
+
 });
 
+//loadanje svih chatrooma
 router.get('/', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
         if(!user){return res.sendStatus(401);}
@@ -64,9 +65,10 @@ router.get('/', auth.required, function(req,res,next){
     })
 });
 
+//loadanje chatrooma po imenu
 router.get('/:name', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
-        if(user.id.toString() === req.chat.users[0].id.toString() || req.payload.id.toString() === req.chat.users[1].id.toString()){            
+        if(user.id.toString() === req.chat.users[0].id.toString() || req.payload.id.toString() === req.chat.users[1].id.toString()){
             return res.json({
                 chat: req.chat
             })
@@ -75,6 +77,7 @@ router.get('/:name', auth.required, function(req,res,next){
     }).catch(next);
 });
 
+//loadanje poruka iz chatrooma po imenu
 router.get('/:name/messages', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
         if(user.id.toString() === req.chat.users[0].id.toString() || req.payload.id.toString() === req.chat.users[1].id.toString()){
@@ -88,6 +91,8 @@ router.get('/:name/messages', auth.required, function(req,res,next){
     }).catch(next);
 });
 
+
+//dobivanje zadnje poruke iz chatrooma po imenu
 router.get('/:name/lastmessage', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
         if(user.id.toString() === req.chat.users[0].id.toString() || req.payload.id.toString() === req.chat.users[1].id.toString()){

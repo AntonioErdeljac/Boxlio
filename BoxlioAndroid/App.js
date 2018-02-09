@@ -12,6 +12,7 @@ import store from "./src/store";
 
 import AppView from "./src/components/AppView";
 
+//glavna aplikacija wrapped u Provider koji prima store
 export default class App extends Component{
   render() {
     return (
@@ -21,4 +22,3 @@ export default class App extends Component{
     )
   }
 }
-

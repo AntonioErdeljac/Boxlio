@@ -6,6 +6,7 @@ let Opinion = mongoose.model('Opinion');
 let Chat = mongoose.model('Chat');
 let Message = mongoose.model('Message');
 
+//param za username search
 router.param('username', function(req,res,next, username){
     User.findOne({username: username})
     .populate('opinions')
@@ -29,6 +30,8 @@ router.param('username', function(req,res,next, username){
     }).catch(next);
 });
 
+
+//param za opinion search
 router.param('opinion', function(req,res,next, opinionID){
     Opinion.findById(opinionID)
     .then(function(opinion){
@@ -40,6 +43,8 @@ router.param('opinion', function(req,res,next, opinionID){
     }).catch(next);
 })
 
+
+//pronalazak opinoinsa preko usernamea
 router.get('/:username/opinions', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
         return res.json({
@@ -48,6 +53,8 @@ router.get('/:username/opinions', auth.required, function(req,res,next){
     })
 });
 
+
+//stvaranje opinoina za username
 router.post('/:username/opinion', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
             if(!req.body.opinion.text){
@@ -69,6 +76,7 @@ router.post('/:username/opinion', auth.required, function(req,res,next){
     }).catch(next);
 });
 
+//brisanje opionina za korisnika putem :opinion parmaa
 router.delete('/:username/opinions/:opinion', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
         if(!user){return res.sendStatus(402)}
@@ -79,6 +87,7 @@ router.delete('/:username/opinions/:opinion', auth.required, function(req,res,ne
     }).catch(next);
 });
 
+//dobivanje profila preko korisnickog imena
 router.get('/:username', auth.optional, function(req,res,next){
     if(req.payload){
         User.findById(req.payload.id).then(function(user){
@@ -91,6 +100,8 @@ router.get('/:username', auth.optional, function(req,res,next){
     }
 });
 
+
+//stvaranje klijenta preko korisnika
 router.post('/:username/client', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
         if(!user){return res.sendStatus(401);}
@@ -125,6 +136,7 @@ router.post('/:username/client', auth.required, function(req,res,next){
     }).catch(next);
 });
 
+//brisanje klijenta preko korisnika
 router.delete('/:username/client', auth.required, function(req,res,next){
     User.findById(req.payload.id).then(function(user){
         if(!user){return res.sendStatus(401);}
@@ -135,6 +147,7 @@ router.delete('/:username/client', auth.required, function(req,res,next){
     }).catch(next);
 });
 
+//dobivanje svih profila blizu
 router.get('/', auth.optional, function(req,res,next){
         User.geoNear(
             {type: 'Point', coordinates: [45, 15]},

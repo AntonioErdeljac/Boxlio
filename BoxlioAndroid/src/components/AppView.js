@@ -8,6 +8,7 @@ import RouterComponent from "./Main/RouterComponent";
 import LoggedInRouter from "./Main/LoggedInRouter";
 
 class App extends Component<{}> {
+    //provjera localstorage za token na pocetku
     componentWillMount(){
         let token = null;
         AsyncStorage.getItem('Token').then((value) => {

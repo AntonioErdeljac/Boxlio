@@ -7,6 +7,7 @@
 		"test": "jest"
 	},
 	"dependencies": {
+		"babel-plugin-transform-inline-environment-variables": "^0.3.0",
 		"google-places-web": "^0.1.0",
 		"native-base": "^2.3.3",
 		"react": "16.0.0",

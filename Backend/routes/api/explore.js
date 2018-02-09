@@ -3,11 +3,12 @@ let mongoose = require('mongoose');
 let User = mongoose.model('User');
 let auth = require('../auth');
 
+//pronalazak korisnika blizu vas
 router.get('/', auth.required, function(req,res,next){
 	User.findById(req.payload.id).then(function(currentUser){
 		if(!currentUser){
 			return res.sendStatus(402);
-		} 
+		}
 		console.log(currentUser.geometry.coordinates, 'COORDINATES');
 
 		User.geoNear(

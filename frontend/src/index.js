@@ -6,7 +6,7 @@ import {Provider} from "react-redux";
 import store from "./store";
 import {HashRouter} from "react-router-dom";
 
-
+//renderanje App komponente wrappane u Ruter i provider
 ReactDOM.render(
     <Provider store={store}>
         <HashRouter>

@@ -11,12 +11,18 @@ let fs = require('fs'),
     mongoose = require('mongoose');
     fileUpload = require('express-fileupload');
 
+
+//provjera produkcije
 let isProduction = process.env.NODE_ENV === 'production';
 
+//glavni express process
 let app = express();
 
+
+//koristenje corsa
 app.use(cors());
 
+//dodatni paketi
 app.use(require('morgan')('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -25,11 +31,16 @@ app.use(fileUpload());
 app.use(require('method-override')());
 app.use('/static', express.static(__dirname + '/static'));
 
+
+//postavljanje sessije (jwt)
 app.use(session({ secret: 'boxlio', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false  }));
 
+//handlanje errora
 if (!isProduction) {
   app.use(errorhandler());
 }
+
+//spajanje na DB
 
 if(isProduction){
   mongoose.connect(process.env.MONGODB_URI);
@@ -38,6 +49,7 @@ if(isProduction){
   mongoose.set('debug', true);
 }
 
+//importanje modela, ruta i passporta
 
 require('./models/User');
 require('./models/Message');

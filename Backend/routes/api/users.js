@@ -4,6 +4,7 @@ let User = mongoose.model('User');
 let auth = require('../auth');
 let passport = require('passport');
 
+//ruta za stvaranje novog korisnika
 router.post('/users', function(req,res,next){
 
     if(!req.body.user.username){
@@ -53,6 +54,8 @@ router.post('/users', function(req,res,next){
     }).catch(next);
 });
 
+//ruta za login
+
 router.post('/users/login', function(req,res,next){
     if(!req.body.user.email){
         return res.status(422).json({errors: {email: "can't be blank."}});
@@ -75,6 +78,8 @@ router.post('/users/login', function(req,res,next){
     })(req,res,next)
 });
 
+
+//ruta za upload slike
 router.post('/user/upload', auth.required, function(req,res,next) {
     User.findById(req.payload.id).then(user => {
         if(!user){return res.sendStatus(402)}
@@ -94,7 +99,7 @@ router.post('/user/upload', auth.required, function(req,res,next) {
     }).catch(next);
 })
 
-
+//dobivanje loginiranog korisnika
 router.get('/user', auth.required, function(req,res,next){
     User.findById(req.payload.id)
     .populate('clients')
@@ -120,7 +125,7 @@ router.get('/user', auth.required, function(req,res,next){
     }).catch(next);
 });
 
-
+//ruta za update korisnika
 router.put('/user', auth.required, function(req,res,next){
     User.findById(req.payload.id)
     .populate('clients')
