@@ -65,3 +65,4 @@ Route to [localhost:3000](http://localhost:3000/) in your browser, and create an
 ## Acknowledgments
 
 * This project was created for Croatian IT competition
+* Since Boxlio is still under development, backend constants were not extracted into environment variables. You will have to change *API_ROOT* constant in *BoxlioAndroid/src/constants/routes.js* to your own value so Boxlio can function properly (preferably a ngrok tunnel to backend so android app can connect to backend.).
