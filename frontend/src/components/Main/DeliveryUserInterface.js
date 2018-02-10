@@ -10,6 +10,9 @@ import * as actions from "../../constants/actions";
 
 
 class DeliveryUserInterface extends React.Component{
+    componentWillMount() {
+        this.onLocate();
+    }
 
     constructor(props){
         super(props);
@@ -17,6 +20,57 @@ class DeliveryUserInterface extends React.Component{
         this.state = {
             transportation: this.props.currentUser.transportation
         };
+
+        this.onLocate = ev => {
+            console.log('radi');
+            navigator.geolocation.getCurrentPosition(position => {
+                if(!this.props.currentUser.isOrdering && !this.props.currentUser.isDelivering){
+                    console.log(position.coords.latitude);
+                this.socket.emit('SAVE_LOCATION', {
+                    user: this.props.currentUser,
+                    positionLat: position.coords.latitude,
+                    positionLng: position.coords.longitude,
+                });
+                this.props.onSetPosition(position);
+                const lat = this.props.currentUser.geometry[0];
+                const lng = this.props.currentUser.geometry[1];
+                const url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+lat+','+lng+'&key=AIzaSyC6Dsjr-pf4kg0LeT78j8yvJVuttcCj4bQ';
+                fetch(url)
+                    .then((response) => {
+                        if (response.status >= 400) {
+                            throw new Error("Bad response from server");
+                        }
+                        return response.json();
+                    })
+                    .then((data) => {
+                        this.props.onSetFrom(data);
+                    });
+                } else if(!this.props.positionSet){
+                    console.log(this.props.currentUser.geometry, 'ovo trazim?');
+                    this.socket.emit('SAVE_LOCATION', {
+                        user: this.props.currentUser,
+                        positionLat: this.props.currentUser.geometry[0],
+                        positionLng: this.props.currentUser.geometry[1]
+                    });
+
+                    let position2 = {
+                        coords: {
+                            latitude: this.props.currentUser.geometry[0],
+                            longitude: this.props.currentUser.geometry[1]
+                        }
+                    };
+
+                    this.props.onSetPosition(position2);
+                }
+                if(this.props.client){
+                    this.socket.emit('UPDATE_DELIVERY_GUY_LOCATION', {
+                        client: this.props.client,
+                        deliveryGuy: this.props.currentUser,
+                        locationName: this.props.to
+                    });
+                }
+            });
+        }
 
         this.changeTransportation = field => ev => {
             if(!this.props.gotRequest){
@@ -181,7 +235,9 @@ const mapDispatchToProps = dispatch => ({
     onChangeTransportation: field =>
         dispatch({type: actions.CHANGE_TRANSPORTATION, field}),
     onChangeAvailable: (payload) =>
-        dispatch({type: actions.CHANGE_AVAILABLE, payload})
+        dispatch({type: actions.CHANGE_AVAILABLE, payload}),
+    onSetPosition: position =>
+        dispatch({type: actions.SET_POSITION, position}),
 });
 
 

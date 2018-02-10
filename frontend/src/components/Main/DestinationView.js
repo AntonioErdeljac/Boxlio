@@ -325,7 +325,7 @@ class DestinationView extends React.Component{
                                     <div className="col-10">
                                         <div className="input-group">
                                             <input disabled={this.props.requestSent}
-                                                    value={this.props.basket.length + ' items'}
+                                                    value={`${this.props.basket.length} ${this.props.basket.length > 1 ? 'items' : 'item'}`}
                                                     style={{fontSize: '9px'}}
                                                     rows="1"
                                                     className="form-control form-control-lg shortMessageInput"
