@@ -1,5 +1,10 @@
 export default (state={}, action) => {
     switch(action.type) {
+        case 'CONFIRM_COMPLETED_DELIVERY':
+            return {
+                ...state,
+                basket: null,
+            };
         case 'ADD_ITEM_TO_BASKET':
         console.log(state.basket);
             return {
